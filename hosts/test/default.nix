@@ -6,8 +6,11 @@ in {
   imports = [
     ./hardware-configuration.nix
     ../common/global
+    ../common/features/networking.nix
     ../common/features/hyprland.nix
     ../common/features/docker.nix
+    ../common/features/desktop-apps.nix
+    ../common/features/syncthing.nix
   ];
 
   networking.hostName = "nixos-test";

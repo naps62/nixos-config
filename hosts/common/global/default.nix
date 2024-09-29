@@ -1,20 +1,15 @@
 { inputs, pkgs, ... }: {
-  imports =
-    [ inputs.home-manager.nixosModules.home-manager ./nix.nix ./zsh.nix ];
-
-  environment.systemPackages = [
-    pkgs.btop
-    pkgs.fzf
-    pkgs.home-manager
-    pkgs.ripgrep
-    pkgs.zsh
-    pkgs.git
-    pkgs.neovim
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+    ./nix.nix
+    ./zsh.nix
+    ./cli-tools.nix
+    ./desktop-apps.nix
   ];
 
-  time = { timeZone = "Europe/Lisbon"; };
+  environment.systemPackages = [ pkgs.home-manager ];
 
-  networking = { networkmanager = { enable = true; }; };
+  time = { timeZone = "Europe/Lisbon"; };
 
   i18n = {
     defaultLocale = "en_US.UTF-8";

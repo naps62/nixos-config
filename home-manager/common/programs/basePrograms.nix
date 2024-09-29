@@ -1,6 +1,1 @@
-{ inputs, ... }: {
-  programs = {
-    gh.enable = true;
-    lazygit.enable = true;
-  };
-}
+{ inputs, ... }: { programs = { gh.enable = true; }; }
