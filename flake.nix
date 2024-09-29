@@ -5,7 +5,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprland = {
       type = "git";
       url = "https://github.com/hyprwm/Hyprland.git";
@@ -14,6 +17,7 @@
     };
     nix-colors.url = "github:misterio77/nix-colors";
     nixvim.url = "github:nix-community/nixvim";
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
@@ -40,6 +44,7 @@
         desktop = mkNixOS [ ./hosts/desktop ];
         test = mkNixOS [ ./hosts/test ];
         pi = mkNixOS [ ./hosts/pi ];
+        live = mkNixOS [ ./hosts/live ];
       };
 
       homeConfigurations = {

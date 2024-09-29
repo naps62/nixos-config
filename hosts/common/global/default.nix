@@ -1,8 +1,16 @@
-{ inputs, ... }: {
+{ inputs, pkgs, ... }: {
   imports =
     [ inputs.home-manager.nixosModules.home-manager ./nix.nix ./zsh.nix ];
 
-  programs = { zsh.enable = true; };
+  environment.systemPackages = [
+    pkgs.btop
+    pkgs.fzf
+    pkgs.home-manager
+    pkgs.ripgrep
+    pkgs.zsh
+    pkgs.git
+    pkgs.neovim
+  ];
 
   time = { timeZone = "Europe/Lisbon"; };
 
