@@ -1,8 +1,12 @@
 { inputs, pkgs, ... }: {
-  imports =
-    [ inputs.home-manager.nixosModules.home-manager ./nix.nix ./cli-tools.nix ];
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+    ./nix.nix
+    ./cli-tools.nix
+    ./ssh.nix
+  ];
 
-  environment.systemPackages = [ pkgs.home-manager ];
+  environment.systemPackages = [ pkgs.home-manager pkgs.zsh ];
 
   time = { timeZone = "Europe/Lisbon"; };
 

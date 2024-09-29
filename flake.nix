@@ -41,6 +41,7 @@
     in {
       nixosConfigurations = {
         laptop = mkNixOS [ ./hosts/laptop ];
+        arrakis = mkNixxOS [ ./hosts/arrakis ];
         desktop = mkNixOS [ ./hosts/desktop ];
         test = mkNixOS [ ./hosts/test ];
         pi = mkNixOS [ ./hosts/pi ];
@@ -49,6 +50,7 @@
 
       homeConfigurations = {
         "naps62@laptop" = mkHome [ ./home-manager/laptop ] x86;
+        "naps62@arrakis" = mkHome [ ./home-manager/arrakis ] x86;
         "naps62@desktop" = mkHome [ ./home-manager/desktop ] x86;
         "naps62@pi" = mkHome [ ./home-manager/pi ] x86;
         "naps62@test" = mkHome [ ./home-manager/test ] x86;

@@ -13,7 +13,7 @@ in {
     ../common/features/syncthing.nix
   ];
 
-  networking.hostName = "nixos-test";
+  networking.hostName = "arrakis";
 
   boot = {
     loader = {

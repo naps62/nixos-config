@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }: {
   environment.systemPackages = [
-    # various
+    # desktop apps
     pkgs.google-chrome
     pkgs.firefox-devedition
     pkgs.spotify
@@ -8,19 +8,12 @@
     pkgs.xfce.thunar
     pkgs.obsidian
     pkgs.mpv
-    pkgs.obs-studio
-    pkgs.calibre
-    pkgs.gimp
 
     # communication
     pkgs.slack
-    pkgs.zoom-us
 
     # dev tools
     pkgs.ferdium
     pkgs.bruno
-    pkgs.kitty
-    pkgs.bun
   ];
-
 }

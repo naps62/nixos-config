@@ -1,8 +1,8 @@
-{ inputs, ... }: {
+{ inputs, config, ... }: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestions.enable = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
     shellAliases = {
@@ -23,6 +23,21 @@
       size = 10000;
       path = "${config.xdg.dataHome}/zsh/history";
     };
+
+    zplug = {
+      enable = true;
+      plugins =
+        [ { name = "hlissner/zsh-autopair"; } { name = "Aloxaf/fzf-tab"; } ];
+    };
+
+    initExtra = ''
+      eval "$(mise activate zsh)"
+    '';
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   programs.starship = {
