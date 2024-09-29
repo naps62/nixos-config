@@ -1,11 +1,6 @@
 { inputs, pkgs, ... }: {
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-    ./nix.nix
-    ./zsh.nix
-    ./cli-tools.nix
-    ./desktop-apps.nix
-  ];
+  imports =
+    [ inputs.home-manager.nixosModules.home-manager ./nix.nix ./cli-tools.nix ];
 
   environment.systemPackages = [ pkgs.home-manager ];
 

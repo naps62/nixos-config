@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }: {
   environment.systemPackages = [
-    # desktop apps
+    # various
     pkgs.google-chrome
     pkgs.firefox-devedition
     pkgs.spotify
@@ -17,6 +17,7 @@
     # dev tools
     pkgs.ferdium
     pkgs.bruno
+    pkgs.kitty
   ];
 
 }
