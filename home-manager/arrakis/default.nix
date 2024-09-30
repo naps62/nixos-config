@@ -3,6 +3,7 @@
     inputs.nix-colors.homeManagerModule
     inputs.nixvim.homeManagerModules.nixvim
     ../common/programs/default.nix
+    ../common/programs/hyprland.nix
   ];
 
   colorscheme = inputs.nix-colors.colorSchemes.catppuccin-frappe;
