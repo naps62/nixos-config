@@ -41,7 +41,7 @@
     in {
       nixosConfigurations = {
         laptop = mkNixOS [ ./hosts/laptop ];
-        arrakis = mkNixxOS [ ./hosts/arrakis ];
+        arrakis = mkNixOS [ ./hosts/arrakis ];
         desktop = mkNixOS [ ./hosts/desktop ];
         test = mkNixOS [ ./hosts/test ];
         pi = mkNixOS [ ./hosts/pi ];
