@@ -1,11 +1,13 @@
-{ inputs, lib, pkgs, config, outputs, ... }: {
+{ inputs, lib, pkgs, config, outputs, catppuccin, ... }: {
   imports = [
     inputs.nix-colors.homeManagerModule
     inputs.nixvim.homeManagerModules.nixvim
+    catppuccin.homeManagerModules.catppuccin
     ../common/programs/default.nix
     ../common/programs/hyprland.nix
     ../common/programs/eww
     ../common/programs/kitty.nix
+    ../common/features/colorscheme.nix
   ];
 
   home.sessionVariables = {
@@ -25,8 +27,6 @@
   };
 
   programs.kitty.settings.font_size = 8;
-
-  colorscheme = inputs.nix-colors.colorSchemes.catppuccin-frappe;
 
   programs = {
     home-manager.enable = true;

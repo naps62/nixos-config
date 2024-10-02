@@ -20,23 +20,24 @@
     catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, catppuccin, ... }@inputs:
     let
       inherit (self) outputs;
       pkgs = import nixpkgs { };
       x86 = nixpkgs.legacyPackages.x86_64-linux;
       forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
       forEachPkg = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
-      mkNixOS = modules:
+      mkNixOS = extraModules:
         nixpkgs.lib.nixosSystem {
-          inherit modules;
+          inherit extraModules;
           specialArgs = { inherit inputs outputs; };
+          modules = extraModules ++ [ catppuccin.nixosModules.catppuccin ];
         };
 
       mkHome = modules: pkgs:
         home-manager.lib.homeManagerConfiguration {
           inherit modules pkgs;
-          extraSpecialArgs = { inherit inputs outputs; };
+          extraSpecialArgs = { inherit inputs outputs catppuccin; };
         };
     in {
       nixosConfigurations = {

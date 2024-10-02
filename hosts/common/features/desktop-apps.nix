@@ -31,14 +31,14 @@
       libertine
       fira-code
       fira-code-symbols
-      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      (nerdfonts.override { fonts = [ "FiraCode" "VictorMono" ]; })
     ];
 
     fontconfig = {
       defaultFonts = {
         serif = [ "Libertine" ];
         sansSerif = [ "Ubuntu" ];
-        monospace = [ "FiraCode" "VictorMono" ];
+        monospace = [ "FiraCode" ];
       };
     };
   };
