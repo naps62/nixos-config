@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, fonts, ... }: {
   environment.systemPackages = [
     # various
     pkgs.google-chrome
@@ -19,8 +19,28 @@
     # dev tools
     pkgs.ferdium
     pkgs.bruno
-    pkgs.kitty
     pkgs.bun
+
+    pkgs.fira-code
   ];
+
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      ubuntu_font_family
+      libertine
+      fira-code
+      fira-code-symbols
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    ];
+
+    fontconfig = {
+      defaultFonts = {
+        serif = [ "Libertine" ];
+        sansSerif = [ "Ubuntu" ];
+        monospace = [ "FiraCode" ];
+      };
+    };
+  };
 
 }

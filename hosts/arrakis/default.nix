@@ -16,13 +16,6 @@ in {
 
   networking.hostName = "arrakis";
 
-  home.sessionVariables = {
-    LIBVA_DRIVER_NAME = "nvidia";
-    XDG_SESSION_TYPE = "wayland";
-    GDM_BACKEND = "nvidia-drm";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-  };
-
   boot = {
     loader = {
       systemd-boot.enable = true;

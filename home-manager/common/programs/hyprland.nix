@@ -40,8 +40,26 @@
         gaps_out = 0;
       };
 
+      animations = {
+        bezier = "easeOutQuad, 0.5, 1, 0.89, 1";
+        animation = [
+          "windows, 1, 4, easeOutQuad"
+          "windowsMove, 1, 1, easeOutQuad"
+          "windowsOut, 1, 4, default, popin 80%"
+          "border, 1, 4, default"
+          "borderangle, 1, 4, default"
+          "fade, 1, 4, default"
+          "workspaces, 1, 3, default"
+        ];
+
+      };
+
       dwindle = { preserve_split = "yes"; };
       master = { orientation = "center"; };
+
+      "exec-once" = [
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+      ];
 
       "$mod" = "SUPER";
       bind = [
