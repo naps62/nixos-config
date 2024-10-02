@@ -4,6 +4,7 @@
     inputs.nixvim.homeManagerModules.nixvim
     ../common/programs/default.nix
     ../common/programs/hyprland.nix
+    ../common/programs/eww.nix
     ../common/programs/kitty.nix
   ];
 
@@ -22,6 +23,8 @@
       "size 800 600, class:thunar"
     ];
   };
+
+  programs.kitty.settings.font_size = 8;
 
   colorscheme = inputs.nix-colors.colorSchemes.catppuccin-frappe;
 

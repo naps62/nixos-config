@@ -35,10 +35,4 @@ in {
     hashedPassword =
       "$y$j9T$0p/ZYQsSA/FroVjV59pI/0$LKyzass6W9GjJR0GLWI6xhVrLi0b5AYYMR3MvQKNK11";
   };
-
-  fileSystems."mnt/nfs" = {
-    device = "192.168.122.1:/home/naps62/projects/nixos";
-    fsType = "nfs";
-    options = [ "rw" "soft" ];
-  };
 }

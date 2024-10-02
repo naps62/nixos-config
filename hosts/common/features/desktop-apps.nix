@@ -11,6 +11,7 @@
     pkgs.obs-studio
     pkgs.calibre
     pkgs.gimp
+    pkgs.font-manager
 
     # communication
     pkgs.slack
@@ -21,7 +22,6 @@
     pkgs.bruno
     pkgs.bun
 
-    pkgs.fira-code
   ];
 
   fonts = {
@@ -38,7 +38,7 @@
       defaultFonts = {
         serif = [ "Libertine" ];
         sansSerif = [ "Ubuntu" ];
-        monospace = [ "FiraCode" ];
+        monospace = [ "FiraCode" "VictorMono" ];
       };
     };
   };
