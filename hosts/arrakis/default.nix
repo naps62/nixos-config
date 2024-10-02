@@ -8,12 +8,20 @@ in {
     ../common/global
     ../common/features/networking.nix
     ../common/features/hyprland.nix
+    ../common/features/pipewire.nix
     ../common/features/docker.nix
     ../common/features/desktop-apps.nix
     ../common/features/syncthing.nix
   ];
 
   networking.hostName = "arrakis";
+
+  home.sessionVariables = {
+    LIBVA_DRIVER_NAME = "nvidia";
+    XDG_SESSION_TYPE = "wayland";
+    GDM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+  };
 
   boot = {
     loader = {
