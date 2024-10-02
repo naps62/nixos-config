@@ -4,7 +4,7 @@
     inputs.nixvim.homeManagerModules.nixvim
     ../common/programs/default.nix
     ../common/programs/hyprland.nix
-    ../common/programs/eww.nix
+    ../common/programs/eww
     ../common/programs/kitty.nix
   ];
 
