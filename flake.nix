@@ -42,37 +42,36 @@
           inherit system;
           config.allowUnfree = true;
         });
-      x86 = nixpkgs.legacyPackages.x86_64-linux;
       forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
       forEachPkg = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
-      mkNixOS = extraModules:
+      mkNixOS = name:
         nixpkgs.lib.nixosSystem {
-          inherit extraModules;
-          modules = extraModules ++ [ catppuccin.nixosModules.catppuccin ];
+          modules = [ ./hosts/${name} catppuccin.nixosModules.catppuccin ];
           specialArgs = { inherit inputs outputs; };
         };
 
-      mkHome = modules: pkgs:
+      mkHome = name: pkgs:
         home-manager.lib.homeManagerConfiguration {
-          inherit modules pkgs;
+          inherit pkgs;
+          modules = [ ./home/${name} ];
           extraSpecialArgs = { inherit inputs outputs catppuccin; };
         };
     in {
       nixosConfigurations = {
-        laptop = mkNixOS [ ./hosts/laptop ];
-        arrakis = mkNixOS [ ./hosts/arrakis ];
-        desktop = mkNixOS [ ./hosts/desktop ];
-        test = mkNixOS [ ./hosts/test ];
-        pi = mkNixOS [ ./hosts/pi ];
-        live = mkNixOS [ ./hosts/live ];
+        laptop = mkNixOS "laptop";
+        arrakis = mkNixOS "arrakis";
+        desktop = mkNixOS "desktop";
+        test = mkNixOS "test";
+        pi = mkNixOS "pi";
+        live = mkNixOS "live";
       };
 
       homeConfigurations = {
-        laptop = mkHome [ ./home-manager/laptop ] pkgsFor.x86_64-linux;
-        arrakis = mkHome [ ./home-manager/arrakis ] pkgsFor.x86_64-linux;
-        desktop = mkHome [ ./home-manager/desktop ] pkgsFor.x86_64-linux;
-        pi = mkHome [ ./home-manager/pi ] pkgsFor.aarch64-linux;
-        test = mkHome [ ./home-manager/test ] pkgsFor.x86_64-linux;
+        laptop = mkHome "laptop" pkgsFor.x86_64-linux;
+        arrakis = mkHome "arrakis" pkgsFor.x86_64-linux;
+        desktop = mkHome "desktop" pkgsFor.x86_64-linux;
+        pi = mkHome "pi" pkgsFor.aarch64-linux;
+        test = mkHome "test" pkgsFor.x86_64-linux;
       };
 
       devShells = forEachPkg (pkgs: import ./shell.nix { inherit pkgs; });
