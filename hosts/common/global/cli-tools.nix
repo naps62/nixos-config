@@ -5,7 +5,6 @@
     pkgs.home-manager
     pkgs.ripgrep
     pkgs.git
-    pkgs.neovim
     pkgs.lazygit
     pkgs.mise
     pkgs.gh

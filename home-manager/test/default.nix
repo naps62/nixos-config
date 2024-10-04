@@ -11,7 +11,6 @@
     home-manager.enable = true;
     git.enable = true;
     fzf.enable = true;
-    neovim.enable = true;
   };
 
   home = {

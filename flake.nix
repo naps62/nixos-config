@@ -22,18 +22,26 @@
     nvchad4nix = {
       url = "github:nix-community/nix4nvchad";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nvchad-starter.follows = "nvchad-starter";
     };
+    nvchad-starter = {
+      url = "github:naps62/nvchad-starter";
+      flake = false;
+    };
+    foundry = { url = "github:shazow/foundry.nix/monthly"; };
+    utils.url = "github:numtide/flake-utils";
   };
 
-  # nixpkgs = { overlays = [ inputs.neovim-nightly-overlay.overlay ]; };
-
-  outputs = { self, nixpkgs, home-manager, catppuccin, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, catppuccin, foundry, ... }@inputs:
     let
       inherit (self) outputs;
-      pkgs = import nixpkgs { };
       x86 = nixpkgs.legacyPackages.x86_64-linux;
       forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
       forEachPkg = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
+      pkgs = import nixpkgs {
+        inherit x86;
+        overlays = [ foundry.overlay ];
+      };
       mkNixOS = extraModules:
         nixpkgs.lib.nixosSystem {
           inherit extraModules;
@@ -43,6 +51,7 @@
             {
               nixpkgs = {
                 overlays = [
+                  foundry.overlay
                   (final: prev: {
                     nvchad = inputs.nvchad4nix.packages."${pkgs.system}".nvchad;
                   })
