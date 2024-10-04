@@ -1,5 +1,5 @@
 { lib, config, ... }: {
-  imports = [ ./zsh.nix ./neovim ./rust ./solidity.nix ];
+  imports = [ ./zsh.nix ./neovim ./rust.nix ./solidity.nix ];
 
   programs = {
     home-manager.enable = true;
