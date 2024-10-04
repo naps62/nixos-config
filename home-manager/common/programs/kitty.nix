@@ -14,11 +14,19 @@
       bold_italic_font = "VictorMono Nerd Font Mono Bold Oblique";
       disable_ligatures = "cursor";
 
+      # tab-style
+      tab_bar_edge = "bottom";
+      tab_bar_style = "powerline";
+      tab_powerline_style = "slanted";
+      tab_title_template =
+        "{title}{' :{}'.format(num_windows) if num_windows > 1 else ''}";
+
       # keys
+      kitty_mod = "alt";
     };
 
     keybindings = {
-      "kitty_mod+t" = "new_tab_with_cmd";
+      "kitty_mod+t" = "new_tab_with_cwd";
       "kitty_mod+enter" = "new_window_with_cwd";
       "kitty_mod+r" = "set_tab_title";
 

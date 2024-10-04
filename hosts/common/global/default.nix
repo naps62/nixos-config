@@ -6,7 +6,7 @@
     ./ssh.nix
   ];
 
-  environment.systemPackages = [ pkgs.home-manager pkgs.zsh ];
+  environment.systemPackages = [ pkgs.home-manager pkgs.zsh pkgs.asdf-vm ];
 
   time = { timeZone = "Europe/Lisbon"; };
 

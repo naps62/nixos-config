@@ -18,7 +18,14 @@
     nix-colors.url = "github:misterio77/nix-colors";
     nixvim.url = "github:nix-community/nixvim";
     catppuccin.url = "github:catppuccin/nix";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    nvchad4nix = {
+      url = "github:nix-community/nix4nvchad";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
+
+  # nixpkgs = { overlays = [ inputs.neovim-nightly-overlay.overlay ]; };
 
   outputs = { self, nixpkgs, home-manager, catppuccin, ... }@inputs:
     let
@@ -31,7 +38,18 @@
         nixpkgs.lib.nixosSystem {
           inherit extraModules;
           specialArgs = { inherit inputs outputs; };
-          modules = extraModules ++ [ catppuccin.nixosModules.catppuccin ];
+          modules = extraModules ++ [
+            catppuccin.nixosModules.catppuccin
+            {
+              nixpkgs = {
+                overlays = [
+                  (final: prev: {
+                    nvchad = inputs.nvchad4nix.packages."${pkgs.system}".nvchad;
+                  })
+                ];
+              };
+            }
+          ];
         };
 
       mkHome = modules: pkgs:

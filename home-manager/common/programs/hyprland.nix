@@ -54,8 +54,14 @@
 
       };
 
-      dwindle = { preserve_split = "yes"; };
-      master = { orientation = "center"; };
+      dwindle = {
+        preserve_split = "yes";
+        no_gaps_when_only = true;
+      };
+      master = {
+        orientation = "center";
+        no_gaps_when_only = true;
+      };
 
       "exec-once" = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"

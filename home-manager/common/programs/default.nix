@@ -1,5 +1,5 @@
 { lib, config, ... }: {
-  imports = [ ./basePrograms.nix ./neovim.nix ./zsh.nix ];
+  imports = [ ./basePrograms.nix ./zsh.nix ./neovim ];
 
   home = {
     homeDirectory = lib.mkDefault "/home/${config.home.username}";

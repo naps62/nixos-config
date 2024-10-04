@@ -1,4 +1,4 @@
-{ inputs, config, ... }: {
+{ inputs, config, pkgs, ... }: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -17,6 +17,11 @@
       ls = "eza";
       cat = "bat";
       ps = "procs";
+
+      # cd
+      ".." = "cd ..";
+      "..2" = "cd ../..";
+      "..3" = "cd ../../..";
     };
 
     history = {
@@ -31,7 +36,11 @@
     };
 
     initExtra = ''
+      # mise
       eval "$(mise activate zsh)"
+
+      # asdf
+      ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
     '';
   };
 
@@ -44,4 +53,7 @@
     enable = true;
     settings = { add_newline = true; };
   };
+
+  home.sessionPath =
+    [ "./.git/safe/../../node_modules/.bin" "./.git/safe/../../bin" ];
 }
