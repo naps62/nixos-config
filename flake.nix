@@ -81,3 +81,4 @@
       in forEachPkg (pkgs: import ./shell.nix { inherit pkgs; });
     };
 }
+# Note: Can also be referenced withou
