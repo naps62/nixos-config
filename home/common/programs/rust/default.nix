@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { }, ... }:
+{ pkgs, ... }:
 let
   overrides = (builtins.fromTOML (builtins.readFile ./rust-toolchain.toml));
   libPath = with pkgs;
