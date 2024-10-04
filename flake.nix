@@ -43,8 +43,9 @@
           config.allowUnfree = true;
           overlays = [ inputs.foundry.overlay ];
         });
-      forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
-      forEachPkg = f: forEachSystem (sys: f pkgsFor.${sys});
+
+      x86 = pkgsFor.x86_64-linux;
+      aarch64 = pkgsFor.aarch64-linux;
 
       mkNixOS = name:
         nixpkgs.lib.nixosSystem {
@@ -63,19 +64,20 @@
         laptop = mkNixOS "laptop";
         arrakis = mkNixOS "arrakis";
         desktop = mkNixOS "desktop";
-        test = mkNixOS "test";
         pi = mkNixOS "pi";
         live = mkNixOS "live";
       };
 
       homeConfigurations = {
-        laptop = mkHome "laptop" pkgsFor.x86_64-linux;
-        arrakis = mkHome "arrakis" pkgsFor.x86_64-linux;
-        desktop = mkHome "desktop" pkgsFor.x86_64-linux;
-        pi = mkHome "pi" pkgsFor.aarch64-linux;
-        test = mkHome "test" pkgsFor.x86_64-linux;
+        laptop = mkHome "laptop" x86;
+        arrakis = mkHome "arrakis" x86;
+        desktop = mkHome "desktop" x86;
+        pi = mkHome "pi" aarch64;
       };
 
-      devShells = forEachPkg (pkgs: import ./shell.nix { inherit pkgs; });
+      devShells = let
+        forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
+        forEachPkg = f: forEachSystem (sys: f pkgsFor.${sys});
+      in forEachPkg (pkgs: import ./shell.nix { inherit pkgs; });
     };
 }
