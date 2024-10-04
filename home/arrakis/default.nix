@@ -29,12 +29,6 @@
 
   programs.kitty.settings.font_size = 8;
 
-  programs = {
-    home-manager.enable = true;
-    git.enable = true;
-    fzf.enable = true;
-  };
-
   home = {
     username = lib.mkDefault "naps62";
     stateVersion = lib.mkDefault "24.05";

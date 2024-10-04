@@ -10,7 +10,7 @@ in {
     ../common/features/hyprland.nix
     ../common/features/pipewire.nix
     ../common/features/docker.nix
-    ../common/features/desktop-apps.nix
+    ../common/features/fonts.nix
     ../common/features/syncthing.nix
   ];
 

@@ -5,6 +5,6 @@
     ../common/global
     ../common/features/hyprland.nix
     ../common/features/docker.nix
-    ../common/features/desktop-apps.nix
+    ../common/features/fonts.nix
   ];
 }
