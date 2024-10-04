@@ -1,5 +1,4 @@
 { inputs, pkgs, foundry, ... }: {
-  # home.packages = [ pkgs.foundry-bin pkgs.solc ];
-
+  home.packages = with pkgs; [ foundry-bin solc ];
   programs = { gh.enable = true; };
 }

@@ -33,17 +33,19 @@
     utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, systems, nixpkgs, home-manager, utils, catppuccin, foundry
-    , ... }@inputs:
+  outputs =
+    { self, systems, nixpkgs, home-manager, utils, catppuccin, ... }@inputs:
     let
       inherit (self) outputs;
       pkgsFor = nixpkgs.lib.genAttrs (import systems) (system:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
+          overlays = [ inputs.foundry.overlay ];
         });
       forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
-      forEachPkg = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
+      forEachPkg = f: forEachSystem (sys: f pkgsFor.${sys});
+
       mkNixOS = name:
         nixpkgs.lib.nixosSystem {
           modules = [ ./hosts/${name} catppuccin.nixosModules.catppuccin ];
