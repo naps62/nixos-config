@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   xdg.configFile."git/commit-message.txt".source = ./commit-message.txt;
+  xdg.configFile."git/ignore".source = ./ignore;
 
   programs.git = {
     enable = true;
