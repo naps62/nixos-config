@@ -6,8 +6,8 @@ stdenvNoCC.mkDerivation {
   src = fetchFromGitHub {
     owner = "adi1090x";
     repo = "rofi";
-    rev = "master";
-    hash = "sha256-IPtn0bDIUmSwm24YowURgNrs907RrcfrRM9TdhE2c0I=";
+    rev = "dce10e9";
+    hash = "sha256-ZSosFsi/M5Gqb9gsUqS7hu89uOu9078Dus4Y+WCphZc=";
   };
 
   buildInputs = [ rofi ];

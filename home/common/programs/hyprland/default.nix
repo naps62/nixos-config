@@ -1,10 +1,13 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }: let
+  rofiLaunchers = import ../../../pkgs/rofi-launchers/package.nix {};
+in {
   home.sessionVariables = {
     HYPRCURSOR_THEME = "Phinger Cursors";
     HYPRCURSOR_SIZE = 32;
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
     XCURSOR_SIZE = 32;
   };
+  home.packages = with pkgs; [rofi (callPackage ../../../pkgs/rofi-launchers/package.nix {})];
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -78,7 +81,7 @@
         "$mod SHIFT, f, fullscreen, 1"
 
 # rofi
-"$mod, space, exec, ~/.config/rofi-launchers/type-2/launcher.sh"
+"$mod, space, exec, launcher_t2"
 
         # move focus with mod + arrows
         "$mod, h, movefocus, l"

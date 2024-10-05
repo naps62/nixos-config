@@ -5,7 +5,7 @@
     catppuccin.homeManagerModules.catppuccin
     ../common/programs/default.nix
     ../common/programs/desktop.nix
-    ../common/programs/hyprland.nix
+    ../common/programs/hyprland
     ../common/programs/eww
     ../common/programs/kitty.nix
     ../common/features/colorscheme.nix
