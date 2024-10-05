@@ -1,11 +1,9 @@
 { lib, config, ... }: {
-  imports = [ ./zsh.nix ./neovim ./rust ./solidity.nix ];
+  imports = [ ./zsh.nix ./neovim ./rust.nix ./git.nix ./solidity.nix ];
 
   programs = {
     home-manager.enable = true;
-    git.enable = true;
     fzf.enable = true;
-    gh.enable = true;
   };
 
   home = {

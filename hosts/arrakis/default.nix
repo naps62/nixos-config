@@ -32,8 +32,8 @@ in {
     description = "Miguel Palhas";
     extraGroups = [ "networkmanager" "input" "wheel" "docker" ];
     shell = pkgs.zsh;
-    hashedPassword =
-      "$y$j9T$0p/ZYQsSA/FroVjV59pI/0$LKyzass6W9GjJR0GLWI6xhVrLi0b5AYYMR3MvQKNK11";
+    initialHashedPassword =
+      "$y$j9T$uRTzF/sBdrqVGZTRhPuR00$wgLgEGlq.lEmlCPiy69jkbtfC9HKpyaVPDHDdBGtE5D";
   };
 
   services.nfs.server.enable = true;
