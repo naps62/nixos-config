@@ -26,7 +26,14 @@
       rb = "rebase";
       rbc = "rebase --continue";
     };
+    extraConfig = {
+      core = {
+        editor = "nvim";
+        pager = "delta";
+      };
+    };
   };
 
+  programs.delta.enable = true;
   programs.gh.enable = true;
 }
