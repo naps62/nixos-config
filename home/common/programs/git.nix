@@ -31,9 +31,13 @@
         editor = "nvim";
         pager = "delta";
       };
+      push = { default = "upstream"; };
+      delta = { navigate = true; };
+      "[diff 'image']" = { textconv = "mediainfo"; };
+      "[diff 'text']" = { textconv = "fold -s -w80"; };
     };
   };
 
-  home.packages = with pkgs; [ delta ];
+  home.packages = with pkgs; [ delta mediainfo ];
   programs.gh.enable = true;
 }
