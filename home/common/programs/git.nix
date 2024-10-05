@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  commitTemplate = builtints.toFile "git-commit-template.txt" ''
+    Change me
+  '';
+
   programs.git = {
     enable = true;
     userName = "Miguel Palhas";
@@ -38,10 +42,6 @@
       "diff \"text\"" = { textconv = "fold -s -w80"; };
     };
   };
-
-  commitTemplate = builtints.toFile "git-commit-template.txt" ''
-    Change me
-  '';
 
   home.packages = with pkgs; [ delta mediainfo ];
   programs.gh.enable = true;
