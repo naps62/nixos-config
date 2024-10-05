@@ -1,4 +1,5 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }:
+{
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ./nix.nix
@@ -6,9 +7,15 @@
     ./ssh.nix
   ];
 
-  environment.systemPackages = [ pkgs.home-manager pkgs.zsh pkgs.asdf-vm ];
+  environment.systemPackages = [
+    pkgs.home-manager
+    pkgs.zsh
+    pkgs.asdf-vm
+  ];
 
-  time = { timeZone = "Europe/Lisbon"; };
+  time = {
+    timeZone = "Europe/Lisbon";
+  };
 
   i18n = {
     defaultLocale = "en_US.UTF-8";

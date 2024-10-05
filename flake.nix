@@ -1,7 +1,12 @@
 {
   description = "naps62's nix config";
 
-  nixConfig = { experimental-features = [ "nix-command" "flakes" ]; };
+  nixConfig = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -29,37 +34,59 @@
       url = "github:naps62/nvchad-starter";
       flake = false;
     };
-    foundry = { url = "github:shazow/foundry.nix/monthly"; };
+    foundry = {
+      url = "github:shazow/foundry.nix/monthly";
+    };
     utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
-    { self, systems, nixpkgs, home-manager, utils, catppuccin, ... }@inputs:
+    {
+      self,
+      systems,
+      nixpkgs,
+      home-manager,
+      utils,
+      catppuccin,
+      ...
+    }@inputs:
     let
       inherit (self) outputs;
-      pkgsFor = nixpkgs.lib.genAttrs (import systems) (system:
+      pkgsFor = nixpkgs.lib.genAttrs (import systems) (
+        system:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
           overlays = [ inputs.foundry.overlay ];
-        });
+        }
+      );
 
       x86 = pkgsFor.x86_64-linux;
       aarch64 = pkgsFor.aarch64-linux;
 
-      mkNixOS = name:
+      mkNixOS =
+        name:
         nixpkgs.lib.nixosSystem {
-          modules = [ ./hosts/${name} catppuccin.nixosModules.catppuccin ];
-          specialArgs = { inherit inputs outputs; };
+          modules = [
+            ./hosts/${name}
+            catppuccin.nixosModules.catppuccin
+          ];
+          specialArgs = {
+            inherit inputs outputs;
+          };
         };
 
-      mkHome = name: pkgs:
+      mkHome =
+        name: pkgs:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./home/${name} ];
-          extraSpecialArgs = { inherit inputs outputs catppuccin; };
+          extraSpecialArgs = {
+            inherit inputs outputs catppuccin;
+          };
         };
-    in {
+    in
+    {
       nixosConfigurations = {
         laptop = mkNixOS "laptop";
         arrakis = mkNixOS "arrakis";
@@ -75,10 +102,15 @@
         pi = mkHome "pi" aarch64;
       };
 
-      devShells = let
-        forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
-        forEachPkg = f: forEachSystem (sys: f pkgsFor.${sys});
-      in forEachPkg (pkgs: import ./shell.nix { inherit pkgs; });
+      devShells =
+        let
+          forEachSystem = nixpkgs.lib.genAttrs [
+            "x86_64-linux"
+            "aarch64-linux"
+          ];
+          forEachPkg = f: forEachSystem (sys: f pkgsFor.${sys});
+        in
+        forEachPkg (pkgs: import ./shell.nix { inherit pkgs; });
     };
 }
 # Note: Can also be referenced withou

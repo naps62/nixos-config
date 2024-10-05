@@ -1,13 +1,14 @@
 { config, pkgs, ... }: let
   rofiLaunchers = import ../../../pkgs/rofi-launchers/package.nix {};
 in {
+  imports = [./rofi.nix];
+
   home.sessionVariables = {
     HYPRCURSOR_THEME = "Phinger Cursors";
     HYPRCURSOR_SIZE = 32;
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
     XCURSOR_SIZE = 32;
   };
-  home.packages = with pkgs; [rofi (callPackage ../../../pkgs/rofi-launchers/package.nix {})];
 
   wayland.windowManager.hyprland = {
     enable = true;

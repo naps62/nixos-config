@@ -1,4 +1,10 @@
-{ inputs, pkgs, fonts, ... }: {
+{
+  inputs,
+  pkgs,
+  fonts,
+  ...
+}:
+{
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [
@@ -6,7 +12,12 @@
       libertine
       fira-code
       fira-code-symbols
-      (nerdfonts.override { fonts = [ "FiraCode" "VictorMono" ]; })
+      (nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "VictorMono"
+        ];
+      })
     ];
 
     fontconfig = {

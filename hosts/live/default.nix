@@ -1,4 +1,12 @@
-{ inputs, pkgs, modulesPath, nixpkgs, lib, ... }: {
+{
+  inputs,
+  pkgs,
+  modulesPath,
+  nixpkgs,
+  lib,
+  ...
+}:
+{
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")

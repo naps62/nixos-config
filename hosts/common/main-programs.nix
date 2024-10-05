@@ -1,4 +1,5 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }:
+{
   environment.systemPackages = [
     # desktop apps
     pkgs.google-chrome

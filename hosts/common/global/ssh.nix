@@ -1,1 +1,4 @@
-{ inputs, pkgs, ... }: { environment.systemPackages = [ pkgs.openssh ]; }
+{ inputs, pkgs, ... }:
+{
+  environment.systemPackages = [ pkgs.openssh ];
+}

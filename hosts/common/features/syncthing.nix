@@ -1,1 +1,4 @@
-{ pkgs, ... }: { environment.systemPackages = [ pkgs.syncthing ]; }
+{ pkgs, ... }:
+{
+  environment.systemPackages = [ pkgs.syncthing ];
+}

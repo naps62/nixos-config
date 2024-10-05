@@ -1,3 +1,8 @@
-{ inputs, pkgs, ... }: {
-  networking = { networkmanager = { enable = true; }; };
+{ inputs, pkgs, ... }:
+{
+  networking = {
+    networkmanager = {
+      enable = true;
+    };
+  };
 }
