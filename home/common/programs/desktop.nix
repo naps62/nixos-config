@@ -23,4 +23,6 @@
     pkgs.bun
 
   ];
+
+  imports = [ ./rofi.nix ];
 }

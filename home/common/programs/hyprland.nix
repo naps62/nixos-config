@@ -77,6 +77,9 @@
         "$mod, f, fullscreen, 0"
         "$mod SHIFT, f, fullscreen, 1"
 
+# rofi
+"$mod, space, exec, ~/.config/rofi-launchers/type-2/launcher.sh"
+
         # move focus with mod + arrows
         "$mod, h, movefocus, l"
         "$mod, j, movefocus, d"
