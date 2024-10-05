@@ -34,6 +34,6 @@
     };
   };
 
-  programs.delta.enable = true;
+  home.packages = with pkgs; [ delta ];
   programs.gh.enable = true;
 }
