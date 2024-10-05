@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  commitTemplate = builtints.toFile "git-commit-template.txt" ''
+  commitTemplate = builtins.toFile "git-commit-template.txt" ''
     Change me
   '';
 
