@@ -31,12 +31,17 @@
         editor = "nvim";
         pager = "delta";
       };
+      commit = { template = "${commitTemplate}"; };
       push = { default = "upstream"; };
       delta = { navigate = true; };
       "diff \"image\"" = { textconv = "mediainfo"; };
       "diff \"text\"" = { textconv = "fold -s -w80"; };
     };
   };
+
+  commitTemplate = builtints.toFile "git-commit-template.txt" ''
+    Change me
+  '';
 
   home.packages = with pkgs; [ delta mediainfo ];
   programs.gh.enable = true;
