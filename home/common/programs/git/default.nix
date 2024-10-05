@@ -1,8 +1,4 @@
 { pkgs, ... }: {
-  commitTemplate = builtins.toFile "git-commit-template.txt" ''
-    Change me
-  '';
-
   xdg.configFile."git/commit-message.txt".source = ./commit-message.txt;
 
   programs.git = {
