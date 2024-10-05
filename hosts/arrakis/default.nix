@@ -35,6 +35,4 @@ in {
     initialHashedPassword =
       "$y$j9T$uRTzF/sBdrqVGZTRhPuR00$wgLgEGlq.lEmlCPiy69jkbtfC9HKpyaVPDHDdBGtE5D";
   };
-
-  services.nfs.server.enable = true;
 }
