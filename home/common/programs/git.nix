@@ -33,8 +33,8 @@
       };
       push = { default = "upstream"; };
       delta = { navigate = true; };
-      "diff 'image'" = { textconv = "mediainfo"; };
-      "diff 'text'" = { textconv = "fold -s -w80"; };
+      "diff \"image\"" = { textconv = "mediainfo"; };
+      "diff \"text\"" = { textconv = "fold -s -w80"; };
     };
   };
 
