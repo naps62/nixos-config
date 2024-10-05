@@ -9,16 +9,13 @@
       ll = ''
         log --reverse --pretty=format:"%C(yellow)%h%Cred%d\ %Creset%s%Cblue\ [%an]" --decorate --numstat'';
       conf = "diff --name-only --diff-filter=U";
-      br = "branch";
       ba = "branch -a";
-      br = "checkout -b";
       pb = "publish";
       ps = "push -u";
       pr = "pull-request";
       ppr = "push-pr";
       cpr = "close-pr";
       opr = "open-pr";
-      pb = "publish";
       f = "fetch";
       c = "commit --verbose";
       d = "diff";
