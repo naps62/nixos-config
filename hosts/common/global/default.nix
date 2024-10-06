@@ -3,13 +3,13 @@
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ./nix.nix
-    ./cli-tools.nix
     ./ssh.nix
   ];
 
-  environment.systemPackages = [
-    pkgs.home-manager
-    pkgs.zsh
+  environment.systemPackages = with pkgs; [
+    python3
+    gcc
+    gnumake
   ];
 
   time = {

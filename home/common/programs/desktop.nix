@@ -1,26 +1,26 @@
-{ pkgs, ... }: {
-  home.packages = [
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
     # various
-    pkgs.google-chrome
-    pkgs.firefox-devedition
-    pkgs.spotify
-    pkgs.spicetify-cli
-    pkgs.xfce.thunar
-    pkgs.obsidian
-    pkgs.mpv
-    pkgs.obs-studio
-    pkgs.calibre
-    pkgs.gimp
-    pkgs.font-manager
+    google-chrome
+    firefox-devedition
+    spotify
+    spicetify-cli
+    xfce.thunar
+    obsidian
+    mpv
+    obs-studio
+    calibre
+    gimp
+    font-manager
 
     # communication
-    pkgs.slack
-    pkgs.zoom-us
+    slack
+    zoom-us
 
     # dev tools
-    pkgs.ferdium
-    pkgs.bruno
-    pkgs.bun
-
+    ferdium
+    bruno
+    bun
   ];
 }

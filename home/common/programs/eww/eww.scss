@@ -1,248 +1,44 @@
-//
-// catppuccin-mocha
-//
-$rosewater: #f5e0dc;
-$flamingo: #f2cdcd;
-$pink: #ff3ac6;
-$mauve: #cba6f7;
-$red: #f38ba8;
-$maroon: #eba0ac;
-$peach: #f9e2af;
-$yellow: #f9e2af;
-$green: #a6e3a1;
-$teal: #94e2d5;
-$sky: #89dceb;
-$sapphire: #74c7ec;
-$blue: #89b4fa;
-$lavender: #b4befe;
-$text: #cdd6f4;
-$subtext1: #bac2de;
-$subtext0: #a6adc8;
-$overlay2: #9399b2;
-$overlay1: #7f849c;
-$overlay0: #6c7086;
-$surface2: #585b70;
-$surface1: #45475a;
-$surface0: #313244;
-$base: #1e1e2e;
-$mantle: #181825;
-$crust: #11111b;
-
-:not(menu):not(menuitem) {
-  all: unset;
-  font-family:
-    Material Design Icons,
-    FiraCode Nerd Font;
+* {
+  all: unset; // Unsets everything so you can style everything from scratch
 }
 
-//
-// color theming
-//
-
-tooltip.background,
-.window,
-menu,
-menuitem,
+// Global Styles
 .bar {
-  background-color: $crust;
-}
-
-.memory * {
-  color: $mauve;
-}
-.cpu * {
-  color: $peach;
-}
-.cputemp * {
-  color: $red;
-}
-.battery * {
-  color: $red;
-}
-
-.clock {
-  color: $text;
-}
-
-//
-// General
-//
-
-.bar {
-  // min-height: 30px;
-  font-size: 16;
-  transition: all 0.1s ease-out;
-  border-radius: 0px 0px 10 10;
-}
-
-.bar {
-  opacity: 1;
-}
-
-.space {
-  margin: 0px 10px;
-}
-
-//
-// tooltip
-//
-
-tooltip.background {
-  border-radius: 10px;
-}
-
-tooltip label {
-}
-
-//
-// clock
-//
-
-.clock-time {
-  font-weight: bold;
-  margin-right: 5px;
-}
-
-//
-// circular bars
-//
-
-.circle {
-  border-radius: 10px;
-  margin: 0 5;
-}
-
-.circle .icon {
-  font-size: 16px;
+  background-color: #3a3a3a;
+  color: #b0b4bc;
   padding: 10px;
 }
 
-//
-// sliders
-//
+// Styles on classes (see eww.yuck for more information)
 
-.slider,
-.slider trough highlight {
+.sidestuff slider {
+  all: unset;
+  color: #ffd5cd;
+}
+
+.metric scale trough highlight {
+  all: unset;
+  background-color: #D35D6E;
+  color: #000000;
   border-radius: 10px;
 }
 
-//
-// network
-//
-
-.network,
-.volume {
-  margin: 0 5px;
-
-  & button {
-    margin-right: 10;
-  }
-
-  .connected {
-    color: $green;
-  }
-
-  .disconnected {
-    color: $peach;
-  }
+.metric scale trough {
+  all: unset;
+  background-color: #4e4e4e;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
+  margin-left: 10px;
+  margin-right: 20px;
 }
 
-//
-// brightness
-//
-
-.bright_icon {
-  font-size: 12;
-  color: #e4c9af;
+.label-ram {
+  font-size: large;
 }
 
-//
-// sliders
-//
-
-.slider trough highlight {
-  background-image: linear-gradient(
-    to right,
-    $yellow 30%,
-    $peach 50%,
-    $red 100% * 50
-  );
+.workspaces button:hover {
+  color: #D35D6E;
 }
 
-scale trough {
-  background-color: $surface1;
-  border-radius: 16px;
-  min-height: 10px;
-  min-width: 100px;
-}
 
-//
-// systray
-//
-
-menu  {
-  border-radius: 16px;
-}
-
-menuitem {
-  padding: 8px;
-  border-radius: 8px;
-  color: $text;
-    background-color: $surface2;
-
-  &:disabled {
-    color: $overlay2;
-  }
-}
-
-//
-// workspaces
-//
-
-.w0,
-.w01,
-.w02,
-.w03,
-.w04,
-.w05,
-.w06,
-.w011,
-.w022,
-.w033,
-.w044,
-.w055,
-.w066 {
-  border-radius: 10px;
-  font-size: 16px;
-  padding: 5px 5;
-  min-height: 25px;
-  min-width: 60px;
-}
-
-// Unoccupied
-.w0 {
-  color: $overlay0;
-}
-
-// Occupied
-.w01,
-.w02,
-.w03,
-.w04,
-.w05,
-.w06 {
-  color: $text;
-}
-
-// Focused
-.w011,
-.w022,
-.w033,
-.w044,
-.w055,
-.w066 {
-  font-size: 16px;
-  background-color: $sky;
-  color: $crust;
-  font-weight: bold;
-}

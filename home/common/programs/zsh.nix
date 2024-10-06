@@ -10,6 +10,7 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    completionInit = "autoload -U compinit && compinit -u";
 
     shellAliases = {
       c = "cargo";
@@ -59,6 +60,9 @@
     initExtra = ''
       # mise
       eval "$(mise activate zsh)"
+
+      # asdf-vm
+      . "$HOME/.nix-profile/share/asdf-vm/asdf.sh"
     '';
   };
 
@@ -73,6 +77,17 @@
       add_newline = true;
     };
   };
+
+  home.packages = with pkgs; [
+    btop
+    mise
+    ripgrep
+    pass
+    bat
+    procs
+    eza
+    asdf-vm
+  ];
 
   home.sessionPath = [
     "./.git/safe/../../node_modules/.bin"

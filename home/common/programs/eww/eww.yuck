@@ -1,164 +1,76 @@
-;; Variables
-(defpoll clock_time :interval "5s" "date +\%I:%M")
-(defpoll clock_date :interval "1m" "date '+%d/%m'")
-(defpoll volume_percent :interval "3s" :initial 0 "pactl get-sink-volume @DEFAULT_SINK@ | head -n1 | cut -d'/' -f 2 | xargs | tr -d '%'")
-;; (defpoll brightness_percent :interval "5s" "brightnessctl -m -d intel_backlight | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'")
-(defpoll bwindowrulesattery :interval "15s" "./scripts/battery --bat")
-(defpoll battery_status :interval "1m" "./scripts/battery --bat-st")
-(defpoll memory :interval "5s" :initial 0 "scripts/memory")
-(defpoll cpu :interval "5s" :initial 0 "scripts/cpu")
-(defpoll cputemp :interval "5s" :initial 0 "scripts/cputemp")
-(defpoll memory_used_mb :interval "2m" "scripts/mem-ad used")
-(defpoll memory_total_mb :interval "2m" "scripts/mem-ad total")
-(defpoll memory_free_mb :interval "2m" "scripts/mem-ad free")
-(defvar bar_hover false)
-(deflisten workspace "scripts/workspace")
+(defwidget bar []
+  (centerbox :orientation "h"
+    (workspaces)
+    (music)
+    (sidestuff)))
 
-(defvar eww "/home/naps62/.bin/eww -c $HOME/.config/eww")
-(defvar exec_audio_control "hyprctl dispatch exec '[center]' pavucontrol")
-(defvar exec_nmtui "hyprctl dispatch exec '[center]' 'kitty --class eww-nmtui -e nmtui'")
-(defvar exec_workspace_scroll "echo {} | sed -e 's/up/-1/g' -e 's/down/+1/g' | xargs hyprctl dispatch workspace")
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+    (metric :label "🔊"
+            :value volume
+            :onchange "amixer -D pulse sset Master {}%")
+    (metric :label ""
+            :value {EWW_RAM.used_mem_perc}
+            :onchange "")
+    (metric :label "💾"
+            :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+            :onchange "")
+    time))
 
-(defpoll network_name :interval "1m" "~/.config/eww/scripts/network name")
-(defpoll network_icon :interval "1m" "~/.config/eww/scripts/network icon")
-(defpoll network_class :interval "1m" "~/.config/eww/scripts/network class")
+(defwidget workspaces []
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 10
+    (button :onclick "wmctrl -s 0" 1)
+    (button :onclick "wmctrl -s 1" 2)
+    (button :onclick "wmctrl -s 2" 3)
+    (button :onclick "wmctrl -s 3" 4)
+    (button :onclick "wmctrl -s 4" 5)
+    (button :onclick "wmctrl -s 5" 6)
+    (button :onclick "wmctrl -s 6" 7)
+    (button :onclick "wmctrl -s 7" 8)
+    (button :onclick "wmctrl -s 8" 9)))
 
-;;
-;; widgets
-;;
-
-(defwidget widget_network [] 
-(box :class "network" :space-evenly "false"
-  (button :class "${network_class}" :onclick exec_nmtui "${network_icon} ${network_name}")))
-
-
-(defwidget widget_workspaces []
-  (eventbox :onscroll exec_workspace_scroll
-    (literal :content workspace))
-  )
-
-;; (defwidget widget_battery []
-;;   (circular-progress :value battery
-;;       :class "circle battery"
-;;       :thickness 4
-;;     (button 
-;;         :class "icon"
-;;         :tooltip "battery on ${battery}%"
-;;         "󰂁")))
+(defwidget music []
+  (box :class "music"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+    {music != "" ? "🎵${music}" : ""}))
 
 
-(defwidget widget_cputemp []
-  (circular-progress :value cputemp
-      :class "circle cputemp"
-      :thickness 4
-    (button 
-        :class "icon"
-        :onclick "$HOME/.config/eww/scripts/pop system"
-        "󰔏")))
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
 
-(defwidget widget_ram []
-  (circular-progress :value memory
-      :class "circle memory"
-      :thickness 4
-    (button 
-        :class "icon"
-        :tooltip "using ${memory}% ram"
-        :onclick "$HOME/.config/eww/scripts/pop system"
-        "󰍛")))
 
-(defwidget widget_cpu []
-  (circular-progress :value cpu
-      :class "circle cpu"
-      :thickness 4
-    (button 
-        :class "icon"
-        :tooltip "using ${memory}% CPU"
-        :onclick "$HOME/.config/eww/scripts/pop system"
-        "󰻠")))
 
-(defwidget widget_space []
-    (box :class "space"))
+(deflisten music :initial ""
+  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
 
-(defwidget widget_clock []
-(box :class "clock"
-  (label :text clock_time :class "clock-time")
-  (button :class "clock-date" clock_date)))
-  
-(defwidget widget_volume []
-  (box :class "volume" :space-evenly "false"
-    (button :onclick exec_audio_control "󰕾")
-    (scale :class "slider"
-      :value volume_percent
-      :tooltip "${volume_percent}%"
-      :max 100
-      :min 0
-      :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%" )))
+(defpoll volume :interval "1s"
+  "scripts/getvol")
 
-;; (defwidget widget_bright []
-;; (eventbox :onhover "${eww} update br_reveal=true" :onhoverlost "${eww} update br_reveal=false"
-;;   (box :class "module-2" :space-evenly "false" :orientation "h" :spacing "3" 
-;;     (label :text "" :class "bright_icon" :tooltip "brightness")
-;;       (revealer :transition "slideleft"
-;;         :reveal br_reveal
-;;         :duration "350ms"
-;;         (scale    :class "slider brightness"
-;;           :value brightness_percent
-;;           :orientation "h"
-;;           :tooltip "${brightness_percent}%"
-;;           :max 100
-;;           :min 0
-;;           :onchange "brightnessctl set {}%" )))))
+(defpoll time :interval "10s"
+  "date '+%H:%M %b %d, %Y'")
 
-;;
-;; bar layout
-;;
-(defwidget left []
-  (box :orientation "h" 
-    :space-evenly false  
-    :halign "start"
-  (widget_workspaces)))
-
-(defwidget center []
-  (box :orientation "h" 
-    :space-evenly false  
-    :halign "center"
-  (box)))
-
-(defwidget right []
-  (box :orientation "h" 
-    :space-evenly false  
-    :halign "end"
-  ;; (widget_bright)
-  (widget_volume)
-  (widget_network)
-  (widget_space)
-  ;; (widget_battery)
-  (widget_ram)
-  (widget_cpu)
-  (widget_cputemp)
-  (widget_space)
-  (systray)
-  (widget_space)
-  (widget_clock)
-  (widget_space)))
-
-(defwidget bar_inner []
-  (box
-      :orientation "h"
-    (left)
-    (right)))
-
-;;
-;; main window
-;;
 (defwindow bar
-  :geometry (
-    geometry 
-    :x "0%"
-    :y "0px"
-    :width "2080px"
-    :anchor "top center")
-  :windowtype "dock"
   :monitor 0
-  :exclusive true
-(bar_inner))
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "10px"
+                      :anchor "top center")
+  :reserve (struts :side "top" :distance "20px")
+  (bar))
+

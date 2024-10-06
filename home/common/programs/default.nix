@@ -10,7 +10,6 @@
 
   programs = {
     home-manager.enable = true;
-    fzf.enable = true;
   };
 
   home = {
