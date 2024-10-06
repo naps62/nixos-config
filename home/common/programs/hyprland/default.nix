@@ -6,11 +6,11 @@ in
   imports = [
     ./rofi.nix
     ./dunst.nix
+    ./aviso.nix
   ];
 
   home.packages = with pkgs; [
     hyprcursor
-    avizo
     pamixer
     hyprshot
   ];
@@ -88,7 +88,6 @@ in
       "exec-once" = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "eww daemon & eww -c $HOME/.config/eww open bar"
-        "avizo-service"
       ];
 
       windowrulev2 = [
