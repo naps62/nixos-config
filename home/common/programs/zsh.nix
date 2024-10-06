@@ -1,4 +1,10 @@
-{ inputs, config, pkgs, ... }: {
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
+{
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -29,18 +35,30 @@
       path = "${config.xdg.dataHome}/zsh/history";
     };
 
-    zplug = {
-      enable = true;
-      plugins =
-        [ { name = "hlissner/zsh-autopair"; } { name = "Aloxaf/fzf-tab"; } ];
-    };
+    plugins = [
+      {
+        name = "fzf-tab";
+        src = pkgs.fetchFromGitHub {
+          owner = "Aloxaf";
+          repo = "fzf-tab";
+          rev = "v1.1.2";
+          hash = "sha256-Qv8zAiMtrr67CbLRrFjGaPzFZcOiMVEFLg1Z+N6VMhg=";
+        };
+      }
+      {
+        name = "zsh-autopair";
+        src = pkgs.fetchFromGitHub {
+          owner = "hlissner";
+          repo = "zsh-autopair";
+          rev = "449a7c3";
+          hash = "sha256-3zvOgIi+q7+sTXrT+r/4v98qjeiEL4Wh64rxBYnwJvQ=";
+        };
+      }
+    ];
 
     initExtra = ''
       # mise
       eval "$(mise activate zsh)"
-
-      # asdf
-      ${pkgs.asdf-vm}/share/asdf-vm/asdf.sh
     '';
   };
 
@@ -51,9 +69,13 @@
 
   programs.starship = {
     enable = true;
-    settings = { add_newline = true; };
+    settings = {
+      add_newline = true;
+    };
   };
 
-  home.sessionPath =
-    [ "./.git/safe/../../node_modules/.bin" "./.git/safe/../../bin" ];
+  home.sessionPath = [
+    "./.git/safe/../../node_modules/.bin"
+    "./.git/safe/../../bin"
+  ];
 }

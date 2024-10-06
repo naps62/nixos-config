@@ -6,7 +6,6 @@
     ./rust.nix
     ./git
     ./solidity.nix
-    ./asdf.nix
   ];
 
   programs = {
