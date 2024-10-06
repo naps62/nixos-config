@@ -45,5 +45,13 @@ in
     ];
     shell = pkgs.zsh;
     initialHashedPassword = "$y$j9T$uRTzF/sBdrqVGZTRhPuR00$wgLgEGlq.lEmlCPiy69jkbtfC9HKpyaVPDHDdBGtE5D";
+    openssh.authorizedKeys.keys =
+      let
+        authorizedKeys = pkgs.fetchurl {
+          url = "https://github.com/naps62.keys";
+          sha256 = "sha256-dP8LjaburPwfIr2jhly9rMwOLJyUkQP7Em5IKH/qXbY=";
+        };
+      in
+      pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
   };
 }
