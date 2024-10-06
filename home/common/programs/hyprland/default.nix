@@ -3,9 +3,14 @@ let
   rofiLaunchers = import ../../../pkgs/rofi-launchers/package.nix { };
 in
 {
-  imports = [ ./rofi.nix ];
+  imports = [
+    ./rofi.nix
+    ./dunst.nix
+  ];
 
-  home.packages = with pkgs; [ hyprcursor ];
+  home.packages = with pkgs; [
+    hyprcursor
+  ];
 
   home.sessionVariables = {
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
