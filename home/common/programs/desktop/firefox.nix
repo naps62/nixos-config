@@ -1,20 +1,63 @@
 { pkgs, inputs, ... }:
 {
+
+  home.sessionVariables = {
+    BROWSER = "firefox";
+  };
+
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox.override {
-      cfg.enableTridactylNative = true;
-    };
-    nativeMessagingHosts.packages = [ pkgs.tridactyl-native ];
     policies = {
       DefaultDownloadDirectory = "$HOME/downloads/firefox";
+      DontCheckDefaultBrowser = true;
+      DisableTelemetry = true;
+      DisablePocket = true;
+      DisableFirefoxStudies = true;
+
+      DisplayBookmarksToolbar = "never";
+      DisplayMenuBar = "never";
+
+      OverrideFirstRunPage = "";
+      PromptForDownloadLocation = false;
+
+      HardwareAcceleration = true;
+      TranslateEnabled = true;
+
+      Homepage.StartPage = "previous-session";
+
+      UserMessaging = {
+        SkipOnboarding = true;
+      };
+
+      FirefoxSuggest = {
+        WebSuggestions = false;
+        SponsoredSuggestions = false;
+        ImproveSuggest = false;
+      };
+
+      EnableTrackingProtection = {
+        Value = true;
+        Cryptomining = true;
+        Fingerprinting = true;
+      };
+
+      FirefoxHome = {
+        Search = true;
+        TopSites = true;
+        SponsoredTopSites = true;
+        Highlights = true;
+        Pocket = false;
+        SponsoredPocket = false;
+        Snippets = false;
+      };
     };
 
     profiles = {
       personal = {
-        extensions = with inputs.firefox-addons; [
+        isDefault = true;
+        extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
           # privacy
-          # clearurls
+          clearurls
           decentraleyes
 
           # content/ad blocking
@@ -29,7 +72,7 @@
           translate-web-pages
 
           # manual use
-          tridactyl
+          # tridactyl
           bitwarden
         ];
         settings = {
@@ -38,35 +81,24 @@
           "media.ffmpeg.vaapi.enabled" = true;
           "widget.dmabuf.force-enabled" = true; # Required in recent Firefoxes
 
-          # Re-bind ctrl to super (would interfere with tridactyl otherwise)
-          "ui.key.accelKey" = 91;
+          "widget.use-xdg-desktop-portal.file-picker" = true;
 
           # Hide the "sharing indicator", it's especially annoying
           # with tiling WMs on wayland
           "privacy.webrtc.legacyGlobalIndicator" = false;
 
           # Actual settings
-          "browser.bookmarks.restore_default_bookmarks" = false;
-          "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
-          "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
-          "browser.newtabpage.activity-stream.feeds.snippets" = false;
-          "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" = "";
-          "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.searchEngines" = "";
-          "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
-          "browser.newtabpage.activity-stream.showSponsored" = false;
-          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+          "browser.aboutConfig.showWarning" = false;
           "browser.newtabpage.pinned" = false;
           "browser.protections_panel.infoMessage.seen" = true;
           "browser.quitShortcut.disabled" = true;
-          "browser.shell.checkDefaultBrowser" = false;
-          "browser.toolbars.bookmarks.visibility" = "never";
           "browser.urlbar.suggest.openpage" = false;
-          "datareporting.policy.dataSubmissionEnable" = false;
-          "datareporting.policy.dataSubmissionPolicyAcceptedVersion" = 2;
-          "extensions.htmlaboutaddons.recommendations.enabled" = false;
-          "extensions.pocket.enabled" = false;
           "privacy.trackingprotection.enabled" = true;
           "privacy.trackingprotection.socialtracking.enabled" = true;
+
+          "mousewhell.system_scroll_override" = true;
+
+          "extension.autoDisableScopes" = "0";
         };
       };
     };

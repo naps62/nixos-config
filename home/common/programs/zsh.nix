@@ -24,6 +24,8 @@
       ls = "eza";
       cat = "bat";
       ps = "procs";
+      open = "xdg-open";
+      o = "xdg-open";
 
       # cd
       ".." = "cd ..";

@@ -16,6 +16,7 @@
     font-manager
     imv
     pavucontrol
+    zathura
 
     # communication
     slack
