@@ -18,7 +18,6 @@
     ../common/programs/eww
     ../common/programs/kitty.nix
     ../common/features/colorscheme.nix
-    ../common/features/ssh-agent.nix
   ];
 
   home.sessionVariables = {
