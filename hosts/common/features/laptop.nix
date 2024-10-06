@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  environment.systemPackages = with pkgs; [ acpi ];
+
   powerManagement = {
     enable = true;
     powertop = true;
