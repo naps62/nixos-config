@@ -14,6 +14,7 @@
     gimp
     font-manager
     imv
+    pavucontrol
 
     # communication
     slack

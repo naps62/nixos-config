@@ -20,6 +20,10 @@ in
     XCURSOR_SIZE = 32;
   };
 
+  xdg.configFile = {
+    "hypr/scripts".source = ./scripts;
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
@@ -88,8 +92,19 @@ in
       ];
 
       windowrulev2 = [
+        # imv
         "float, class:imv"
         "move cursor -50% -50%, class:imv"
+
+        # bluetooth
+        "float, class:blueman-manager"
+        "move cursor -50% -50%, class:blueman-manager"
+        "size 600 400, class:blueman-manager"
+
+        # pavucontrol
+        "float, class:pavucontrol"
+        "move cursor -50% -50%, class:pavucontrol"
+        "size 600 600, class:pavucontrol"
       ];
 
       "$mod" = "SUPER";
@@ -100,6 +115,8 @@ in
         "$mod, q, killactive"
         "$mod, f, fullscreen, 0"
         "$mod SHIFT, f, fullscreen, 1"
+
+        "$mod, d, exec, ~/.config/hypr/scripts/toggle-bar"
 
         # rofi
         "$mod, space, exec, launcher_t2"
