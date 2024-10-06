@@ -19,7 +19,6 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
-    catppuccin.enable = true;
     settings = {
       decoration = {
         blur = {
