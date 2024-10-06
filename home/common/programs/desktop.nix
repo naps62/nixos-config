@@ -13,6 +13,7 @@
     calibre
     gimp
     font-manager
+    imv
 
     # communication
     slack

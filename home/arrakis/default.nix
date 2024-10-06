@@ -20,6 +20,7 @@
     ../common/programs/syncthing.nix
     ../common/features/colorscheme.nix
     ../common/features/xdg.nix
+    ../common/features/bluetooth.nix
   ];
 
   home.sessionVariables = {

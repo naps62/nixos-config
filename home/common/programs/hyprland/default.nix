@@ -12,6 +12,7 @@ in
     hyprcursor
     avizo
     pamixer
+    hyprshot
   ];
 
   home.sessionVariables = {
@@ -86,6 +87,11 @@ in
         "avizo-service"
       ];
 
+      windowrulev2 = [
+        "float, class:imv"
+        "move cursor -50% -50%, class:imv"
+      ];
+
       "$mod" = "SUPER";
       bind = [
         "$mod, t, exec, kitty"
@@ -97,6 +103,10 @@ in
 
         # rofi
         "$mod, space, exec, launcher_t2"
+
+        # printscreen
+        ", Print, exec, hyprshot -m region --output-folder ~/screenshots"
+        "SHIFT, Print, exec, hyprshot -m window --output-folder ~/screenshots"
 
         # move focus with mod + arrows
         "$mod, h, movefocus, l"

@@ -19,6 +19,7 @@ in
     ../common/features/docker.nix
     ../common/features/fonts.nix
     ../common/features/nix-ld.nix
+    ../common/features/bluetooth.nix
   ];
 
   networking.hostName = "arrakis";
