@@ -80,6 +80,7 @@
 
   home.packages = with pkgs; [
     btop
+    inxi
     mise
     ripgrep
     pass

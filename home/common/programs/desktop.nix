@@ -19,6 +19,7 @@
     # communication
     slack
     zoom-us
+    ferdium
 
     # dev tools
     ferdium

@@ -1,10 +1,12 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [ acpi ];
+  environment.systemPackages = with pkgs; [
+    brightnessctl
+  ];
 
   powerManagement = {
     enable = true;
-    powertop = true;
+    powertop.enable = true;
   };
 
   services = {
@@ -25,8 +27,4 @@
       };
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    brightnessctl
-  ];
 }
