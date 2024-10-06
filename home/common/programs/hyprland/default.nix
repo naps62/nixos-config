@@ -1,17 +1,20 @@
-{ config, pkgs, ... }: let
-  rofiLaunchers = import ../../../pkgs/rofi-launchers/package.nix {};
-in {
-  imports = [./rofi.nix];
+{ config, pkgs, ... }:
+let
+  rofiLaunchers = import ../../../pkgs/rofi-launchers/package.nix { };
+in
+{
+  imports = [ ./rofi.nix ];
+
+  home.packages = with pkgs; [ hyprcursor ];
 
   home.sessionVariables = {
-    HYPRCURSOR_THEME = "Phinger Cursors";
-    HYPRCURSOR_SIZE = 32;
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
     XCURSOR_SIZE = 32;
   };
 
   wayland.windowManager.hyprland = {
     enable = true;
+    catppuccin.enable = true;
     settings = {
       decoration = {
         blur = {
@@ -33,11 +36,15 @@ in {
         repeat_delay = 150;
         repeat_rate = 25;
 
-        touchpad = { natural_scroll = "yes"; };
+        touchpad = {
+          natural_scroll = "yes";
+        };
         numlock_by_default = "true";
       };
 
-      cursor = { no_hardware_cursors = "yes"; };
+      cursor = {
+        no_hardware_cursors = "yes";
+      };
 
       general = {
         gaps_in = 2;
@@ -81,8 +88,8 @@ in {
         "$mod, f, fullscreen, 0"
         "$mod SHIFT, f, fullscreen, 1"
 
-# rofi
-"$mod, space, exec, launcher_t2"
+        # rofi
+        "$mod, space, exec, launcher_t2"
 
         # move focus with mod + arrows
         "$mod, h, movefocus, l"

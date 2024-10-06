@@ -10,7 +10,6 @@
   environment.systemPackages = [
     pkgs.home-manager
     pkgs.zsh
-    pkgs.asdf-vm
   ];
 
   time = {

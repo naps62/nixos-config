@@ -6,8 +6,6 @@ in
 {
   programs.hyprland.enable = true;
 
-  environment.systemPackages = [ pkgs.hyprcursor ];
-
   services.greetd = {
     enable = true;
     settings = {

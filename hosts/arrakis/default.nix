@@ -1,12 +1,19 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}:
 let
   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
   hyprland-session = "${pkgs.hyprland}/share/wayland-sessions";
-in {
+in
+{
   imports = [
     ./hardware-configuration.nix
     ../common/global
     ../common/features/networking.nix
+    ../common/features/nvidia.nix
     ../common/features/hyprland.nix
     ../common/features/pipewire.nix
     ../common/features/docker.nix
@@ -30,9 +37,13 @@ in {
   users.users.naps62 = {
     isNormalUser = true;
     description = "Miguel Palhas";
-    extraGroups = [ "networkmanager" "input" "wheel" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "input"
+      "wheel"
+      "docker"
+    ];
     shell = pkgs.zsh;
-    initialHashedPassword =
-      "$y$j9T$uRTzF/sBdrqVGZTRhPuR00$wgLgEGlq.lEmlCPiy69jkbtfC9HKpyaVPDHDdBGtE5D";
+    initialHashedPassword = "$y$j9T$uRTzF/sBdrqVGZTRhPuR00$wgLgEGlq.lEmlCPiy69jkbtfC9HKpyaVPDHDdBGtE5D";
   };
 }

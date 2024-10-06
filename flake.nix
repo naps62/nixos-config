@@ -38,6 +38,7 @@
       url = "github:shazow/foundry.nix/monthly";
     };
     utils.url = "github:numtide/flake-utils";
+    hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs =

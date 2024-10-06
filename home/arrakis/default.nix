@@ -1,4 +1,13 @@
-{ inputs, lib, pkgs, config, outputs, catppuccin, ... }: {
+{
+  inputs,
+  lib,
+  pkgs,
+  config,
+  outputs,
+  catppuccin,
+  ...
+}:
+{
   imports = [
     inputs.nix-colors.homeManagerModule
     inputs.nixvim.homeManagerModules.nixvim
@@ -19,7 +28,7 @@
   };
 
   wayland.windowManager.hyprland.settings = {
-    monitor = [ "eDP-1, preferred, 0x1080, 1.2, bitdepth, 8" ];
+    monitor = [ "eDP-1, preferred, 0x1080, 1, bitdepth, 8" ];
     windowrulev2 = [
       "float, class:thunar"
       "move cursor -50% -50%, class:thunar"
@@ -27,7 +36,7 @@
     ];
   };
 
-  programs.kitty.settings.font_size = 8;
+  programs.kitty.settings.font_size = 12;
 
   home = {
     username = lib.mkDefault "naps62";
