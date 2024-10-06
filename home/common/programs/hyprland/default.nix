@@ -10,6 +10,8 @@ in
 
   home.packages = with pkgs; [
     hyprcursor
+    avizo
+    pamixer
   ];
 
   home.sessionVariables = {
@@ -81,6 +83,7 @@ in
       "exec-once" = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "eww daemon & eww -c $HOME/.config/eww open bar"
+        "avizo-service"
       ];
 
       "$mod" = "SUPER";
@@ -123,13 +126,15 @@ in
         "$mod, mouse_up, workspace, e-1"
 
         # media
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioRaiseVolume, exec, volumectl -u up"
+        ", XF86AudioLowerVolume, exec, volumectl -u down"
+        ", XF86AudioMute, exec, volumectl toggle-mute"
+        ", XF86AudioMicMute, exec, volumectl -m toggle-mute"
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"
         ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86MonBrightnessUp, exec, light -A 10"
-        ", XF86MonBrightnessDown, exec, light -U 10"
+        ", XF86MonBrightnessUp, exec, lightctl up"
+        ", XF86MonBrightnessDown, exec, lightctl down"
       ];
     };
   };
