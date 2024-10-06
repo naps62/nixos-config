@@ -14,7 +14,7 @@ in
     ../common/global
     ../common/features/networking.nix
     ../common/features/nvidia.nix
-    ../common/features/hyprland.nix
+    ../common/features/wayland.nix
     ../common/features/pipewire.nix
     ../common/features/docker.nix
     ../common/features/fonts.nix
