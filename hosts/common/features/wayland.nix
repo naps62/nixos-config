@@ -6,10 +6,6 @@ in
 {
   programs.hyprland.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    brightnessctl
-  ];
-
   services.greetd = {
     enable = true;
     settings = {

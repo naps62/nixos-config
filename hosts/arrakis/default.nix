@@ -12,6 +12,7 @@ in
   imports = [
     ./hardware-configuration.nix
     ../common/global
+    ../common/features/laptop.nix
     ../common/features/networking.nix
     ../common/features/nvidia.nix
     ../common/features/wayland.nix

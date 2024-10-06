@@ -3,7 +3,9 @@
   services.avizo = {
     enable = true;
     settings = {
-      time = 2.0;
+      default = {
+        time = 1.0;
+      };
     };
   };
 }

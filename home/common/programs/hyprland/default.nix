@@ -6,7 +6,7 @@ in
   imports = [
     ./rofi.nix
     ./dunst.nix
-    ./aviso.nix
+    ./avizo.nix
   ];
 
   home.packages = with pkgs; [
