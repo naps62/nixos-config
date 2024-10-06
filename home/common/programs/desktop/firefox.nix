@@ -1,23 +1,24 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-devedition.override {
+    package = pkgs.firefox.override {
       cfg.enableTridactylNative = true;
     };
+    nativeMessagingHosts.packages = [ pkgs.tridactyl-native ];
     policies = {
       DefaultDownloadDirectory = "$HOME/downloads/firefox";
     };
 
     profiles = {
       personal = {
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        extensions = with inputs.firefox-addons; [
           # privacy
-          clearurls
+          # clearurls
           decentraleyes
 
           # content/ad blocking
-          ublock-origi
+          ublock-origin
 
           # quality of life
           no-pdf-download
@@ -29,7 +30,7 @@
 
           # manual use
           tridactyl
-          bitwarden-password-manager
+          bitwarden
         ];
         settings = {
           # Performance settings

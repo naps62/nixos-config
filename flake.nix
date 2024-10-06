@@ -39,6 +39,7 @@
     };
     utils.url = "github:numtide/flake-utils";
     hardware.url = "github:NixOS/nixos-hardware/master";
+    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
   };
 
   outputs =
@@ -58,7 +59,9 @@
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = [ inputs.foundry.overlay ];
+          overlays = [
+            inputs.foundry.overlay
+          ];
         }
       );
 
