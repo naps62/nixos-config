@@ -18,7 +18,6 @@ in
     ../common/features/pipewire.nix
     ../common/features/docker.nix
     ../common/features/fonts.nix
-    ../common/features/syncthing.nix
   ];
 
   networking.hostName = "arrakis";
