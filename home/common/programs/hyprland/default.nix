@@ -87,7 +87,7 @@ in
 
       "exec-once" = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "eww daemon & eww -c $HOME/.config/eww open bar"
+        "eww daemon"
       ];
 
       windowrulev2 = [

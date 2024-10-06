@@ -26,4 +26,16 @@
     bruno
     bun
   ];
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Orchis";
+      package = pkgs.orchis-theme;
+    };
+    iconTheme = {
+      name = "tela";
+      package = pkgs.tela-icon-theme;
+    };
+  };
 }
