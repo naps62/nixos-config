@@ -1,9 +1,10 @@
 { pkgs, ... }:
 {
+  imports = [ ./firefox.nix ];
+
   home.packages = with pkgs; [
     # various
     google-chrome
-    firefox-devedition
     spotify
     spicetify-cli
     xfce.thunar

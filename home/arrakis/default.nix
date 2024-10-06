@@ -13,7 +13,7 @@
     inputs.nixvim.homeManagerModules.nixvim
     catppuccin.homeManagerModules.catppuccin
     ../common/programs/default.nix
-    ../common/programs/desktop.nix
+    ../common/programs/desktop
     ../common/programs/hyprland
     ../common/programs/eww
     ../common/programs/kitty.nix
