@@ -19,6 +19,7 @@
     ../common/programs/kitty.nix
     ../common/programs/syncthing.nix
     ../common/features/colorscheme.nix
+    ../common/features/xdg.nix
   ];
 
   home.sessionVariables = {
@@ -43,4 +44,5 @@
     username = lib.mkDefault "naps62";
     stateVersion = lib.mkDefault "24.05";
   };
+
 }
