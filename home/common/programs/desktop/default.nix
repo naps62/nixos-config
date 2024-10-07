@@ -17,6 +17,7 @@
     imv
     pavucontrol
     zathura
+    lxappearance
 
     # communication
     slack
@@ -36,7 +37,7 @@
       package = pkgs.orchis-theme;
     };
     iconTheme = {
-      name = "tela";
+      name = "Tela";
       package = pkgs.tela-icon-theme;
     };
   };

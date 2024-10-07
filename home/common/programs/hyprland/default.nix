@@ -18,7 +18,6 @@ in
 
   home.sessionVariables = {
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
-    XCURSOR_SIZE = 32;
   };
 
   xdg.configFile = {
@@ -85,6 +84,11 @@ in
         orientation = "center";
         no_gaps_when_only = true;
       };
+
+      env = [
+        "HYPRCURSOR_THEME, rose-pine-hyprcursor"
+        "HYPRCURSOR_SIZE, 24"
+      ];
 
       "exec-once" = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
