@@ -7,6 +7,7 @@ in
     ./rofi.nix
     ./dunst.nix
     ./avizo.nix
+    ./cursor.nix
   ];
 
   home.packages = with pkgs; [
