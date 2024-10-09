@@ -93,16 +93,16 @@
     in
     {
       nixosConfigurations = {
-        laptop = mkNixOS "laptop";
         arrakis = mkNixOS "arrakis";
+        trantor = mkNixOS "trantor";
         desktop = mkNixOS "desktop";
         pi = mkNixOS "pi";
         live = mkNixOS "live";
       };
 
       homeConfigurations = {
-        laptop = mkHome "laptop" x86;
         arrakis = mkHome "arrakis" x86;
+        trantor = mkHome "trantor" x86;
         desktop = mkHome "desktop" x86;
         pi = mkHome "pi" aarch64;
       };
