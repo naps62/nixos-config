@@ -12,6 +12,7 @@
       libertine
       fira-code
       fira-code-symbols
+      roboto
       (nerdfonts.override {
         fonts = [
           "FiraCode"
