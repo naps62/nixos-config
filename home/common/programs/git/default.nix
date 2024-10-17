@@ -27,6 +27,7 @@
       b = "better-branch";
       rb = "rebase";
       rbc = "rebase --continue";
+      w = "commit -am 'wip'";
     };
     extraConfig = {
       core = {
