@@ -1,3 +1,7 @@
-{pkgs,...}:{
-  home.packages = with pkgs; [rofi (callPackage ../../../../pkgs/rofi-launchers/package.nix {})];
-  }
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    rofi-wayland
+    (callPackage ../../../../pkgs/rofi-launchers/package.nix { })
+  ];
+}

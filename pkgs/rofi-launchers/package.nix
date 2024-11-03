@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchFromGitHub, rofi }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  rofi-wayland,
+}:
 
 stdenvNoCC.mkDerivation {
   name = "rofi-launchers";
@@ -10,14 +15,14 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-ZSosFsi/M5Gqb9gsUqS7hu89uOu9078Dus4Y+WCphZc=";
   };
 
-  buildInputs = [ rofi ];
+  buildInputs = [ rofi-wayland ];
 
   postPatch = ''
     files=$(find files/scripts -type l)
     for file in $files; do
       substituteInPlace $file \
         --replace-fail '$HOME/.config/rofi' "$out/share" \
-        --replace-fail "rofi " "${lib.getExe rofi} "
+        --replace-fail "rofi " "${lib.getExe rofi-wayland} "
     done
 
     files=$(find files/launchers -type f -name "*.rasi")
@@ -54,4 +59,3 @@ stdenvNoCC.mkDerivation {
     platforms = lib.platforms.linux;
   };
 }
-
