@@ -6,7 +6,6 @@ in
   imports = [
     ./rofi.nix
     ./dunst.nix
-    ./avizo.nix
     ./cursor.nix
   ];
 
@@ -14,14 +13,11 @@ in
     hyprcursor
     pamixer
     hyprshot
+    hyprpanel
   ];
 
   home.sessionVariables = {
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
-  };
-
-  xdg.configFile = {
-    "hypr/scripts".source = ./scripts;
   };
 
   wayland.windowManager.hyprland = {
@@ -92,7 +88,7 @@ in
 
       "exec-once" = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "eww daemon"
+        "hyprpanel"
       ];
 
       windowrulev2 = [
@@ -119,8 +115,6 @@ in
         "$mod, q, killactive"
         "$mod, f, fullscreen, 0"
         "$mod SHIFT, f, fullscreen, 1"
-
-        "$mod, d, exec, ~/.config/hypr/scripts/toggle-bar"
 
         # rofi
         "$mod, space, exec, launcher_t2"

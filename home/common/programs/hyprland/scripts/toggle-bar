@@ -1,7 +1,0 @@
-#!/usr/bin/env zsh
-
-if eww active-windows | grep bar; then
-  eww close bar
-else
-  eww open bar
-fi

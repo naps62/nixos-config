@@ -15,7 +15,6 @@
     ../common/programs/default.nix
     ../common/programs/desktop
     ../common/programs/hyprland
-    ../common/programs/eww
     ../common/programs/kitty.nix
     ../common/programs/syncthing.nix
     ../common/features/colorscheme.nix

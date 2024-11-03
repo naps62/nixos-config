@@ -41,6 +41,7 @@
     hardware.url = "github:NixOS/nixos-hardware/master";
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
   };
 
   outputs =
@@ -62,6 +63,7 @@
           config.allowUnfree = true;
           overlays = [
             inputs.foundry.overlay
+            inputs.hyprpanel.overlay
           ];
         }
       );

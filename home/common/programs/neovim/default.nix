@@ -8,6 +8,7 @@
     nixfmt-rfc-style
     biome
     stylua
+    neovide
   ];
 
   programs.nvchad = {
