@@ -58,6 +58,11 @@ in
         gaps_out = 0;
       };
 
+      monitor = [
+        "eDP-1, 1920x1080, 0x0, 1"
+        "DP-1, 1920x1080, auto, 1, mirror, eDP-1"
+      ];
+
       animations = {
         bezier = "easeOutQuad, 0.5, 1, 0.89, 1";
         animation = [

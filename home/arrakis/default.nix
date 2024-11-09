@@ -17,6 +17,7 @@
     ../common/programs/hyprland
     ../common/programs/kitty.nix
     ../common/programs/syncthing.nix
+    ../common/programs/gpg.nix
     ../common/features/colorscheme.nix
     ../common/features/xdg.nix
     ../common/features/bluetooth.nix
