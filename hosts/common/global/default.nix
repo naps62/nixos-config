@@ -30,4 +30,6 @@
       LC_TIME = "pt_PT.UTF-8";
     };
   };
+
+  services.dbus.packages = with pkgs; [ gcr ];
 }

@@ -4,9 +4,14 @@
     enable = true;
     rootless = {
       enable = true;
-      setSocketVariable = true;
+      setSocketVariable = false;
     };
   };
 
   users.groups.docker = { };
+
+  networking.firewall = {
+    enable = false;
+    # checkReversePath = false;
+  };
 }

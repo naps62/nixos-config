@@ -26,6 +26,7 @@
       ps = "procs";
       open = "xdg-open";
       o = "xdg-open";
+      v = "nohup neovide &; disown";
 
       # cd
       ".." = "cd ..";
@@ -65,6 +66,8 @@
 
       # asdf-vm
       . "$HOME/.nix-profile/share/asdf-vm/asdf.sh"
+
+      [[ -f ~/.secrets.zsh ]] && source ~/.secrets.zsh
     '';
   };
 

@@ -5,6 +5,9 @@ let
 in
 {
   programs.hyprland.enable = true;
+  environment.systemPackages = [
+    pkgs.wl-clipboard
+  ];
 
   services.greetd = {
     enable = true;

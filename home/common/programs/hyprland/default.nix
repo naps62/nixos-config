@@ -151,6 +151,12 @@ in
         "$mod SHIFT, 5, movetoworkspace, 5"
         "$mod SHIFT, 6, movetoworkspace, 6"
 
+        # Move active window inside workspace
+        "$mod SHIFT, h, movewindow, l"
+        "$mod SHIFT, j, movewindow, d"
+        "$mod SHIFT, k, movewindow, u"
+        "$mod SHIFT, l, movewindow, r"
+
         # Scroll through existing workspaces with mod + scroll
         "$mod, mouse_down, workspace, e+1"
         "$mod, mouse_up, workspace, e-1"
@@ -163,8 +169,14 @@ in
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"
         ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86MonBrightnessUp, exec, lightctl up"
-        ", XF86MonBrightnessDown, exec, lightctl down"
+        ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
+        ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+      ];
+
+      bindm = [
+        # Move/resize windows with mod + LMB/RMB and dragging
+        "$mod, mouse:272, movewindow"
+        "$mod, mouse:273, resizewindow"
       ];
     };
   };
