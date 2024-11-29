@@ -32,7 +32,8 @@ in
         };
 
         shadow = {
-          enabled = false;
+          range = 2;
+          render_power = 4;
         };
       };
 
@@ -55,14 +56,13 @@ in
 
       general = {
         border_size = 0;
-        gaps_in = 0;
+        gaps_in = 4;
         gaps_out = 0;
       };
 
       misc = {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
-        force_default_wallpaper = 0;
       };
 
       xwayland = {
@@ -191,7 +191,7 @@ in
   services.hyprpaper = {
     enable = true;
     settings = {
-      ipc = "off";
+      ipc = "on";
       splash = false;
     };
   };
