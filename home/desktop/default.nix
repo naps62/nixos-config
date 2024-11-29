@@ -21,7 +21,7 @@
     ../common/features/colorscheme.nix
     ../common/features/xdg.nix
     ../common/features/bluetooth.nix
-    ./wallpaper.nix
+    ./monitors.nix
   ];
 
   home.sessionVariables = {
