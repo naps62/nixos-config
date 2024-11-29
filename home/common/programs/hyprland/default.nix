@@ -31,9 +31,9 @@ in
           new_optimizations = "on";
         };
 
-        drop_shadow = "yes";
-        shadow_range = 2;
-        shadow_render_power = 1;
+        shadow = {
+          enabled = false;
+        };
       };
 
       input = {
@@ -54,14 +54,20 @@ in
       };
 
       general = {
-        gaps_in = 2;
+        border_size = 0;
+        gaps_in = 0;
         gaps_out = 0;
       };
 
-      monitor = [
-        "eDP-1, 1920x1080, 0x0, 1"
-        "DP-1, 1920x1080, auto, 1, mirror, eDP-1"
-      ];
+      misc = {
+        disable_hyprland_logo = true;
+        disable_splash_rendering = true;
+        force_default_wallpaper = 0;
+      };
+
+      xwayland = {
+        force_zero_scaling = true;
+      };
 
       animations = {
         bezier = "easeOutQuad, 0.5, 1, 0.89, 1";
@@ -79,14 +85,15 @@ in
 
       dwindle = {
         preserve_split = "yes";
-        no_gaps_when_only = true;
       };
+
       master = {
         orientation = "center";
-        no_gaps_when_only = true;
       };
 
       env = [
+        "GDK_SCALE, 2"
+        "XCURSOR_SIZE, 32"
         "HYPRCURSOR_THEME, rose-pine-hyprcursor"
         "HYPRCURSOR_SIZE, 24"
       ];
@@ -178,6 +185,14 @@ in
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
       ];
+    };
+  };
+
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      ipc = "off";
+      splash = false;
     };
   };
 }

@@ -21,6 +21,7 @@
     ../common/features/colorscheme.nix
     ../common/features/xdg.nix
     ../common/features/bluetooth.nix
+    ./wallpaper.nix
   ];
 
   home.sessionVariables = {
@@ -31,7 +32,6 @@
   };
 
   wayland.windowManager.hyprland.settings = {
-    monitor = [ "eDP-1, preferred, 0x1080, 1, bitdepth, 8" ];
     windowrulev2 = [
       "float, class:thunar"
       "move cursor -50% -50%, class:thunar"

@@ -93,6 +93,7 @@
     procs
     eza
     asdf-vm
+    fd
   ];
 
   home.sessionPath = [
