@@ -4,14 +4,15 @@
     rustup
     bacon
     mprocs
+    ra-multiplex
   ];
 
   home.sessionPath = [ "\${CARGO_HOME:-~/.cargo}/bin" ];
 
   systemd.user.services.ra-multiplex = {
     Service = {
-      ExecStart = "/home/naps62/.cargo/bin/ra-multiplex server";
+      ExecStart = "${pkgs.ra-multiplex}/bin/ra-multiplex server";
     };
-    Install.WantedBy = [ "multi-user.target" ];
+    Install.WantedBy = [ "default.target" ];
   };
 }
