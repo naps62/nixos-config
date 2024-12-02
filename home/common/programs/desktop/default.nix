@@ -18,6 +18,7 @@
     pavucontrol
     zathura
     lxappearance
+    networkmanagerapplet
 
     # communication
     slack
