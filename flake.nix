@@ -35,7 +35,7 @@
       flake = false;
     };
     foundry = {
-      url = "github:shazow/foundry.nix/monthly";
+      url = "github:shazow/foundry.nix";
     };
     utils.url = "github:numtide/flake-utils";
     hardware.url = "github:NixOS/nixos-hardware/master";
