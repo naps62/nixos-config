@@ -21,6 +21,7 @@
     ../common/features/colorscheme.nix
     ../common/features/xdg.nix
     ../common/features/bluetooth.nix
+    ./monitors.nix
   ];
 
   home.sessionVariables = {
@@ -31,11 +32,18 @@
   };
 
   wayland.windowManager.hyprland.settings = {
-    monitor = [ "eDP-1, preferred, 0x1080, 1, bitdepth, 8" ];
     windowrulev2 = [
+      # thunar
       "float, class:thunar"
       "move cursor -50% -50%, class:thunar"
       "size 800 600, class:thunar"
+
+      # ethui-dev
+      "workspace 1, class:ethui"
+      "float, class:ethui"
+      "size 800 800, class:ethui"
+      "move 100%-800 100%-800, class:ethui"
+      "noinitialfocus, class:ethui"
     ];
   };
 

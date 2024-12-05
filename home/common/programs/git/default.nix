@@ -30,6 +30,9 @@
       w = "commit -am 'wip'";
     };
     extraConfig = {
+      init = {
+        defaultBranch = "main";
+      };
       core = {
         editor = "nvim";
         pager = "delta";
