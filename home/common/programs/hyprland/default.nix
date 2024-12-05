@@ -31,10 +31,10 @@ in
           new_optimizations = "on";
         };
 
-        shadow = {
-          range = 2;
-          render_power = 4;
-        };
+        # shadow = {
+        #   range = 2;
+        #   render_power = 4;
+        # };
       };
 
       input = {

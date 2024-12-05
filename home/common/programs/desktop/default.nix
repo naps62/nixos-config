@@ -18,7 +18,11 @@
     pavucontrol
     zathura
     lxappearance
+
+    # networking
     networkmanagerapplet
+    mtr
+    dnsutils
 
     # communication
     slack
