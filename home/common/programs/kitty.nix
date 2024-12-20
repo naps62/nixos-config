@@ -10,8 +10,8 @@
       enabled_layouts = "tall, grid, fat, splits";
 
       # font
-      font_family = "FiraCode Nerd Font Regular";
-      bold_font = "FiraCode Nerd Font Bold";
+      font_family = "FiraCode Nerd Font Mono";
+      bold_font = "FiraCode Nerd Font Mono Bold";
       italic_font = "VictorMono Nerd Font Mono Oblique";
       bold_italic_font = "VictorMono Nerd Font Mono Bold Oblique";
       disable_ligatures = "cursor";
