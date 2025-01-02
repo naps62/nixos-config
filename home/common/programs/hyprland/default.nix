@@ -14,6 +14,7 @@ in
     pamixer
     hyprshot
     hyprpanel
+    playerctl
   ];
 
   home.sessionVariables = {
@@ -170,9 +171,9 @@ in
         "$mod, mouse_up, workspace, e-1"
 
         # media
-        ", XF86AudioRaiseVolume, exec, volumectl -u up"
-        ", XF86AudioLowerVolume, exec, volumectl -u down"
-        ", XF86AudioMute, exec, volumectl toggle-mute"
+        ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
+        ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
+        ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
         ", XF86AudioMicMute, exec, volumectl -m toggle-mute"
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"

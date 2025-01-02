@@ -18,6 +18,8 @@
     pavucontrol
     zathura
     lxappearance
+    xournalpp
+    jq
 
     # networking
     networkmanagerapplet
