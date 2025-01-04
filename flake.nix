@@ -18,7 +18,7 @@
     hyprland = {
       type = "git";
       url = "https://github.com/hyprwm/Hyprland.git";
-      ref = "refs/tags/v0.44.1";
+      ref = "refs/tags/v0.45.0";
       submodules = true;
     };
     nix-colors.url = "github:misterio77/nix-colors";
