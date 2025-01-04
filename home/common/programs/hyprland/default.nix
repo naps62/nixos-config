@@ -24,31 +24,14 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
-      decoration = {
-        blur = {
-          enabled = "yes";
-          size = 30;
-          passes = 1;
-          new_optimizations = "on";
-        };
-
-        # shadow = {
-        #   range = 2;
-        #   render_power = 4;
-        # };
-      };
-
       input = {
-        kb_layout = "us";
         kb_options = "ctrl:nocaps";
-        follow_mouse = 1;
         repeat_delay = 150;
-        repeat_rate = 25;
 
         touchpad = {
           natural_scroll = "yes";
         };
-        numlock_by_default = "true";
+        numlock_by_default = 2;
       };
 
       cursor = {
@@ -84,14 +67,6 @@ in
 
       };
 
-      dwindle = {
-        preserve_split = "yes";
-      };
-
-      master = {
-        orientation = "center";
-      };
-
       env = [
         "GDK_SCALE, 2"
         "XCURSOR_SIZE, 32"
@@ -122,6 +97,7 @@ in
       ];
 
       "$mod" = "SUPER";
+
       bind = [
         "$mod, t, exec, kitty"
         "$mod, e, exec, thunar"
@@ -170,16 +146,20 @@ in
         "$mod, mouse_down, workspace, e+1"
         "$mod, mouse_up, workspace, e-1"
 
-        # media
-        ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
-        ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
+      ];
+
+      bindel = [
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
+        ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+      ];
+      bindl = [
         ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
         ", XF86AudioMicMute, exec, volumectl -m toggle-mute"
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"
         ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
-        ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
       ];
 
       bindm = [
