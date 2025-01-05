@@ -4,10 +4,6 @@
   config,
   ...
 }:
-let
-  tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
-  hyprland-session = "${pkgs.hyprland}/share/wayland-sessions";
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -50,7 +46,7 @@ in
       let
         authorizedKeys = pkgs.fetchurl {
           url = "https://github.com/naps62.keys";
-          sha256 = "sha256-v0WtkeIENYjPnHjRUkhfKkEMTa/0DGF6qA6+jBsx+B0=";
+          sha256 = "sha256-xVrGO4Cultc3tPcnLFKLa98btLh7EAl3tLM1MTvwmn8=";
         };
       in
       pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);

@@ -10,15 +10,9 @@
     packages = with pkgs; [
       ubuntu_font_family
       libertine
-      fira-code
-      fira-code-symbols
+      nerd-fonts.fira-code
+      nerd-fonts.victor-mono
       roboto
-      (nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "VictorMono"
-        ];
-      })
     ];
 
     fontconfig = {

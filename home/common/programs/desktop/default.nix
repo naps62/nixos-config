@@ -18,6 +18,13 @@
     pavucontrol
     zathura
     lxappearance
+    xournalpp
+    jq
+
+    # networking
+    networkmanagerapplet
+    mtr
+    dnsutils
 
     # networking
     networkmanagerapplet
