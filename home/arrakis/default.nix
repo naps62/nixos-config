@@ -37,6 +37,10 @@
       "move cursor -50% -50%, class:thunar"
       "size 800 600, class:thunar"
     ];
+
+    env = [
+      "GDK_SCALE, 1.5"
+    ];
   };
 
   programs.kitty.settings.font_size = 12;
