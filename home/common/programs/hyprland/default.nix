@@ -92,7 +92,7 @@ in
       };
 
       env = [
-        "GDK_SCALE, 2"
+        "GDK_SCALE, 1.5"
         "XCURSOR_SIZE, 32"
         "HYPRCURSOR_THEME, rose-pine-hyprcursor"
         "HYPRCURSOR_SIZE, 24"
