@@ -46,6 +46,10 @@
       "move 100%-800 100%-800, class:ethui"
       "noinitialfocus, class:ethui"
     ];
+
+    env = [
+      "GDK_SCALE, 2"
+    ];
   };
 
   programs.kitty.settings.font_size = 12;

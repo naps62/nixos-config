@@ -68,7 +68,6 @@ in
       };
 
       env = [
-        "GDK_SCALE, 2"
         "XCURSOR_SIZE, 32"
         "HYPRCURSOR_THEME, rose-pine-hyprcursor"
         "HYPRCURSOR_SIZE, 24"

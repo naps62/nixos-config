@@ -13,7 +13,7 @@ in
 {
   wayland.windowManager.hyprland.settings = {
     monitor = [
-      "eDP-1, preferred, 0x0, auto, bitdepth, 8"
+      "eDP-1, preferred, 0x0, 1, bitdepth, 8"
     ];
   };
 

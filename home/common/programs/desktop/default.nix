@@ -26,6 +26,11 @@
     mtr
     dnsutils
 
+    # networking
+    networkmanagerapplet
+    mtr
+    dnsutils
+
     # communication
     slack
     zoom-us
