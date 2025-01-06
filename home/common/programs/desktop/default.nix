@@ -40,11 +40,11 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Orchis";
+      name = "Orchis-Dark-Compact";
       package = pkgs.orchis-theme;
     };
     iconTheme = {
-      name = "Tela";
+      name = "Tela black";
       package = pkgs.tela-icon-theme;
     };
   };

@@ -16,6 +16,7 @@
     ../common/programs/desktop
     ../common/programs/hyprland
     ../common/programs/kitty.nix
+    ../common/programs/ghostty.nix
     ../common/programs/syncthing.nix
     ../common/programs/gpg.nix
     ../common/features/colorscheme.nix
