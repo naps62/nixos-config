@@ -52,6 +52,38 @@
     ];
   };
 
+  programs.hyprpanel.layout = {
+    "bar.layouts" = {
+      "0" = {
+        "left" = [
+          "dashboard"
+          "workspaces"
+          "windowtitle"
+        ];
+        "middle" = [ "media" ];
+        "right" = [
+          "volume"
+          "network"
+          "bluetooth"
+          "systray"
+          "clock"
+          "notifications"
+        ];
+      };
+      "1" = {
+        "left" = [ ];
+        "middle" = [ ];
+        "right" = [ ];
+      };
+      "2" = {
+        "left" = [ ];
+        "middle" = [ ];
+        "right" = [ ];
+      };
+    };
+
+  };
+
   programs.kitty.settings.font_size = 12;
 
   home = {
