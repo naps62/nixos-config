@@ -7,13 +7,13 @@ in
     ./rofi.nix
     ./dunst.nix
     ./cursor.nix
+    ./hyprpanel.nix
   ];
 
   home.packages = with pkgs; [
     hyprcursor
     pamixer
     hyprshot
-    hyprpanel
     playerctl
   ];
 

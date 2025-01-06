@@ -9,6 +9,7 @@
 }:
 {
   imports = [
+    inputs.hyprpanel.homeManagerModules.hyprpanel
     inputs.nix-colors.homeManagerModule
     inputs.nixvim.homeManagerModules.nixvim
     catppuccin.homeManagerModules.catppuccin
