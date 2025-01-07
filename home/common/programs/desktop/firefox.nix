@@ -7,8 +7,9 @@
 
   programs.firefox = {
     enable = true;
+    package = pkgs.firefox-devedition;
     policies = {
-      DefaultDownloadDirectory = "$HOME/downloads/firefox";
+      DefaultDownloadDirectory = "$HOME/downloads";
       DontCheckDefaultBrowser = true;
       DisableTelemetry = true;
       DisablePocket = true;
@@ -53,15 +54,12 @@
     };
 
     profiles = {
-      personal = {
+      "dev-edition-default" = {
         isDefault = true;
         extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
           # privacy
           clearurls
           decentraleyes
-
-          # content/ad blocking
-          ublock-origin
 
           # quality of life
           no-pdf-download
@@ -72,7 +70,6 @@
           translate-web-pages
 
           # manual use
-          # tridactyl
           bitwarden
         ];
         settings = {

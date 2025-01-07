@@ -15,6 +15,7 @@ in
     pamixer
     hyprshot
     playerctl
+    hyprsunset
   ];
 
   home.sessionVariables = {
@@ -77,6 +78,7 @@ in
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "hyprpanel"
         "nm-applet"
+        "hyprsunset"
       ];
 
       windowrulev2 = [
