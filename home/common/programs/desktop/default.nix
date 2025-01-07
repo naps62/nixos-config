@@ -20,11 +20,8 @@
     lxappearance
     xournalpp
     jq
-
-    # networking
-    networkmanagerapplet
-    mtr
-    dnsutils
+    gpu-screen-recorder
+    gpu-screen-recorder-gtk
 
     # networking
     networkmanagerapplet
