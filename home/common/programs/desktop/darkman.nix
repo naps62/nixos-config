@@ -18,8 +18,5 @@
         /org/gnome/desktop/interface/color-scheme "'prefer-light'"
       '';
     };
-    settings = {
-      usegeoclue = true;
-    };
   };
 }

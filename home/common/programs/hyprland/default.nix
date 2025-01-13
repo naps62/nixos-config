@@ -7,7 +7,6 @@ in
     ./rofi.nix
     ./dunst.nix
     ./cursor.nix
-    ./darkman.nix
   ];
 
   home.packages = with pkgs; [
