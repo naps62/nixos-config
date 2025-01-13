@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  imports = [ ./firefox.nix ];
+  imports = [
+    ./firefox.nix
+    ./darkman.nix
+  ];
 
   home.packages = with pkgs; [
     # various
