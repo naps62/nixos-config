@@ -17,7 +17,6 @@
     };
     nix-colors.url = "github:misterio77/nix-colors";
     nixvim.url = "github:nix-community/nixvim";
-    catppuccin.url = "github:catppuccin/nix";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     nvchad4nix = {
       url = "github:nix-community/nix4nvchad";
@@ -48,7 +47,6 @@
       nixpkgs,
       home-manager,
       utils,
-      catppuccin,
       ...
     }@inputs:
     let
@@ -73,7 +71,6 @@
         nixpkgs.lib.nixosSystem {
           modules = [
             ./hosts/${name}
-            catppuccin.nixosModules.catppuccin
           ];
           specialArgs = {
             inherit inputs outputs;
@@ -86,7 +83,7 @@
           inherit pkgs;
           modules = [ ./home/${name} ];
           extraSpecialArgs = {
-            inherit inputs outputs catppuccin;
+            inherit inputs outputs;
           };
         };
     in

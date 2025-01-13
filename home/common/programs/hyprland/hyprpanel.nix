@@ -8,13 +8,13 @@
 
   programs.hyprpanel = {
     enable = true;
-
+    overlay.enable = true;
     systemd.enable = true;
     overwrite.enable = true;
 
     layout = {
       "bar.layouts" = {
-        "0" = {
+        "1" = {
           "left" = [
             "dashboard"
             "workspaces"
@@ -30,7 +30,7 @@
             "notifications"
           ];
         };
-        "1" = {
+        "0" = {
           "left" = [ ];
           "middle" = [ ];
           "right" = [ ];

@@ -4,20 +4,17 @@
   pkgs,
   config,
   outputs,
-  catppuccin,
   ...
 }:
 {
   imports = [
     inputs.nix-colors.homeManagerModule
     inputs.nixvim.homeManagerModules.nixvim
-    catppuccin.homeManagerModules.catppuccin
     ../common/programs/default.nix
     ../common/programs/desktop
     ../common/programs/hyprland
     ../common/programs/kitty.nix
     ../common/programs/syncthing.nix
-    ../common/features/colorscheme.nix
     ../common/features/xdg.nix
     ../common/features/bluetooth.nix
   ];
