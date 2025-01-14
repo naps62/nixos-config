@@ -4,7 +4,8 @@
     rustup
     bacon
     mprocs
-    ra-multiplex
+    pkg-config
+    openssl
   ];
 
   home.sessionPath = [ "\${CARGO_HOME:-~/.cargo}/bin" ];
