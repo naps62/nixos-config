@@ -23,8 +23,8 @@
     lxappearance
     xournalpp
     jq
-    gpu-screen-recorder
-    gpu-screen-recorder-gtk
+    kooha
+    ffmpeg
 
     # networking
     networkmanagerapplet
