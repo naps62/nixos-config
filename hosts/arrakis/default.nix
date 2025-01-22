@@ -17,6 +17,7 @@
     ../common/features/fonts.nix
     ../common/features/nix-ld.nix
     ../common/features/bluetooth.nix
+    ../common/features/ledger.nix
   ];
 
   networking.hostName = "arrakis";
