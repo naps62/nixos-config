@@ -13,32 +13,34 @@
     overwrite.enable = true;
 
     layout = {
-      "bar.layouts" = {
-        "1" = {
-          "left" = [
-            "dashboard"
-            "workspaces"
-            "windowtitle"
-          ];
-          "middle" = [ "media" ];
-          "right" = [
-            "volume"
-            "network"
-            "bluetooth"
-            "systray"
-            "clock"
-            "notifications"
-          ];
-        };
-        "0" = {
-          "left" = [ ];
-          "middle" = [ ];
-          "right" = [ ];
-        };
-        "2" = {
-          "left" = [ ];
-          "middle" = [ ];
-          "right" = [ ];
+      bar = {
+        layouts = {
+          "1" = {
+            "left" = [
+              "dashboard"
+              "workspaces"
+              "windowtitle"
+            ];
+            "middle" = [ "media" ];
+            "right" = [
+              "volume"
+              "network"
+              "bluetooth"
+              "systray"
+              "clock"
+              "notifications"
+            ];
+          };
+          "0" = {
+            "left" = [ ];
+            "middle" = [ ];
+            "right" = [ ];
+          };
+          "2" = {
+            "left" = [ ];
+            "middle" = [ ];
+            "right" = [ ];
+          };
         };
       };
     };

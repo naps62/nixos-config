@@ -6,6 +6,7 @@
     mprocs
     pkg-config
     openssl
+    taplo
   ];
 
   home.sessionPath = [ "\${CARGO_HOME:-~/.cargo}/bin" ];
