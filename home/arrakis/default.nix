@@ -4,6 +4,7 @@
   pkgs,
   config,
   outputs,
+  ...
 }:
 {
   imports = [
@@ -12,7 +13,6 @@
     ../common/programs/default.nix
     ../common/programs/desktop
     ../common/programs/hyprland
-    ../common/programs/kitty.nix
     ../common/programs/ghostty.nix
     ../common/programs/syncthing.nix
     ../common/programs/gpg.nix
@@ -40,11 +40,8 @@
     ];
   };
 
-  programs.kitty.settings.font_size = 12;
-
   home = {
     username = lib.mkDefault "naps62";
     stateVersion = lib.mkDefault "24.05";
   };
-
 }

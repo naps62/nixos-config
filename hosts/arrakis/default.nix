@@ -10,7 +10,7 @@
     ../common/global
     ../common/features/laptop.nix
     ../common/features/networking.nix
-    ../common/features/nvidia.nix
+    ../common/features/intel-graphics.nix
     ../common/features/wayland.nix
     ../common/features/pipewire.nix
     ../common/features/docker.nix
@@ -27,6 +27,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+    kernelParams = [ "i915=force_probe=46a6" ];
   };
 
   system.stateVersion = "24.05";
