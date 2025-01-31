@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   programs = {
     direnv = {
@@ -7,4 +12,6 @@
       nix-direnv.enable = true;
     };
   };
+
+  home.packages = with pkgs; [ imagemagick ];
 }

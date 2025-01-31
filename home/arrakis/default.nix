@@ -22,17 +22,20 @@
   ];
 
   home.sessionVariables = {
-    LIBVA_DRIVER_NAME = "nvidia";
+    # LIBVA_DRIVER_NAME = "nvidia";
     XDG_SESSION_TYPE = "wayland";
-    GDM_BACKEND = "nvidia-drm";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    # GDM_BACKEND = "nvidia-drm";
+    # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
   wayland.windowManager.hyprland.settings = {
     windowrulev2 = [
-      "float, class:thunar"
-      "move cursor -50% -50%, class:thunar"
-      "size 800 600, class:thunar"
+      # ethui-dev
+      "workspace 2 silent, class:ethui"
+      "float, class:ethui"
+      "size 800 800, class:ethui"
+      "move 100%-800 100%-800, class:ethui"
+      "noinitialfocus, class:ethui"
     ];
 
     env = [

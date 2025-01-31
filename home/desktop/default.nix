@@ -32,11 +32,6 @@
 
   wayland.windowManager.hyprland.settings = {
     windowrulev2 = [
-      # thunar
-      "float, class:thunar"
-      "move cursor -50% -50%, class:thunar"
-      "size 800 600, class:thunar"
-
       # ethui-dev
       "workspace 1, class:ethui"
       "float, class:ethui"

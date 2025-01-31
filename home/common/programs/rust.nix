@@ -7,6 +7,7 @@
     pkg-config
     openssl
     taplo
+    sccache
   ];
 
   home.sessionPath = [ "\${CARGO_HOME:-~/.cargo}/bin" ];

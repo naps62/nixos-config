@@ -95,6 +95,11 @@ in
         "float, class:pavucontrol"
         "move cursor -50% -50%, class:pavucontrol"
         "size 600 600, class:pavucontrol"
+
+        # thunar
+        "float, class:thunar"
+        "move cursor -50% -50%, class:thunar"
+        "size 800 600, class:thunar"
       ];
 
       "$mod" = "SUPER";
