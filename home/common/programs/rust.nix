@@ -5,17 +5,17 @@
     bacon
     mprocs
     pkg-config
-    openssl
+    openssl.dev
     taplo
     sccache
   ];
 
   home.sessionPath = [ "\${CARGO_HOME:-~/.cargo}/bin" ];
 
-  systemd.user.services.ra-multiplex = {
-    Service = {
-      ExecStart = "${pkgs.ra-multiplex}/bin/ra-multiplex server";
-    };
-    Install.WantedBy = [ "default.target" ];
-  };
+  # systemd.user.services.ra-multiplex = {
+  #   Service = {
+  #     ExecStart = "${pkgs.ra-multiplex}/bin/ra-multiplex server";
+  #   };
+  #   Install.WantedBy = [ "default.target" ];
+  # };
 }
