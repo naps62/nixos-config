@@ -18,4 +18,10 @@
   #   };
   #   Install.WantedBy = [ "default.target" ];
   # };
+
+  home.sessionVariables = {
+    OPENSSL_DIR = "${pkgs.openssl.dev}";
+    OPENSSL_LIB_DIR = "${pkgs.openssl.out}/lib";
+    OPENSSL_INCLUDE_DIR = "${pkgs.openssl.dev}/include";
+  };
 }
