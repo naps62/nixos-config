@@ -14,11 +14,13 @@ in
   wayland.windowManager.hyprland.settings = {
     monitor = [
       "eDP-1, preferred, 0x0, 1, bitdepth, 8"
+      "DP-1, preferred, -320x-1440, 1"
     ];
   };
 
   services.hyprpaper.settings.preload = [ (builtins.toString wallpaper1) ];
   services.hyprpaper.settings.wallpaper = [
     "eDP-1,${builtins.toString wallpaper1}"
+    "DP-1,${builtins.toString wallpaper1}"
   ];
 }

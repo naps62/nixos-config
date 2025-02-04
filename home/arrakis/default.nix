@@ -26,11 +26,6 @@
   };
 
   wayland.windowManager.hyprland.settings = {
-    monitor = [
-      "eDP-1, 1920x1200, 0x0, 1"
-      "DP-1, preferred, -320x-1200, 1"
-    ];
-
     workspace = [
       "1, monitor:DP-1"
       "2, monitor:eDP-1"
