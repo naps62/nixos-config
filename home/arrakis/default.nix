@@ -22,25 +22,61 @@
   ];
 
   home.sessionVariables = {
-    # LIBVA_DRIVER_NAME = "nvidia";
     XDG_SESSION_TYPE = "wayland";
-    # GDM_BACKEND = "nvidia-drm";
-    # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
   wayland.windowManager.hyprland.settings = {
+    monitor = [
+      "eDP-1, 1920x1200, 0x0, 1"
+      "DP-1, preferred, -320x-1200, 1"
+    ];
+
+    workspace = [
+      "1, monitor:DP-1"
+      "2, monitor:eDP-1"
+      "3, monitor:eDP-1"
+      "4, monitor:eDP-1"
+    ];
+
     windowrulev2 = [
       # ethui-dev
-      "workspace 2 silent, class:ethui"
-      "float, class:ethui"
-      "size 800 800, class:ethui"
-      "move 100%-800 100%-800, class:ethui"
-      "noinitialfocus, class:ethui"
+      # "workspace 2 silent, class:ethui"
+      # "float, class:ethui"
+      # "size 800 800, class:ethui"
+      # "move 100%-800 100%-800, class:ethui"
+      # "noinitialfocus, class:ethui"
     ];
 
     env = [
       "GDK_SCALE, 1.5"
     ];
+  };
+
+  programs.hyprpanel.layout = {
+    "bar.layouts" = {
+      "0" = {
+        "left" = [
+          "dashboard"
+          "workspaces"
+          "windowtitle"
+        ];
+        "middle" = [ "media" ];
+        "right" = [
+          "volume"
+          "network"
+          "power"
+          "bluetooth"
+          "systray"
+          "clock"
+          "notifications"
+        ];
+      };
+      "*" = {
+        "left" = [ ];
+        "middle" = [ ];
+        "right" = [ ];
+      };
+    };
   };
 
   home = {
