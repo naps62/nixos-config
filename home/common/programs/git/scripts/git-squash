@@ -1,6 +1,8 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
 
-branch=$(git branchname)
+set -e
+
+branch=$(git rev-parse --abbrev-ref HEAD)
 base="$1"
 shift
 

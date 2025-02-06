@@ -35,7 +35,6 @@
       # ethui-dev
       "workspace 1, class:ethui"
       "float, class:ethui"
-      "size 800 800, class:ethui"
       "move 100%-800 100%-800, class:ethui"
       "noinitialfocus, class:ethui"
     ];

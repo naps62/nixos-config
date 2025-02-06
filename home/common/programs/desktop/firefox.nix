@@ -2,7 +2,7 @@
 {
 
   home.sessionVariables = {
-    BROWSER = "firefox";
+    BROWSER = "google-chrome-stable";
   };
 
   programs.firefox = {
