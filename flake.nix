@@ -59,6 +59,7 @@
           overlays = [
             inputs.foundry.overlay
             inputs.hyprpanel.overlay
+            # inputs.neovim-nightly-overlay.overlays.default
           ];
         }
       );

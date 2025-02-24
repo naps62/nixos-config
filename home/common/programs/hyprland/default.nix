@@ -41,8 +41,11 @@ in
 
       general = {
         border_size = 0;
-        gaps_in = 4;
+        gaps_in = 0;
         gaps_out = 0;
+        snap = {
+          border_overlap = true;
+        };
       };
 
       misc = {
@@ -52,6 +55,12 @@ in
 
       xwayland = {
         force_zero_scaling = true;
+      };
+
+      decoration = {
+        shadow = {
+          enabled = false;
+        };
       };
 
       animations = {
@@ -116,7 +125,7 @@ in
         "$mod, space, exec, launcher_t2"
 
         # printscreen
-        ", Print, exec, hyprshot -m region --output-folder ~/screenshots"
+        ", Print, exec, hyprshot -m region --output-folder ~/downloads/screenshots"
         "SHIFT, Print, exec, hyprshot -m window --output-folder ~/screenshots"
 
         # move focus with mod + arrows
