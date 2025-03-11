@@ -65,5 +65,15 @@
   xdg.configFile = {
     "git/scripts".source = ./scripts;
   };
-  programs.gh.enable = true;
+  programs.gh = {
+    enable = true;
+
+    settings = {
+      aliases = {
+        co = "pr checkout";
+        ls = "pr list";
+        pv = "pr view";
+      };
+    };
+  };
 }
