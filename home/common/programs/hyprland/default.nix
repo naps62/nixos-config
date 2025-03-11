@@ -40,12 +40,15 @@ in
       };
 
       general = {
-        border_size = 0;
+        border_size = 1;
         gaps_in = 0;
         gaps_out = 0;
         snap = {
           border_overlap = true;
         };
+
+        "col.inactive_border" = "0x99999999";
+        "col.active_border" = "0x99999999";
       };
 
       misc = {
