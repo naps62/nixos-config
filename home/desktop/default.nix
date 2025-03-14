@@ -13,6 +13,7 @@
     ../common/programs/default.nix
     ../common/programs/desktop
     ../common/programs/hyprland
+    ../common/programs/gnome-shell
     ../common/programs/kitty.nix
     ../common/programs/ghostty.nix
     ../common/programs/syncthing.nix
@@ -20,6 +21,7 @@
     ../common/features/xdg.nix
     ../common/features/bluetooth.nix
     ../common/features/ledger.nix
+    ../common/features/unity.nix
     ./monitors.nix
   ];
 

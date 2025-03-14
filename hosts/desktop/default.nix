@@ -11,6 +11,7 @@
     ../common/features/networking.nix
     ../common/features/nvidia.nix
     ../common/features/wayland.nix
+    ../common/features/xorg.nix
     ../common/features/pipewire.nix
     ../common/features/docker.nix
     ../common/features/fonts.nix

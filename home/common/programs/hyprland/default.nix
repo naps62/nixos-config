@@ -61,6 +61,9 @@ in
       };
 
       decoration = {
+        blur = {
+          enabled = false;
+        };
         shadow = {
           enabled = false;
         };
@@ -112,6 +115,20 @@ in
         "float, class:thunar"
         "move cursor -50% -50%, class:thunar"
         "size 800 600, class:thunar"
+
+        # metamask
+        "float, class:chrome-nkbihfbeogaeaoehlefnkodbefgpgknn-.*"
+
+        # unity
+        "minsize 230 200, initialTitle:(UnityEditor.AddComponent.AddComponentWindow)"
+        "minsize 300 200, initialTitle:(UnityEditor.IMGUI.Controls.AdvancedDropdownWindow)"
+        "minsize 230 200, initialTitle:(UnityEditor.Rendering.FilterWindow)"
+        "minsize 300 200, initialTitle:(UnityEditor.LayerVisibilityWindow)"
+        "minsize 230 500, initialTitle:(UnityEditor.AnnotationWindow)"
+        "minsize 150 300, initialTitle:(UnityEditor.PopupWindow)"
+        "minsize 500 350, initialTitle:(Select Preset...)"
+        "minsize 300 100, initialTitle:(UnityEditor.Snap.GridSettingsWindow)"
+        "minsize 500 500, initialTitle:(UnityEngine.InputSystem.Editor.AdvancedDropdownWindow) "
       ];
 
       "$mod" = "SUPER";
