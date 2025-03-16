@@ -40,6 +40,11 @@
       # "size 800 800, class:ethui"
       # "move 100%-800 100%-800, class:ethui"
       # "noinitialfocus, class:ethui"
+
+      "noinitialfocus, class:bevy-.*"
+      "float, class:bevy-.*"
+      "size 800 600, class:bevy-.*"
+      "move 100%-800 100%-600, class:bevy-.*"
     ];
 
     env = [
