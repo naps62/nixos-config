@@ -52,6 +52,8 @@
       "minsize 500 500, initialTitle:(UnityEngine.InputSystem.Editor.AdvancedDropdownWindow) "
       "move 50% 90%, title:^Unity$, onworkspace:2"
       "noinitialfocus, title:^Unity$, onworkspace:2"
+
+      "workspace 1 silent, class:bevy-.*"
     ];
 
     env = [
