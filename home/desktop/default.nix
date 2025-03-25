@@ -68,7 +68,7 @@
 
   programs.hyprpanel.layout = {
     "bar.layouts" = {
-      "1" = {
+      "0" = {
         "left" = [
           "dashboard"
           "workspaces"
