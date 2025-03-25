@@ -20,11 +20,12 @@
     imv
     pavucontrol
     zathura
-    lxappearance
+    nwg-look
     xournalpp
     jq
     kooha
     ffmpeg
+    unzip
 
     # networking
     networkmanagerapplet
@@ -41,6 +42,10 @@
     ferdium
     bruno
     bun
+
+    # themes
+    tela-icon-theme
+    papirus-icon-theme
   ];
 
   gtk = {
