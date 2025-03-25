@@ -13,7 +13,6 @@
     ../common/programs/default.nix
     ../common/programs/desktop
     ../common/programs/hyprland
-    ../common/programs/gnome-shell.nix
     ../common/programs/kitty.nix
     ../common/programs/ghostty.nix
     ../common/programs/syncthing.nix
@@ -21,7 +20,6 @@
     ../common/features/xdg.nix
     ../common/features/bluetooth.nix
     ../common/features/ledger.nix
-    ../common/features/unity.nix
     ./monitors.nix
   ];
 
@@ -40,20 +38,8 @@
       "move 100%-800 100%-800, class:ethui"
       "noinitialfocus, class:ethui"
 
-      # unity
-      "minsize 230 200, initialTitle:(UnityEditor.AddComponent.AddComponentWindow)"
-      "minsize 300 200, initialTitle:(UnityEditor.IMGUI.Controls.AdvancedDropdownWindow)"
-      "minsize 230 200, initialTitle:(UnityEditor.Rendering.FilterWindow)"
-      "minsize 300 200, initialTitle:(UnityEditor.LayerVisibilityWindow)"
-      "minsize 230 500, initialTitle:(UnityEditor.AnnotationWindow)"
-      "minsize 150 300, initialTitle:(UnityEditor.PopupWindow)"
-      "minsize 500 350, initialTitle:(Select Preset...)"
-      "minsize 300 100, initialTitle:(UnityEditor.Snap.GridSettingsWindow)"
-      "minsize 500 500, initialTitle:(UnityEngine.InputSystem.Editor.AdvancedDropdownWindow) "
-      "move 50% 90%, title:^Unity$, onworkspace:2"
-      "noinitialfocus, title:^Unity$, onworkspace:2"
-
       "workspace 1 silent, class:bevy-.*"
+      "noinitialfocus, class:bevy-.*"
     ];
 
     env = [

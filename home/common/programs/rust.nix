@@ -8,9 +8,26 @@
     openssl.dev
     taplo
     sccache
+    mold-wrapped
+    clang
   ];
 
   home.sessionPath = [ "\${CARGO_HOME:-~/.cargo}/bin" ];
+
+  home.file.".cargo/config.toml".text = ''
+    [target.x86_64-unknown-linux-gnu]
+    linker = "clang"
+    rustflags = ["-C", "link-arg=-fuse-ld=mold"]
+
+    [build]
+    rustflags = ["-Z", "threads=12"]
+
+    # [unstable]
+    # codegen-backend = true
+    #
+    # [profile.dev]
+    # codegen-backend = "cranelift"
+  '';
 
   # systemd.user.services.ra-multiplex = {
   #   Service = {
