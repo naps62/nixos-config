@@ -32,7 +32,7 @@ in
         touchpad = {
           natural_scroll = "yes";
         };
-        numlock_by_default = 2;
+        numlock_by_default = true;
       };
 
       cursor = {
@@ -72,13 +72,13 @@ in
       animations = {
         bezier = "easeOutQuad, 0.5, 1, 0.89, 1";
         animation = [
-          "windows, 1, 4, easeOutQuad"
+          "windows, 1, 2, easeOutQuad"
           "windowsMove, 1, 1, easeOutQuad"
-          "windowsOut, 1, 4, default, popin 80%"
-          "border, 1, 4, default"
-          "borderangle, 1, 4, default"
-          "fade, 1, 4, default"
-          "workspaces, 1, 3, default"
+          "windowsOut, 1, 2, default, popin 80%"
+          "border, 1, 2, default"
+          "borderangle, 1, 2, default"
+          "fade, 1, 2, default"
+          "workspaces, 1, 2, default"
         ];
 
       };
@@ -118,6 +118,9 @@ in
 
         # metamask
         "float, class:chrome-nkbihfbeogaeaoehlefnkodbefgpgknn-.*"
+
+        # bitwarden
+        "float, class:chrome-nngceckbapebfimnlniiiahkandclblb-.*"
       ];
 
       "$mod" = "SUPER";
