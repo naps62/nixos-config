@@ -34,13 +34,6 @@
     ];
 
     windowrulev2 = [
-      # ethui-dev
-      # "workspace 2 silent, class:ethui"
-      # "float, class:ethui"
-      # "size 800 800, class:ethui"
-      # "move 100%-800 100%-800, class:ethui"
-      # "noinitialfocus, class:ethui"
-
       "noinitialfocus, class:bevy-.*"
       "float, class:bevy-.*"
       "size 800 600, class:bevy-.*"

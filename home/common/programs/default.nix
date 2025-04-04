@@ -4,10 +4,12 @@
     ./zsh.nix
     ./neovim
     ./rust.nix
+    ./elixir.nix
     ./nodejs.nix
     ./git
     ./solidity.nix
     ./dev.nix
+    ./aider.nix
   ];
 
   programs = {

@@ -14,7 +14,7 @@ in
   wayland.windowManager.hyprland.settings = {
     monitor = [
       "eDP-1, preferred, 0x0, 1, bitdepth, 8"
-      "DP-3, preferred, -320x-1440, 1"
+      "DP-3, preferred, 0x-2160, 1.2"
       # "DP-3, 1920x1200, 0x0, 1, mirror, eDP-1"
     ];
   };
