@@ -40,7 +40,7 @@
 
     # dev tools
     ferdium
-    bruno
+    yaak
     bun
 
     # themes
