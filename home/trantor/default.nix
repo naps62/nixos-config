@@ -13,7 +13,6 @@
     ../common/programs/default.nix
     ../common/programs/desktop
     ../common/programs/hyprland
-    ../common/programs/kitty.nix
     ../common/programs/syncthing.nix
     ../common/features/xdg.nix
     ../common/features/bluetooth.nix
@@ -34,8 +33,6 @@
       "size 800 600, class:thunar"
     ];
   };
-
-  programs.kitty.settings.font_size = 12;
 
   home = {
     username = lib.mkDefault "naps62";

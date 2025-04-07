@@ -13,7 +13,6 @@
     ../common/programs/default.nix
     ../common/programs/desktop
     ../common/programs/hyprland
-    ../common/programs/kitty.nix
     ../common/programs/ghostty.nix
     ../common/programs/syncthing.nix
     ../common/programs/gpg.nix
@@ -38,10 +37,9 @@
       "move 100%-800 100%-800, class:ethui"
       "noinitialfocus, class:ethui"
 
-      "workspace 1 silent, class:bevy-.*"
+      "workspace 3 silent, class:bevy-.*"
       "noinitialfocus, class:bevy-.*"
-      "float, class:bevy-.*"
-      "size 800 800, class:bevy-.*"
+      "fullscreen, class:bevy-.*"
     ];
 
     env = [
@@ -92,8 +90,6 @@
       };
     };
   };
-
-  programs.kitty.settings.font_size = 12;
 
   home = {
     username = lib.mkDefault "naps62";

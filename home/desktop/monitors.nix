@@ -6,27 +6,42 @@
 }:
 let
   wallpaper1 = pkgs.fetchurl {
-    url = "https://4kwallpapers.com/images/wallpapers/abstract-design-3840x2160-17068.jpg";
-    hash = "sha256-F/XE/ETwzYwtbQWXY78c2AJc8xe2mRunB8Q9/c2F7kY=";
+    url = "https://images.hdqwalls.com/download/black-red-square-rectangle-rq-3840x2160.jpg";
+    hash = "sha256-ZWJKHHye6Ukjd+v4bwmidJim4z+6woM8e7n3bExf6kc=";
+  };
+  wallpaper2 = pkgs.fetchurl {
+    url = "https://images.hdqwalls.com/download/metals-shapes-abstract-8k-8c-3840x2160.jpg";
+    hash = "sha256-EYG89NfMjylnNXNFtmEYYjEFq/j22ORvnw/OTcY0BVs=";
+  };
+  wallpaper-vertical = pkgs.fetchurl {
+    url = "https://images.hdqwalls.com/download/horizon-zero-dawn-abstract-m2-2160x3840.jpg";
+    hash = "sha256-zwMnHigZhqeDSrtpyxC0hpn8p9Z7bI8tXx/uNxhSa60=";
   };
 in
 {
   wayland.windowManager.hyprland.settings = {
     monitor = [
-      "DP-1, preferred, 0x0, auto, bitdepth, 8"
-      "HDMI-A-1, preferred, 2560x0, auto, bitdepth, 8"
+      # monitor, res,       position, scale, transform, rotation
+      "HDMI-A-1, 3840x2160, 0x1620,   1.333333"
+      "DP-3,     3840x2160, 0x0,      1.333333"
+      "DP-2,     3840x2160, 2880x0,   1.333333,   transform, 1"
     ];
     workspace = [
-      "1, monitor=HDMI-A-1"
-      "2, monitor=DP-1"
-      "3, monitor=DP-1"
-      "4, monitor=DP-1"
+      "1, monitor=DP-3"
+      "2, monitor=DP-2"
+      "3, monitor=HDMI-A-1"
+      "4, monitor=DP-3"
     ];
   };
 
-  services.hyprpaper.settings.preload = [ (builtins.toString wallpaper1) ];
+  services.hyprpaper.settings.preload = [
+    (builtins.toString wallpaper1)
+    (builtins.toString wallpaper2)
+    (builtins.toString wallpaper-vertical)
+  ];
   services.hyprpaper.settings.wallpaper = [
-    "DP-1,${builtins.toString wallpaper1}"
     "HDMI-A-1,${builtins.toString wallpaper1}"
+    "DP-3,${builtins.toString wallpaper2}"
+    "DP-2,${builtins.toString wallpaper-vertical}"
   ];
 }
