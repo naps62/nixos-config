@@ -17,5 +17,7 @@
     imagemagick
     doctl
     aider-chat
+    inotify-tools
+    devenv
   ];
 }

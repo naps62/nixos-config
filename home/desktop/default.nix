@@ -12,6 +12,7 @@
     inputs.nixvim.homeManagerModules.nixvim
     ../common/programs/default.nix
     ../common/programs/desktop
+    ../common/programs/zen-browser.nix
     ../common/programs/hyprland
     ../common/programs/ghostty.nix
     ../common/programs/syncthing.nix

@@ -69,6 +69,7 @@
 
       [[ -f ~/.secrets.zsh ]] && source ~/.secrets.zsh
 
+      export PATH="$HOME/.bin:$PATH"
       # export PKG_CONFIG_PATH=$(nix eval --raw nixpkgs.openssl.dev)/lib/pkgconfig:$PKG_CONFIG_PATH
       # export LIBRARY_PATH=$(nix eval --raw nixpkgs.openssl.dev)/lib:$LIBRARY_PATH
       # export LD_LIBRARY_PATH=$(nix eval --raw nixpkgs.openssl.dev)/lib:$LD_LIBRARY_PATH

@@ -6,8 +6,12 @@
     modesetting.enable = true;
     open = false;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   programs.xwayland.enable = true;
+
+  environment.variables = {
+    "WEBKIT_DISABLE_DMABUF_RENDERER" = "1";
+  };
 }
