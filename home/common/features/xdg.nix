@@ -19,10 +19,10 @@
       defaultApplications = {
         # web
         "text/html" = "google-chrome.desktop";
-        "x-scheme-handler/http" = "google-chrome.desktop";
-        "x-scheme-handler/https" = "google-chrome.desktop";
-        "x-scheme-handler/avbout" = "google-chrome.desktop";
-        "x-scheme-handler/unknown" = "google-chrome.desktop";
+        "x-scheme-handler/http" = "zen-twilight.desktop";
+        "x-scheme-handler/https" = "zen-twilight.desktop";
+        "x-scheme-handler/avbout" = "zen-twilight.desktop";
+        "x-scheme-handler/unknown" = "zen-twilight.desktop";
 
         # video
         "video/mp4" = "mpv.desktop";
@@ -36,11 +36,11 @@
         "image/png" = "imv.desktop";
 
         # pdfs
-        "application/pdf" = "zathura.pdf";
-        "application/fdf" = "zathura.pdf";
-        "application/pdx" = "zathura.pdf";
-        "application/x-pdf" = "zathura.pdf";
-        "application/xfdf" = "zathura.pdf";
+        "application/pdf" = "org.pwmt.zathura.desktop";
+        "application/fdf" = "org.pwmt.zathura.desktop";
+        "application/pdx" = "org.pwmt.zathura.desktop";
+        "application/x-pdf" = "org.pwmt.zathura.desktop";
+        "application/xfdf" = "org.pwmt.zathura.desktop";
 
         # files
         "inode/directory" = "thunar.desktop";
