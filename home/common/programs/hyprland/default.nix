@@ -16,6 +16,8 @@ in
     hyprshot
     playerctl
     hyprsunset
+    hypridle
+    hyprlock
   ];
 
   home.sessionVariables = {
