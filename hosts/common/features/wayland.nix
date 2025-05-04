@@ -9,11 +9,18 @@ in
     pkgs.wl-clipboard
   ];
 
+  environment.etc."greetd/sessions/i3.desktop".text = ''
+    [Desktop Entry]
+    Name=i3
+    Exec=i3
+    Type=Application
+  '';
+
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "${tuigreet} --time --remember --remember-session --sessions ${hyprland-session}";
+        command = "${tuigreet} --time --remember --remember-session --sessions ${hyprland-session} --xsessions /etc/greetd/sessions/i3.desktop";
         user = "greeter";
       };
     };
