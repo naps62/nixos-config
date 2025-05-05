@@ -19,5 +19,6 @@
     aider-chat
     inotify-tools
     devenv
+    bruno
   ];
 }

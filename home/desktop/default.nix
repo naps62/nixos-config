@@ -34,8 +34,6 @@
     windowrulev2 = [
       # ethui-dev
       "workspace 1, class:ethui"
-      "float, class:ethui"
-      "move 100%-800 100%-800, class:ethui"
       "noinitialfocus, class:ethui"
 
       "workspace 3 silent, class:bevy-.*"
@@ -66,7 +64,7 @@
     };
   };
 
-  programs.hyprpanel.layout = {
+  programs.hyprpanel.settings.layout = {
     "bar.layouts" = {
       "0" = {
         "left" = [
