@@ -20,5 +20,6 @@
     inotify-tools
     devenv
     # bruno
+    zed-editor
   ];
 }

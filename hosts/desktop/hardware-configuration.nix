@@ -20,6 +20,7 @@
     "ahci"
     "nvme"
     "thunderbolt"
+    "virtio-pci"
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
@@ -31,8 +32,10 @@
   };
 
   boot.initrd.luks.devices = {
-    "luks-51347cdc-de81-4132-b21c-f1d089e387eb".device = "/dev/disk/by-uuid/51347cdc-de81-4132-b21c-f1d089e387eb";
-    "luks-9ffb64c6-54c2-46f2-9df5-e42c33a52d1a".device = "/dev/disk/by-uuid/9ffb64c6-54c2-46f2-9df5-e42c33a52d1a";
+    "luks-51347cdc-de81-4132-b21c-f1d089e387eb".device =
+      "/dev/disk/by-uuid/51347cdc-de81-4132-b21c-f1d089e387eb";
+    "luks-9ffb64c6-54c2-46f2-9df5-e42c33a52d1a".device =
+      "/dev/disk/by-uuid/9ffb64c6-54c2-46f2-9df5-e42c33a52d1a";
   };
 
   fileSystems."/boot" = {
