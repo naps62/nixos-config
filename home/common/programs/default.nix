@@ -10,6 +10,7 @@
     ./solidity.nix
     ./dev.nix
     ./aider.nix
+    ./cpp.nix
   ];
 
   programs = {

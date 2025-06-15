@@ -40,6 +40,10 @@
     };
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell?ref=v0.1.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
