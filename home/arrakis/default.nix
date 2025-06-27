@@ -22,10 +22,6 @@
     ./monitors.nix
   ];
 
-  home.sessionVariables = {
-    XDG_SESSION_TYPE = "wayland";
-  };
-
   wayland.windowManager.hyprland.settings = {
     workspace = [
       "1, monitor:DP-3"

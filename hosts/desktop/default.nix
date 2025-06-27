@@ -12,6 +12,7 @@
     ../common/features/nvidia.nix
     ../common/features/wayland.nix
     ../common/features/x11.nix
+    ../common/features/greetd.nix
     ../common/features/pipewire.nix
     ../common/features/docker.nix
     ../common/features/fonts.nix
