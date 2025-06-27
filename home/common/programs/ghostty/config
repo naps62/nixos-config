@@ -1,6 +1,6 @@
 # style
 theme = catppuccin-mocha
-window-decoration = false
+# window-decoration = false
 window-padding-x = 0
 window-padding-y = 0
 window-padding-color = extend

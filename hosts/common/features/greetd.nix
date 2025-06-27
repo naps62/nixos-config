@@ -48,7 +48,7 @@ in
         *) export XDG_SESSION_TYPE=x11; export DISPLAY=:0 ;;
       esac
 
-      exec "$1"
+      exec ${pkgs.dbus}/bin/dbus-run-session "$1"
     '';
     mode = "0755";
   };
