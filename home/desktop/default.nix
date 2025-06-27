@@ -66,7 +66,7 @@
     };
   };
 
-  programs.hyprpanel.layout = {
+  programs.hyprpanel.settings.layout = {
     "bar.layouts" = {
       "0" = {
         "left" = [

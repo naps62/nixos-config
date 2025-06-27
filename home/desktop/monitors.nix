@@ -29,10 +29,11 @@ in
       "DP-2,     3840x2160, 2880x180,   1.333333,   transform, 1"
     ];
     workspace = [
-      "1, monitor=DP-3"
-      "2, monitor=DP-2"
-      "3, monitor=HDMI-A-1"
-      "4, monitor=DP-3"
+      "1, monitor=DP-2"
+      "2, monitor=DP-3"
+      "3, monitor=DP-2"
+      "4, monitor=HDMI-A-1"
+      "5, monitor=HDMI-A-1"
     ];
   };
 

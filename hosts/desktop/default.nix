@@ -41,6 +41,7 @@
       "input"
       "wheel"
       "docker"
+      "dialout"
     ];
     shell = pkgs.zsh;
     initialHashedPassword = "$y$j9T$uRTzF/sBdrqVGZTRhPuR00$wgLgEGlq.lEmlCPiy69jkbtfC9HKpyaVPDHDdBGtE5D";
@@ -48,7 +49,7 @@
       let
         authorizedKeys = pkgs.fetchurl {
           url = "https://github.com/naps62.keys";
-          sha256 = "sha256-xVrGO4Cultc3tPcnLFKLa98btLh7EAl3tLM1MTvwmn8=";
+          sha256 = "sha256-O5JbzK5ulPob0HIrO8DT1MxfkC9bnfBw/0GR8Xu1tjw=";
         };
       in
       pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);

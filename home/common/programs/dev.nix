@@ -19,5 +19,7 @@
     aider-chat
     inotify-tools
     devenv
+    # bruno
+    zed-editor
   ];
 }
