@@ -56,7 +56,7 @@
     profiles = {
       "dev-edition-default" = {
         isDefault = true;
-        extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
+        extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
           # privacy
           clearurls
           decentraleyes

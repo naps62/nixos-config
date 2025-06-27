@@ -1,16 +1,17 @@
 { inputs, pkgs, ... }:
 {
 
-  services.xserver = {
-    enable = true;
-    desktopManager.gdm.enable = true;
-    displayManager.gdm.enable = true;
+  services.xserver.enable = true;
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
 
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
-  };
+  environment.systemPackages = with pkgs; [
+    xorg.xhost
+    xorg.xrandr
+    xorg.xinit
+    gnome-session
+    gnome-shell
+  ];
 
   xdg = {
     portal = {
