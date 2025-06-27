@@ -13,8 +13,6 @@
     openFirewall = true;
   };
 
-  services.nfs.client.enable = true;
-
   # environment.etc.nsswitch.text = {
   #   hosts = [
   #     "files"
