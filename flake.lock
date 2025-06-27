@@ -693,11 +693,11 @@
     "nvchad-starter": {
       "flake": false,
       "locked": {
-        "lastModified": 1750492332,
-        "narHash": "sha256-pREENxOEqxnk0h6XtLP2xELoqrtF5LsK5xTsDIe7rW8=",
+        "lastModified": 1751028259,
+        "narHash": "sha256-d01UFhRq8jTBvG3BL7TGkzO1usQELWHMAHy18ILAu/c=",
         "owner": "naps62",
         "repo": "nvchad-starter",
-        "rev": "c5a2f0726bb4972db2c072b6996093cf78a844f6",
+        "rev": "bb2d57364786065b95b21649d0dfef1caa8ee5ab",
         "type": "github"
       },
       "original": {
@@ -717,11 +717,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748602014,
-        "narHash": "sha256-9iMPhmkwbnG/4PgwWkL4dIeWCsz5t/Qkhd3gY6h3SfQ=",
+        "lastModified": 1750944016,
+        "narHash": "sha256-brpa9vvfEjux4MtbuZiFkeJF7gTdejUDykLlhm3ncW4=",
         "owner": "nix-community",
         "repo": "nix4nvchad",
-        "rev": "f431aa8aec5977d29527592c97244e0ed9f0649e",
+        "rev": "20006d3a11d666c7a916cc90bba81672a7ce24cb",
         "type": "github"
       },
       "original": {
