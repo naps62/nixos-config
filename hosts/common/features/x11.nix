@@ -1,15 +1,21 @@
 { inputs, pkgs, ... }:
-let hyprland-session = pkgs.makeDesktopItem {
-  name = "Hyprland";
-  comment = "Hyprland (custom desktop file)";
-  desktopNames = "Hyprland";
-  exec = "Hyprland";
-  type = "Application";
-};
+let
+  hyprland-session = pkgs.makeDesktopItem {
+    name = "Hyprland";
+    comment = "Hyprland (custom desktop file)";
+    desktopNames = "Hyprland";
+    exec = "Hyprland";
+    type = "Application";
+  };
+in
 {
 
-  services.xserver.enable = true;
-  services.xserver.displayManager.startx.enable = true;
+  services.xserver = {
+    enable = true;
+    displayManager.startx.enable = true;
+    autoRepeatDelay = 250;
+    autoRepeatInterval = 30;
+  };
   # services.xserver.displayManager.sessionPackages = [ hyprland-session ];
 
   # services.xserver.windowManager.gnome.enable = true;

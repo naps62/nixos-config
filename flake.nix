@@ -88,7 +88,9 @@
         name: pkgs:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [ ./home/${name} ];
+          modules = [
+            ./home/${name}
+          ];
           extraSpecialArgs = {
             inherit inputs outputs;
           };
