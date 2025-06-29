@@ -13,7 +13,7 @@
     ../common/features/intel-graphics.nix
     ../common/features/wayland.nix
     ../common/features/x11.nix
-    ../common/features/greetd.nix
+    # ../common/features/greetd.nix
     ../common/features/pipewire.nix
     ../common/features/docker.nix
     ../common/features/fonts.nix
@@ -52,7 +52,7 @@
       let
         authorizedKeys = pkgs.fetchurl {
           url = "https://github.com/naps62.keys";
-          sha256 = "sha256-QKVtVXIVxYUqpnNCJAfRow3RG4j2jkQSFOwTeDgwO7s=";
+          sha256 = "sha256-O5JbzK5ulPob0HIrO8DT1MxfkC9bnfBw/0GR8Xu1tjw=";
         };
       in
       pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);

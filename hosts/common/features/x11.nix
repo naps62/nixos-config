@@ -12,7 +12,10 @@ in
 
   services.xserver = {
     enable = true;
-    displayManager.startx.enable = true;
+    displayManager = {
+      startx.enable = true;
+      gdm.enable = true;
+    };
     autoRepeatDelay = 250;
     autoRepeatInterval = 30;
   };
@@ -24,7 +27,6 @@ in
     gnome.enable = true;
   };
   services.xserver.windowManager = {
-    # gnome.enable = true;
     i3 = {
       enable = true;
       extraPackages = with pkgs; [
@@ -35,7 +37,6 @@ in
   };
   programs.i3lock.enable = true;
 
-  services.displayManager.gdm.enable = true;
   programs.dconf.enable = true;
   services = {
     sysprof.enable = true;
