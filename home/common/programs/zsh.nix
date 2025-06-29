@@ -60,7 +60,7 @@
       }
     ];
 
-    initExtra = ''
+    initContent = ''
       # mise
       eval "$(mise activate zsh)"
 
