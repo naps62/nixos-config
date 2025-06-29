@@ -10,10 +10,8 @@
     ../common/global
     ../common/features/laptop.nix
     ../common/features/networking.nix
-    ../common/features/intel-graphics.nix
-    ../common/features/wayland.nix
-    ../common/features/x11.nix
-    # ../common/features/greetd.nix
+    ../common/features/gpu/intel-graphics.nix
+    ../common/features/display
     ../common/features/pipewire.nix
     ../common/features/docker.nix
     ../common/features/fonts.nix

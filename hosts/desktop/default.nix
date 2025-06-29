@@ -9,10 +9,8 @@
     ./hardware-configuration.nix
     ../common/global
     ../common/features/networking.nix
-    ../common/features/nvidia.nix
-    ../common/features/wayland.nix
-    ../common/features/x11.nix
-    # ../common/features/greetd.nix
+    ../common/features/gpu/nvidia.nix
+    ../common/features/display
     ../common/features/pipewire.nix
     ../common/features/docker.nix
     ../common/features/fonts.nix
