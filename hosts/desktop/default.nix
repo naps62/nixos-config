@@ -34,9 +34,9 @@
 
   programs.zsh.enable = true;
 
-  environment.variables = {
-    GDK_SCALE = 2;
-  };
+  # environment.variables = {
+  #   GDK_SCALE = 2;
+  # };
 
   users.users.naps62 = {
     isNormalUser = true;

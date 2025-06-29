@@ -43,9 +43,9 @@
       "fullscreen, class:bevy-.*"
     ];
 
-    env = [
-      "GDK_SCALE, 2"
-    ];
+    # env = [
+    #   "GDK_SCALE, 2"
+    # ];
 
     render = {
       explicit_sync = 2;

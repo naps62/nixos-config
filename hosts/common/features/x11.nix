@@ -16,28 +16,26 @@ in
     autoRepeatDelay = 250;
     autoRepeatInterval = 30;
   };
-  # services.xserver.displayManager.sessionPackages = [ hyprland-session ];
+  services.displayManager.sessionPackages = with pkgs; [
+    hyprland
+  ];
 
-  # services.xserver.windowManager.gnome.enable = true;
-  # services.xserver.windowManager.gnome.wayland = false;
-  # hardware.opengl.enable = true;
-  #
-  # environment.systemPackages = with pkgs; [
-  #   xorg.xhost
-  #   xorg.xrandr
-  #   xorg.xinit
-  #   gnome-session
-  #   gnome-shell
-  # ];
-  #
-  # xdg = {
-  #   portal = {
-  #     enable = true;
-  #   };
-  # };
+  services.desktopManager = {
+    gnome.enable = true;
+  };
+  services.xserver.windowManager = {
+    # gnome.enable = true;
+    i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+        dmenu
+        i3status
+      ];
+    };
+  };
+  programs.i3lock.enable = true;
 
   services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
   programs.dconf.enable = true;
   services = {
     sysprof.enable = true;

@@ -1,11 +1,21 @@
 { inputs, pkgs, ... }:
 {
-  environment.systemPackages = [
-    pkgs.wl-clipboard
+  environment.systemPackages = with pkgs; [
+    wl-clipboard
+    hyprland
   ];
 
   # thumbnail support for images
   services.tumbler.enable = true;
+
+  environment.etc."xdg/wayland-sessions/hyprland.desktop".text = ''
+    [Desktop Entry]
+    Name=Hyprland
+    Comment=Hyprland Wayland Compositor
+    Exec=Hyprland
+    Type=Application
+    DesktopNames=Hyprland
+  '';
 
   nix.settings = {
     substituters = [ "https://hyprland.cachix.org" ];

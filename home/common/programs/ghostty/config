@@ -7,6 +7,7 @@ window-padding-color = extend
 custom-shader-animation = true
 
 # font
+font-size = 12
 font-family = "FiraCode Nerd Font Mono"
 font-family-italic = "VictorMono Nerd Font mono Oblique"
 font-family-bold-italic = "VictorMono Nerd Font mono Bold Oblique"
