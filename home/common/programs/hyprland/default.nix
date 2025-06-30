@@ -21,10 +21,6 @@ in
     hyprlock
   ];
 
-  systemd.user.services."xdg-desktop-portal-hyprland".serviceConfig = {
-    ConditionEnvironment = "XDG_SESSION_TYPE=hyprland";
-  };
-
   home.sessionVariables = {
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
   };
