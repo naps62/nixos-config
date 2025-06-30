@@ -18,6 +18,7 @@
     ../common/features/nix-ld.nix
     ../common/features/bluetooth.nix
     ../common/features/ledger.nix
+    ../common/features/android-studio.nix
   ];
 
   networking.hostName = "arrakis";

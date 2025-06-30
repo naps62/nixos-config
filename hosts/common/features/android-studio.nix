@@ -5,13 +5,13 @@
     "adbusers"
   ];
 
-  programs.adb.enable = true;
+  # programs.adb.enable = true;
 
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
 
-  environment.systemPackages = with pkgs; [
-    android-studio
-  ];
+  # environment.systemPackages = with pkgs; [
+  #   android-studio
+  # ];
 }
