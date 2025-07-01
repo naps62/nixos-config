@@ -21,5 +21,6 @@
     devenv
     # bruno
     zed-editor
+    tmux
   ];
 }

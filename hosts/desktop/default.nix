@@ -59,4 +59,9 @@
       in
       pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
   };
+
+  networking.nameservers = [
+    "100.100.100.100"
+    "10.1.10.1"
+  ];
 }
