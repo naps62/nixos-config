@@ -73,17 +73,24 @@ in
       };
 
       animations = {
-        bezier = "easeOutQuad, 0.5, 1, 0.89, 1";
-        animation = [
-          "windows, 1, 2, easeOutQuad"
-          "windowsMove, 1, 1, easeOutQuad"
-          "windowsOut, 1, 2, default, popin 80%"
-          "border, 1, 2, default"
-          "borderangle, 1, 2, default"
-          "fade, 1, 2, default"
-          "workspaces, 1, 2, default"
+        bezier = [
+          "wind, 0.05, 0.9, 0.1, 1.0"
+          "winIn, 0.1, 1.0, 0.1, 1.0"
+          "winOut, 0.3, -0.3, 0, 1"
+          "liner, 1, 1, 1, 1"
+          "fadeIn, 0, 0, 0.98, 1"
         ];
-
+        animation = [
+          "windows, 1, 6, wind, popin 90%"
+          "windowsIn, 1, 6, winIn, popin 90%"
+          "windowsOut, 1, 5, winOut, slide"
+          "windowsMove, 1, 5, wind, slide"
+          "border, 1, 1, liner"
+          "borderangle, 1, 30, liner, loop"
+          "fade, 1, 3, fadeIn"
+          "fadeIn, 1, 3, fadeIn"
+          "workspaces, 1, 5, wind"
+        ];
       };
 
       env = [
