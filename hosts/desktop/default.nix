@@ -18,6 +18,7 @@
     ../common/features/bluetooth.nix
     ../common/features/ledger.nix
     ../common/features/android-studio.nix
+    ../common/features/tailscale.nix
   ];
 
   networking.hostName = "konishi";
@@ -26,6 +27,10 @@
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
+    };
+
+    kernel.sysctl = {
+      "net.ipv6.conf.all.disable_ipv6" = 1;
     };
   };
 
@@ -58,4 +63,9 @@
       in
       pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
   };
+
+  networking.nameservers = [
+    "100.100.100.100"
+    "10.1.10.1"
+  ];
 }

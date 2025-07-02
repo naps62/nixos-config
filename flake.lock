@@ -693,11 +693,11 @@
     "nvchad-starter": {
       "flake": false,
       "locked": {
-        "lastModified": 1751028259,
-        "narHash": "sha256-d01UFhRq8jTBvG3BL7TGkzO1usQELWHMAHy18ILAu/c=",
+        "lastModified": 1751382025,
+        "narHash": "sha256-EjCffnOFLU5l311EJDvLVP+QtCOUERmvZBEdTZJD/Aw=",
         "owner": "naps62",
         "repo": "nvchad-starter",
-        "rev": "bb2d57364786065b95b21649d0dfef1caa8ee5ab",
+        "rev": "2b048ef2720b1459c210b706cd1924404fafe393",
         "type": "github"
       },
       "original": {
