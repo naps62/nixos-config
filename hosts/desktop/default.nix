@@ -28,6 +28,10 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+
+    kernel.sysctl = {
+      "net.ipv6.conf.all.disable_ipv6" = 1;
+    };
   };
 
   system.stateVersion = "24.05";
