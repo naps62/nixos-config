@@ -99,17 +99,12 @@
     {
       nixosConfigurations = {
         arrakis = mkNixOS "arrakis";
-        trantor = mkNixOS "trantor";
         desktop = mkNixOS "desktop";
-        pi = mkNixOS "pi";
-        live = mkNixOS "live";
       };
 
       homeConfigurations = {
         arrakis = mkHome "arrakis" x86;
-        trantor = mkHome "trantor" x86;
         desktop = mkHome "desktop" x86;
-        pi = mkHome "pi" aarch64;
       };
 
       devShells =
