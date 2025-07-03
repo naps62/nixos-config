@@ -1,8 +1,8 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
 
   home.sessionVariables = {
-    BROWSER = "google-chrome-stable";
+    BROWSER = "zen-twilight";
   };
 
   programs.firefox = {
@@ -50,53 +50,6 @@
         Pocket = false;
         SponsoredPocket = false;
         Snippets = false;
-      };
-    };
-
-    profiles = {
-      "dev-edition-default" = {
-        isDefault = true;
-        extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
-          # privacy
-          clearurls
-          decentraleyes
-
-          # quality of life
-          no-pdf-download
-          buster-captcha-solver
-
-          # dev
-          react-devtools
-          translate-web-pages
-
-          # manual use
-          bitwarden
-        ];
-        settings = {
-          # Performance settings
-          "gfx.webrender.all" = true; # Force enable GPU acceleration
-          "media.ffmpeg.vaapi.enabled" = true;
-          "widget.dmabuf.force-enabled" = true; # Required in recent Firefoxes
-
-          "widget.use-xdg-desktop-portal.file-picker" = true;
-
-          # Hide the "sharing indicator", it's especially annoying
-          # with tiling WMs on wayland
-          "privacy.webrtc.legacyGlobalIndicator" = false;
-
-          # Actual settings
-          "browser.aboutConfig.showWarning" = false;
-          "browser.newtabpage.pinned" = false;
-          "browser.protections_panel.infoMessage.seen" = true;
-          "browser.quitShortcut.disabled" = true;
-          "browser.urlbar.suggest.openpage" = false;
-          "privacy.trackingprotection.enabled" = true;
-          "privacy.trackingprotection.socialtracking.enabled" = true;
-
-          "mousewhell.system_scroll_override" = true;
-
-          "extension.autoDisableScopes" = "0";
-        };
       };
     };
   };
