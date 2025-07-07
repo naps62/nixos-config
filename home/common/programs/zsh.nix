@@ -87,10 +87,9 @@
     enable = true;
     settings = {
       add_newline = true;
-      
+
       # Disable language modules to keep prompt short
       nodejs.disabled = true;
-      npm.disabled = true;
       python.disabled = true;
       rust.disabled = true;
       golang.disabled = true;

@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    inputs.hardware.nixosModules.dell-xps-13-9315
     ./hardware-configuration.nix
     ../common/global
     ../common/features/laptop.nix
@@ -56,5 +57,10 @@
         };
       in
       pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
+  };
+
+  hardware.ipu6 = {
+    enable = true;
+    platform = "ipu6ep";
   };
 }

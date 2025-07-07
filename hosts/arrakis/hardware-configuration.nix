@@ -14,26 +14,41 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "thunderbolt"
-    "vmd"
-    "nvme"
-    "usb_storage"
-    "sd_mod"
-  ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "thunderbolt"
+      "vmd"
+      "nvme"
+      "usb_storage"
+      "sd_mod"
+    ];
+    initrd.kernelModules = [ ];
+    kernelModules = [
+      "kvm-intel"
+      "v4l2loopback"
+    ];
+    extraModulePackages = with config.boot.kernelPackages; [
+      ipu6-drivers
+      v4l2loopback
+    ];
+
+    extraModprobeConfig = ''
+      options v4l2loopback exclusive_caps=1 card_label="Intel MIPI Camera"
+    '';
+
+    initrd.luks.devices = {
+      "luks-aa168861-6ecf-4fcc-8a0d-6e1555892747".device =
+        "/dev/disk/by-uuid/aa168861-6ecf-4fcc-8a0d-6e1555892747";
+      "luks-92db61c9-eb4c-4cde-bd08-7042ff8db4ad".device =
+        "/dev/disk/by-uuid/92db61c9-eb4c-4cde-bd08-7042ff8db4ad";
+    };
+
+  };
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/a9390fca-9ec2-4248-b003-a6ce47ad4fab";
     fsType = "ext4";
-  };
-
-  boot.initrd.luks.devices = {
-    "luks-aa168861-6ecf-4fcc-8a0d-6e1555892747".device = "/dev/disk/by-uuid/aa168861-6ecf-4fcc-8a0d-6e1555892747";
-    "luks-92db61c9-eb4c-4cde-bd08-7042ff8db4ad".device = "/dev/disk/by-uuid/92db61c9-eb4c-4cde-bd08-7042ff8db4ad";
   };
 
   fileSystems."/boot" = {
