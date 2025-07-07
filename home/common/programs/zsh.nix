@@ -87,6 +87,31 @@
     enable = true;
     settings = {
       add_newline = true;
+      
+      # Disable language modules to keep prompt short
+      nodejs.disabled = true;
+      npm.disabled = true;
+      python.disabled = true;
+      rust.disabled = true;
+      golang.disabled = true;
+      java.disabled = true;
+      ruby.disabled = true;
+      php.disabled = true;
+      elixir.disabled = true;
+      elm.disabled = true;
+      haskell.disabled = true;
+      julia.disabled = true;
+      kotlin.disabled = true;
+      lua.disabled = true;
+      nim.disabled = true;
+      nix_shell.disabled = true;
+      ocaml.disabled = true;
+      perl.disabled = true;
+      purescript.disabled = true;
+      scala.disabled = true;
+      swift.disabled = true;
+      terraform.disabled = true;
+      zig.disabled = true;
     };
   };
 
