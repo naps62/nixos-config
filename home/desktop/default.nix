@@ -30,7 +30,6 @@
     LIBVA_DRIVER_NAME = "nvidia";
     GDM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    QT_SCALE_FACTOR = 2;
   };
 
   wayland.windowManager.hyprland.settings = {
@@ -43,10 +42,6 @@
       "noinitialfocus, class:bevy-.*"
       "fullscreen, class:bevy-.*"
     ];
-
-    # env = [
-    #   "GDK_SCALE, 2"
-    # ];
 
     render = {
       explicit_sync = 2;
@@ -92,6 +87,8 @@
       };
     };
   };
+
+  programs.kitty.settings.font_size = 14;
 
   home = {
     username = lib.mkDefault "naps62";

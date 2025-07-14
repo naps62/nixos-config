@@ -1,14 +1,50 @@
-{ config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   xsession.windowManager.i3 = {
     enable = true;
     package = pkgs.i3-gaps;
     config = {
       modifier = "Mod4";
+      terminal = "${pkgs.kitty}/bin/kitty";
       gaps = {
         inner = 10;
-        outer = 5;
+        outer = 0;
       };
+      keybindings =
+        let
+          modifier = config.xsession.windowManager.i3.config.modifier;
+        in
+        lib.mkOptionDefault {
+          "${modifier}+h" = "focus left";
+          "${modifier}+j" = "focus down";
+          "${modifier}+k" = "focus up";
+          "${modifier}+l" = "focus right";
+
+          "${modifier}+space" = "exec launcher_t2";
+        };
+      bars = [
+        {
+          position = "top";
+          statusCommand = "i3status-rs ~/.config/i3status-rust/config-default.toml";
+        }
+      ];
     };
+    extraConfig = ''
+      smart_gaps on
+      hide_edge_borders smart_no_gaps
+
+      for_window [class="kitty"] border none
+      for_window [class="kitty"] gaps inner current set 0
+      for_window [class="kitty"] gaps outer current set 0
+    '';
+  };
+
+  programs.i3status-rust = {
+    enable = true;
   };
 }

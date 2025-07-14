@@ -135,7 +135,7 @@ in
       "$mod" = "SUPER";
 
       bind = [
-        "$mod, t, exec, ghostty"
+        "$mod, t, exec, kitty"
         "$mod, e, exec, thunar"
         "$mod, v, togglefloating"
         "$mod, q, killactive"

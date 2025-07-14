@@ -1,4 +1,5 @@
 {
+  lib,
   inputs,
   pkgs,
   config,
@@ -23,18 +24,34 @@ in
     monitor = [
       # monitor, res,       position, scale, transform, rotation
       "HDMI-A-1, 3840x2160, 0x1620,   1.333333"
-      "DP-3,     3840x2160, 0x0,      1.333333"
+      "DP-1,     3840x2160, 0x0,      1.333333"
       # 300 instead of 0 is so that 'move left' actually focuses the bottom one instead of the top one
       # for some reason, that's the minimum value for which this works
       "DP-2,     3840x2160, 2880x180,   1.333333,   transform, 1"
     ];
     workspace = [
       "1, monitor=DP-2"
-      "2, monitor=DP-3"
+      "2, monitor=DP-1"
       "3, monitor=DP-2"
       "4, monitor=HDMI-A-1"
       "5, monitor=HDMI-A-1"
     ];
+  };
+
+  xsession.windowManager.i3 = {
+    extraConfig = lib.mkAfter ''
+      workspace 1 output HDMI-0
+      workspace 2 output DP-2
+      workspace 3 output DP-0
+    '';
+
+    # config.bars = [
+    #   {
+    #     position = "top";
+    #     trayOutput = "DP-0";
+    #     statusCommand = "i3status-rs ~/.config/i3status-rust/config-default.toml";
+    #   }
+    # ];
   };
 
   services.hyprpaper.settings.preload = [
@@ -44,7 +61,7 @@ in
   ];
   services.hyprpaper.settings.wallpaper = [
     "HDMI-A-1,${builtins.toString wallpaper1}"
-    "DP-3,${builtins.toString wallpaper2}"
+    "DP-1,${builtins.toString wallpaper2}"
     "DP-2,${builtins.toString wallpaper-vertical}"
   ];
 }

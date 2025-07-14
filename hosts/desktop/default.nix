@@ -38,9 +38,14 @@
 
   programs.zsh.enable = true;
 
-  # environment.variables = {
-  #   GDK_SCALE = 2;
-  # };
+  services.xserver.displayManager.sessionCommands = ''
+    BOTTOM='HDMI-0'
+    TOP='DP-0'
+    RIGHT='DP-2'
+    touch /home/naps62/foo
+    ${pkgs.xorg.xrandr}/bin/xrandr --output $BOTTOM --primary --mode 3840x2160 --pos 0x0 --rotate normal --output $TOP --mode 3840x2160 --above $BOTTOM --rotate normal --output $RIGHT --mode 3840x2160 --pos 3840x-1680 --rotate left
+    ${pkgs.xorg.xrandr}/bin/xrandr --dpi 160
+  '';
 
   users.users.naps62 = {
     isNormalUser = true;

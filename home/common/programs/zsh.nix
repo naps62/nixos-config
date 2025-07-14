@@ -111,6 +111,7 @@
       swift.disabled = true;
       terraform.disabled = true;
       zig.disabled = true;
+      dotnet.disabled = true;
     };
   };
 
@@ -126,6 +127,14 @@
     asdf-vm
     fd
   ];
+
+  home.sessionVariables = {
+    "ASDF_NODEJS_AUTO_ENABLE_COREPACK" = "true";
+  };
+
+  home.file.".default-npm-packages".text = ''
+    @anthropic-ai/claude-code
+  '';
 
   home.sessionPath = [
     "./.git/safe/../../node_modules/.bin"
