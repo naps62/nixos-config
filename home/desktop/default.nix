@@ -88,7 +88,7 @@
     };
   };
 
-  programs.kitty.settings.font_size = 14;
+  programs.kitty.settings.font_size = 16;
 
   home = {
     username = lib.mkDefault "naps62";

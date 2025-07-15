@@ -36,6 +36,8 @@
           "XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
           "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
 
+          "Print" = "exec flameshot gui";
+
           "${modifier}+space" = "exec launcher_t2";
         };
       bars = [
@@ -55,13 +57,24 @@
     '';
   };
 
-  programs.i3status-rust = {
-    enable = true;
+  programs = {
+    i3status-rust = {
+      enable = true;
+    };
   };
 
   services.picom = {
     enable = true;
     backend = "glx";
     vSync = true;
+  };
+
+  services.flameshot = {
+    enable = true;
+  };
+
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
   };
 }

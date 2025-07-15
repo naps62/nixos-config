@@ -43,15 +43,10 @@ in
       workspace 1 output HDMI-0
       workspace 2 output DP-2
       workspace 3 output DP-0
-    '';
 
-    # config.bars = [
-    #   {
-    #     position = "top";
-    #     trayOutput = "DP-0";
-    #     statusCommand = "i3status-rs ~/.config/i3status-rust/config-default.toml";
-    #   }
-    # ];
+      for_window [class="Ethui"] workspace 2
+      for_window [class="Ethui"] floating enable
+    '';
   };
 
   services.hyprpaper.settings.preload = [
