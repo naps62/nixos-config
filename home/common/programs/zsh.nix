@@ -19,8 +19,6 @@
       g = "git";
       n = "nvim";
       vim = "nvim";
-      mm = "mise";
-      mr = "mise run";
       ls = "eza";
       cat = "bat";
       ps = "procs";
@@ -61,9 +59,6 @@
     ];
 
     initContent = ''
-      # mise
-      eval "$(mise activate zsh)"
-
       # asdf-vm
       . "$HOME/.nix-profile/share/asdf-vm/asdf.sh"
 
@@ -118,7 +113,6 @@
   home.packages = with pkgs; [
     btop
     inxi
-    mise
     ripgrep
     pass
     bat

@@ -47,4 +47,10 @@
   programs.i3status-rust = {
     enable = true;
   };
+
+  services.picom = {
+    enable = true;
+    backend = "glx";
+    vSync = true;
+  };
 }
