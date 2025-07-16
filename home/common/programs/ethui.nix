@@ -1,4 +1,4 @@
 { inputs, ... }:
 {
-  home.packages = [ inputs.ethui.x86_64-linux.defaultPackages ];
+  home.packages = [ inputs.ethui.packages.x86_64-linux.default ];
 }

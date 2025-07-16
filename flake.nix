@@ -44,10 +44,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ethui = {
-      url = "github:ethui/ethui";
-      ref="flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    }
+      url = "github:ethui/ethui/flake";
+    };
   };
 
   outputs =
