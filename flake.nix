@@ -17,7 +17,6 @@
     };
     nix-colors.url = "github:misterio77/nix-colors";
     nixvim.url = "github:nix-community/nixvim";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     nvchad4nix = {
       url = "github:nix-community/nix4nvchad";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -65,7 +64,6 @@
           overlays = [
             inputs.foundry.overlay
             inputs.hyprpanel.overlay
-            # inputs.neovim-nightly-overlay.overlays.default
           ];
         }
       );
