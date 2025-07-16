@@ -8,7 +8,6 @@ in
     ./dunst.nix
     ./cursor.nix
     ./hyprpanel.nix
-    ./quickshell.nix
   ];
 
   home.packages = with pkgs; [
