@@ -17,7 +17,6 @@
     };
     nix-colors.url = "github:misterio77/nix-colors";
     nixvim.url = "github:nix-community/nixvim";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     nvchad4nix = {
       url = "github:nix-community/nix4nvchad";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,15 +36,8 @@
       url = "github:Jas-SinghFSU/HyprPanel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    ethui = {
-      url = "github:ethui/ethui/flake";
-    };
+    ethui.url = "github:ethui/ethui/424e3450";
   };
 
   outputs =
@@ -68,7 +60,6 @@
           overlays = [
             inputs.foundry.overlay
             inputs.hyprpanel.overlay
-            # inputs.neovim-nightly-overlay.overlays.default
           ];
         }
       );
