@@ -45,11 +45,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ethui = {
+<<<<<<< HEAD
       url = "github:ethui/ethui";
       ref="flake";
       inputs.nixpkgs.follows = "nixpkgs";
     }
 >>>>>>> 08aa572 (wip)
+=======
+      url = "github:ethui/ethui/flake";
+    };
+>>>>>>> ca35dc2 (wip)
   };
 
   outputs =
