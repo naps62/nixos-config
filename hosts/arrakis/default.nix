@@ -30,7 +30,10 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelParams = [ "i915=force_probe=46a6" ];
+    kernelParams = [
+      "i915=force_probe=46a6"
+      "i915.enable_psr=0"
+    ];
   };
 
   system.stateVersion = "24.05";
@@ -53,7 +56,7 @@
       let
         authorizedKeys = pkgs.fetchurl {
           url = "https://github.com/naps62.keys";
-          sha256 = "sha256-O5JbzK5ulPob0HIrO8DT1MxfkC9bnfBw/0GR8Xu1tjw=";
+          sha256 = "sha256-L90zBt9vR4TqKj9wN2QsCvja4StgJsm/rdHuQSC9Mlg=";
         };
       in
       pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
