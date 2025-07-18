@@ -37,24 +37,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
-<<<<<<< HEAD
-    ethui.url = "github:ethui/ethui/v1.19.2";
-=======
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ethui = {
-<<<<<<< HEAD
       url = "github:ethui/ethui";
-      ref="flake";
+      ref = "flake";
       inputs.nixpkgs.follows = "nixpkgs";
-    }
->>>>>>> 08aa572 (wip)
-=======
-      url = "github:ethui/ethui/flake";
     };
->>>>>>> ca35dc2 (wip)
   };
 
   outputs =
