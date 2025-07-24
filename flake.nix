@@ -37,15 +37,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    ethui = {
-      url = "github:ethui/ethui";
-      ref = "flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    ethui.url = "github:ethui/ethui/nix-refactor";
   };
 
   outputs =
