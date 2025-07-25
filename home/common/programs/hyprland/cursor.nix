@@ -14,10 +14,10 @@
 
   dconf = {
     enable = true;
-    settings = {
-      "org/gnome/desktop/interface" = {
-        cursor-theme = "BreezeX-RosePine-Linux";
-      };
-    };
+    # settings = {
+    # "org/gnome/desktop/interface" = {
+    #   cursor-theme = "BreezeX-RosePine-Linux";
+    # };
+    # };
   };
 }

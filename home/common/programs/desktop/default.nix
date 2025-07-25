@@ -58,5 +58,14 @@
       name = "Tela black";
       package = pkgs.tela-icon-theme;
     };
+    cursorTheme = {
+      name = "Numix-Cursor-Light";
+      package = pkgs.numix-cursor-theme;
+    };
+  };
+
+  home.pointerCursor = {
+    package = pkgs.numix-cursor-theme;
+    name = "Numix-Cursor-Light";
   };
 }

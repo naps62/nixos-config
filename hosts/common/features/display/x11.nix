@@ -5,7 +5,10 @@
     desktopManager = {
       gnome.enable = true;
     };
-    xserver.windowManager.i3.enable = true;
+    xserver = {
+      windowManager.i3.enable = true;
+      xkbOptions = "ctrl:nocaps";
+    };
     sysprof.enable = true;
     gnome = {
       glib-networking.enable = true;
@@ -18,6 +21,10 @@
     i3lock.enable = true;
     dconf.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    xclip
+  ];
 
   environment.gnome.excludePackages =
     (with pkgs; [
