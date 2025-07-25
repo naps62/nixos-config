@@ -44,8 +44,7 @@ in
       workspace 2 output DP-2
       workspace 3 output DP-0
 
-      for_window [class="Ethui"] workspace 2
-      for_window [class="Ethui"] floating enable
+      for_window [class="Ethui"] workspace 3
     '';
   };
 

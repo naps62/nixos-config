@@ -22,6 +22,10 @@
     dconf.enable = true;
   };
 
+  environment.systemPackages = with pkgs; [
+    xclip
+  ];
+
   environment.gnome.excludePackages =
     (with pkgs; [
       gnome-photos

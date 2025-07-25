@@ -20,6 +20,7 @@
     ../common/programs/syncthing.nix
     ../common/programs/unity.nix
     ../common/programs/gpg.nix
+    ../common/programs/ethui.nix
     ../common/features/xdg.nix
     ../common/features/bluetooth.nix
     ../common/features/ledger.nix

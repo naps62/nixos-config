@@ -54,6 +54,10 @@
       for_window [class="kitty"] border none
       for_window [class="kitty"] gaps inner current set 0
       for_window [class="kitty"] gaps outer current set 0
+
+      for_window [class="^zen"] border none
+      for_window [class="^zen"] gaps inner current set 0
+      for_window [class="^zen"] gaps outer current set 0
     '';
   };
 

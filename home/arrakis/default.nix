@@ -19,6 +19,7 @@
     ../common/programs/kitty.nix
     ../common/programs/syncthing.nix
     ../common/programs/unity.nix
+    ../common/programs/ethui.nix
     ../common/programs/gpg.nix
     ../common/features/xdg.nix
     ../common/features/bluetooth.nix
