@@ -88,16 +88,16 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1753379057,
-        "narHash": "sha256-9HPBVXbZQAiMy3cgBnq1mzBncSxK02WjhModv6scTs8=",
+        "lastModified": 1753721147,
+        "narHash": "sha256-vKxdoi11ezlFeXo2zl08/iOuIZwzy1cNJCIbq3JZ+oA=",
         "owner": "ethui",
         "repo": "ethui",
-        "rev": "e83bd77465744f0fcf045d76304bba36a5dc0594",
+        "rev": "a46924d5635e6060abf5c271b22ab42f244652d8",
         "type": "github"
       },
       "original": {
         "owner": "ethui",
-        "ref": "e83bd774",
+        "ref": "v1.19.2",
         "repo": "ethui",
         "type": "github"
       }
@@ -180,11 +180,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1752657157,
-        "narHash": "sha256-nutdwpDKZBUapOUNptlMSaoLUSDzSM4O/eyQkkErljA=",
+        "lastModified": 1753694042,
+        "narHash": "sha256-GSiXa+AUvlg3OSB3baRPQr0JOrN8lQGeL1xJbY1Ux70=",
         "owner": "shazow",
         "repo": "foundry.nix",
-        "rev": "baddc143ecf66b297fcf739d6fc44025e37cd36c",
+        "rev": "e1c82d2653b96e8b12dea611c06a5bd550e4b6c8",
         "type": "github"
       },
       "original": {
@@ -513,11 +513,11 @@
     "nvchad-starter": {
       "flake": false,
       "locked": {
-        "lastModified": 1753196524,
-        "narHash": "sha256-iLewIAiXmah4Gm5dPEfMVJFin6OgDWxQwkPGC8tCl7E=",
+        "lastModified": 1753893164,
+        "narHash": "sha256-zzkebiD6QfzTz++rCOl2pwGslb4gJmmOhGQwqVLySVk=",
         "owner": "naps62",
         "repo": "nvchad-starter",
-        "rev": "00e57b5004f240de9310de2a3789586f8291cfbc",
+        "rev": "1cbb3115190ba95d32d9da8fd76dfc4313f44f37",
         "type": "github"
       },
       "original": {
