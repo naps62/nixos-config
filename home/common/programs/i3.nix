@@ -75,6 +75,10 @@
 
   services.flameshot = {
     enable = true;
+
+    settings.General = {
+      drawFontSize = 10;
+    };
   };
 
   xdg.portal = {

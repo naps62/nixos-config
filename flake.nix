@@ -37,7 +37,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    ethui.url = "github:ethui/ethui/nix-refactor";
+    ethui.url = "github:ethui/ethui/nix";
   };
 
   outputs =
