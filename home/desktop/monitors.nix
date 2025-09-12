@@ -44,13 +44,15 @@ in
       workspace 2 output DP-2
       workspace 3 output DP-0
 
-      for_window [class="^Ethui-test$"] workspace 2
-      for_window [class="^Ethui-test$"] border normal 2, floating enable, resize set 1280 1200, move position mouse
+      for_window [title="^ethui-test - main$"] workspace 2
+      for_window [title="^ethui-test - main$"] border normal 2, floating enable, resize set 1280 1200, move position 4720 500
+      for_window [title="^ethui-test - dialog.*"] border normal 2, floating enable, resize set 800 800, move position mouse
 
-      for_window [class="^Ethui-dev$"] workspace 2
-      for_window [class="^Ethui-dev$"] border normal 2, floating enable, resize set 1280 1200, move position mouse
+      for_window [title="^ethui-dev - main$"] workspace 2
+      for_window [title="^ethui-dev - main$"] border normal 2, floating enable, resize set 1280 1200, move position 4720 500
+      for_window [title="^ethui-dev - dialog.*"] border normal 2, floating enable, resize set 800 800, move position mouse
 
-      for_window [class="^Ethui$"] border normal 2, floating enable, resize set 1280 1200, move position mouse
+      # for_window [class="^Ethui$"] border normal 2, floating enable, resize set 1280 1200, move position mouse
     '';
   };
 
