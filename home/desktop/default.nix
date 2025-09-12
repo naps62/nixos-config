@@ -9,7 +9,7 @@
 {
   imports = [
     inputs.nix-colors.homeManagerModule
-    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeModules.nixvim
     ../common/programs/default.nix
     ../common/programs/desktop
     ../common/programs/zen-browser.nix
