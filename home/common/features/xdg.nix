@@ -3,7 +3,7 @@
   xdg = {
     userDirs = {
       enable = true;
-      createDirectories = true;
+      createDirectories = false;
       desktop = null;
       documents = null;
       download = "downloads";
