@@ -15,6 +15,7 @@
     ../common/features/display
     ../common/features/pipewire.nix
     ../common/features/docker.nix
+    ../common/features/appimage.nix
     ../common/features/fonts.nix
     ../common/features/nix-ld.nix
     ../common/features/bluetooth.nix
