@@ -18,7 +18,7 @@
     ../common/features/bluetooth.nix
     ../common/features/ledger.nix
     ../common/features/android-studio.nix
-    ../common/features/tailscale.nix
+    ../common/features/home
   ];
 
   networking.hostName = "konishi";
