@@ -54,7 +54,7 @@
     };
 
     extraConfig = ''
-      font_size 14.0
+      font_size 12.0
 
       background #1c1c1c
       foreground #ddeedd
