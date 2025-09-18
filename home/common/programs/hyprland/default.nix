@@ -63,7 +63,8 @@ in
 
       decoration = {
         blur = {
-          enabled = false;
+          enabled = true;
+          # new_optimizations = false;
         };
         shadow = {
           enabled = false;
@@ -92,6 +93,7 @@ in
       };
 
       env = [
+        "GDK_SCALE, 2.0"
         "XCURSOR_SIZE, 32"
         "HYPRCURSOR_THEME, rose-pine-hyprcursor"
         "HYPRCURSOR_SIZE, 24"

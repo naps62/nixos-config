@@ -46,13 +46,20 @@ in
 
       for_window [title="^ethui-test - main$"] workspace 2
       for_window [title="^ethui-test - main$"] border normal 2, floating enable, resize set 1280 1200, move position 4720 500
-      for_window [title="^ethui-test - dialog.*"] border normal 2, floating enable, resize set 800 800, move position mouse
+      for_window [title="^ethui-test - dialog"] border normal 2, floating enable, resize set 800 800, move position mouse
+      no_focus [title="^ethui-test - main$"]
+      no_focus [title="^ethui-test - dialog$"]
 
       for_window [title="^ethui-dev - main$"] workspace 2
       for_window [title="^ethui-dev - main$"] border normal 2, floating enable, resize set 1280 1200, move position 4720 500
-      for_window [title="^ethui-dev - dialog.*"] border normal 2, floating enable, resize set 800 800, move position mouse
+      for_window [title="^ethui-dev - dialog"] border normal 2, floating enable, resize set 800 800, move position mouse
+      no_focus [title="^ethui-dev - main$"]
+      no_focus [title="^ethui-dev - dialog$"]
 
       # for_window [class="^Ethui$"] border normal 2, floating enable, resize set 1280 1200, move position mouse
+
+      for_window [title="^egui-test$"] floating enable, border none, resize set 800 800, move position 2720 500
+      no_focus [title="^egui-test$"]
     '';
   };
 

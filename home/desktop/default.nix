@@ -42,25 +42,18 @@
       "workspace 3 silent, class:bevy-.*"
       "noinitialfocus, class:bevy-.*"
       "fullscreen, class:bevy-.*"
+
+      "workspace 1 silent, title:egui-.*"
+      "bordersize 0, title:egui-.*"
+      "float, title:egui-.*"
+      "noblur, title:egui-.*"
+      "move 100%-w-20 100%-h-20, title:egui-.*"
     ];
 
     render = {
-      explicit_sync = 2;
-      explicit_sync_kms = 0;
       direct_scanout = true;
     };
 
-    opengl = {
-      nvidia_anti_flicker = 0;
-    };
-
-    misc = {
-      vfr = 0;
-    };
-
-    debug = {
-      damage_tracking = 0;
-    };
   };
 
   programs.hyprpanel.settings.layout = {

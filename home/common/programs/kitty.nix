@@ -7,6 +7,7 @@
       enable_audio_bell = false;
       cursor_trail = 1;
       copy_on_select = true;
+      background_opacity = 0.9;
 
       enabled_layouts = "tall, grid, fat, splits";
 
@@ -53,6 +54,8 @@
     };
 
     extraConfig = ''
+      font_size 14.0
+
       background #1c1c1c
       foreground #ddeedd
       cursor #e2bbef
