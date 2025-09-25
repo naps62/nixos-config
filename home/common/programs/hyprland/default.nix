@@ -5,7 +5,6 @@ in
 {
   imports = [
     ./rofi.nix
-    ./dunst.nix
     ./cursor.nix
     ./hyprpanel.nix
   ];

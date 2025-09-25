@@ -39,36 +39,13 @@
       "size 800 600, class:bevy-.*"
       "move 100%-800 100%-600, class:bevy-.*"
     ];
-
-    env = [
-      "GDK_SCALE, 1.5"
-    ];
   };
 
-  programs.hyprpanel.settings.layout = {
-    "bar.layouts" = {
-      "0" = {
-        "left" = [
-          "dashboard"
-          "workspaces"
-          "windowtitle"
-        ];
-        "middle" = [ "media" ];
-        "right" = [
-          "volume"
-          "network"
-          "power"
-          "bluetooth"
-          "systray"
-          "clock"
-          "notifications"
-        ];
-      };
-      "*" = {
-        "left" = [ ];
-        "middle" = [ ];
-        "right" = [ ];
-      };
+  programs.hyprpanel.settings.bar.layouts = {
+    "0" = {
+      right = [
+        "battery"
+      ];
     };
   };
 

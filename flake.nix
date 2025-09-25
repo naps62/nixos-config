@@ -32,10 +32,6 @@
     utils.url = "github:numtide/flake-utils";
     hardware.url = "github:NixOS/nixos-hardware/master";
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
-    hyprpanel = {
-      url = "github:Jas-SinghFSU/HyprPanel";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     ethui.url = "github:ethui/ethui/nix";
   };
@@ -59,7 +55,6 @@
           config.android_sdk.accept_license = true;
           overlays = [
             inputs.foundry.overlay
-            inputs.hyprpanel.overlay
           ];
         }
       );

@@ -28,7 +28,6 @@
 
   home.sessionVariables = {
     LIBVA_DRIVER_NAME = "nvidia";
-    GDM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
@@ -55,29 +54,11 @@
 
   };
 
-  programs.hyprpanel.settings.layout = {
-    "bar.layouts" = {
-      "0" = {
-        "left" = [
-          "dashboard"
-          "workspaces"
-          "windowtitle"
-        ];
-        "middle" = [ "media" ];
-        "right" = [
-          "volume"
-          "network"
-          "bluetooth"
-          "systray"
-          "clock"
-          "notifications"
-        ];
-      };
-      "*" = {
-        "left" = [ ];
-        "middle" = [ ];
-        "right" = [ ];
-      };
+  programs.hyprpanel.settings.bar.layouts = {
+    "0" = {
+      right = [
+        "battery"
+      ];
     };
   };
 

@@ -7,7 +7,7 @@
     };
     xserver = {
       windowManager.i3.enable = true;
-      xkbOptions = "ctrl:nocaps";
+      xkb.options = "ctrl:nocaps";
     };
     sysprof.enable = true;
     gnome = {
