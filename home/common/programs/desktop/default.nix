@@ -44,7 +44,6 @@
 
     # themes
     tela-icon-theme
-    # papirus-icon-theme
   ];
 
   gtk = {
