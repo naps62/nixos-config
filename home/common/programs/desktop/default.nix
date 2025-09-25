@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   imports = [
-    ./firefox.nix
     ./darkman.nix
   ];
 

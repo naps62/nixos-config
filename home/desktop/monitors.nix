@@ -23,11 +23,11 @@ in
   wayland.windowManager.hyprland.settings = {
     monitor = [
       # monitor, res,       position, scale, transform, rotation
-      "HDMI-A-1, 3840x2160, 0x1620,   1.333333"
-      "DP-1,     3840x2160, 0x0,      1.333333"
+      "HDMI-A-1, 3840x2160, 0x2160,   1"
+      "DP-1,     3840x2160, 0x0,      1"
       # 300 instead of 0 is so that 'move left' actually focuses the bottom one instead of the top one
       # for some reason, that's the minimum value for which this works
-      "DP-2,     3840x2160, 2880x180,   1.333333,   transform, 1"
+      "DP-2,     3840x2160, 3840x180,   1,   transform, 1"
     ];
     workspace = [
       "1, monitor=DP-2"

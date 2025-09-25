@@ -88,11 +88,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1754222849,
-        "narHash": "sha256-NpdYp66lyapJZvKKV/613PFdxSM6jqIuZYEIUBhBSHI=",
+        "lastModified": 1758301928,
+        "narHash": "sha256-zwXD5QYjSTH9a1EWMOMJvV0nB06QZ4C+IBqyGnSWMbE=",
         "owner": "ethui",
         "repo": "ethui",
-        "rev": "03cdf7d2e2c2fd513faa6dd85d4253c511c87ba4",
+        "rev": "726410e5b92fe5406e98ccca2a96b608b682570c",
         "type": "github"
       },
       "original": {
@@ -593,11 +593,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1752633862,
-        "narHash": "sha256-Bj7ozT1+5P7NmvDcuAXJvj56txcXuAhk3Vd9FdWFQzk=",
+        "lastModified": 1754575663,
+        "narHash": "sha256-afOx8AG0KYtw7mlt6s6ahBBy7eEHZwws3iCRoiuRQS4=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "8668ca94858206ac3db0860a9dec471de0d995f8",
+        "rev": "6db0fb0e9cec2e9729dc52bf4898e6c135bb8a0f",
         "type": "github"
       },
       "original": {
