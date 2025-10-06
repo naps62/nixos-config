@@ -64,7 +64,7 @@
       let
         authorizedKeys = pkgs.fetchurl {
           url = "https://github.com/naps62.keys";
-          sha256 = "sha256-L90zBt9vR4TqKj9wN2QsCvja4StgJsm/rdHuQSC9Mlg=";
+          sha256 = "sha256-93KMlLAEKEgvizcFLKjLbaJXU7oAqTrwyr2QA81K+jA=";
         };
       in
       pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
