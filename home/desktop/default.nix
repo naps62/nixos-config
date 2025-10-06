@@ -28,6 +28,7 @@
 
   home.sessionVariables = {
     LIBVA_DRIVER_NAME = "nvidia";
+    GDM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
@@ -52,14 +53,6 @@
       direct_scanout = true;
     };
 
-  };
-
-  programs.hyprpanel.settings.bar.layouts = {
-    "0" = {
-      right = [
-        "battery"
-      ];
-    };
   };
 
   programs.kitty.settings.font_size = 16;
