@@ -21,6 +21,7 @@
     devenv
     bruno
     zed-editor
+    sshfs
   ];
 
   programs.tmux = {
