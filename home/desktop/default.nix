@@ -35,8 +35,9 @@
   wayland.windowManager.hyprland.settings = {
     windowrulev2 = [
       # ethui-dev
-      "workspace 1, class:ethui"
-      "noinitialfocus, class:ethui"
+      "workspace 1, title:ethui-dev.*"
+      "noinitialfocus, title:ethui-dev.*"
+      "float, title:ethui-dev - dialog.*"
 
       "workspace 3 silent, class:bevy-.*"
       "noinitialfocus, class:bevy-.*"
