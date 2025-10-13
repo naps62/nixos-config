@@ -20,10 +20,10 @@
     ../common/programs/unity.nix
     ../common/programs/gpg.nix
     ../common/programs/ethui.nix
+    ../common/programs/3d.nix
     ../common/features/xdg.nix
     ../common/features/bluetooth.nix
     ../common/features/ledger.nix
-    ../common/features/3d.nix
     ./monitors.nix
   ];
 
