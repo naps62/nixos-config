@@ -22,6 +22,7 @@
     bruno
     zed-editor
     sshfs
+    coturn
   ];
 
   programs.tmux = {
