@@ -23,6 +23,9 @@
     zed-editor
     sshfs
     coturn
+    file
+    usbutils
+    nmap
   ];
 
   programs.tmux = {
