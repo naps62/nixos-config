@@ -23,7 +23,6 @@
     ../common/programs/3d.nix
     ../common/features/xdg.nix
     ../common/features/bluetooth.nix
-    ../common/features/ledger.nix
     ./monitors.nix
   ];
 
