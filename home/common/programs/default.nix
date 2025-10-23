@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 {
   imports = [
     ./zsh.nix
@@ -16,6 +21,10 @@
   programs = {
     home-manager.enable = true;
   };
+
+  home.packages = with pkgs; [
+    impala
+  ];
 
   home = {
     homeDirectory = lib.mkDefault "/home/${config.home.username}";

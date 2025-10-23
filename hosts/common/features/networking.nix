@@ -4,7 +4,7 @@
     networkmanager = {
       enable = true;
     };
-
+    wireless.iwd.enable = true;
   };
 
   services.avahi = {
@@ -12,13 +12,4 @@
     nssmdns4 = true;
     openFirewall = true;
   };
-
-  # environment.etc.nsswitch.text = {
-  #   hosts = [
-  #     "files"
-  #     "mdns4_minimal"
-  #     "[NOTFOUND=return]"
-  #     "dns"
-  #   ];
-  # };
 }
