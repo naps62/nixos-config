@@ -39,6 +39,10 @@
       "noinitialfocus, title:ethui-dev.*"
       "float, title:ethui-dev - dialog.*"
 
+      "workspace 1, title:ethui.*"
+      "noinitialfocus, title:ethui.*"
+      "float, title:ethui - dialog.*"
+
       "workspace 3 silent, class:bevy-.*"
       "noinitialfocus, class:bevy-.*"
       "fullscreen, class:bevy-.*"
