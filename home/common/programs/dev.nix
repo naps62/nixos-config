@@ -16,7 +16,6 @@
   home.packages = with pkgs; [
     imagemagick
     doctl
-    aider-chat
     inotify-tools
     devenv
     bruno
@@ -26,6 +25,7 @@
     file
     usbutils
     nmap
+    ktlint
   ];
 
   programs.tmux = {

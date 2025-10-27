@@ -50,6 +50,8 @@
       "wheel"
       "docker"
       "dialout"
+      "adbusers"
+      "kvm"
     ];
     shell = pkgs.zsh;
     initialHashedPassword = "$y$j9T$uRTzF/sBdrqVGZTRhPuR00$wgLgEGlq.lEmlCPiy69jkbtfC9HKpyaVPDHDdBGtE5D";
