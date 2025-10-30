@@ -7,7 +7,7 @@
 {
   xsession.windowManager.i3 = {
     enable = true;
-    package = pkgs.i3-gaps;
+    package = pkgs.i3;
     config = {
       modifier = "Mod4";
       terminal = "${pkgs.kitty}/bin/kitty";

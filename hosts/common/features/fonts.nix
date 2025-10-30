@@ -8,7 +8,7 @@
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [
-      ubuntu_font_family
+      ubuntu-classic
       libertine
       nerd-fonts.fira-code
       nerd-fonts.victor-mono

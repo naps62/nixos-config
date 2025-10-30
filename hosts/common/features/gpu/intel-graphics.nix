@@ -6,7 +6,7 @@
     enable32Bit = true;
     extraPackages = with pkgs; [
       vpl-gpu-rt # or intel-media-sdk for QSV
-      vaapiVdpau
+      libva-vdpau-driver
       intel-media-driver
       intel-vaapi-driver
     ];
