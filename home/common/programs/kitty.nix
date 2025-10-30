@@ -63,18 +63,18 @@
       color1 #cd5c5c
       color9 #cc5533
       color2 #86af80
-      1color10 #88aa22
-      1color3 #e8ae5b
-      1color11 #ffa75d
-      1color4 #6495ed
-      1color12 #87ceeb
-      1color5 #deb887
-      1color13 #996600
-      1color6 #b0c4de
-      1color14 #b0c4de
-      1color7 #bbaa99
-      2color15 #ddccbb
-      2selection_foreground #1c1c1c
+      color10 #88aa22
+      color3 #e8ae5b
+      color11 #ffa75d
+      color4 #6495ed
+      color12 #87ceeb
+      color5 #deb887
+      color13 #996600
+      color6 #b0c4de
+      color14 #b0c4de
+      color7 #bbaa99
+      color15 #ddccbb
+      selection_foreground #1c1c1c
     '';
   };
 }
