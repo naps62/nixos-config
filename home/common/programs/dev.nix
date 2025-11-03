@@ -25,6 +25,7 @@
     file
     usbutils
     nmap
+    lsof
     ktlint
   ];
 
