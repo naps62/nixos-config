@@ -43,6 +43,8 @@
       "noinitialfocus, title:ethui.*"
       "float, title:ethui - dialog.*"
 
+      "workspace 1, title:^\\[bevy\\].*"
+
       "workspace 3 silent, class:bevy-.*"
       "noinitialfocus, class:bevy-.*"
       "fullscreen, class:bevy-.*"

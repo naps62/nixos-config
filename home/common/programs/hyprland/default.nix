@@ -128,7 +128,7 @@ in
         # metamask
         "float, class:chrome-nkbihfbeogaeaoehlefnkodbefgpgknn-.*"
 
-        # bitwarden
+        # bitwarden, chrome
         "float, class:chrome-nngceckbapebfimnlniiiahkandclblb-.*"
       ];
 
