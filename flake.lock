@@ -23,11 +23,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1758301928,
-        "narHash": "sha256-zwXD5QYjSTH9a1EWMOMJvV0nB06QZ4C+IBqyGnSWMbE=",
+        "lastModified": 1762946066,
+        "narHash": "sha256-d0jdcQfnR5YMwPbNchXegJh30Haf5Bs/x8I7rGqhk7A=",
         "owner": "ethui",
         "repo": "ethui",
-        "rev": "726410e5b92fe5406e98ccca2a96b608b682570c",
+        "rev": "ded7f1e0822c28a4f721205a66d809f1f4e2690f",
         "type": "github"
       },
       "original": {

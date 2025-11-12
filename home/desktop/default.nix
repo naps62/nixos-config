@@ -33,6 +33,10 @@
   };
 
   wayland.windowManager.hyprland.settings = {
+    env = [
+      "WEBKIT_DISABLE_DMABUF_RENDERER, 1"
+    ];
+
     windowrulev2 = [
       # ethui-dev
       "workspace 1, title:ethui-dev.*"
