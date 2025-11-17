@@ -27,6 +27,7 @@
     nmap
     lsof
     ktlint
+    croc
   ];
 
   programs.tmux = {
