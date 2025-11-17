@@ -35,7 +35,7 @@
     };
   };
 
-  system.stateVersion = "24.05";
+  stdenv.hostPlatform.system.stateVersion = "24.05";
 
   programs.zsh.enable = true;
 
