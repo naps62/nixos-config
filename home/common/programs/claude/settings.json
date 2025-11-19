@@ -1,0 +1,26 @@
+{
+	"permissions": {
+		"allow": [
+			"Bash(kitten @ set-tab-title:*)",
+			"Bash(mkdir:*)",
+			"Bash(rg:*)",
+			"Bash(chmod:*)",
+			"Bash(find:*)",
+			"Bash(rustup target:*)",
+			"Bash(ls:*)",
+			"Bash(cargo:*)",
+			"Bash(cp:*)",
+			"Bash(yarn:*)",
+			"Bash(sed:*)",
+			"Bash(gh:*)",
+			"Bash(git:*)",
+			"Bash(grep:*)",
+			"Bash(node:*)"
+		],
+		"defaultMode": "acceptEdits"
+	},
+	"feedbackSurveyState": {
+		"lastShownTime": 1754052643456
+	},
+	"$schema": "https://json.schemastore.org/claude-code-settings.json"
+}

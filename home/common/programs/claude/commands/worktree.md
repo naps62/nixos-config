@@ -1,9 +1,7 @@
-Create a new worktree for the requested feature. keep the branch name concise, but starting with claude/.
+In "<project>/worktrees/<feature>" create a new worktree for the requested feature.
+create the directory if it doesn't exist.
+keep the branch name concise, but starting with claude/.
 
-Do all the work for the feature in the new worktree.
+do all the work for the feature in the new worktree.
 
-Once I ask you to merge:
-- start by merging back the new main branch, since I may have made changes to it.
-- solve any conflicts that arise.
-- merge the new worktree into the main branch.
-- delete the worktree.
+run "kitty @ set-tab-title" to set the tab title of this kitty sessionn to "claude/<project>/<feature>" 

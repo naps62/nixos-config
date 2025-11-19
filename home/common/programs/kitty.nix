@@ -22,7 +22,7 @@
       tab_bar_edge = "bottom";
       tab_bar_style = "powerline";
       tab_powerline_style = "slanted";
-      tab_title_template = "{tab.active_wd.split('/')[-1]}{' :{}'.format(num_windows) if num_windows > 1 else ''}";
+      # tab_title_template = "{tab.active_wd.split('/')[-1]}{' :{}'.format(num_windows) if num_windows > 1 else ''}";
       tab_bar_filter = "session:~ or session:^$";
 
       # keys
@@ -30,6 +30,7 @@
 
       # remove control
       allow_remote_control = true;
+      listen_on = "unix:/tmp/kitty.sock";
     };
 
     keybindings = {
