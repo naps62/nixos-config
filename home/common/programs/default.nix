@@ -16,6 +16,7 @@
     ./dev.nix
     ./aider.nix
     ./cpp.nix
+    ./claude
   ];
 
   programs = {

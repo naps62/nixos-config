@@ -28,6 +28,10 @@
     lsof
     ktlint
     croc
+
+    # typst
+    typst
+    typstyle
   ];
 
   programs.tmux = {
