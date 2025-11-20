@@ -4,12 +4,11 @@
     enable = true;
     settings = {
       confirm_os_window_close = 0;
-      enable_audio_bell = false;
       cursor_trail = 1;
       copy_on_select = true;
       background_opacity = 0.9;
 
-      enabled_layouts = "tall, grid, fat, splits";
+      enabled_layouts = "tall, grid, fat, splits, stack";
 
       # font
       font_family = "FiraCode Nerd Font Mono";
@@ -31,6 +30,9 @@
       # remove control
       allow_remote_control = true;
       listen_on = "unix:/tmp/kitty.sock";
+
+      enable_audio_bell = false;
+      bell_on_tab = true;
     };
 
     keybindings = {
@@ -47,6 +49,7 @@
       "ctrl+shift+l" = "next_layout";
       "ctrl+shift+left" = "resize_window narrower";
       "ctrl+shift+right" = "resize_window right";
+      "kitty_mod+space" = "toggle_layout stack";
 
       "ctrl+shift+0x27" = "change_font_size all +2.0";
       "ctrl+shift+minus" = "change_font_size all -2.0";
@@ -60,28 +63,67 @@
       "f7>/" = "goto_session";
     };
 
+    # https://github.com/kovidgoyal/kitty-themes
     extraConfig = ''
-      background #1c1c1c
-      foreground #ddeedd
-      cursor #e2bbef
-      selection_background #4d4d4d
-      color0 #3d352a
-      color8 #554444
-      color1 #cd5c5c
-      color9 #cc5533
-      color2 #86af80
-      color10 #88aa22
-      color3 #e8ae5b
-      color11 #ffa75d
-      color4 #6495ed
-      color12 #87ceeb
-      color5 #deb887
-      color13 #996600
-      color6 #b0c4de
-      color14 #b0c4de
-      color7 #bbaa99
-      color15 #ddccbb
-      selection_foreground #1c1c1c
+      ## name: GitHub Dark
+      ## author: GitHub
+      ## license: MIT
+
+      #: The basic colors
+
+      foreground #c9d1d9
+      background #0d1117
+      selection_foreground #0d1117
+      selection_background #58a6ff
+
+
+      #: Cursor colors
+
+      cursor #58a6ff
+
+
+      #: Tab bar colors
+
+      tab_bar_background #010409
+      active_tab_foreground #c9d1d9
+      active_tab_background #0d1117
+      inactive_tab_foreground #8b949e
+      inactive_tab_background #010409
+
+
+      #: The basic 16 colors
+
+      #: black
+      color0 #484f58
+      color8 #6e7681
+
+      #: red
+      color1 #ff7b72
+      color9 #ffa198
+
+      #: green
+      color2 #3fb950
+      color10 #56d364
+
+      #: yellow
+      color3 #d29922
+      color11 #e3b341
+
+      #: blue
+      color4 #58a6ff
+      color12 #79c0ff
+
+      #: magenta
+      color5 #bc8cff
+      color13 #d2a8ff
+
+      #: cyan
+      color6 #39c5cf
+      color14 #56d4dd
+
+      #: white
+      color7 #b1bac4
+      color15 #ffffff
     '';
   };
 }

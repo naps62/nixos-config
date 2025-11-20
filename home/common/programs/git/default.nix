@@ -39,6 +39,9 @@
         editor = "nvim";
         pager = "delta";
       };
+      merge = {
+        conflictstyle = "zdiff3";
+      };
       commit = {
         template = "~/.config/git/commit-message.txt";
       };
@@ -47,6 +50,7 @@
       };
       delta = {
         navigate = true;
+        side-by-side = true;
       };
       "diff \"image\"" = {
         textconv = "mediainfo";
