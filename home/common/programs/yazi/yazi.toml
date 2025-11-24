@@ -1,0 +1,9 @@
+[preview]
+image_quality = 80
+
+[opener]
+pdf = [{ run = 'tdf "$@"', block = true }]
+edit = [{ run = '$EDITOR "$@"', block = true }]
+
+[open]
+rules = [{ mime = "application/pdf", use = "tdf" }]

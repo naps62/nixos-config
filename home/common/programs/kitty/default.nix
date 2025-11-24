@@ -126,4 +126,6 @@
       color15 #ffffff
     '';
   };
+
+  xdg.configFile."kitty/sessions".source = ./sessions;
 }

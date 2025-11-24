@@ -66,10 +66,15 @@
 
       export PATH="$HOME/.bin:$PATH"
       export FOUNDRY_DISABLE_NIGHTLY_WARNING=true
-      # export PKG_CONFIG_PATH=$(nix eval --raw nixpkgs.openssl.dev)/lib/pkgconfig:$PKG_CONFIG_PATH
-      # export LIBRARY_PATH=$(nix eval --raw nixpkgs.openssl.dev)/lib:$LIBRARY_PATH
-      # export LD_LIBRARY_PATH=$(nix eval --raw nixpkgs.openssl.dev)/lib:$LD_LIBRARY_PATH
       export LD_LIBRARY_PATH=${pkgs.icu}/lib:${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH
+
+      function y() {
+        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+        yazi "$@" --cwd-file="$tmp"
+        IFS= read -r -d "" cwd < "$tmp"
+        [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+        rm -f -- "$tmp"
+      }
     '';
   };
 
@@ -120,6 +125,7 @@
     eza
     asdf-vm
     fd
+    tdf
   ];
 
   home.sessionVariables = {

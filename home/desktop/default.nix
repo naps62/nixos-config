@@ -15,7 +15,7 @@
     ../common/programs/zen-browser.nix
     ../common/programs/hyprland
     ../common/programs/i3.nix
-    ../common/programs/kitty.nix
+    ../common/programs/kitty
     ../common/programs/syncthing.nix
     ../common/programs/unity.nix
     ../common/programs/gpg.nix

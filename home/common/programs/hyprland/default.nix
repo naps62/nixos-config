@@ -44,6 +44,7 @@ in
         gaps_in = 0;
         gaps_out = 0;
         snap = {
+          enabled = true;
           border_overlap = true;
         };
 
@@ -54,6 +55,7 @@ in
       misc = {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
+        new_window_takes_over_fullscreen = 2;
       };
 
       xwayland = {
@@ -104,6 +106,15 @@ in
         "nm-applet"
         "hyprsunset"
       ];
+      workspace = [
+        # no gaps when only window
+        "w[t1], gapsout:0, gapsin:0"
+        "w[tg1], gapsout:0, gapsin:0"
+        "f[1], gapsout:0, gapsin:0"
+
+        "special:terminal, on-created-empty:[float; size 1000 800; move center] kitty, persistent:false"
+        "special:yazi, on-created-empty:[float; size 1000 800; move center] kitty --session sessions/yazi, persistent:false"
+      ];
 
       windowrulev2 = [
         # imv
@@ -120,23 +131,28 @@ in
         "move cursor -50% -50%, class:pavucontrol"
         "size 600 600, class:pavucontrol"
 
-        # thunar
-        "float, class:thunar"
-        "move cursor -50% -50%, class:thunar"
-        "size 800 600, class:thunar"
-
         # metamask
         "float, class:chrome-nkbihfbeogaeaoehlefnkodbefgpgknn-.*"
 
         # bitwarden, chrome
         "float, class:chrome-nngceckbapebfimnlniiiahkandclblb-.*"
+
+        # no gaps when only window
+        "bordersize 0, floating:0, onworkspace:w[t1]"
+        "rounding 0, floating:0, onworkspace:w[t1]"
+        "bordersize 0, floating:0, onworkspace:w[tg1]"
+        "rounding 0, floating:0, onworkspace:w[tg1]"
+        "bordersize 0, floating:0, onworkspace:f[1]"
+        "rounding 0, floating:0, onworkspace:f[1]"
+
+        "move center, onworkspace:special:terminal"
+        "move center, onworkspace:special:yazi"
       ];
 
       "$mod" = "SUPER";
 
       bind = [
         "$mod, t, exec, kitty"
-        "$mod, e, exec, thunar"
         "$mod, v, togglefloating"
         "$mod, q, killactive"
         "$mod, f, fullscreen, 0"
@@ -182,6 +198,11 @@ in
         "$mod, mouse_down, workspace, e+1"
         "$mod, mouse_up, workspace, e-1"
 
+        # special workspaces
+        "$mod, x, togglespecialworkspace, terminal"
+        "$mod, x, centerwindow"
+        "$mod, e, togglespecialworkspace, yazi"
+        "$mod, e, centerwindow"
       ];
 
       bindel = [

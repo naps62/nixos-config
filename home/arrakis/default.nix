@@ -15,12 +15,13 @@
     ../common/programs/zen-browser.nix
     ../common/programs/hyprland
     ../common/programs/i3.nix
-    ../common/programs/kitty.nix
+    ../common/programs/kitty
     ../common/programs/syncthing.nix
     ../common/programs/unity.nix
     ../common/programs/ethui.nix
     ../common/programs/gpg.nix
     ../common/features/xdg.nix
+    ../common/programs/3d.nix
     ../common/features/bluetooth.nix
     ./monitors.nix
   ];
