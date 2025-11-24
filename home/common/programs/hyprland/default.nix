@@ -81,15 +81,19 @@ in
           "fadeIn, 0, 0, 0.98, 1"
         ];
         animation = [
-          "windows, 1, 6, wind, popin 90%"
-          "windowsIn, 1, 6, winIn, popin 90%"
-          "windowsOut, 1, 5, winOut, slide"
+          "windows, 1, 2, wind, popin 80%"
+          "windowsIn, 1, 2, fadeIn, popin 80%"
+          "windowsOut, 1, 5, winOut, popin 80%"
           "windowsMove, 1, 5, wind, slide"
           "border, 1, 1, liner"
           "borderangle, 1, 30, liner, loop"
-          "fade, 1, 3, fadeIn"
-          "fadeIn, 1, 3, fadeIn"
-          "workspaces, 1, 5, wind"
+          "fade, 1, 2, fadeIn"
+          "fadeIn, 1, 2, fadeIn"
+          "fadeOut, 1, 2, winOut"
+          "workspaces, 1, 2, wind"
+          "windowsMove, 0, 1, default, slide"
+          # "specialWorkspace, 0, 2, default, fade"
+          "specialWorkspace, 1, 2, fadeIn, fade"
         ];
       };
 
