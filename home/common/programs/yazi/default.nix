@@ -6,9 +6,10 @@
 }:
 {
 
-  home.packages = with pkgs; [
-    yazi
-  ];
+  programs.yazi.enable = true;
 
-  xdg.configFile."yazi/yazi.yaml".source = ./yazi.yaml;
+  home.packages = with pkgs; [ yaziPlugins.git ];
+
+  xdg.configFile."yazi/yazi.toml".source = ./yazi.toml;
+  xdg.configFile."yazi/init.lua".source = ./init.lua;
 }

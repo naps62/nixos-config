@@ -1,9 +1,13 @@
+[mgr]
+ratio = [1, 3, 4]
+linemode = "size_and_mtime"
+
 [preview]
 image_quality = 80
 
 [opener]
 pdf = [{ run = 'tdf "$@"', block = true }]
-edit = [{ run = '$EDITOR "$@"', block = true }]
+edit = [{ run = 'nvim "$@"', block = true }]
 
 [open]
-rules = [{ mime = "application/pdf", use = "tdf" }]
+prepend_rules = [{ mime = "application/pdf", use = "pdf" }]

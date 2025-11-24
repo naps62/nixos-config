@@ -112,8 +112,8 @@ in
         "w[tg1], gapsout:0, gapsin:0"
         "f[1], gapsout:0, gapsin:0"
 
-        "special:terminal, on-created-empty:[float; size 1000 800; move center] kitty, persistent:false"
-        "special:yazi, on-created-empty:[float; size 1000 800; move center] kitty --session sessions/yazi, persistent:false"
+        "special:terminal, on-created-empty:[float; size 1400 1000; move center] kitty, persistent:false"
+        "special:yazi, on-created-empty:[float; size 1400 1000; move center] kitty --session sessions/yazi, persistent:false"
       ];
 
       windowrulev2 = [
