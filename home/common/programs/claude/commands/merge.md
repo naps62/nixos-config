@@ -1,7 +1,8 @@
 Merge a branch from the worktree.
 If you're currently working on a worktree, assume that's the one I'm referring to.
 
-Start by merging back the new main branch, since I may have made changes to it.
+Start by committing any staged and unstaged changes. I may have made changes to the worktree manually.
+Then merge back the new main branch, since I may have made changes to it.
 
 # Language specific:
 
