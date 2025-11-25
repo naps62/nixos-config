@@ -13,4 +13,12 @@
   ];
 
   fonts.fontconfig.enable = true;
+
+  xdg.desktopEntries.prusaslicer-url-handler = {
+    name = "PrusaSlicer Protocol Handler";
+    exec = "prusa-slicer %u";
+    type = "Application";
+    noDisplay = true;
+    mimeType = [ "x-scheme-handler/prusaslicer" ];
+  };
 }

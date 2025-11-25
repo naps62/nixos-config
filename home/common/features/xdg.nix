@@ -44,6 +44,12 @@
 
         # files
         "inode/directory" = "thunar.desktop";
+
+        # 3d printing
+        "model/3mf" = "PrusaSlicer.desktop";
+        "application/x-3mf" = "PrusaSlicer.desktop";
+        "model/stl" = "PrusaSlicer.desktop";
+        "application/sla" = "PrusaSlicer.desktop";
       };
     };
   };
