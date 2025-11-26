@@ -1,6 +1,8 @@
 {
 	"permissions": {
 		"allow": [
+			"Edit",
+			"Write",
 			"Bash(ls:*)",
 			"Bash(tree:*)",
 			"Bash(cat:*)",
