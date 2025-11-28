@@ -39,7 +39,7 @@
 
     windowrulev2 = [
       # ethui-dev
-      "workspace 1, title:ethui-dev.*"
+      "workspace 2, title:ethui-dev.*"
       "noinitialfocus, title:ethui-dev.*"
       "float, title:ethui-dev - dialog.*"
 
