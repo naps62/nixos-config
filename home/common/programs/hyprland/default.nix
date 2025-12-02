@@ -16,6 +16,7 @@ in
     playerctl
     hyprsunset
     hyprlock
+    xdg-desktop-portal-termfilechooser
   ];
 
   home.sessionVariables = {
@@ -124,6 +125,9 @@ in
         # imv
         "float, class:imv"
         "move cursor -50% -50%, class:imv"
+
+        "float, title:termfilechooser"
+        "move center, title:termfilechooser"
 
         # bluetooth
         "float, class:blueman-manager"
