@@ -59,12 +59,10 @@
     ];
 
     initContent = ''
-      # asdf-vm
-      . "$HOME/.nix-profile/share/asdf-vm/asdf.sh"
-
       [[ -f ~/.secrets.zsh ]] && source ~/.secrets.zsh
 
       export PATH="$HOME/.bin:$PATH"
+      export PATH="''${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
       export FOUNDRY_DISABLE_NIGHTLY_WARNING=true
       export LD_LIBRARY_PATH=${pkgs.icu}/lib:${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH
 

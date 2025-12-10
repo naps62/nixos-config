@@ -28,6 +28,7 @@
     lsof
     ktlint
     croc
+    claude-code
 
     # typst
     typst

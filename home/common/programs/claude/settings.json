@@ -26,9 +26,9 @@
 			"Bash(chmod:*)",
 			"Bash(mkdir:*)",
 			"Bash(kitty @ set-tab-title:*)"
-		],
-		"defaultMode": "acceptEdits"
+		]
 	},
+	"defaultMode": "acceptEdits",
 	"feedbackSurveyState": {
 		"lastShownTime": 1754052643456
 	},
