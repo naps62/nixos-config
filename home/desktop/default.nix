@@ -21,6 +21,7 @@
     ../common/programs/gpg.nix
     ../common/programs/ethui.nix
     ../common/programs/3d.nix
+    ../common/programs/nerd-dictation.nix
     ../common/features/xdg.nix
     ../common/features/bluetooth.nix
     ./monitors.nix
