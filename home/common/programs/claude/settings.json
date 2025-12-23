@@ -33,7 +33,12 @@
 		"lastShownTime": 1754052643456
 	},
 	"hooks": {
-		"onReady": "printf '\\a'"
+		"Stop": [
+			{
+				"matcher": "*",
+				"hooks": [{ "type": "command", "command": "printf '\\a'" }]
+			}
+		]
 	},
 	"$schema": "https://json.schemastore.org/claude-code-settings.json"
 }

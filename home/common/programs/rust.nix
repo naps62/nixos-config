@@ -8,7 +8,7 @@
     openssl.dev
     taplo
     sccache
-    mold-wrapped
+    mold
     clang
   ];
 
