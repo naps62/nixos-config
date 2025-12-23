@@ -78,10 +78,49 @@ let
 
     exec ${nerd-dictation-env}/bin/nerd-dictation-fhs -c "source $VENV/bin/activate && python3 ${nerd-dictation-src}/nerd-dictation $*"
   '';
+
+  # Toggle script for hyprland keybind
+  nerd-dictation-toggle = pkgs.writeShellScriptBin "nerd-dictation-toggle" ''
+    hyprctl() {
+      env -u LD_LIBRARY_PATH ${pkgs.hyprland}/bin/hyprctl "$@"
+    }
+
+    set_border() {
+      local size=$1
+      local color=$2
+      # Unset existing rules for single-window workspaces
+      hyprctl keyword windowrulev2 "unset, floating:0, onworkspace:w[t1]"
+      hyprctl keyword windowrulev2 "unset, floating:0, onworkspace:w[tg1]"
+      hyprctl keyword windowrulev2 "unset, floating:0, onworkspace:f[1]"
+      hyprctl keyword windowrulev2 "unset, fullscreen:1"
+      # Re-add with specified border size
+      hyprctl keyword windowrulev2 "bordersize $size, floating:0, onworkspace:w[t1]"
+      hyprctl keyword windowrulev2 "rounding 0, floating:0, onworkspace:w[t1]"
+      hyprctl keyword windowrulev2 "bordersize $size, floating:0, onworkspace:w[tg1]"
+      hyprctl keyword windowrulev2 "rounding 0, floating:0, onworkspace:w[tg1]"
+      hyprctl keyword windowrulev2 "bordersize $size, floating:0, onworkspace:f[1]"
+      hyprctl keyword windowrulev2 "rounding 0, floating:0, onworkspace:f[1]"
+      hyprctl keyword windowrulev2 "bordersize $size, fullscreen:1"
+      # Set border color
+      hyprctl keyword general:col.active_border "$color"
+    }
+
+    # Check if currently suspended (file exists when suspended)
+    if [ -f "$HOME/.cache/nerd-dictation-suspended" ]; then
+      nerd-dictation resume
+      rm -f "$HOME/.cache/nerd-dictation-suspended"
+      set_border 5 "rgb(ff0000)"
+    else
+      nerd-dictation suspend
+      touch "$HOME/.cache/nerd-dictation-suspended"
+      set_border 0 "0x99999999"
+    fi
+  '';
 in
 {
   home.packages = [
     nerd-dictation
+    nerd-dictation-toggle
     pkgs.ydotool
   ];
 
