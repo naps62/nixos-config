@@ -33,6 +33,8 @@
     # typst
     typst
     typstyle
+
+    renderdoc
   ];
 
   programs.tmux = {

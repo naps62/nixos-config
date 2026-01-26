@@ -171,7 +171,7 @@ in
         "$mod, space, exec, launcher_t2"
 
         # nerd-dictation
-        "$mod, d, exec, nerd-dictation-toggle"
+        # "$mod, d, exec, nerd-dictation-toggle"
 
         # printscreen
         ", Print, exec, hyprshot -m region --output-folder ~/downloads/screenshots"
