@@ -10,6 +10,12 @@
       enable = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;
+
+      # Add devenv support
+      stdlib = ''
+        # Source devenv direnvrc for use_devenv function
+        eval "$(devenv direnvrc)"
+      '';
     };
   };
 
