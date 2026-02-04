@@ -35,6 +35,7 @@
     ktlint
     croc
     claude-code
+    opencode
 
     # typst
     typst
