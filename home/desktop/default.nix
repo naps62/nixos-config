@@ -38,27 +38,27 @@
       "WEBKIT_DISABLE_DMABUF_RENDERER, 1"
     ];
 
-    windowrulev2 = [
+    windowrule = [
       # ethui-dev
-      "workspace 2, title:ethui-dev.*"
-      "noinitialfocus, title:ethui-dev.*"
-      "float, title:ethui-dev - dialog.*"
+      "workspace 2, match:title ethui-dev.*"
+      "no_initial_focus on, match:title ethui-dev.*"
+      "float on, match:title ethui-dev - dialog.*"
 
-      "workspace 1, title:ethui.*"
-      "noinitialfocus, title:ethui.*"
-      "float, title:ethui - dialog.*"
+      "workspace 1, match:title ethui.*"
+      "no_initial_focus on, match:title ethui.*"
+      "float on, match:title ethui - dialog.*"
 
-      "workspace 1, title:^\\[bevy\\].*"
+      "workspace 1, match:title ^\\[bevy\\].*"
 
-      "workspace 3 silent, class:bevy-.*"
-      "noinitialfocus, class:bevy-.*"
-      "fullscreen, class:bevy-.*"
+      "workspace 3 silent, match:class bevy-.*"
+      "no_initial_focus on, match:class bevy-.*"
+      "fullscreen on, match:class bevy-.*"
 
-      "workspace 1 silent, title:egui-.*"
-      "bordersize 0, title:egui-.*"
-      "float, title:egui-.*"
-      "noblur, title:egui-.*"
-      "move 100%-w-20 100%-h-20, title:egui-.*"
+      "workspace 1 silent, match:title egui-.*"
+      "border_size 0, match:title egui-.*"
+      "float on, match:title egui-.*"
+      "no_blur on, match:title egui-.*"
+      "move 100%-w-20 100%-h-20, match:title egui-.*"
     ];
 
     render = {

@@ -56,7 +56,11 @@ in
       misc = {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
-        new_window_takes_over_fullscreen = 2;
+        on_focus_under_fullscreen = 2;
+      };
+
+      ecosystem = {
+        no_update_news = true;
       };
 
       xwayland = {
@@ -122,40 +126,40 @@ in
         "special:yazi, on-created-empty:[float; size 1400 1000; move center] kitty --session sessions/yazi, persistent:false"
       ];
 
-      windowrulev2 = [
+      windowrule = [
         # imv
-        "float, class:imv"
-        "move cursor -50% -50%, class:imv"
+        "float on, match:class imv"
+        "move cursor -50% -50%, match:class imv"
 
-        "float, title:termfilechooser"
-        "move center, title:termfilechooser"
+        "float on, match:title termfilechooser"
+        "move center, match:title termfilechooser"
 
         # bluetooth
-        "float, class:blueman-manager"
-        "move cursor -50% -50%, class:blueman-manager"
-        "size 600 400, class:blueman-manager"
+        "float on, match:class blueman-manager"
+        "move cursor -50% -50%, match:class blueman-manager"
+        "size 600 400, match:class blueman-manager"
 
         # pavucontrol
-        "float, class:pavucontrol"
-        "move cursor -50% -50%, class:pavucontrol"
-        "size 600 600, class:pavucontrol"
+        "float on, match:class pavucontrol"
+        "move cursor -50% -50%, match:class pavucontrol"
+        "size 600 600, match:class pavucontrol"
 
         # metamask
-        "float, class:chrome-nkbihfbeogaeaoehlefnkodbefgpgknn-.*"
+        "float on, match:class chrome-nkbihfbeogaeaoehlefnkodbefgpgknn-.*"
 
         # bitwarden, chrome
-        "float, class:chrome-nngceckbapebfimnlniiiahkandclblb-.*"
+        "float on, match:class chrome-nngceckbapebfimnlniiiahkandclblb-.*"
 
         # no gaps when only window
-        "bordersize 0, floating:0, onworkspace:w[t1]"
-        "rounding 0, floating:0, onworkspace:w[t1]"
-        "bordersize 0, floating:0, onworkspace:w[tg1]"
-        "rounding 0, floating:0, onworkspace:w[tg1]"
-        "bordersize 0, floating:0, onworkspace:f[1]"
-        "rounding 0, floating:0, onworkspace:f[1]"
+        "border_size 0, match:float 0, match:workspace w[t1]"
+        "rounding 0, match:float 0, match:workspace w[t1]"
+        "border_size 0, match:float 0, match:workspace w[tg1]"
+        "rounding 0, match:float 0, match:workspace w[tg1]"
+        "border_size 0, match:float 0, match:workspace f[1]"
+        "rounding 0, match:float 0, match:workspace f[1]"
 
-        "move center, onworkspace:special:terminal"
-        "move center, onworkspace:special:yazi"
+        "move center, match:workspace special:terminal"
+        "move center, match:workspace special:yazi"
       ];
 
       "$mod" = "SUPER";

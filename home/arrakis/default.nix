@@ -34,11 +34,11 @@
       "4, monitor:eDP-1"
     ];
 
-    windowrulev2 = [
-      "noinitialfocus, class:bevy-.*"
-      "float, class:bevy-.*"
-      "size 800 600, class:bevy-.*"
-      "move 100%-800 100%-600, class:bevy-.*"
+    windowrule = [
+      "no_initial_focus on, match:class bevy-.*"
+      "float on, match:class bevy-.*"
+      "size 800 600, match:class bevy-.*"
+      "move 100%-800 100%-600, match:class bevy-.*"
     ];
   };
 

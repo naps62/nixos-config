@@ -89,18 +89,18 @@ let
       local size=$1
       local color=$2
       # Unset existing rules for single-window workspaces
-      hyprctl keyword windowrulev2 "unset, floating:0, onworkspace:w[t1]"
-      hyprctl keyword windowrulev2 "unset, floating:0, onworkspace:w[tg1]"
-      hyprctl keyword windowrulev2 "unset, floating:0, onworkspace:f[1]"
-      hyprctl keyword windowrulev2 "unset, fullscreen:1"
+      hyprctl keyword windowrule "unset, match:float 0, match:workspace w[t1]"
+      hyprctl keyword windowrule "unset, match:float 0, match:workspace w[tg1]"
+      hyprctl keyword windowrule "unset, match:float 0, match:workspace f[1]"
+      hyprctl keyword windowrule "unset, match:fullscreen 1"
       # Re-add with specified border size
-      hyprctl keyword windowrulev2 "bordersize $size, floating:0, onworkspace:w[t1]"
-      hyprctl keyword windowrulev2 "rounding 0, floating:0, onworkspace:w[t1]"
-      hyprctl keyword windowrulev2 "bordersize $size, floating:0, onworkspace:w[tg1]"
-      hyprctl keyword windowrulev2 "rounding 0, floating:0, onworkspace:w[tg1]"
-      hyprctl keyword windowrulev2 "bordersize $size, floating:0, onworkspace:f[1]"
-      hyprctl keyword windowrulev2 "rounding 0, floating:0, onworkspace:f[1]"
-      hyprctl keyword windowrulev2 "bordersize $size, fullscreen:1"
+      hyprctl keyword windowrule "border_size $size, match:float 0, match:workspace w[t1]"
+      hyprctl keyword windowrule "rounding 0, match:float 0, match:workspace w[t1]"
+      hyprctl keyword windowrule "border_size $size, match:float 0, match:workspace w[tg1]"
+      hyprctl keyword windowrule "rounding 0, match:float 0, match:workspace w[tg1]"
+      hyprctl keyword windowrule "border_size $size, match:float 0, match:workspace f[1]"
+      hyprctl keyword windowrule "rounding 0, match:float 0, match:workspace f[1]"
+      hyprctl keyword windowrule "border_size $size, match:fullscreen 1"
       # Set border color
       hyprctl keyword general:col.active_border "$color"
     }
