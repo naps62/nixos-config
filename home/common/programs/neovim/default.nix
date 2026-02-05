@@ -5,7 +5,7 @@
     EDITOR = "nvim";
   };
   home.packages = with pkgs; [
-    nixfmt-rfc-style
+    nixfmt
     biome
     stylua
   ];

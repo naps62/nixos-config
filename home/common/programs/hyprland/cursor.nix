@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     rose-pine-cursor
-    inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
+    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   home.sessionVariables = {

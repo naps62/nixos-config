@@ -9,7 +9,7 @@
     google-chrome
     spotify
     spicetify-cli
-    xfce.thunar
+    thunar
     obsidian
     mpv
     obs-studio
