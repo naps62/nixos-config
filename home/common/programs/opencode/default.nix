@@ -29,6 +29,8 @@
   xdg.configFile."opencode/commands/security-scan.md".source = ./commands/security-scan.md;
   xdg.configFile."opencode/commands/issue.md".source = ./commands/issue.md;
   xdg.configFile."opencode/commands/remove-deadcode.md".source = ./commands/remove-deadcode.md;
+  xdg.configFile."opencode/commands/worktree-compare.md".source = ./commands/worktree-compare.md;
+  xdg.configFile."opencode/commands/worktree-list.md".source = ./commands/worktree-list.md;
 
   # Skills
   xdg.configFile."opencode/skills/git-master/SKILL.md".source = ./skills/git-master/SKILL.md;
