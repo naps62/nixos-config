@@ -1,5 +1,6 @@
 ---
 description: Opinionated UI/UX specialist for distinctive, visually striking interfaces. Anti-generic-AI aesthetics. Bold typography, asymmetric layouts, intentional color.
+model: anthropic/claude-opus-4-6
 mode: all
 temperature: 0.7
 ---

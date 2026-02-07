@@ -1,5 +1,6 @@
 ---
 description: Strategic technical advisor. Architecture decisions, debugging strategy, code review guidance. READ-ONLY.
+model: anthropic/claude-opus-4-6
 mode: all
 temperature: 0.1
 tools:

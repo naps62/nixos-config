@@ -1,5 +1,6 @@
 ---
 description: Fast, focused implementation specialist. Receives complete context, executes changes efficiently. No research or delegation.
+model: anthropic/claude-sonnet-4-5
 mode: all
 temperature: 0.2
 permission:

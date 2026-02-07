@@ -1,5 +1,6 @@
 ---
 description: Research specialist for external documentation, library APIs, and open source examples. READ-ONLY.
+model: anthropic/claude-sonnet-4-5
 mode: all
 temperature: 0.1
 tools:

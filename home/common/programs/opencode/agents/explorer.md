@@ -1,5 +1,6 @@
 ---
 description: Fast codebase navigation specialist. Answers "where is X", "find Y", "which file has Z". READ-ONLY.
+model: anthropic/claude-haiku-4-5
 mode: all
 temperature: 0.1
 tools:

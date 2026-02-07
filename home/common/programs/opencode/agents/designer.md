@@ -1,5 +1,6 @@
 ---
 description: Conventional frontend specialist. React 18+, Tailwind CSS, TypeScript, accessibility (WCAG 2.1 AA), responsive design, performance optimization.
+model: anthropic/claude-sonnet-4-5
 mode: all
 temperature: 0.2
 ---
