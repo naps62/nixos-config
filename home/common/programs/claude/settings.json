@@ -1,58 +1,59 @@
 {
-	"permissions": {
-		"allow": [
-			"Edit",
-			"Write",
-			"Bash(ls:*)",
-			"Bash(tree:*)",
-			"Bash(cat:*)",
-			"Bash(head:*)",
-			"Bash(tail:*)",
-			"Bash(find:*)",
-			"Bash(fd:*)",
-			"Bash(grep:*)",
-			"Bash(rg:*)",
-			"Bash(wc:*)",
-			"Bash(sort:*)",
-			"Bash(uniq:*)",
-			"Bash(diff:*)",
-			"Bash(pwd:*)",
-			"Bash(which:*)",
-			"Bash(jq:*)",
-			"Bash(git:*)",
-			"Bash(gh:*)",
-			"Bash(sed:*)",
-			"Bash(cp:*)",
-			"Bash(chmod:*)",
-			"Bash(mkdir:*)",
-			"Bash(kitty @ set-tab-title:*)"
-		]
-	},
-	"defaultMode": "acceptEdits",
-	"feedbackSurveyState": {
-		"lastShownTime": 1754052643456
-	},
-	"hooks": {
-		"Stop": [
-			{
-				"matcher": "*",
-				"hooks": [{ "type": "command", "command": "printf '\\a'" }]
-			}
-		],
-		"SessionStart": [
-			{
-				"hooks": [
-					{
-						"type": "command",
-						"command": "node \"/home/naps62/.claude/hooks/gsd-check-update.js\""
-					}
-				]
-			}
-		]
-	},
-	"$schema": "https://json.schemastore.org/claude-code-settings.json",
-	"statusLine": {
-		"type": "command",
-		"command": "node \"/home/naps62/.claude/hooks/gsd-statusline.js\""
-	}
+  "permissions": {
+    "additionalDirectories": ["/home/naps62/projects", "/home/naps62/ethui"],
+    "allow": [
+      "Edit",
+      "Write",
+      "Bash(ls:*)",
+      "Bash(tree:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(find:*)",
+      "Bash(fd:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(wc:*)",
+      "Bash(sort:*)",
+      "Bash(uniq:*)",
+      "Bash(diff:*)",
+      "Bash(pwd:*)",
+      "Bash(which:*)",
+      "Bash(jq:*)",
+      "Bash(git:*)",
+      "Bash(gh:*)",
+      "Bash(sed:*)",
+      "Bash(cp:*)",
+      "Bash(chmod:*)",
+      "Bash(mkdir:*)",
+      "Bash(kitty @ set-tab-title:*)"
+    ]
+  },
+  "defaultMode": "acceptEdits",
+  "feedbackSurveyState": {
+    "lastShownTime": 1754052643456
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [{ "type": "command", "command": "printf '\\a'" }]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/home/naps62/.claude/hooks/gsd-check-update.js\""
+          }
+        ]
+      }
+    ]
+  },
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "statusLine": {
+    "type": "command",
+    "command": "node \"/home/naps62/.claude/hooks/gsd-statusline.js\""
+  }
 }

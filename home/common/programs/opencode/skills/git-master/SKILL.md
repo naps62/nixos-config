@@ -18,9 +18,9 @@ Analyze the user's request to determine operation mode:
 
 | User Request Pattern | Mode | Jump To |
 |---------------------|------|---------|
-| "commit", "커밋", changes to commit | `COMMIT` | Phase 0-6 (existing) |
-| "rebase", "리베이스", "squash", "cleanup history" | `REBASE` | Phase R1-R4 |
-| "find when", "who changed", "언제 바뀌었", "git blame", "bisect" | `HISTORY_SEARCH` | Phase H1-H3 |
+| "commit", changes to commit | `COMMIT` | Phase 0-6 (existing) |
+| "rebase", "squash", "cleanup history" | `REBASE` | Phase R1-R4 |
+| "find when", "who changed", "git blame", "bisect" | `HISTORY_SEARCH` | Phase H1-H3 |
 | "smart rebase", "rebase onto" | `REBASE` | Phase R1-R4 |
 
 **CRITICAL**: Don't default to COMMIT mode. Parse the actual request.
@@ -107,21 +107,7 @@ git log --oneline $(git merge-base HEAD main 2>/dev/null || git merge-base HEAD 
 <style_detection>
 **THIS PHASE HAS MANDATORY OUTPUT** - You MUST print the analysis result before moving to Phase 2.
 
-### 1.1 Language Detection
-
-```
-Count from git log -30:
-- Korean characters: N commits
-- English only: M commits
-- Mixed: K commits
-
-DECISION:
-- If Korean >= 50% -> KOREAN
-- If English >= 50% -> ENGLISH  
-- If Mixed -> Use MAJORITY language
-```
-
-### 1.2 Commit Style Classification
+### 1.1 Commit Style Classification
 
 | Style | Pattern | Example | Detection Regex |
 |-------|---------|---------|-----------------|
@@ -142,7 +128,7 @@ ELSE IF short_count >= 10: STYLE = SHORT
 ELSE: STYLE = PLAIN (safe default)
 ```
 
-### 1.3 MANDATORY OUTPUT (BLOCKING)
+### 1.2 MANDATORY OUTPUT (BLOCKING)
 
 **You MUST output this block before proceeding to Phase 2. NO EXCEPTIONS.**
 
@@ -150,10 +136,6 @@ ELSE: STYLE = PLAIN (safe default)
 STYLE DETECTION RESULT
 ======================
 Analyzed: 30 commits from git log
-
-Language: [KOREAN | ENGLISH]
-  - Korean commits: N (X%)
-  - English commits: M (Y%)
 
 Style: [SEMANTIC | PLAIN | SENTENCE | SHORT]
   - Semantic (feat:, fix:, etc): N (X%)
@@ -165,7 +147,7 @@ Reference examples from repo:
   2. "actual commit message from log"
   3. "actual commit message from log"
 
-All commits will follow: [LANGUAGE] + [STYLE]
+All commits will follow: [STYLE]
 ```
 
 **IF YOU SKIP THIS OUTPUT, YOUR COMMITS WILL BE WRONG. STOP AND REDO.**
@@ -507,26 +489,19 @@ git log -1 --oneline
 **Based on COMMIT_CONFIG from Phase 1:**
 
 ```
-IF style == SEMANTIC AND language == KOREAN:
-  -> "feat: 로그인 기능 추가"
-  
-IF style == SEMANTIC AND language == ENGLISH:
+IF style == SEMANTIC:
   -> "feat: add login feature"
-  
-IF style == PLAIN AND language == KOREAN:
-  -> "로그인 기능 추가"
-  
-IF style == PLAIN AND language == ENGLISH:
+   
+IF style == PLAIN:
   -> "Add login feature"
-  
+   
 IF style == SHORT:
   -> "format" / "type fix" / "lint"
 ```
 
 **VALIDATION before each commit:**
 1. Does message match detected style?
-2. Does language match detected language?
-3. Is it similar to examples from git log?
+2. Is it similar to examples from git log?
 
 If ANY check fails -> REWRITE message.
 ```
@@ -589,7 +564,7 @@ NEXT STEPS:
 | If git log shows... | Use this style |
 |---------------------|----------------|
 | `feat: xxx`, `fix: yyy` | SEMANTIC |
-| `Add xxx`, `Fix yyy`, `xxx 추가` | PLAIN |
+| `Add xxx`, `Fix yyy` | PLAIN |
 | `format`, `lint`, `typo` | SHORT |
 | Full sentences | SENTENCE |
 | Mix of above | Use MAJORITY (not semantic by default) |
@@ -688,19 +663,19 @@ git stash list
 ```
 USER REQUEST -> STRATEGY:
 
-"squash commits" / "cleanup" / "정리"
+"squash commits" / "cleanup"
   -> INTERACTIVE_SQUASH
 
-"rebase on main" / "update branch" / "메인에 리베이스"
+"rebase on main" / "update branch"
   -> REBASE_ONTO_BASE
 
 "autosquash" / "apply fixups"
   -> AUTOSQUASH
 
-"reorder commits" / "커밋 순서"
+"reorder commits"
   -> INTERACTIVE_REORDER
 
-"split commit" / "커밋 분리"
+"split commit"
   -> INTERACTIVE_EDIT
 ```
 </rebase_context>
@@ -850,12 +825,12 @@ NEXT STEPS:
 
 | User Request | Search Type | Tool |
 |--------------|-------------|------|
-| "when was X added" / "X가 언제 추가됐어" | PICKAXE | `git log -S` |
+| "when was X added" | PICKAXE | `git log -S` |
 | "find commits changing X pattern" | REGEX | `git log -G` |
-| "who wrote this line" / "이 줄 누가 썼어" | BLAME | `git blame` |
-| "when did bug start" / "버그 언제 생겼어" | BISECT | `git bisect` |
-| "history of file" / "파일 히스토리" | FILE_LOG | `git log -- path` |
-| "find deleted code" / "삭제된 코드 찾기" | PICKAXE_ALL | `git log -S --all` |
+| "who wrote this line" | BLAME | `git blame` |
+| "when did bug start" | BISECT | `git bisect` |
+| "history of file" | FILE_LOG | `git log -- path` |
+| "find deleted code" | PICKAXE_ALL | `git log -S --all` |
 
 ### H1.2 Extract Search Parameters
 
