@@ -12,7 +12,7 @@
     clang
   ];
 
-  home.sessionPath = [ "\${CARGO_HOME:-~/.cargo}/bin" ];
+  home.sessionPath = [ "\${CARGO_HOME:-$HOME/.cargo}/bin" ];
 
   home.file.".cargo/config.toml".text = ''
     [target.x86_64-unknown-linux-gnu]

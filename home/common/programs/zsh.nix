@@ -64,7 +64,7 @@
       export PATH="$HOME/.bin:$PATH"
       export PATH="''${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
       export FOUNDRY_DISABLE_NIGHTLY_WARNING=true
-      export LD_LIBRARY_PATH=${pkgs.icu}/lib:${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH
+      export LD_LIBRARY_PATH=${pkgs.zlib}/lib:${pkgs.icu}/lib:${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH
 
       function y() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd

@@ -4,7 +4,13 @@
       "WebSearch",
       "WebFetch(domain:wiki.hypr.land)",
       "WebFetch(domain:gist.github.com)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(GH_PAGER=cat gh api:*)",
+      "Bash(kitten @ launch:*)",
+      "Bash(for name in designer-bold designer analyze-branch oracle librarian git-master planning-with-files react-patterns vercel-react-best-practices smart-debug tdd-cycle security-scan issue remove-deadcode worktree-compare worktree-list)",
+      "Bash(do mv \"commands/$name.md\" \"skills/$name/SKILL.md\")",
+      "Bash(done)",
+      "Bash(TUICR_TERMINAL=kitty /home/naps62/.claude/skills/tuicr/tuicr-wrapper.sh:*)"
     ]
   }
 }
