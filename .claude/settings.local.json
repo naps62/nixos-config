@@ -12,5 +12,9 @@
       "Bash(done)",
       "Bash(TUICR_TERMINAL=kitty /home/naps62/.claude/skills/tuicr/tuicr-wrapper.sh:*)"
     ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": false
   }
 }

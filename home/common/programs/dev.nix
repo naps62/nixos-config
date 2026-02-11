@@ -42,6 +42,14 @@
     typstyle
 
     renderdoc
+
+    mkcert
+    nss.tools
+
+    # claude sandbox
+    bubblewrap
+    socat
+    libseccomp
   ];
 
   programs.tmux = {
