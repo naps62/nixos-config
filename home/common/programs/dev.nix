@@ -5,6 +5,11 @@
   ...
 }:
 {
+  imports = [
+    ./entire.nix
+    ./ralph-claude-code.nix
+  ];
+
   programs = {
     direnv = {
       enable = true;

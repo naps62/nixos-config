@@ -12,6 +12,7 @@
   # Skills: agents
   home.file.".claude/skills/designer-bold/SKILL.md".source = ./skills/designer-bold/SKILL.md;
   home.file.".claude/skills/designer/SKILL.md".source = ./skills/designer/SKILL.md;
+  home.file.".claude/skills/frontend-design/SKILL.md".source = ./skills/frontend-design/SKILL.md;
   home.file.".claude/skills/analyze-branch/SKILL.md".source = ./skills/analyze-branch/SKILL.md;
   home.file.".claude/skills/oracle/SKILL.md".source = ./skills/oracle/SKILL.md;
   home.file.".claude/skills/librarian/SKILL.md".source = ./skills/librarian/SKILL.md;

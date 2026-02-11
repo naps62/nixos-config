@@ -10,7 +10,18 @@
       "Bash(for name in designer-bold designer analyze-branch oracle librarian git-master planning-with-files react-patterns vercel-react-best-practices smart-debug tdd-cycle security-scan issue remove-deadcode worktree-compare worktree-list)",
       "Bash(do mv \"commands/$name.md\" \"skills/$name/SKILL.md\")",
       "Bash(done)",
-      "Bash(TUICR_TERMINAL=kitty /home/naps62/.claude/skills/tuicr/tuicr-wrapper.sh:*)"
+      "Bash(TUICR_TERMINAL=kitty /home/naps62/.claude/skills/tuicr/tuicr-wrapper.sh:*)",
+      "Bash(nix search:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:docs.tempo.xyz)",
+      "Bash(nix-prefetch-url:*)",
+      "WebFetch(domain:release-assets.githubusercontent.com)",
+      "Bash(nix build:*)",
+      "Bash(nix-build:*)",
+      "Bash(direnv version:*)",
+      "Bash(nix:*)",
+      "WebFetch(domain:devenv.sh)"
     ]
   },
   "sandbox": {
