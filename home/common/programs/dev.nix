@@ -6,7 +6,6 @@
 }:
 {
   imports = [
-    ./entire.nix
     ./ralph-claude-code.nix
   ];
 
@@ -17,10 +16,10 @@
       nix-direnv.enable = true;
 
       # Add devenv support
-      stdlib = ''
-        # Source devenv direnvrc for use_devenv function
-        eval "$(devenv direnvrc)"
-      '';
+      # stdlib = ''
+      #   # Source devenv direnvrc for use_devenv function
+      #   eval "$(devenv direnvrc)"
+      # '';
     };
   };
 
