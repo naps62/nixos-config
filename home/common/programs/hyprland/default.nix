@@ -12,6 +12,7 @@ in
     ./rofi.nix
     ./cursor.nix
     ./waybar.nix
+    ./quickshell.nix
   ];
 
   home.packages = with pkgs; [
