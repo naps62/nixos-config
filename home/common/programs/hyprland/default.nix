@@ -11,7 +11,7 @@ in
   imports = [
     ./rofi.nix
     ./cursor.nix
-    ./hyprpanel.nix
+    ./waybar.nix
   ];
 
   home.packages = with pkgs; [
@@ -35,7 +35,7 @@ in
     plugins = [
       inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
       inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
-      inputs.hyprspace.packages.${pkgs.stdenv.hostPlatform.system}.Hyprspace
+      # inputs.hyprspace.packages.${pkgs.stdenv.hostPlatform.system}.Hyprspace
     ];
     settings = {
       plugin = {
@@ -125,7 +125,7 @@ in
 
       "exec-once" = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "hyprpanel"
+        "waybar"
         "nm-applet"
         "hyprsunset"
         "nerd-dictation begin --simulate-input-tool WTYPE --suspend-on-start && touch ~/.cache/nerd-dictation-suspended"

@@ -42,14 +42,6 @@
     ];
   };
 
-  programs.hyprpanel.settings.bar.layouts = {
-    "0" = {
-      right = [
-        "battery"
-      ];
-    };
-  };
-
   home = {
     username = lib.mkDefault "naps62";
     stateVersion = lib.mkDefault "24.05";
