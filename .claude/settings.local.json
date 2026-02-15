@@ -23,7 +23,9 @@
       "Bash(nix:*)",
       "WebFetch(domain:devenv.sh)",
       "WebFetch(domain:discourse.nixos.org)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "WebFetch(domain:quickshell.org)",
+      "WebFetch(domain:www.tonybtw.com)"
     ]
   },
   "sandbox": {
