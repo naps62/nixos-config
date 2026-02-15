@@ -7,6 +7,7 @@
         layer = "top";
         position = "top";
         height = 32;
+        exclusive = false;
 
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "hyprland/window" ];
@@ -93,7 +94,7 @@
 
     style = ''
       @define-color foreground #bac2de;
-      @define-color background rgba(17, 17, 27, 0.85);
+      @define-color background #11111b;
       @define-color active #b4befe;
       @define-color warning #f9e2af;
       @define-color critical #f38ba8;

@@ -103,6 +103,7 @@ in
         blur = {
           enabled = true;
           # new_optimizations = false;
+          popups = false;
         };
         shadow = {
           enabled = false;
@@ -180,7 +181,8 @@ in
 
       bind = [
         "$mod, g, hyprexpo:expo, toggle"
-        "$mod, tab, overview:toggle,"
+        # "$mod, tab, overview:toggle,"
+        "$mod, b, exec, pkill -SIGUSR1 waybar"
         "$mod, t, exec, kitty"
         "$mod, v, togglefloating"
         "$mod, q, killactive"
