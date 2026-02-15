@@ -1,4 +1,9 @@
-{ config, inputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 let
   rofiLaunchers = import ../../../pkgs/rofi-launchers/package.nix { };
 in
@@ -90,28 +95,10 @@ in
         };
       };
 
-      animations = {
-        bezier = [
-          "wind, 0.05, 0.9, 0.1, 1.0"
-          "winIn, 0.1, 1.0, 0.1, 1.0"
-          "winOut, 0.3, -0.3, 0, 1"
-          "liner, 1, 1, 1, 1"
-          "fadeIn, 0, 0, 0.98, 1"
-        ];
+      # keep default animations, but speed them all up
+      animations.animation = {
         animation = [
-          "windows, 1, 2, wind, popin 80%"
-          "windowsIn, 1, 2, fadeIn, popin 80%"
-          "windowsOut, 1, 5, winOut, popin 80%"
-          "windowsMove, 1, 5, wind, slide"
-          "border, 1, 1, liner"
-          "borderangle, 1, 30, liner, loop"
-          "fade, 1, 2, fadeIn"
-          "fadeIn, 1, 2, fadeIn"
-          "fadeOut, 1, 2, winOut"
-          "workspaces, 1, 2, wind"
-          "windowsMove, 0, 1, default, slide"
-          # "specialWorkspace, 0, 2, default, fade"
-          "specialWorkspace, 1, 2, fadeIn, fade"
+          "global, 1, 2, default"
         ];
       };
 

@@ -82,7 +82,7 @@
   };
 
   xdg.portal = {
-    enable = true;
+    enable = lib.mkDefault true;
     xdgOpenUsePortal = true;
   };
 }
