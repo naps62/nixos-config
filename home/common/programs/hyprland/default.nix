@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 let
   rofiLaunchers = import ../../../pkgs/rofi-launchers/package.nix { };
 in
@@ -25,7 +25,20 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
+    package = null;
+    portalPackage = null;
+    plugins = [
+      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
+    ];
     settings = {
+      plugin = {
+        hyprexpo = {
+          columns = 3;
+          gap_size = 5;
+          bg_col = "rgb(000000)";
+          workspace_method = "center current";
+        };
+      };
       input = {
         kb_options = "ctrl:nocaps";
         repeat_delay = 150;
@@ -165,6 +178,7 @@ in
       "$mod" = "SUPER";
 
       bind = [
+        "$mod, g, hyprexpo:expo, toggle"
         "$mod, t, exec, kitty"
         "$mod, v, togglefloating"
         "$mod, q, killactive"
