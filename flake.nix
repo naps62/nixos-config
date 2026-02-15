@@ -34,6 +34,7 @@
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     ethui.url = "github:ethui/ethui/nix";
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
 
   outputs =
