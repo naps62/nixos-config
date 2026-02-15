@@ -126,7 +126,6 @@ in
 
       "exec-once" = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "waybar"
         "nm-applet"
         "hyprsunset"
         "nerd-dictation begin --simulate-input-tool WTYPE --suspend-on-start && touch ~/.cache/nerd-dictation-suspended"
@@ -182,7 +181,7 @@ in
       bind = [
         "$mod, g, hyprexpo:expo, toggle"
         # "$mod, tab, overview:toggle,"
-        "$mod, b, exec, pkill -SIGUSR1 waybar"
+        "$mod, b, exec, pkill waybar || waybar"
         "$mod, t, exec, kitty"
         "$mod, v, togglefloating"
         "$mod, q, killactive"
