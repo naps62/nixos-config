@@ -34,6 +34,8 @@ in
     portalPackage = null;
     plugins = [
       inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
+      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
+      inputs.hyprspace.packages.${pkgs.stdenv.hostPlatform.system}.Hyprspace
     ];
     settings = {
       plugin = {
@@ -42,6 +44,18 @@ in
           gap_size = 5;
           bg_col = "rgb(000000)";
           workspace_method = "center current";
+        };
+        hyprfocus = {
+          enabled = true;
+          mode = "flash";
+          fade_opacity = 0.85;
+        };
+        overview = {
+          autoDrag = true;
+          exitOnClick = true;
+          exitOnSwitch = true;
+          showNewWorkspace = false;
+          showEmptyWorkspace = false;
         };
       };
       input = {
@@ -96,7 +110,7 @@ in
       };
 
       # keep default animations, but speed them all up
-      animations.animation = {
+      animations = {
         animation = [
           "global, 1, 2, default"
         ];
@@ -166,6 +180,7 @@ in
 
       bind = [
         "$mod, g, hyprexpo:expo, toggle"
+        "$mod, tab, overview:toggle,"
         "$mod, t, exec, kitty"
         "$mod, v, togglefloating"
         "$mod, q, killactive"

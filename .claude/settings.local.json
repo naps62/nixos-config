@@ -21,7 +21,9 @@
       "Bash(nix-build:*)",
       "Bash(direnv version:*)",
       "Bash(nix:*)",
-      "WebFetch(domain:devenv.sh)"
+      "WebFetch(domain:devenv.sh)",
+      "WebFetch(domain:discourse.nixos.org)",
+      "Bash(curl:*)"
     ]
   },
   "sandbox": {
