@@ -39,11 +39,4 @@
   };
 
   services.dbus.packages = with pkgs; [ gcr ];
-  services.geoclue2 = {
-    enable = true;
-    appConfig.darkman = {
-      isAllowed = true;
-      isSystem = false;
-    };
-  };
 }
