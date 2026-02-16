@@ -37,7 +37,7 @@ in
     portalPackage = null;
     plugins = [
       inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
-      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
+      # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
       # inputs.hyprspace.packages.${pkgs.stdenv.hostPlatform.system}.Hyprspace
     ];
     settings = {
@@ -49,11 +49,11 @@ in
           workspace_method = "center current";
           skip_empty = true;
         };
-        hyprfocus = {
-          enabled = true;
-          mode = "flash";
-          flash_opacity = 0.8; # Flash brighter instead of dimmer
-        };
+        # hyprfocus = {
+        #   enabled = true;
+        #   mode = "flash";
+        #   flash_opacity = 0.8; # Flash brighter instead of dimmer
+        # };
         overview = {
           autoDrag = true;
           exitOnClick = true;
