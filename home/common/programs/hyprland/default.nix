@@ -14,6 +14,7 @@ in
     ./cursor.nix
     ./waybar.nix
     ./quickshell.nix
+    ./wallpapers.nix
   ];
 
   home.packages = with pkgs; [
@@ -46,11 +47,12 @@ in
           gap_size = 5;
           bg_col = "rgb(000000)";
           workspace_method = "center current";
+          skip_empty = true;
         };
         hyprfocus = {
           enabled = true;
           mode = "flash";
-          flash_opacity = 1.8; # Flash brighter instead of dimmer
+          flash_opacity = 0.8; # Flash brighter instead of dimmer
         };
         overview = {
           autoDrag = true;
@@ -129,6 +131,7 @@ in
       "exec-once" = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "nm-applet"
+        "hyprpaper"
         "hyprsunset"
         "nerd-dictation begin --simulate-input-tool WTYPE --suspend-on-start && touch ~/.cache/nerd-dictation-suspended"
       ];

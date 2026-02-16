@@ -45,6 +45,7 @@
 
     exec-once = [
       "hyprctl setcursor Nordzy-cursors 42"
+      "$HOME/.local/bin/hyprpaper-rotate"
     ];
 
     windowrule = [
