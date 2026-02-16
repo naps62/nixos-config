@@ -17,13 +17,15 @@ in
     wayland.enable = true;
     theme = "sddm-astronaut-theme";
     package = pkgs.kdePackages.sddm;
+    extraPackages = with pkgs.kdePackages; [
+      qtmultimedia
+      qtsvg
+      qtvirtualkeyboard
+      qt5compat
+    ];
   };
 
   environment.systemPackages = with pkgs; [
     sddm-astronaut-theme
-    kdePackages.qt6ct
-    kdePackages.qtsvg
-    kdePackages.qtvirtualkeyboard
-    kdePackages.qtmultimedia
   ];
 }
