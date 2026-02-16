@@ -10,8 +10,18 @@
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
 
-  # thumbnail support for images
-  services.tumbler.enable = true;
+  # GTK/GNOME services still useful on Wayland
+  programs.dconf.enable = true;
+
+  services = {
+    # thumbnail support for images
+    tumbler.enable = true;
+
+    gnome = {
+      glib-networking.enable = true;
+      gnome-keyring.enable = true;
+    };
+  };
 
   nix.settings = {
     substituters = [ "https://hyprland.cachix.org" ];

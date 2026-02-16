@@ -14,7 +14,6 @@
     ../common/programs/desktop
     ../common/programs/zen-browser.nix
     ../common/programs/hyprland
-    ../common/programs/i3.nix
     ../common/programs/kitty
     ../common/programs/syncthing.nix
     ../common/programs/unity.nix
@@ -23,6 +22,7 @@
     ../common/programs/3d.nix
     ../common/programs/nerd-dictation.nix
     ../common/features/xdg.nix
+    ../common/features/downloads-cleanup.nix
     ../common/features/bluetooth.nix
     ./monitors.nix
   ];

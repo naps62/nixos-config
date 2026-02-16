@@ -25,7 +25,10 @@
       "WebFetch(domain:discourse.nixos.org)",
       "Bash(curl:*)",
       "WebFetch(domain:quickshell.org)",
-      "WebFetch(domain:www.tonybtw.com)"
+      "WebFetch(domain:www.tonybtw.com)",
+      "Bash(systemctl:*)",
+      "Bash(darkman get:*)",
+      "Bash(dconf read:*)"
     ]
   },
   "sandbox": {

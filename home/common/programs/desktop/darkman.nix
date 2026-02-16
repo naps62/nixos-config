@@ -25,6 +25,7 @@
   };
 
   xdg.configFile."darkman/config.yaml".text = ''
-    usegeoclue: true
+    lat: 41.55
+    long: -8.42
   '';
 }
