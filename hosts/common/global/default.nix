@@ -39,5 +39,4 @@
   };
 
   services.dbus.packages = with pkgs; [ gcr ];
-  services.geoclue2.enable = true;
 }

@@ -1,14 +1,16 @@
 { pkgs, inputs, ... }:
+let
+  nordzy-cursors = pkgs.callPackage ../../../../pkgs/nordzy-cursors/package.nix { };
+in
 {
-  home.packages = with pkgs; [
-    rose-pine-cursor
-    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
+  home.packages = [
+    nordzy-cursors
   ];
 
   home.sessionVariables = {
-    HYPRCURSOR_THEME = "BreezeX-RosePine-Linux";
+    HYPRCURSOR_THEME = "Nordzy-cursors";  # Dark variant (default)
     HYPRCURSOR_SIZE = 32;
-    XCURSOR_THEME = "BreezeX-RosePine-Linux";
+    XCURSOR_THEME = "Nordzy-cursors";
     XCURSOR_SIZE = 32;
   };
 

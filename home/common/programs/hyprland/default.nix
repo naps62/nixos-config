@@ -1,12 +1,19 @@
-{ config, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 let
   rofiLaunchers = import ../../../pkgs/rofi-launchers/package.nix { };
 in
 {
   imports = [
     ./rofi.nix
+    ./walker.nix
     ./cursor.nix
-    ./hyprpanel.nix
+    ./waybar.nix
+    ./quickshell.nix
   ];
 
   home.packages = with pkgs; [
@@ -25,7 +32,34 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
+    package = null;
+    portalPackage = null;
+    plugins = [
+      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
+      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
+      # inputs.hyprspace.packages.${pkgs.stdenv.hostPlatform.system}.Hyprspace
+    ];
     settings = {
+      plugin = {
+        hyprexpo = {
+          columns = 3;
+          gap_size = 5;
+          bg_col = "rgb(000000)";
+          workspace_method = "center current";
+        };
+        hyprfocus = {
+          enabled = true;
+          mode = "flash";
+          flash_opacity = 1.8; # Flash brighter instead of dimmer
+        };
+        overview = {
+          autoDrag = true;
+          exitOnClick = true;
+          exitOnSwitch = true;
+          showNewWorkspace = false;
+          showEmptyWorkspace = false;
+        };
+      };
       input = {
         kb_options = "ctrl:nocaps";
         repeat_delay = 150;
@@ -71,34 +105,17 @@ in
         blur = {
           enabled = true;
           # new_optimizations = false;
+          popups = false;
         };
         shadow = {
           enabled = false;
         };
       };
 
+      # keep default animations, but speed them all up
       animations = {
-        bezier = [
-          "wind, 0.05, 0.9, 0.1, 1.0"
-          "winIn, 0.1, 1.0, 0.1, 1.0"
-          "winOut, 0.3, -0.3, 0, 1"
-          "liner, 1, 1, 1, 1"
-          "fadeIn, 0, 0, 0.98, 1"
-        ];
         animation = [
-          "windows, 1, 2, wind, popin 80%"
-          "windowsIn, 1, 2, fadeIn, popin 80%"
-          "windowsOut, 1, 5, winOut, popin 80%"
-          "windowsMove, 1, 5, wind, slide"
-          "border, 1, 1, liner"
-          "borderangle, 1, 30, liner, loop"
-          "fade, 1, 2, fadeIn"
-          "fadeIn, 1, 2, fadeIn"
-          "fadeOut, 1, 2, winOut"
-          "workspaces, 1, 2, wind"
-          "windowsMove, 0, 1, default, slide"
-          # "specialWorkspace, 0, 2, default, fade"
-          "specialWorkspace, 1, 2, fadeIn, fade"
+          "global, 1, 2, default"
         ];
       };
 
@@ -111,7 +128,6 @@ in
 
       "exec-once" = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "hyprpanel"
         "nm-applet"
         "hyprsunset"
         "nerd-dictation begin --simulate-input-tool WTYPE --suspend-on-start && touch ~/.cache/nerd-dictation-suspended"
@@ -165,14 +181,19 @@ in
       "$mod" = "SUPER";
 
       bind = [
+        "$mod, g, hyprexpo:expo, toggle"
+        # "$mod, tab, overview:toggle,"
+        "$mod, b, exec, pkill waybar || waybar"
         "$mod, t, exec, kitty"
         "$mod, v, togglefloating"
         "$mod, q, killactive"
         "$mod, f, fullscreen, 0"
         "$mod SHIFT, f, fullscreen, 1"
 
-        # rofi
-        "$mod, space, exec, launcher_t2"
+        # walker app launcher
+        "$mod, space, exec, walker"
+        # rofi (old)
+        # "$mod, space, exec, launcher_t2"
 
         # nerd-dictation
         # "$mod, d, exec, nerd-dictation-toggle"

@@ -14,19 +14,23 @@
     ../common/programs/desktop
     ../common/programs/zen-browser.nix
     ../common/programs/hyprland
-    ../common/programs/i3.nix
     ../common/programs/kitty
     ../common/programs/syncthing.nix
     ../common/programs/unity.nix
     ../common/programs/ethui.nix
     ../common/programs/gpg.nix
     ../common/features/xdg.nix
+    ../common/features/downloads-cleanup.nix
     ../common/programs/3d.nix
     ../common/features/bluetooth.nix
     ./monitors.nix
   ];
 
   wayland.windowManager.hyprland.settings = {
+    exec-once = [
+      "hyprctl setcursor Nordzy-cursors 32"
+    ];
+
     workspace = [
       "1, monitor:DP-3"
       "2, monitor:eDP-1"
@@ -40,14 +44,6 @@
       "size 800 600, match:class bevy-.*"
       "move 100%-800 100%-600, match:class bevy-.*"
     ];
-  };
-
-  programs.hyprpanel.settings.bar.layouts = {
-    "0" = {
-      right = [
-        "battery"
-      ];
-    };
   };
 
   home = {

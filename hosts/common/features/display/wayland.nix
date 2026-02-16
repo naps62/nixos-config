@@ -2,24 +2,26 @@
 {
   environment.systemPackages = with pkgs; [
     wl-clipboard
-    hyprland
   ];
 
-  services.displayManager.sessionPackages = with pkgs; [
-    hyprland
-  ];
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
 
-  # thumbnail support for images
-  services.tumbler.enable = true;
+  # GTK/GNOME services still useful on Wayland
+  programs.dconf.enable = true;
 
-  environment.etc."xdg/wayland-sessions/hyprland.desktop".text = ''
-    [Desktop Entry]
-    Name=Hyprland
-    Comment=Hyprland Wayland Compositor
-    Exec=Hyprland
-    Type=Application
-    DesktopNames=Hyprland
-  '';
+  services = {
+    # thumbnail support for images
+    tumbler.enable = true;
+
+    gnome = {
+      glib-networking.enable = true;
+      gnome-keyring.enable = true;
+    };
+  };
 
   nix.settings = {
     substituters = [ "https://hyprland.cachix.org" ];

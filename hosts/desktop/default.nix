@@ -44,7 +44,11 @@
     TOP='DP-0'
     RIGHT='DP-2'
 
-    ${pkgs.xorg.xrandr}/bin/xrandr --output $BOTTOM --primary --mode 3840x2160 --pos 0x0 --rotate normal --output $TOP --mode 3840x2160 --above $BOTTOM --rotate normal --output $RIGHT --mode 3840x2160 --pos 3840x-1680 --rotate left
+    # Match Hyprland layout: TOP at 0x0, BOTTOM at 0x2160, RIGHT at 3840x180
+    ${pkgs.xorg.xrandr}/bin/xrandr \
+      --output $TOP --mode 3840x2160 --pos 0x0 --rotate normal \
+      --output $BOTTOM --primary --mode 3840x2160 --pos 0x2160 --rotate normal \
+      --output $RIGHT --mode 3840x2160 --pos 3840x180 --rotate left
     ${pkgs.xorg.xrandr}/bin/xrandr --dpi 160
   '';
 

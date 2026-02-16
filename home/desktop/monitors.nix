@@ -22,51 +22,20 @@ in
 {
   wayland.windowManager.hyprland.settings = {
     monitor = [
-      # monitor, res,       position, scale, transform, rotation
+      # List HDMI-A-1 first so it becomes the primary monitor (ID 0)
       "HDMI-A-1, 3840x2160, 0x2160,   1"
-      "DP-1,     3840x2160, 0x0,      1"
-      # 300 instead of 0 is so that 'move left' actually focuses the bottom one instead of the top one
-      # for some reason, that's the minimum value for which this works
+      # Then the other monitors
       "DP-2,     3840x2160, 3840x180,   1,   transform, 1"
+      "DP-1,     3840x2160, 0x0,      1"
     ];
     workspace = [
-      "1, monitor=DP-2"
-      "2, monitor=DP-1"
-      "3, monitor=DP-2"
-      "4, monitor=HDMI-A-1"
-      "5, monitor=HDMI-A-1"
+      "1, monitor:HDMI-A-1, default:true, persistent:true"  # bottom-left (primary)
+      "2, monitor:DP-2, persistent:true"       # right (vertical)
+      "3, monitor:DP-1, persistent:true"       # top-left
+      "4, monitor:HDMI-A-1"  # bottom-left
+      "5, monitor:DP-2"       # right (vertical)
+      "6, monitor:DP-1"       # top-left
     ];
-  };
-
-  xsession.windowManager.i3 = {
-    extraConfig = lib.mkAfter ''
-      workspace 1 output HDMI-0
-      workspace 2 output DP-2
-      workspace 3 output DP-0
-
-      for_window [title="^ethui-test - main$"] workspace 2
-      for_window [title="^ethui-test - main$"] border normal 2, floating enable, resize set 1280 1200, move position 4720 500
-      for_window [title="^ethui-test - dialog.*"] border normal 2, floating enable, resize set 800 800, move position mouse
-      no_focus [title="^ethui-test - main$"]
-      no_focus [title="^ethui-test - dialog.*"]
-
-      for_window [title="^ethui-dev - main$"] workspace 2
-      for_window [title="^ethui-dev - main$"] border normal 2, floating enable, resize set 1280 1200, move position 4720 500
-      for_window [title="^ethui-dev - dialog.*"] border normal 2, floating enable, resize set 800 800, move position mouse
-      no_focus [title="^ethui-dev - main$"]
-      no_focus [title="^ethui-dev - dialog.*"]
-
-      for_window [title="^ethui - main$"] workspace 2
-      for_window [title="^ethui - main$"] border normal 2, floating enable, resize set 1280 1200, move position 4720 500
-      for_window [title="^ethui - dialog.*"] border normal 2, floating enable, resize set 800 800, move position mouse
-      no_focus [title="^ethui - main$"]
-      no_focus [title="^ethui - dialog.*"]
-
-      # for_window [class="^Ethui$"] border normal 2, floating enable, resize set 1280 1200, move position mouse
-
-      for_window [title="^egui-test$"] floating enable, border none, resize set 800 800, move position 2720 500
-      no_focus [title="^egui-test$"]
-    '';
   };
 
   services.hyprpaper.settings.preload = [

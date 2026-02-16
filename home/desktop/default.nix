@@ -14,7 +14,6 @@
     ../common/programs/desktop
     ../common/programs/zen-browser.nix
     ../common/programs/hyprland
-    ../common/programs/i3.nix
     ../common/programs/kitty
     ../common/programs/syncthing.nix
     ../common/programs/unity.nix
@@ -23,6 +22,7 @@
     ../common/programs/3d.nix
     ../common/programs/nerd-dictation.nix
     ../common/features/xdg.nix
+    ../common/features/downloads-cleanup.nix
     ../common/features/bluetooth.nix
     ./monitors.nix
   ];
@@ -31,11 +31,24 @@
     LIBVA_DRIVER_NAME = "nvidia";
     GDM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    # Larger cursor size for desktop (4K monitors)
+    XCURSOR_SIZE = lib.mkForce 42;
+    HYPRCURSOR_SIZE = lib.mkForce 42;
   };
 
   wayland.windowManager.hyprland.settings = {
     env = [
       "WEBKIT_DISABLE_DMABUF_RENDERER, 1"
+      "XCURSOR_SIZE, 42"
+      "HYPRCURSOR_SIZE, 42"
+    ];
+
+    cursor = {
+      no_hardware_cursors = true;  # For NVIDIA
+    };
+
+    exec-once = [
+      "hyprctl setcursor Nordzy-cursors 42"
     ];
 
     windowrule = [
