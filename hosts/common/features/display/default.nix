@@ -2,6 +2,6 @@
 {
   imports = [
     ./wayland.nix
-    ./gdm.nix
+    ./sddm.nix
   ];
 }
