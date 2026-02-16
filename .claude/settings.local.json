@@ -28,7 +28,8 @@
       "WebFetch(domain:www.tonybtw.com)",
       "Bash(systemctl:*)",
       "Bash(darkman get:*)",
-      "Bash(dconf read:*)"
+      "Bash(dconf read:*)",
+      "Bash(journalctl:*)"
     ]
   },
   "sandbox": {

@@ -4,6 +4,8 @@
     dconf
   ];
 
+  services.geoclue2.enable = true;
+
   services.darkman = {
     enable = true;
     darkModeScripts = {
@@ -25,7 +27,6 @@
   };
 
   xdg.configFile."darkman/config.yaml".text = ''
-    lat: 41.55
-    long: -8.42
+    usegeoclue: true
   '';
 }
