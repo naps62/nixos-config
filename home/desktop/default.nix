@@ -43,10 +43,6 @@
       "HYPRCURSOR_SIZE, 42"
     ];
 
-    cursor = {
-      no_hardware_cursors = true;  # For NVIDIA
-    };
-
     exec-once = [
       "hyprctl setcursor Nordzy-cursors 42"
     ];

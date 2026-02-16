@@ -24,6 +24,17 @@
         # Update Hyprland cursor theme
         ${pkgs.hyprland}/bin/hyprctl setcursor Nordzy-cursors 42
       '';
+      kitty-theme = ''
+        # Switch all Kitty instances to dark theme
+        ${pkgs.kitty}/bin/kitten themes --reload-in=all Catppuccin-Mocha
+      '';
+      claude-theme = ''
+        # Switch Claude Code to dark theme
+        CLAUDE_CONFIG=~/.claude.json
+        if [ -f "$CLAUDE_CONFIG" ]; then
+          ${pkgs.jq}/bin/jq '.theme = "dark"' "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp" && mv "$CLAUDE_CONFIG.tmp" "$CLAUDE_CONFIG"
+        fi
+      '';
     };
     lightModeScripts = {
       gtk-theme = ''
@@ -42,6 +53,17 @@
 
         # Update Hyprland cursor theme
         ${pkgs.hyprland}/bin/hyprctl setcursor Nordzy-white 42
+      '';
+      kitty-theme = ''
+        # Switch all Kitty instances to light theme
+        ${pkgs.kitty}/bin/kitten themes --reload-in=all Catppuccin-Latte
+      '';
+      claude-theme = ''
+        # Switch Claude Code to light theme
+        CLAUDE_CONFIG=~/.claude.json
+        if [ -f "$CLAUDE_CONFIG" ]; then
+          ${pkgs.jq}/bin/jq '.theme = "light"' "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp" && mv "$CLAUDE_CONFIG.tmp" "$CLAUDE_CONFIG"
+        fi
       '';
     };
   };
