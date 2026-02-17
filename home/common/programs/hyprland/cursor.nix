@@ -9,9 +9,9 @@ in
 
   home.sessionVariables = {
     HYPRCURSOR_THEME = "Nordzy-cursors";  # Dark variant (default)
-    HYPRCURSOR_SIZE = 32;
+    HYPRCURSOR_SIZE = 24;
     XCURSOR_THEME = "Nordzy-cursors";
-    XCURSOR_SIZE = 32;
+    XCURSOR_SIZE = 24;
   };
 
   dconf = {

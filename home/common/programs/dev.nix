@@ -39,29 +39,13 @@
     lsof
     ktlint
     croc
-    inputs.claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
     opencode
 
     # typst
     typst
     typstyle
 
-    renderdoc
-
     mkcert
     nss.tools
-
-    # claude sandbox
-    bubblewrap
-    socat
-    libseccomp
   ];
-
-  programs.tmux = {
-    enable = true;
-    extraConfig = ''
-      setw -g mouse on
-      set -s extended-keys on
-    '';
-  };
 }

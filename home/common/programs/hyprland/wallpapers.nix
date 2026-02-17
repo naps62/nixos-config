@@ -64,29 +64,22 @@ let
     "https://images.hdqwalls.com/download/starfield-i-mac-ie-2160x3840.jpg"
   ];
 
-  # Create wallpaper rotation script
-  rotateScript = pkgs.writeShellScript "hyprpaper-rotate" ''
+  # Wallpaper fetch script - downloads wallpapers to cache
+  fetchScript = pkgs.writeShellScript "wallpaper-fetch" ''
     set -euo pipefail
 
-    # Check if hyprpaper is running
-    if ! pgrep -x hyprpaper > /dev/null; then
-      echo "Error: hyprpaper is not running"
-      echo "Start it with: hyprpaper &"
-      exit 1
-    fi
+    HORIZONTAL_DIR="$HOME/.cache/wallpapers/3840x2160"
+    VERTICAL_DIR="$HOME/.cache/wallpapers/2160x3840"
+    mkdir -p "$HORIZONTAL_DIR" "$VERTICAL_DIR"
 
-    CACHE_DIR="$HOME/.cache/wallpapers"
-    mkdir -p "$CACHE_DIR"
-
-    # Arrays of wallpaper URLs
     HORIZONTAL=(${builtins.concatStringsSep " " (map (url: ''"${url}"'') horizontal)})
     VERTICAL=(${builtins.concatStringsSep " " (map (url: ''"${url}"'') vertical)})
 
-    # Function to download wallpaper if not cached
-    get_wallpaper() {
+    download() {
       local url="$1"
+      local dir="$2"
       local filename=$(basename "$url")
-      local filepath="$CACHE_DIR/$filename"
+      local filepath="$dir/$filename"
 
       if [ ! -f "$filepath" ]; then
         echo "Downloading $filename..." >&2
@@ -95,81 +88,23 @@ let
           return 1
         }
       fi
-
-      echo "$filepath"
     }
 
-    # Function to get random element from array
-    random_choice() {
-      local arr=("$@")
-      local size=''${#arr[@]}
-      local idx=$((RANDOM % size))
-      echo "''${arr[$idx]}"
-    }
-
-    # Get list of connected monitors and their orientations
-    readarray -t MONITORS < <(${pkgs.hyprland}/bin/hyprctl monitors -j | \
-      ${pkgs.jq}/bin/jq -r '.[] | "\(.name)|\(.width)|\(.height)|\(.transform)"')
-
-    # Apply wallpapers to each monitor
-    for monitor_info in "''${MONITORS[@]}"; do
-      IFS='|' read -r name width height transform <<< "$monitor_info"
-
-      # Determine if monitor is vertical (considering transform)
-      # transform 1 or 3 means 90/270 degree rotation
-      if [[ "$transform" == "1" || "$transform" == "3" ]]; then
-        # Transform swaps width/height, so check original dimensions
-        if [ "$width" -lt "$height" ]; then
-          # After transform, it's horizontal
-          wallpaper_url=$(random_choice "''${HORIZONTAL[@]}")
-        else
-          # After transform, it's vertical
-          wallpaper_url=$(random_choice "''${VERTICAL[@]}")
-        fi
-      else
-        # No rotation or 180 degree rotation
-        if [ "$width" -lt "$height" ]; then
-          wallpaper_url=$(random_choice "''${VERTICAL[@]}")
-        else
-          wallpaper_url=$(random_choice "''${HORIZONTAL[@]}")
-        fi
-      fi
-
-      # Download and apply wallpaper
-      wallpaper_path=$(get_wallpaper "$wallpaper_url")
-      if [ -n "$wallpaper_path" ]; then
-        echo "Setting $name to $wallpaper_path" >&2
-        ${pkgs.hyprland}/bin/hyprctl hyprpaper wallpaper "$name,$wallpaper_path,cover"
-      fi
+    echo "Fetching horizontal wallpapers..."
+    for url in "''${HORIZONTAL[@]}"; do
+      download "$url" "$HORIZONTAL_DIR"
     done
+
+    echo "Fetching vertical wallpapers..."
+    for url in "''${VERTICAL[@]}"; do
+      download "$url" "$VERTICAL_DIR"
+    done
+
+    echo "Done. Wallpapers cached in:"
+    echo "  Horizontal: $HORIZONTAL_DIR"
+    echo "  Vertical:   $VERTICAL_DIR"
   '';
 in
 {
-  # Export for use in monitors.nix
-  home.file.".local/bin/hyprpaper-rotate".source = rotateScript;
-
-  # Systemd service and timer for rotation
-  systemd.user.services.hyprpaper-rotate = {
-    Unit = {
-      Description = "Rotate Hyprland wallpapers";
-      After = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${rotateScript}";
-    };
-  };
-
-  systemd.user.timers.hyprpaper-rotate = {
-    Unit = {
-      Description = "Rotate Hyprland wallpapers every 12 hours";
-    };
-    Timer = {
-      OnUnitActiveSec = "12h";
-      Persistent = true;
-    };
-    Install = {
-      WantedBy = [ "timers.target" ];
-    };
-  };
+  home.file.".local/bin/wallpaper-fetch".source = fetchScript;
 }

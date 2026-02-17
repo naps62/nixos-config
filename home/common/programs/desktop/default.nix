@@ -1,14 +1,13 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   imports = [
     ./darkman.nix
+    ./spicetify.nix
   ];
 
   home.packages = with pkgs; [
     # various
     google-chrome
-    spotify
-    spicetify-cli
     thunar
     obsidian
     mpv
@@ -19,6 +18,8 @@
     imv
     pavucontrol
     zathura
+    libsForQt5.qt5ct
+    kdePackages.qt6ct
     nwg-look
     xournalpp
     jq
@@ -66,4 +67,27 @@
     package = pkgs.numix-cursor-theme;
     name = "Numix-Cursor-Light";
   };
+
+  # zathura: include noctalia-generated theme
+  xdg.configFile."zathura/zathurarc".text = ''
+    include noctaliarc
+  '';
+
+  # gtk: include noctalia-generated css (mkForce to override gtk module)
+  xdg.configFile."gtk-3.0/gtk.css".text = lib.mkForce ''
+    @import url("noctalia.css");
+  '';
+  xdg.configFile."gtk-4.0/gtk.css".text = lib.mkForce ''
+    @import url("noctalia.css");
+  '';
+
+  # qt: use noctalia color scheme
+  xdg.configFile."qt5ct/qt5ct.conf".text = ''
+    [Appearance]
+    color_scheme_path=${config.home.homeDirectory}/.config/qt5ct/colors/noctalia.conf
+  '';
+  xdg.configFile."qt6ct/qt6ct.conf".text = ''
+    [Appearance]
+    color_scheme_path=${config.home.homeDirectory}/.config/qt6ct/colors/noctalia.conf
+  '';
 }

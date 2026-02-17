@@ -22,11 +22,11 @@
         export XCURSOR_THEME="Nordzy-cursors"
 
         # Update Hyprland cursor theme
-        ${pkgs.hyprland}/bin/hyprctl setcursor Nordzy-cursors 42
+        ${pkgs.hyprland}/bin/hyprctl setcursor Nordzy-cursors 24
       '';
       kitty-theme = ''
-        # Switch all Kitty instances to dark theme
-        ${pkgs.kitty}/bin/kitten themes --reload-in=all Catppuccin-Mocha
+        # Reload kitty config to pick up noctalia theme changes
+        kill -SIGUSR1 $(pidof kitty) 2>/dev/null || true
       '';
       claude-theme = ''
         # Switch Claude Code to dark theme
@@ -34,6 +34,9 @@
         if [ -f "$CLAUDE_CONFIG" ]; then
           ${pkgs.jq}/bin/jq '.theme = "dark"' "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp" && mv "$CLAUDE_CONFIG.tmp" "$CLAUDE_CONFIG"
         fi
+      '';
+      noctalia-theme = ''
+        noctalia-shell ipc call darkMode setDark
       '';
     };
     lightModeScripts = {
@@ -52,11 +55,11 @@
         export XCURSOR_THEME="Nordzy-white"
 
         # Update Hyprland cursor theme
-        ${pkgs.hyprland}/bin/hyprctl setcursor Nordzy-white 42
+        ${pkgs.hyprland}/bin/hyprctl setcursor Nordzy-white 24
       '';
       kitty-theme = ''
-        # Switch all Kitty instances to light theme
-        ${pkgs.kitty}/bin/kitten themes --reload-in=all Catppuccin-Latte
+        # Reload kitty config to pick up noctalia theme changes
+        kill -SIGUSR1 $(pidof kitty) 2>/dev/null || true
       '';
       claude-theme = ''
         # Switch Claude Code to light theme
@@ -64,6 +67,9 @@
         if [ -f "$CLAUDE_CONFIG" ]; then
           ${pkgs.jq}/bin/jq '.theme = "light"' "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp" && mv "$CLAUDE_CONFIG.tmp" "$CLAUDE_CONFIG"
         fi
+      '';
+      noctalia-theme = ''
+        noctalia-shell ipc call darkMode setLight
       '';
     };
   };

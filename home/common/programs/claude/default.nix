@@ -1,8 +1,17 @@
-{ ... }:
+{ pkgs, inputs, ... }:
 {
   home.file.".default-npm-packages".text = ''
     @anthropic-ai/claude-code
   '';
+
+  home.packages = with pkgs; [
+    inputs.claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+    # sandbox
+    bubblewrap
+    socat
+    libseccomp
+  ];
 
   # Commands
   home.file.".claude/commands/merge.md".source = ./commands/merge.md;
@@ -19,9 +28,11 @@
 
   # Skills: knowledge
   home.file.".claude/skills/git-master/SKILL.md".source = ./skills/git-master/SKILL.md;
-  home.file.".claude/skills/planning-with-files/SKILL.md".source = ./skills/planning-with-files/SKILL.md;
+  home.file.".claude/skills/planning-with-files/SKILL.md".source =
+    ./skills/planning-with-files/SKILL.md;
   home.file.".claude/skills/react-patterns/SKILL.md".source = ./skills/react-patterns/SKILL.md;
-  home.file.".claude/skills/vercel-react-best-practices/SKILL.md".source = ./skills/vercel-react-best-practices/SKILL.md;
+  home.file.".claude/skills/vercel-react-best-practices/SKILL.md".source =
+    ./skills/vercel-react-best-practices/SKILL.md;
 
   # Skills: workflows
   home.file.".claude/skills/smart-debug/SKILL.md".source = ./skills/smart-debug/SKILL.md;

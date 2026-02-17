@@ -30,7 +30,9 @@
       "Bash(darkman get:*)",
       "Bash(dconf read:*)",
       "Bash(journalctl:*)",
-      "Bash(hyprctl:*)"
+      "Bash(hyprctl:*)",
+      "WebFetch(domain:docs.noctalia.dev)",
+      "WebFetch(domain:gerg-l.github.io)"
     ]
   },
   "sandbox": {

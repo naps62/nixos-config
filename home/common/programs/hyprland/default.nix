@@ -10,10 +10,9 @@ in
 {
   imports = [
     ./rofi.nix
-    ./walker.nix
     ./cursor.nix
     ./waybar.nix
-    ./quickshell.nix
+    ./noctalia
     ./wallpapers.nix
   ];
 
@@ -23,8 +22,8 @@ in
     hyprshot
     playerctl
     hyprsunset
-    hyprlock
     xdg-desktop-portal-termfilechooser
+    libnotify
   ];
 
   home.sessionVariables = {
@@ -123,7 +122,7 @@ in
 
       env = [
         "GDK_SCALE, 2.0"
-        "XCURSOR_SIZE, 32"
+        "XCURSOR_SIZE, 24"
         "HYPRCURSOR_THEME, rose-pine-hyprcursor"
         "HYPRCURSOR_SIZE, 24"
       ];
@@ -131,9 +130,14 @@ in
       "exec-once" = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "nm-applet"
-        "hyprpaper"
         "hyprsunset"
         "nerd-dictation begin --simulate-input-tool WTYPE --suspend-on-start && touch ~/.cache/nerd-dictation-suspended"
+        "noctalia-shell"
+      ];
+
+      layerrule = [
+        "blur 1, match:namespace noctalia-background-.*"
+        "ignore_alpha 0.5, match:namespace noctalia-background-.*"
       ];
       workspace = [
         # no gaps when only window
@@ -184,6 +188,7 @@ in
       "$mod" = "SUPER";
 
       bind = [
+        "$mod, n, exec, noctalia-shell ipc call controlCenter toggle"
         "$mod, g, hyprexpo:expo, toggle"
         # "$mod, tab, overview:toggle,"
         "$mod, b, exec, pkill waybar || waybar"
@@ -193,8 +198,8 @@ in
         "$mod, f, fullscreen, 0"
         "$mod SHIFT, f, fullscreen, 1"
 
-        # walker app launcher
-        "$mod, space, exec, walker"
+        # app launcher
+        "$mod, space, exec, noctalia-shell ipc call launcher toggle"
         # rofi (old)
         # "$mod, space, exec, launcher_t2"
 
@@ -267,13 +272,7 @@ in
     };
   };
 
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      ipc = "on";
-      splash = false;
-    };
-  };
+  services.hyprpaper.enable = false;
 
   services.hypridle = {
     enable = true;
@@ -281,12 +280,12 @@ in
       general = {
         after_sleep_cmd = "hyprctl dispatch dpms on";
         ignore_dbus_inhibit = false;
-        lock_cmd = "hyprlock";
+        lock_cmd = "noctalia-shell ipc call lockScreen lock";
       };
       listener = [
         {
           timeout = 900;
-          on-timeout = "hyprlock";
+          on-timeout = "noctalia-shell ipc call lockScreen lock";
         }
         {
           timeout = 1200;
@@ -294,7 +293,6 @@ in
           on-resume = "hyprctl dispatch dpms on";
         }
       ];
-
     };
   };
 }

@@ -69,4 +69,6 @@
     enable = true;
     platform = "ipu6ep";
   };
+
+  services.fprintd.enable = true;
 }

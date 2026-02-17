@@ -63,10 +63,8 @@
       "f7>/" = "goto_session";
     };
 
-    # Default theme - Catppuccin-Mocha (dark)
-    # This will be overridden by darkman scripts
     extraConfig = ''
-      include current-theme.conf
+      include themes/noctalia.conf
     '';
   };
 
