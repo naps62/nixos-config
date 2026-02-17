@@ -77,6 +77,27 @@
 
   };
 
+  programs.noctalia-shell.settings = {
+    bar = {
+      density = "spacious";
+    };
+    notifications = {
+      monitors = [ "DP-1" ];
+    };
+    ui = {
+      fontDefaultScale = 1.25;
+      fontFixedScale = 1.25;
+    };
+    wallpaper = {
+      enableMultiMonitorDirectories = true;
+      monitorDirectories = [
+        { monitor = "HDMI-A-1"; directory = "/home/naps62/.cache/wallpapers/3840x2160"; }
+        { monitor = "DP-1";     directory = "/home/naps62/.cache/wallpapers/3840x2160"; }
+        { monitor = "DP-2";     directory = "/home/naps62/.cache/wallpapers/2160x3840"; }
+      ];
+    };
+  };
+
   programs.kitty.settings.font_size = 16;
 
   home = {

@@ -30,7 +30,6 @@
     inotify-tools
     devenv
     bruno
-    zed-editor
     sshfs
     coturn
     file

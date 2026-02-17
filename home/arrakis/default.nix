@@ -46,6 +46,10 @@
     ];
   };
 
+  programs.noctalia-shell.settings.bar = {
+    density = "comfortable";
+  };
+
   home = {
     username = lib.mkDefault "naps62";
     stateVersion = lib.mkDefault "24.05";

@@ -59,7 +59,6 @@ in
         barType = "simple";
         capsuleColorKey = "none";
         capsuleOpacity = 1;
-        density = "comfortable";
         displayMode = "auto_hide";
         floating = false;
         frameRadius = 12;
@@ -195,9 +194,18 @@ in
       };
       calendar = {
         cards = [
-          { enabled = true; id = "calendar-header-card"; }
-          { enabled = true; id = "calendar-month-card"; }
-          { enabled = true; id = "weather-card"; }
+          {
+            enabled = true;
+            id = "calendar-header-card";
+          }
+          {
+            enabled = true;
+            id = "calendar-month-card";
+          }
+          {
+            enabled = true;
+            id = "weather-card";
+          }
         ];
       };
       colorSchemes = {
@@ -212,12 +220,30 @@ in
       };
       controlCenter = {
         cards = [
-          { enabled = true; id = "profile-card"; }
-          { enabled = true; id = "shortcuts-card"; }
-          { enabled = true; id = "audio-card"; }
-          { enabled = false; id = "brightness-card"; }
-          { enabled = true; id = "weather-card"; }
-          { enabled = true; id = "media-sysmon-card"; }
+          {
+            enabled = true;
+            id = "profile-card";
+          }
+          {
+            enabled = true;
+            id = "shortcuts-card";
+          }
+          {
+            enabled = true;
+            id = "audio-card";
+          }
+          {
+            enabled = false;
+            id = "brightness-card";
+          }
+          {
+            enabled = true;
+            id = "weather-card";
+          }
+          {
+            enabled = true;
+            id = "media-sysmon-card";
+          }
         ];
         diskPath = "/";
         position = "close_to_bar_button";
@@ -384,7 +410,12 @@ in
         autoHideMs = 2000;
         backgroundOpacity = 1;
         enabled = true;
-        enabledTypes = [ 0 1 2 3 ];
+        enabledTypes = [
+          0
+          1
+          2
+          3
+        ];
         location = "top";
         monitors = [ ];
         overlayLayer = true;
@@ -399,13 +430,55 @@ in
         largeButtonsStyle = true;
         position = "center";
         powerOptions = [
-          { action = "lock"; command = ""; countdownEnabled = true; enabled = true; keybind = "1"; }
-          { action = "suspend"; command = ""; countdownEnabled = true; enabled = true; keybind = "2"; }
-          { action = "hibernate"; command = ""; countdownEnabled = true; enabled = true; keybind = "3"; }
-          { action = "reboot"; command = ""; countdownEnabled = true; enabled = true; keybind = "4"; }
-          { action = "logout"; command = ""; countdownEnabled = true; enabled = true; keybind = "5"; }
-          { action = "shutdown"; command = ""; countdownEnabled = true; enabled = true; keybind = "6"; }
-          { action = "rebootToUefi"; command = ""; countdownEnabled = true; enabled = true; keybind = ""; }
+          {
+            action = "lock";
+            command = "";
+            countdownEnabled = true;
+            enabled = true;
+            keybind = "1";
+          }
+          {
+            action = "suspend";
+            command = "";
+            countdownEnabled = true;
+            enabled = true;
+            keybind = "2";
+          }
+          {
+            action = "hibernate";
+            command = "";
+            countdownEnabled = true;
+            enabled = true;
+            keybind = "3";
+          }
+          {
+            action = "reboot";
+            command = "";
+            countdownEnabled = true;
+            enabled = true;
+            keybind = "4";
+          }
+          {
+            action = "logout";
+            command = "";
+            countdownEnabled = true;
+            enabled = true;
+            keybind = "5";
+          }
+          {
+            action = "shutdown";
+            command = "";
+            countdownEnabled = true;
+            enabled = true;
+            keybind = "6";
+          }
+          {
+            action = "rebootToUefi";
+            command = "";
+            countdownEnabled = true;
+            enabled = true;
+            keybind = "";
+          }
         ];
         showHeader = true;
         showKeybinds = true;
@@ -436,15 +509,42 @@ in
       };
       templates = {
         activeTemplates = [
-          { enabled = true; id = "zenBrowser"; }
-          { enabled = true; id = "hyprland"; }
-          { enabled = true; id = "kitty"; }
-          { enabled = true; id = "yazi"; }
-          { enabled = true; id = "zathura"; }
-          { enabled = true; id = "gtk"; }
-          { enabled = true; id = "qt"; }
-          { enabled = true; id = "btop"; }
-          { enabled = true; id = "spicetify"; }
+          {
+            enabled = true;
+            id = "zenBrowser";
+          }
+          {
+            enabled = true;
+            id = "hyprland";
+          }
+          {
+            enabled = true;
+            id = "kitty";
+          }
+          {
+            enabled = true;
+            id = "yazi";
+          }
+          {
+            enabled = true;
+            id = "zathura";
+          }
+          {
+            enabled = true;
+            id = "gtk";
+          }
+          {
+            enabled = true;
+            id = "qt";
+          }
+          {
+            enabled = true;
+            id = "btop";
+          }
+          {
+            enabled = true;
+            id = "spicetify";
+          }
         ];
         enableUserTheming = false;
       };
@@ -453,9 +553,7 @@ in
         bluetoothHideUnnamedDevices = false;
         boxBorderEnabled = false;
         fontDefault = "Sans Serif";
-        fontDefaultScale = 1;
         fontFixed = "monospace";
-        fontFixedScale = 1;
         networkPanelView = "wifi";
         panelBackgroundOpacity = 0.93;
         panelsAttachedToBar = true;
@@ -466,7 +564,6 @@ in
       wallpaper = {
         automationEnabled = true;
         directory = "/home/naps62/.cache/wallpapers/3840x2160";
-        enableMultiMonitorDirectories = false;
         enabled = true;
         favorites = [ ];
         fillColor = "#5e81ac";
