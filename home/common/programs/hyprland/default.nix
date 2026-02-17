@@ -24,6 +24,8 @@ in
     hyprsunset
     xdg-desktop-portal-termfilechooser
     libnotify
+    cliphist
+    wl-screenrec
   ];
 
   home.sessionVariables = {
