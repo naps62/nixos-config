@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }:
 let
-  sddm-astronaut-theme = pkgs.callPackage ../../../../pkgs/sddm-astronaut-theme/package.nix { };
+  sddm-noctalia-theme = pkgs.callPackage ../../../../pkgs/sddm-noctalia-theme/package.nix { };
 in
 {
   services.xserver = {
@@ -15,7 +15,7 @@ in
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
-    theme = "sddm-astronaut-theme";
+    theme = "sddm-noctalia";
     package = pkgs.kdePackages.sddm;
     extraPackages = with pkgs.kdePackages; [
       qtmultimedia
@@ -26,6 +26,6 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    sddm-astronaut-theme
+    sddm-noctalia-theme
   ];
 }

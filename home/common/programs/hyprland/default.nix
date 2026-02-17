@@ -20,9 +20,9 @@ in
     hyprcursor
     pamixer
     hyprshot
+    satty
     playerctl
     hyprsunset
-    xdg-desktop-portal-termfilechooser
     libnotify
     cliphist
     wl-screenrec
@@ -151,11 +151,15 @@ in
       ];
 
       windowrule = [
+        # satty
+        "float on, match:class com.gabm.satty"
+
         # imv
         "float on, match:class imv"
         "move cursor -50% -50%, match:class imv"
 
         "float on, match:title termfilechooser"
+        "size 1200 800, match:title termfilechooser"
         "move center, match:title termfilechooser"
 
         # bluetooth
@@ -208,8 +212,8 @@ in
         # "$mod, d, exec, nerd-dictation-toggle"
 
         # printscreen
-        ", Print, exec, hyprshot -m region --output-folder ~/downloads/screenshots"
-        "SHIFT, Print, exec, hyprshot -m window --output-folder ~/screenshots"
+        ", Print, exec, hyprshot -m region --raw | satty --filename - --output-filename ~/downloads/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
+        "SHIFT, Print, exec, hyprshot -m window --raw | satty --filename - --output-filename ~/downloads/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
 
         # move focus with mod + arrows
         "$mod, h, movefocus, l"

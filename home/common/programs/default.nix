@@ -19,6 +19,7 @@
     ./claude
     ./opencode
     ./yazi
+    ./termfilechooser.nix
   ];
 
   programs = {
