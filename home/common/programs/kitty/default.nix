@@ -1,4 +1,38 @@
 { config, pkgs, ... }:
+let
+  clip2path = pkgs.writeShellScript "clip2path" ''
+    set -e
+
+    if [ -n "$WAYLAND_DISPLAY" ]; then
+      types=$(wl-paste --list-types)
+      if grep -q '^image/' <<<"$types"; then
+        ext=$(grep -m1 '^image/' <<<"$types" | cut -d/ -f2 | cut -d';' -f1)
+        file="/tmp/clip_$(date +%s).''${ext}"
+        wl-paste > "$file"
+        printf '%q' "$file" | kitty @ send-text --stdin
+      else
+        wl-paste --no-newline | kitty @ send-text --stdin
+      fi
+    elif [ -n "$DISPLAY" ]; then
+      types=$(xclip -selection clipboard -t TARGETS -o)
+      if grep -q '^image/' <<<"$types"; then
+        ext=$(grep -m1 '^image/' <<<"$types" | cut -d/ -f2 | cut -d';' -f1)
+        file="/tmp/clip_$(date +%s).''${ext}"
+        xclip -selection clipboard -t "image/''${ext}" -o > "$file"
+        printf '%q' "$file" | kitty @ send-text --stdin
+      else
+        xclip -selection clipboard -o | kitty @ send-text --stdin
+      fi
+    fi
+  '';
+
+  scrollbackPager = pkgs.writeShellScript "kitty-scrollback" ''
+    f=$(mktemp)
+    cat | perl -0777 -pe 's/\x1b(?:\[[\x30-\x3f]*[\x20-\x2f]*[\x40-\x7e]|\][^\x07\x1b]*(?:\x07|\x1b\\)|.)//g; s/\s+\z/\n/' > "$f"
+    nvim + -c "set ft=sh noma" "$f"
+    rm "$f"
+  '';
+in
 {
   programs.kitty = {
     enable = true;
@@ -31,6 +65,8 @@
       allow_remote_control = true;
       listen_on = "unix:/tmp/kitty.sock";
 
+      scrollback_pager = "${scrollbackPager}";
+
       enable_audio_bell = false;
       bell_on_tab = true;
     };
@@ -38,6 +74,8 @@
     keybindings = {
       "kitty_mod+t" = "new_tab_with_cwd";
       "kitty_mod+enter" = "new_window_with_cwd";
+      "kitty_mod+v" = "combine : goto_layout splits : launch --cwd=current --location=vsplit";
+      "kitty_mod+s" = "combine : goto_layout splits : launch --cwd=current --location=hsplit";
       "kitty_mod+r" = "set_tab_title";
 
       "kitty_mod+u" = "previous_tab";
@@ -45,6 +83,7 @@
 
       "ctrl+shift+c" = "copy_to_clipboard";
       "ctrl+shift+v" = "paste_from_clipboard";
+      "ctrl+v" = "launch --type=background --allow-remote-control --keep-focus ${clip2path}";
 
       "ctrl+shift+l" = "next_layout";
       "ctrl+shift+left" = "resize_window narrower";
@@ -56,6 +95,7 @@
       "ctrl+shift+backspace" = "change_font_size all 0";
 
       "kitty_mod+h" = "neighboring_window left";
+      "kitty_mod+shift+h" = "show_scrollback";
       "kitty_mod+j" = "neighboring_window down";
       "kitty_mod+k" = "neighboring_window up";
       "kitty_mod+l" = "neighboring_window right";
