@@ -38,6 +38,13 @@
       noctalia-theme = ''
         noctalia-shell ipc call darkMode setDark
       '';
+      neovim-theme = ''
+        for sock in /run/user/$(id -u)/nvim.*.0; do
+          [ -S "$sock" ] && ${pkgs.neovim}/bin/nvim --server "$sock" \
+            --remote-expr 'luaeval("require(\"theme-sync\").apply_theme(\"dark\")")' \
+            2>/dev/null || true
+        done
+      '';
     };
     lightModeScripts = {
       gtk-theme = ''
@@ -70,6 +77,13 @@
       '';
       noctalia-theme = ''
         noctalia-shell ipc call darkMode setLight
+      '';
+      neovim-theme = ''
+        for sock in /run/user/$(id -u)/nvim.*.0; do
+          [ -S "$sock" ] && ${pkgs.neovim}/bin/nvim --server "$sock" \
+            --remote-expr 'luaeval("require(\"theme-sync\").apply_theme(\"light\")")' \
+            2>/dev/null || true
+        done
       '';
     };
   };
