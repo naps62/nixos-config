@@ -25,7 +25,8 @@ in
     hyprsunset
     libnotify
     cliphist
-    wl-screenrec
+    wf-recorder
+    slurp
   ];
 
   home.sessionVariables = {

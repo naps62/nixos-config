@@ -14,4 +14,8 @@
   environment.variables = {
     "WEBKIT_DISABLE_DMABUF_RENDERER" = "1";
   };
+
+  hardware.graphics.extraPackages = with pkgs; [
+    nvidia-vaapi-driver
+  ];
 }

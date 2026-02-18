@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./darkman.nix
@@ -23,7 +28,6 @@
     nwg-look
     xournalpp
     jq
-    kooha
     ffmpeg
     unzip
 
