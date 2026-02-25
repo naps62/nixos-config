@@ -17,10 +17,10 @@
       nix-direnv.enable = true;
 
       # Add devenv support
-      # stdlib = ''
-      #   # Source devenv direnvrc for use_devenv function
-      #   eval "$(devenv direnvrc)"
-      # '';
+      stdlib = ''
+        # Source devenv direnvrc for use_devenv function
+        eval "$(devenv direnvrc)"
+      '';
     };
   };
 
@@ -43,6 +43,8 @@
     # typst
     typst
     typstyle
+
+    ruby
 
     mkcert
     nss.tools

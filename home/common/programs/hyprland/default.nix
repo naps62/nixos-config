@@ -179,6 +179,10 @@ in
         # bitwarden, chrome
         "float on, match:class chrome-nngceckbapebfimnlniiiahkandclblb-.*"
 
+        # claude for chrome
+        "float on, match:class chrome-fcoeoabgfenejglbffodgkkbkcdhcgfn-.*"
+        "move cursor -50% -50%, match:class chrome-fcoeoabgfenejglbffodgkkbkcdhcgfn-.*"
+
         # no gaps when only window
         "border_size 0, match:float 0, match:workspace w[t1]"
         "rounding 0, match:float 0, match:workspace w[t1]"

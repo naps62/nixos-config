@@ -24,6 +24,7 @@
       ps = "procs";
       open = "xdg-open";
       o = "xdg-open";
+      s = "ssh";
       v = "nohup neovide &; disown";
 
       # cd
@@ -60,6 +61,7 @@
 
     initContent = ''
       [[ -f ~/.secrets.zsh ]] && source ~/.secrets.zsh
+      [[ -n "$KITTY_WINDOW_ID" ]] && alias ssh="kitten ssh"
 
       export PATH="$HOME/.bin:$PATH"
       export PATH="''${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"

@@ -9,7 +9,8 @@
   xdg.configFile."xdg-desktop-portal-termfilechooser/config".text = ''
     [filechooser]
     cmd=${pkgs.writeShellScript "termfilechooser-yazi" ''
-      exec kitty -T termfilechooser yazi "$@"
+      output="$1"
+      exec kitty -T termfilechooser yazi --chooser-file="$output"
     ''}
     default_dir=$HOME
   '';

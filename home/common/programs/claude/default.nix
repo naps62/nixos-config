@@ -1,7 +1,7 @@
 { pkgs, inputs, ... }:
 {
   home.file.".default-npm-packages".text = ''
-    @anthropic-ai/claude-code
+    @anthropic-ai/sandbox-runtime
   '';
 
   home.packages = with pkgs; [

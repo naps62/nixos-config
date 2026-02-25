@@ -8,7 +8,7 @@ let
       if grep -q '^image/' <<<"$types"; then
         ext=$(grep -m1 '^image/' <<<"$types" | cut -d/ -f2 | cut -d';' -f1)
         file="/tmp/clip_$(date +%s).''${ext}"
-        wl-paste > "$file"
+        wl-paste --type "image/''${ext}" > "$file"
         printf '%q' "$file" | kitty @ send-text --stdin
       else
         wl-paste --no-newline | kitty @ send-text --stdin
@@ -82,8 +82,7 @@ in
       "kitty_mod+i" = "next_tab";
 
       "ctrl+shift+c" = "copy_to_clipboard";
-      "ctrl+shift+v" = "paste_from_clipboard";
-      "ctrl+v" = "launch --type=background --allow-remote-control --keep-focus ${clip2path}";
+      "ctrl+shift+v" = "launch --type=background --allow-remote-control --keep-focus ${clip2path}";
 
       "ctrl+shift+l" = "next_layout";
       "ctrl+shift+left" = "resize_window narrower";
@@ -105,6 +104,7 @@ in
 
     extraConfig = ''
       include themes/noctalia.conf
+      cursor_shape block
     '';
   };
 
