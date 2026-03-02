@@ -10,7 +10,12 @@
     [filechooser]
     cmd=${pkgs.writeShellScript "termfilechooser-yazi" ''
       output="$1"
-      exec kitty -T termfilechooser yazi --chooser-file="$output"
+      chooser=$(mktemp)
+      kitty -T termfilechooser yazi --chooser-file="$chooser"
+      if [ -s "$chooser" ]; then
+        cat "$chooser" > "$output"
+      fi
+      rm -f "$chooser"
     ''}
     default_dir=$HOME
   '';
