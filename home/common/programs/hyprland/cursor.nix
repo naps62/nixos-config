@@ -1,6 +1,7 @@
-{ pkgs, inputs, ... }:
+{ pkgs, config, inputs, ... }:
 let
   nordzy-cursors = pkgs.callPackage ../../../../pkgs/nordzy-cursors/package.nix { };
+  cursorSize = config.custom.hyprland.cursorSize;
 in
 {
   home.packages = [
@@ -9,9 +10,9 @@ in
 
   home.sessionVariables = {
     HYPRCURSOR_THEME = "Nordzy-cursors";  # Dark variant (default)
-    HYPRCURSOR_SIZE = 24;
+    HYPRCURSOR_SIZE = cursorSize;
     XCURSOR_THEME = "Nordzy-cursors";
-    XCURSOR_SIZE = 24;
+    XCURSOR_SIZE = cursorSize;
   };
 
   dconf = {

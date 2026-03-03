@@ -8,15 +8,7 @@
 
   xdg.configFile."xdg-desktop-portal-termfilechooser/config".text = ''
     [filechooser]
-    cmd=${pkgs.writeShellScript "termfilechooser-yazi" ''
-      output="$1"
-      chooser=$(mktemp)
-      kitty -T termfilechooser yazi --chooser-file="$chooser"
-      if [ -s "$chooser" ]; then
-        cat "$chooser" > "$output"
-      fi
-      rm -f "$chooser"
-    ''}
+    cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
     default_dir=$HOME
   '';
 }

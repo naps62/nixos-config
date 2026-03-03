@@ -31,20 +31,19 @@
     LIBVA_DRIVER_NAME = "nvidia";
     GDM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    # Larger cursor size for desktop (4K monitors)
-    XCURSOR_SIZE = lib.mkForce 42;
-    HYPRCURSOR_SIZE = lib.mkForce 42;
+  };
+
+  custom.hyprland = {
+    yaziSize = "2400 1800";
+    cursorSize = 42;
   };
 
   wayland.windowManager.hyprland.settings = {
     env = [
       "WEBKIT_DISABLE_DMABUF_RENDERER, 1"
-      "XCURSOR_SIZE, 42"
-      "HYPRCURSOR_SIZE, 42"
     ];
 
     exec-once = [
-      "hyprctl setcursor Nordzy-cursors 42"
       "$HOME/.local/bin/hyprpaper-rotate"
     ];
 

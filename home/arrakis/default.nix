@@ -26,9 +26,10 @@
     ./monitors.nix
   ];
 
+  custom.hyprland.cursorSize = 32;
+
   wayland.windowManager.hyprland.settings = {
     exec-once = [
-      "hyprctl setcursor Nordzy-cursors 32"
     ];
 
     workspace = [
