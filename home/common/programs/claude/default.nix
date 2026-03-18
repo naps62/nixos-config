@@ -11,6 +11,9 @@
     bubblewrap
     socat
     libseccomp
+
+    # voice
+    sox
   ];
 
   # Commands
@@ -43,6 +46,10 @@
   home.file.".claude/skills/worktree-compare/SKILL.md".source = ./skills/worktree-compare/SKILL.md;
   home.file.".claude/skills/worktree-list/SKILL.md".source = ./skills/worktree-list/SKILL.md;
 
+  home.file.".claude/statusline.sh" = {
+    source = ./statusline.sh;
+    executable = true;
+  };
   home.file.".claude/settings.json".source = ./settings.json;
   home.file.".claude/CLAUDE.md".source = ./CLAUDE.md;
 }

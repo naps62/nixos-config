@@ -24,10 +24,6 @@
         # Update Hyprland cursor theme
         ${pkgs.hyprland}/bin/hyprctl setcursor Nordzy-cursors 24
       '';
-      kitty-theme = ''
-        # Reload kitty config to pick up noctalia theme changes
-        kill -SIGUSR1 $(pidof kitty) 2>/dev/null || true
-      '';
       claude-theme = ''
         # Switch Claude Code to dark theme
         CLAUDE_CONFIG=~/.claude.json
@@ -37,13 +33,6 @@
       '';
       noctalia-theme = ''
         noctalia-shell ipc call darkMode setDark
-      '';
-      neovim-theme = ''
-        for sock in /run/user/$(id -u)/nvim.*.0; do
-          [ -S "$sock" ] && ${pkgs.neovim}/bin/nvim --server "$sock" \
-            --remote-expr 'luaeval("require(\"theme-sync\").apply_theme(\"dark\")")' \
-            2>/dev/null || true
-        done
       '';
     };
     lightModeScripts = {
@@ -64,10 +53,6 @@
         # Update Hyprland cursor theme
         ${pkgs.hyprland}/bin/hyprctl setcursor Nordzy-white 24
       '';
-      kitty-theme = ''
-        # Reload kitty config to pick up noctalia theme changes
-        kill -SIGUSR1 $(pidof kitty) 2>/dev/null || true
-      '';
       claude-theme = ''
         # Switch Claude Code to light theme
         CLAUDE_CONFIG=~/.claude.json
@@ -77,13 +62,6 @@
       '';
       noctalia-theme = ''
         noctalia-shell ipc call darkMode setLight
-      '';
-      neovim-theme = ''
-        for sock in /run/user/$(id -u)/nvim.*.0; do
-          [ -S "$sock" ] && ${pkgs.neovim}/bin/nvim --server "$sock" \
-            --remote-expr 'luaeval("require(\"theme-sync\").apply_theme(\"light\")")' \
-            2>/dev/null || true
-        done
       '';
     };
   };

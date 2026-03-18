@@ -7,6 +7,7 @@
 {
 
   programs.yazi.enable = true;
+  programs.yazi.shellWrapperName = "y";
 
   home.packages = with pkgs; [ yaziPlugins.git ];
 
