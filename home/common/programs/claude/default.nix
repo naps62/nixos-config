@@ -2,6 +2,7 @@
 {
   home.file.".default-npm-packages".text = ''
     @anthropic-ai/sandbox-runtime
+    @beads/bd
   '';
 
   home.packages = with pkgs; [
@@ -14,6 +15,9 @@
 
     # voice
     sox
+
+    # beads
+    dolt
   ];
 
   # Commands
