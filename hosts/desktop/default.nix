@@ -45,11 +45,11 @@
     RIGHT='DP-2'
 
     # Match Hyprland layout: TOP at 0x0, BOTTOM at 0x2160, RIGHT at 3840x180
-    ${pkgs.xorg.xrandr}/bin/xrandr \
+    ${pkgs.xrandr}/bin/xrandr \
       --output $TOP --mode 3840x2160 --pos 0x0 --rotate normal \
       --output $BOTTOM --primary --mode 3840x2160 --pos 0x2160 --rotate normal \
       --output $RIGHT --mode 3840x2160 --pos 3840x180 --rotate left
-    ${pkgs.xorg.xrandr}/bin/xrandr --dpi 160
+    ${pkgs.xrandr}/bin/xrandr --dpi 160
   '';
 
   users.users.naps62 = {
@@ -70,7 +70,7 @@
       let
         authorizedKeys = pkgs.fetchurl {
           url = "https://github.com/naps62.keys";
-          sha256 = "sha256-+Tkks+tpB2LJQQiyYd7HOdTjHZfr653HSgb1up0JDIQ=";
+          sha256 = "sha256-KNei7flY0a+dIHdJjeU1+MQGAZRoz8RJnNS75svDIBY=";
         };
       in
       pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);

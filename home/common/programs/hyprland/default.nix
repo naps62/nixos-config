@@ -54,19 +54,11 @@ in
       package = null;
       portalPackage = null;
       plugins = [
-        inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
         # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
         # inputs.hyprspace.packages.${pkgs.stdenv.hostPlatform.system}.Hyprspace
       ];
       settings = {
         plugin = {
-          hyprexpo = {
-            columns = 3;
-            gap_size = 5;
-            bg_col = "rgb(000000)";
-            workspace_method = "center current";
-            skip_empty = true;
-          };
           # hyprfocus = {
           #   enabled = true;
           #   mode = "flash";
@@ -227,7 +219,6 @@ in
 
         bind = [
           "$mod, n, exec, noctalia-shell ipc call controlCenter toggle"
-          "$mod, g, hyprexpo:expo, toggle"
           # "$mod, tab, overview:toggle,"
           "$mod, b, exec, pkill waybar || waybar"
           "$mod, t, exec, kitty"

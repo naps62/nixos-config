@@ -8,7 +8,7 @@ pkgs.stdenv.mkDerivation {
     owner = "mahaveergurjar";
     repo = "sddm";
     rev = "noctalia";
-    sha256 = "1a9xb9hkci2bkfmq04lhd66aa60kkf97c16knrm4sgpwqdpvzba1";
+    sha256 = "sha256-q/aw4PLSHhS2jKjRl8F1JIBZn1aBV/QBEDgZ+2Oyo2A=";
   };
 
   installPhase = ''
@@ -21,8 +21,7 @@ pkgs.stdenv.mkDerivation {
     substituteInPlace $out/share/sddm/themes/sddm-noctalia/metadata.desktop \
       --replace-fail "Theme-Id=noctalia" "QtVersion=6
     Theme-Id=noctalia"
-    substituteInPlace $out/share/sddm/themes/sddm-noctalia/Main.qml \
-      --replace-fail "import QtGraphicalEffects 1.12" "import Qt5Compat.GraphicalEffects"
+
   '';
 
   meta = with pkgs.lib; {

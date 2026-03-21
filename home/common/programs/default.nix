@@ -20,6 +20,7 @@
     ./opencode
     ./yazi
     ./termfilechooser.nix
+    ./ssh.nix
   ];
 
   programs = {

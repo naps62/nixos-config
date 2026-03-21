@@ -16,14 +16,14 @@
     nss
     vulkan-loader
     libpulseaudio
-    xorg.libX11
-    xorg.libXext
-    xorg.libXdamage
-    xorg.libXfixes
-    xorg.libXi
-    xorg.libXrandr
-    xorg.libXtst
-    xorg.libxcb
-    xorg.libXcomposite
+    libx11
+    libxext
+    libxdamage
+    libxfixes
+    libxi
+    libxrandr
+    libxtst
+    libxcb
+    libxcomposite
   ];
 }

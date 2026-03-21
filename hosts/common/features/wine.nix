@@ -7,7 +7,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    wineWowPackages.waylandFull
+    wineWow64Packages.waylandFull
     winetricks
   ];
 }
