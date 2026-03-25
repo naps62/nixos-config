@@ -100,7 +100,7 @@
             ./home/${name}
           ];
           extraSpecialArgs = {
-            inherit inputs outputs;
+            inherit inputs outputs self;
           };
         };
     in

@@ -54,6 +54,6 @@
     source = ./statusline.sh;
     executable = true;
   };
-  home.file.".claude/settings.json".source = ./settings.json;
+  home.mutableFiles.".claude/settings.json".source = ./settings.json;
   home.file.".claude/CLAUDE.md".source = ./CLAUDE.md;
 }

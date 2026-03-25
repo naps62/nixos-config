@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ../features/mutable-file.nix
     ./zsh.nix
     ./neovim
     ./rust.nix
@@ -22,6 +23,8 @@
     ./termfilechooser.nix
     ./ssh.nix
   ];
+
+  home.mutableFilesRepoPath = "/home/naps62/projects/nixos-config";
 
   programs = {
     home-manager.enable = true;
