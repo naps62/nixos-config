@@ -8,7 +8,7 @@
   nix = {
     settings = {
       trusted-users = [
-        "'root"
+        "root"
         "@wheel"
       ];
       auto-optimise-store = lib.mkDefault true;

@@ -23,7 +23,6 @@
     ../common/programs/nerd-dictation.nix
     ../common/features/xdg.nix
     ../common/features/downloads-cleanup.nix
-    ../common/features/bluetooth.nix
     ./monitors.nix
   ];
 
