@@ -31,6 +31,9 @@
     ffmpeg
     unzip
 
+    # remote desktop
+    remmina
+
     # networking
     networkmanagerapplet
     mtr

@@ -20,6 +20,7 @@
     ../common/features/ledger.nix
     ../common/features/android-studio.nix
     ../common/features/wine.nix
+    ../common/features/appimage.nix
     ../common/features/home
   ];
 
