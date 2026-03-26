@@ -292,7 +292,7 @@ in
         animationDisabled = false;
         animationSpeed = 1;
         autoStartAuth = true;
-        avatarImage = "/home/naps62/.face";
+        avatarImage = "${config.home.homeDirectory}/.face";
         boxRadiusRatio = 1;
         clockFormat = "hh\\nmm";
         clockStyle = "custom";
@@ -563,7 +563,7 @@ in
       };
       wallpaper = {
         automationEnabled = true;
-        directory = "/home/naps62/.cache/wallpapers/3840x2160";
+        directory = "${config.home.homeDirectory}/.cache/wallpapers/3840x2160";
         enabled = true;
         favorites = [ ];
         fillColor = "#5e81ac";

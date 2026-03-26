@@ -21,20 +21,7 @@
 
     [build]
     rustflags = ["-Z", "threads=12"]
-
-    # [unstable]
-    # codegen-backend = true
-    #
-    # [profile.dev]
-    # codegen-backend = "cranelift"
   '';
-
-  # systemd.user.services.ra-multiplex = {
-  #   Service = {
-  #     ExecStart = "${pkgs.ra-multiplex}/bin/ra-multiplex server";
-  #   };
-  #   Install.WantedBy = [ "default.target" ];
-  # };
 
   home.sessionVariables = {
     OPENSSL_DIR = "${pkgs.openssl.dev}";

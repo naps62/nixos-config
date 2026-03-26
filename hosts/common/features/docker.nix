@@ -10,8 +10,5 @@
 
   users.groups.docker = { };
 
-  networking.firewall = {
-    enable = false;
-    # checkReversePath = false;
-  };
+  networking.firewall.enable = false;
 }

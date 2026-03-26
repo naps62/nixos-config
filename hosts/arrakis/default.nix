@@ -9,6 +9,7 @@
     inputs.hardware.nixosModules.dell-xps-13-9315
     ./hardware-configuration.nix
     ../common/global
+    ../common/features/user.nix
     ../common/features/laptop.nix
     ../common/features/networking.nix
     ../common/features/gpu/intel-graphics.nix
@@ -26,44 +27,10 @@
 
   networking.hostName = "arrakis";
 
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-    kernelParams = [
-      "i915=force_probe=46a6"
-      "i915.enable_psr=0"
-    ];
-  };
-
-  system.stateVersion = "24.05";
-
-  programs.zsh.enable = true;
-
-  users.users.naps62 = {
-    isNormalUser = true;
-    description = "Miguel Palhas";
-    extraGroups = [
-      "networkmanager"
-      "input"
-      "wheel"
-      "docker"
-      "dialout"
-      "adbusers"
-      "kvm"
-    ];
-    shell = pkgs.zsh;
-    initialHashedPassword = "$y$j9T$uRTzF/sBdrqVGZTRhPuR00$wgLgEGlq.lEmlCPiy69jkbtfC9HKpyaVPDHDdBGtE5D";
-    openssh.authorizedKeys.keys =
-      let
-        authorizedKeys = pkgs.fetchurl {
-          url = "https://github.com/naps62.keys";
-          sha256 = "sha256-KNei7flY0a+dIHdJjeU1+MQGAZRoz8RJnNS75svDIBY=";
-        };
-      in
-      pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
-  };
+  boot.kernelParams = [
+    "i915=force_probe=46a6"
+    "i915.enable_psr=0"
+  ];
 
   hardware.ipu6 = {
     enable = true;

@@ -15,12 +15,5 @@ in
     XCURSOR_SIZE = cursorSize;
   };
 
-  dconf = {
-    enable = true;
-    # settings = {
-    # "org/gnome/desktop/interface" = {
-    #   cursor-theme = "BreezeX-RosePine-Linux";
-    # };
-    # };
-  };
+  dconf.enable = true;
 }

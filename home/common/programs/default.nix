@@ -24,7 +24,7 @@
     ./ssh.nix
   ];
 
-  home.mutableFilesRepoPath = "/home/naps62/projects/nixos-config";
+  home.mutableFilesRepoPath = "${config.home.homeDirectory}/projects/nixos-config";
 
   programs = {
     home-manager.enable = true;
@@ -35,7 +35,9 @@
   ];
 
   home = {
+    username = lib.mkDefault "naps62";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
+    stateVersion = lib.mkDefault "24.05";
     sessionPath = [ "$HOME/.local/bin" ];
   };
 }

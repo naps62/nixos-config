@@ -8,6 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ../common/global
+    ../common/features/user.nix
     ../common/features/networking.nix
     ../common/features/gpu/nvidia.nix
     ../common/features/display
@@ -24,21 +25,6 @@
 
   networking.hostName = "konishi";
 
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-
-    # kernel.sysctl = {
-    #   "net.ipv6.conf.all.disable_ipv6" = 1;
-    # };
-  };
-
-  system.stateVersion = "24.05";
-
-  programs.zsh.enable = true;
-
   services.xserver.displayManager.sessionCommands = ''
     BOTTOM='HDMI-0'
     TOP='DP-0'
@@ -51,30 +37,6 @@
       --output $RIGHT --mode 3840x2160 --pos 3840x180 --rotate left
     ${pkgs.xrandr}/bin/xrandr --dpi 160
   '';
-
-  users.users.naps62 = {
-    isNormalUser = true;
-    description = "Miguel Palhas";
-    extraGroups = [
-      "networkmanager"
-      "input"
-      "wheel"
-      "docker"
-      "dialout"
-      "adbusers"
-      "kvm"
-    ];
-    shell = pkgs.zsh;
-    initialHashedPassword = "$y$j9T$uRTzF/sBdrqVGZTRhPuR00$wgLgEGlq.lEmlCPiy69jkbtfC9HKpyaVPDHDdBGtE5D";
-    openssh.authorizedKeys.keys =
-      let
-        authorizedKeys = pkgs.fetchurl {
-          url = "https://github.com/naps62.keys";
-          sha256 = "sha256-KNei7flY0a+dIHdJjeU1+MQGAZRoz8RJnNS75svDIBY=";
-        };
-      in
-      pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
-  };
 
   networking.nameservers = [
     "100.100.100.100"

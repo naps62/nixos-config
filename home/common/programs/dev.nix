@@ -39,7 +39,7 @@
     ktlint
     croc
     opencode
-    amp-cli
+    process-compose
 
     # typst
     typst

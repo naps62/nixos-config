@@ -15,8 +15,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-colors.url = "github:misterio77/nix-colors";
-    nixvim.url = "github:nix-community/nixvim";
     nvchad4nix = {
       url = "github:nix-community/nix4nvchad";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,7 +27,6 @@
     foundry = {
       url = "github:shazow/foundry.nix";
     };
-    utils.url = "github:numtide/flake-utils";
     hardware.url = "github:NixOS/nixos-hardware/master";
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
@@ -38,14 +35,6 @@
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
       submodules = true;
-    };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprspace = {
-      url = "github:KZDKM/Hyprspace";
-      inputs.hyprland.follows = "hyprland";
     };
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
@@ -61,7 +50,6 @@
       systems,
       nixpkgs,
       home-manager,
-      utils,
       ...
     }@inputs:
     let
@@ -79,7 +67,6 @@
       );
 
       x86 = pkgsFor.x86_64-linux;
-      aarch64 = pkgsFor.aarch64-linux;
 
       mkNixOS =
         name:

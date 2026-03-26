@@ -43,7 +43,6 @@
     signal-desktop
 
     # dev tools
-    ferdium
     yaak
     bun
 

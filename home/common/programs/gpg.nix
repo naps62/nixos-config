@@ -20,7 +20,7 @@
   programs.password-store = {
     enable = true;
     settings = {
-      PASSWORD_STORE_DIR = "/home/naps62/sync/pass";
+      PASSWORD_STORE_DIR = "${config.home.homeDirectory}/sync/pass";
     };
   };
 }

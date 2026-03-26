@@ -6,7 +6,6 @@
   ...
 }:
 let
-  rofiLaunchers = import ../../../pkgs/rofi-launchers/package.nix { };
   cfg = config.custom.hyprland;
 in
 {
@@ -24,9 +23,7 @@ in
   };
 
   imports = [
-    ./rofi.nix
     ./cursor.nix
-    ./waybar.nix
     ./noctalia
     ./wallpapers.nix
   ];
@@ -53,17 +50,9 @@ in
       enable = true;
       package = null;
       portalPackage = null;
-      plugins = [
-        # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
-        # inputs.hyprspace.packages.${pkgs.stdenv.hostPlatform.system}.Hyprspace
-      ];
+      plugins = [ ];
       settings = {
         plugin = {
-          # hyprfocus = {
-          #   enabled = true;
-          #   mode = "flash";
-          #   flash_opacity = 0.8; # Flash brighter instead of dimmer
-          # };
           overview = {
             autoDrag = true;
             exitOnClick = true;
@@ -116,7 +105,6 @@ in
         decoration = {
           blur = {
             enabled = true;
-            # new_optimizations = false;
             popups = false;
           };
           shadow = {
@@ -219,21 +207,13 @@ in
 
         bind = [
           "$mod, n, exec, noctalia-shell ipc call controlCenter toggle"
-          # "$mod, tab, overview:toggle,"
-          "$mod, b, exec, pkill waybar || waybar"
           "$mod, t, exec, kitty"
           "$mod, v, togglefloating"
           "$mod, q, killactive"
           "$mod, f, fullscreen, 0"
           "$mod SHIFT, f, fullscreen, 1"
 
-          # app launcher
           "$mod, space, exec, noctalia-shell ipc call launcher toggle"
-          # rofi (old)
-          # "$mod, space, exec, launcher_t2"
-
-          # nerd-dictation
-          # "$mod, d, exec, nerd-dictation-toggle"
 
           # printscreen
           ", Print, exec, hyprshot -m region --raw | satty --filename - --output-filename ~/downloads/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
@@ -248,7 +228,6 @@ in
           # Switch workspaces with mod + [0-9]
           "$mod, 1, workspace, 1"
           "$mod, 2, workspace, 2"
-          "$mod, 3, workspace, 3"
           "$mod, 3, workspace, 3"
           "$mod, 4, workspace, 4"
           "$mod, 5, workspace, 5"

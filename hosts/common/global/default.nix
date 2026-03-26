@@ -12,13 +12,6 @@
     gnumake
   ];
 
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      stdenv.cc.cc.lib
-    ];
-  };
-
   time = {
     timeZone = "Europe/Lisbon";
   };

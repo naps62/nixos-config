@@ -1,10 +1,7 @@
 { inputs, pkgs, ... }:
 {
   networking = {
-    networkmanager = {
-      enable = true;
-    };
-    # wireless.iwd.enable = true;
+    networkmanager.enable = true;
   };
 
   services.avahi = {

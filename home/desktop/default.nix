@@ -8,8 +8,6 @@
 }:
 {
   imports = [
-    inputs.nix-colors.homeManagerModule
-    inputs.nixvim.homeModules.nixvim
     ../common/programs/default.nix
     ../common/programs/desktop
     ../common/programs/zen-browser.nix
@@ -89,17 +87,12 @@
     wallpaper = {
       enableMultiMonitorDirectories = true;
       monitorDirectories = [
-        { monitor = "HDMI-A-1"; directory = "/home/naps62/.cache/wallpapers/3840x2160"; }
-        { monitor = "DP-1";     directory = "/home/naps62/.cache/wallpapers/3840x2160"; }
-        { monitor = "DP-2";     directory = "/home/naps62/.cache/wallpapers/2160x3840"; }
+        { monitor = "HDMI-A-1"; directory = "${config.home.homeDirectory}/.cache/wallpapers/3840x2160"; }
+        { monitor = "DP-1";     directory = "${config.home.homeDirectory}/.cache/wallpapers/3840x2160"; }
+        { monitor = "DP-2";     directory = "${config.home.homeDirectory}/.cache/wallpapers/2160x3840"; }
       ];
     };
   };
 
   programs.kitty.settings.font_size = 16;
-
-  home = {
-    username = lib.mkDefault "naps62";
-    stateVersion = lib.mkDefault "24.05";
-  };
 }

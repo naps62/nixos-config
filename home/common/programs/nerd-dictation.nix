@@ -123,7 +123,4 @@ in
     nerd-dictation-toggle
     pkgs.ydotool
   ];
-
-  # Note: You may need to enable ydotoold as a systemd service
-  # Either via NixOS configuration or by running: ydotoold &
 }
