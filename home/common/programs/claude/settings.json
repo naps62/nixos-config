@@ -53,6 +53,10 @@
     "linear": {
       "type": "http",
       "url": "https://mcp.linear.app/mcp"
+    },
+    "home-assistant": {
+      "type": "http",
+      "url": "https://ha-mcp.n62.casa/mcp"
     }
   },
   "statusLine": {

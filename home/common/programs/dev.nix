@@ -49,5 +49,7 @@
 
     mkcert
     nss.tools
+
+    kicad
   ];
 }
