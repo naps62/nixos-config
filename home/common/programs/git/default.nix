@@ -63,6 +63,7 @@
 
   home.packages = with pkgs; [
     delta
+    git-crypt
     mediainfo
   ];
   home.sessionPath = [
