@@ -32,10 +32,13 @@
     "i915.enable_psr=0"
   ];
 
-  hardware.ipu6 = {
-    enable = true;
-    platform = "ipu6ep";
-  };
+  users.users.naps62.extraGroups = [ "video" ];
+
+  # IPU6 webcam — kernel/firmware support only
+  # Camera works via libcamera (cam -l, cam -c 1 --capture) but no
+  # reliable browser integration yet without always-on LED
+  hardware.firmware = [ pkgs.ivsc-firmware ];
+  environment.systemPackages = [ pkgs.libcamera ];
 
   services.fprintd.enable = true;
 }

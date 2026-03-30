@@ -26,16 +26,8 @@
     initrd.kernelModules = [ ];
     kernelModules = [
       "kvm-intel"
-      "v4l2loopback"
     ];
-    extraModulePackages = with config.boot.kernelPackages; [
-      ipu6-drivers
-      v4l2loopback
-    ];
-
-    extraModprobeConfig = ''
-      options v4l2loopback exclusive_caps=1 card_label="Intel MIPI Camera"
-    '';
+    extraModulePackages = [ ];
 
     initrd.luks.devices = {
       "luks-aa168861-6ecf-4fcc-8a0d-6e1555892747".device =

@@ -32,7 +32,14 @@
       "Bash(journalctl:*)",
       "Bash(hyprctl:*)",
       "WebFetch(domain:docs.noctalia.dev)",
-      "WebFetch(domain:gerg-l.github.io)"
+      "WebFetch(domain:gerg-l.github.io)",
+      "Bash(pw-cli info:*)",
+      "WebFetch(domain:jgrulich.cz)",
+      "WebFetch(domain:fedoraproject.org)",
+      "WebFetch(domain:docs.pipewire.org)",
+      "Bash(wpctl status:*)",
+      "WebFetch(domain:bugs.chromium.org)",
+      "WebFetch(domain:gitlab.freedesktop.org)"
     ]
   },
   "sandbox": {
