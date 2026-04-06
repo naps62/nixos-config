@@ -18,6 +18,7 @@
     ../common/programs/gpg.nix
     ../common/programs/ethui.nix
     ../common/programs/3d.nix
+    ../common/programs/godot.nix
     ../common/programs/nerd-dictation.nix
     ../common/features/xdg.nix
     ../common/features/downloads-cleanup.nix

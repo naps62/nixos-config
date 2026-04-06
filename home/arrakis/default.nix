@@ -20,6 +20,7 @@
     ../common/features/xdg.nix
     ../common/features/downloads-cleanup.nix
     ../common/programs/3d.nix
+    ../common/programs/godot.nix
     ./monitors.nix
   ];
 
