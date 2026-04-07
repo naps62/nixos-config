@@ -15,7 +15,6 @@
     ./git
     ./solidity.nix
     ./dev.nix
-    ./aider.nix
     ./cpp.nix
     ./claude
     ./opencode
