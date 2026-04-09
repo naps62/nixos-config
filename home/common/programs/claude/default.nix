@@ -24,6 +24,7 @@
   home.file.".claude/commands/merge.md".source = ./commands/merge.md;
   home.file.".claude/commands/update.md".source = ./commands/update.md;
   home.file.".claude/commands/work.md".source = ./commands/work.md;
+  home.file.".claude/commands/download-playlist.md".source = ./commands/download-playlist.md;
 
   # Skills: agents
   home.file.".claude/skills/designer-bold/SKILL.md".source = ./skills/designer-bold/SKILL.md;

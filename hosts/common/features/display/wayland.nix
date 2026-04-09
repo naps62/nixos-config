@@ -2,7 +2,6 @@
 {
   environment.systemPackages = with pkgs; [
     wl-clipboard
-    xdg-desktop-portal-termfilechooser
   ];
 
   programs.hyprland = {

@@ -162,9 +162,6 @@ in
           "size 1920 1080, match:class mpv"
           "move (cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5)), match:class mpv"
 
-          "float on, match:title termfilechooser"
-          "size 1200 800, match:title termfilechooser"
-          "move center, match:title termfilechooser"
 
           # thunar
           "float on, match:class thunar"

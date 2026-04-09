@@ -19,7 +19,7 @@
     ./claude
     ./opencode
     ./yazi
-    ./termfilechooser.nix
+
     ./ssh.nix
   ];
 
