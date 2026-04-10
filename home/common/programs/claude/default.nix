@@ -23,7 +23,6 @@
   # Commands
   home.file.".claude/commands/merge.md".source = ./commands/merge.md;
   home.file.".claude/commands/update.md".source = ./commands/update.md;
-  home.file.".claude/commands/work.md".source = ./commands/work.md;
   home.file.".claude/commands/download-playlist.md".source = ./commands/download-playlist.md;
 
   # Skills: agents
@@ -50,6 +49,11 @@
   home.file.".claude/skills/remove-deadcode/SKILL.md".source = ./skills/remove-deadcode/SKILL.md;
   home.file.".claude/skills/worktree-compare/SKILL.md".source = ./skills/worktree-compare/SKILL.md;
   home.file.".claude/skills/worktree-list/SKILL.md".source = ./skills/worktree-list/SKILL.md;
+
+  # Skills: linear workflow
+  home.file.".claude/skills/linear-common/COMMON.md".source = ./skills/linear-common/COMMON.md;
+  home.file.".claude/skills/work/SKILL.md".source = ./skills/work/SKILL.md;
+  home.file.".claude/skills/yolo/SKILL.md".source = ./skills/yolo/SKILL.md;
 
   home.file.".claude/statusline.sh" = {
     source = ./statusline.sh;
