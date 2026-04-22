@@ -19,7 +19,6 @@
     ./claude
     ./opencode
     ./yazi
-
     ./ssh.nix
   ];
 
