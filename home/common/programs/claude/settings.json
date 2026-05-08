@@ -1,6 +1,6 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
-    "additionalDirectories": ["/home/naps62/projects", "/home/naps62/ethui", "/home/naps62/labs", "/home/naps62/subvisual"],
     "allow": [
       "Edit",
       "Write",
@@ -27,7 +27,25 @@
       "Bash(chmod:*)",
       "Bash(mkdir:*)",
       "Bash(kitty @ set-tab-title:*)"
+    ],
+    "additionalDirectories": [
+      "/home/naps62/projects",
+      "/home/naps62/ethui",
+      "/home/naps62/labs",
+      "/home/naps62/subvisual"
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  },
+  "extraKnownMarketplaces": {
+    "impeccable": {
+      "source": {
+        "source": "github",
+        "repo": "pbakaus/impeccable"
+      }
+    }
   },
   "sandbox": {
     "enabled": true,
@@ -59,9 +77,7 @@
       "url": "https://ha-mcp.n62.casa/mcp"
     }
   },
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.sh"
-  },
-  "$schema": "https://json.schemastore.org/claude-code-settings.json"
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true
+  }
 }

@@ -13,7 +13,6 @@
     ../common/programs/zen-browser.nix
     ../common/programs/hyprland
     ../common/programs/kitty
-    ../common/programs/syncthing.nix
     ../common/programs/unity.nix
     ../common/programs/gpg.nix
     ../common/programs/ethui.nix
