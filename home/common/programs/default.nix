@@ -20,6 +20,7 @@
     ./opencode
     ./yazi
     ./ssh.nix
+    ./tmux.nix
   ];
 
   home.mutableFilesRepoPath = "${config.home.homeDirectory}/projects/nixos-config";

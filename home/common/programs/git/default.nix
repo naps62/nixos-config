@@ -38,6 +38,13 @@
       core = {
         editor = "nvim";
         pager = "delta";
+        askpass = "";
+      };
+      credential = {
+        helper = "store";
+      };
+      "credential \"https://git.naps.pt\"" = {
+        helper = "!tea login helper";
       };
       merge = {
         conflictstyle = "zdiff3";
@@ -65,6 +72,7 @@
     delta
     git-crypt
     mediainfo
+    tea
   ];
   home.sessionPath = [
     "$HOME/.config/git/scripts"
