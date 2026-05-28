@@ -51,5 +51,6 @@
     nss.tools
 
     kicad
+    tea
   ];
 }
