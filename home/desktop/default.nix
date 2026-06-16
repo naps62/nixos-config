@@ -73,25 +73,11 @@
 
   };
 
-  programs.noctalia-shell.settings = {
-    bar = {
-      density = "spacious";
-    };
-    notifications = {
-      monitors = [ "DP-1" ];
-    };
-    ui = {
-      fontDefaultScale = 1.25;
-      fontFixedScale = 1.25;
-    };
-    wallpaper = {
-      enableMultiMonitorDirectories = true;
-      monitorDirectories = [
-        { monitor = "HDMI-A-1"; directory = "${config.home.homeDirectory}/.cache/wallpapers/3840x2160"; }
-        { monitor = "DP-1";     directory = "${config.home.homeDirectory}/.cache/wallpapers/3840x2160"; }
-        { monitor = "DP-2";     directory = "${config.home.homeDirectory}/.cache/wallpapers/2160x3840"; }
-      ];
-    };
+  programs.noctalia.settings = {
+    shell.ui_scale = 1.25;
+    notification.monitors = [ "DP-1" ];
+    # NOTE: v5 has no per-monitor wallpaper directories; only directory_light /
+    # directory_dark. Re-add via Settings UI if upstream gains support.
   };
 
   programs.kitty.settings.font_size = 16;

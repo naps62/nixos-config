@@ -7,7 +7,6 @@
 {
   home.packages = with pkgs; [
     blender
-    openscad
     prusa-slicer
     google-fonts
   ];

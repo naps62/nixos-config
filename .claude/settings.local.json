@@ -39,7 +39,8 @@
       "WebFetch(domain:docs.pipewire.org)",
       "Bash(wpctl status:*)",
       "WebFetch(domain:bugs.chromium.org)",
-      "WebFetch(domain:gitlab.freedesktop.org)"
+      "WebFetch(domain:gitlab.freedesktop.org)",
+      "Bash(python3 -c ' *)"
     ]
   },
   "sandbox": {

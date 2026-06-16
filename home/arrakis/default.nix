@@ -44,7 +44,6 @@
     ];
   };
 
-  programs.noctalia-shell.settings.bar = {
-    density = "comfortable";
-  };
+  # v4 `bar.density` has no v5 equivalent; spacing is tuned via
+  # bar.main.padding / widget_spacing / thickness if needed.
 }

@@ -131,12 +131,12 @@ in
           "hyprctl setcursor Nordzy-cursors ${toString cfg.cursorSize}"
           "hyprsunset"
           "nerd-dictation begin --simulate-input-tool WTYPE --suspend-on-start && touch ~/.cache/nerd-dictation-suspended"
-          "noctalia-shell"
+          "noctalia"
         ];
 
         layerrule = [
-          "blur 1, match:namespace noctalia-background-.*"
-          "ignore_alpha 0.5, match:namespace noctalia-background-.*"
+          "blur 1, match:namespace noctalia-wallpaper"
+          "ignore_alpha 0.5, match:namespace noctalia-wallpaper"
         ];
         workspace = [
           # no gaps when only window
@@ -203,14 +203,14 @@ in
         "$mod" = "SUPER";
 
         bind = [
-          "$mod, n, exec, noctalia-shell ipc call controlCenter toggle"
+          "$mod, n, exec, noctalia msg panel-toggle control-center"
           "$mod, t, exec, kitty"
           "$mod, v, togglefloating"
           "$mod, q, killactive"
           "$mod, f, fullscreen, 0"
           "$mod SHIFT, f, fullscreen, 1"
 
-          "$mod, space, exec, noctalia-shell ipc call launcher toggle"
+          "$mod, space, exec, noctalia msg panel-toggle launcher"
 
           # printscreen
           ", Print, exec, hyprshot -m region --raw | satty --filename - --output-filename ~/downloads/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
@@ -285,12 +285,12 @@ in
         general = {
           after_sleep_cmd = "hyprctl dispatch dpms on";
           ignore_dbus_inhibit = false;
-          lock_cmd = "noctalia-shell ipc call lockScreen lock";
+          lock_cmd = "noctalia msg session lock";
         };
         listener = [
           {
             timeout = 900;
-            on-timeout = "noctalia-shell ipc call lockScreen lock";
+            on-timeout = "noctalia msg session lock";
           }
           {
             timeout = 1200;

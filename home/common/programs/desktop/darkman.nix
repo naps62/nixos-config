@@ -32,7 +32,7 @@
         fi
       '';
       noctalia-theme = ''
-        noctalia-shell ipc call darkMode setDark
+        noctalia msg theme-mode-set dark
       '';
     };
     lightModeScripts = {
@@ -61,7 +61,7 @@
         fi
       '';
       noctalia-theme = ''
-        noctalia-shell ipc call darkMode setLight
+        noctalia msg theme-mode-set light
       '';
     };
   };

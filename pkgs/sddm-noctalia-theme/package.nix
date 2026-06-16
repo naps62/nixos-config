@@ -8,7 +8,7 @@ pkgs.stdenv.mkDerivation {
     owner = "mahaveergurjar";
     repo = "sddm";
     rev = "noctalia";
-    sha256 = "sha256-q/aw4PLSHhS2jKjRl8F1JIBZn1aBV/QBEDgZ+2Oyo2A=";
+    sha256 = "sha256-e/gYI6znHXxlDCOVh4p265x3kO0nQUU897hCY1yEz88=";
   };
 
   installPhase = ''
