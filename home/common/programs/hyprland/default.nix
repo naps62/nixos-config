@@ -144,8 +144,8 @@ in
           "w[tg1], gapsout:0, gapsin:0"
           "f[1], gapsout:0, gapsin:0"
 
-          "special:terminal, on-created-empty:[float; size 1400 1000; move center] kitty, persistent:false"
-          "special:yazi, on-created-empty:[float; size ${cfg.yaziSize}; move center] kitty --session sessions/yazi, persistent:false"
+          "special:terminal, on-created-empty:[float; size 1400 1000; center 1] kitty, persistent:false"
+          "special:yazi, on-created-empty:[float; size ${cfg.yaziSize}; center 1] kitty --session sessions/yazi, persistent:false"
         ];
 
         windowrule = [
@@ -196,8 +196,8 @@ in
           "border_size 0, match:float 0, match:workspace f[1]"
           "rounding 0, match:float 0, match:workspace f[1]"
 
-          "move center, match:workspace special:terminal"
-          "move center, match:workspace special:yazi"
+          "center 1, match:workspace special:terminal"
+          "center 1, match:workspace special:yazi"
         ];
 
         "$mod" = "SUPER";

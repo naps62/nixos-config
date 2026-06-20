@@ -40,7 +40,6 @@ in
       confirm_os_window_close = 0;
       cursor_trail = 1;
       copy_on_select = true;
-      background_opacity = 0.9;
 
       enabled_layouts = "tall, grid, fat, splits, stack";
 
