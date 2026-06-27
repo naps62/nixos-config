@@ -28,15 +28,20 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@main
+      # Each lint step is continue-on-error so all three always run and none
+      # reds the job — findings are visible in the logs but non-gating. Flip a
+      # step's continue-on-error to false (or drop it) to make it blocking.
       - name: nixfmt (format check)
+        continue-on-error: true
         run: |
           fd_nix=$(find . -name '*.nix')
           nix run nixpkgs#nixfmt -- --check $fd_nix
       - name: statix
+        continue-on-error: true
         run: nix run nixpkgs#statix -- check
       - name: deadnix
+        continue-on-error: true
         run: nix run nixpkgs#deadnix -- --fail
