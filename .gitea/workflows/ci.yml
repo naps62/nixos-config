@@ -1,0 +1,42 @@
+# Gitea Actions CI for the nix config.
+#
+# Requirements on the act_runner:
+#   - a runner with the `ubuntu-latest` label (or change `runs-on` below)
+#   - the runner must be allowed to fetch actions from github.com
+#     (act_runner default: DEFAULT_ACTIONS_URL = https://github.com)
+#
+# Design: `eval` is blocking (it's the real safety net — the whole module
+# system must evaluate). `lint` is informational (continue-on-error) because
+# the existing statix/deadnix/format findings are intentionally tolerated.
+# Flip `continue-on-error` to false once the config is clean to make it gating.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - name: Evaluate all flake outputs (no build)
+        run: nix flake check --no-build
+
+  lint:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - name: nixfmt (format check)
+        run: |
+          fd_nix=$(find . -name '*.nix')
+          nix run nixpkgs#nixfmt -- --check $fd_nix
+      - name: statix
+        run: nix run nixpkgs#statix -- check
+      - name: deadnix
+        run: nix run nixpkgs#deadnix -- --fail

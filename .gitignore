@@ -1,1 +1,23 @@
+# nix build artifacts
 result
+result-*
+
+# editor / IDE
+.idea/
+.vscode/
+
+# AI tooling working dirs (not config)
+.claude/agents/
+.claude/commands/
+.claude/hooks/
+.mcp.json
+
+# stray shell/git dotfiles that land in the repo root
+.bash_profile
+.bashrc
+.profile
+.zprofile
+.zshrc
+.gitconfig
+.gitmodules
+.ripgreprc

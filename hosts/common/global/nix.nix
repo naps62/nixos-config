@@ -15,6 +15,10 @@
         "flakes"
       ];
       warn-dirty = false;
+      # Keep devshell build inputs alive across GC/`nh clean` so direnv/devenv
+      # projects don't re-download/rebuild their shells after a cleanup.
+      keep-outputs = true;
+      keep-derivations = true;
     };
     # GC is handled by `nh clean` below (keep-N / keep-since semantics).
     # The two are mutually exclusive — nh asserts if nix.gc.automatic is on.

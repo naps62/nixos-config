@@ -28,6 +28,9 @@
 
   boot.loader = {
     systemd-boot.enable = true;
+    # Cap boot menu entries so old generations don't accumulate forever
+    # (GC prunes the store; this prunes the boot entries).
+    systemd-boot.configurationLimit = 20;
     efi.canTouchEfiVariables = true;
   };
 

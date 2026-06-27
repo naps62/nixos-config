@@ -32,4 +32,10 @@
   };
 
   services.dbus.packages = with pkgs; [ gcr ];
+
+  # Compressed RAM swap — better behaviour under memory pressure.
+  zramSwap.enable = true;
+
+  # Periodic SSD TRIM.
+  services.fstrim.enable = true;
 }
