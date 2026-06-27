@@ -47,7 +47,6 @@
     mkcert
     nss.tools
 
-    kicad
     tea
 
     just # project command runner

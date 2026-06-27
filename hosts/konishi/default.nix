@@ -16,7 +16,6 @@
     ../common/features/nix-ld.nix
     ../common/features/bluetooth.nix
     ../common/features/ledger.nix
-    ../common/features/android-studio.nix
     ../common/features/wine.nix
     ../common/features/steam.nix
     ../common/features/appimage.nix

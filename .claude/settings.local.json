@@ -40,7 +40,8 @@
       "Bash(wpctl status:*)",
       "WebFetch(domain:bugs.chromium.org)",
       "WebFetch(domain:gitlab.freedesktop.org)",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(statix check *)"
     ]
   },
   "sandbox": {

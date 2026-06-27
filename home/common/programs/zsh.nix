@@ -4,149 +4,159 @@
   ...
 }:
 {
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-    completionInit = "autoload -U compinit && compinit -u";
+  programs = {
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      completionInit = "autoload -U compinit && compinit -u";
 
-    shellAliases = {
-      c = "cargo";
-      d = "docker";
-      dc = "docker compose";
-      g = "git";
-      n = "nvim";
-      vim = "nvim";
-      ls = "eza";
-      cat = "bat";
-      ps = "procs";
-      j = "just";
-      lzd = "lazydocker";
-      open = "xdg-open";
-      o = "xdg-open";
-      s = "ssh";
-      v = "nohup neovide &; disown";
+      shellAliases = {
+        c = "cargo";
+        d = "docker";
+        dc = "docker compose";
+        g = "git";
+        n = "nvim";
+        vim = "nvim";
+        ls = "eza";
+        cat = "bat";
+        ps = "procs";
+        du = "dust";
+        df = "duf";
+        j = "just";
+        lzd = "lazydocker";
+        open = "xdg-open";
+        o = "xdg-open";
+        s = "ssh";
+        v = "nohup neovide &; disown";
 
-      # cd
-      ".." = "cd ..";
-      "..2" = "cd ../..";
-      "..3" = "cd ../../..";
+        # cd
+        ".." = "cd ..";
+        "..2" = "cd ../..";
+        "..3" = "cd ../../..";
+      };
+
+      history = {
+        size = 10000;
+        path = "${config.xdg.dataHome}/zsh/history";
+      };
+
+      plugins = [
+        {
+          name = "fzf-tab";
+          src = pkgs.fetchFromGitHub {
+            owner = "Aloxaf";
+            repo = "fzf-tab";
+            rev = "v1.1.2";
+            hash = "sha256-Qv8zAiMtrr67CbLRrFjGaPzFZcOiMVEFLg1Z+N6VMhg=";
+          };
+        }
+        {
+          name = "zsh-autopair";
+          src = pkgs.fetchFromGitHub {
+            owner = "hlissner";
+            repo = "zsh-autopair";
+            rev = "449a7c3";
+            hash = "sha256-3zvOgIi+q7+sTXrT+r/4v98qjeiEL4Wh64rxBYnwJvQ=";
+          };
+        }
+      ];
+
+      initContent = ''
+        [[ -f ~/.secrets.zsh ]] && source ~/.secrets.zsh
+        # [[ -n "$KITTY_WINDOW_ID" ]] && alias ssh="kitten ssh"
+
+        export PATH="$HOME/.bin:$PATH"
+        export PATH="''${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+        export FOUNDRY_DISABLE_NIGHTLY_WARNING=true
+        export LD_LIBRARY_PATH=${pkgs.zlib}/lib:${pkgs.icu}/lib:${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH
+
+      '';
     };
 
-    history = {
-      size = 10000;
-      path = "${config.xdg.dataHome}/zsh/history";
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
     };
 
-    plugins = [
-      {
-        name = "fzf-tab";
-        src = pkgs.fetchFromGitHub {
-          owner = "Aloxaf";
-          repo = "fzf-tab";
-          rev = "v1.1.2";
-          hash = "sha256-Qv8zAiMtrr67CbLRrFjGaPzFZcOiMVEFLg1Z+N6VMhg=";
-        };
-      }
-      {
-        name = "zsh-autopair";
-        src = pkgs.fetchFromGitHub {
-          owner = "hlissner";
-          repo = "zsh-autopair";
-          rev = "449a7c3";
-          hash = "sha256-3zvOgIi+q7+sTXrT+r/4v98qjeiEL4Wh64rxBYnwJvQ=";
-        };
-      }
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+      # Replace `cd` with zoxide: `cd` = smart jump, `cdi` = interactive picker.
+      options = [ "--cmd cd" ];
+    };
+
+    atuin = {
+      enable = true;
+      enableZshIntegration = true;
+      # Local-only history (no account/sync). Atuin owns Ctrl-R; leave the
+      # up-arrow as normal zsh prefix history.
+      flags = [ "--disable-up-arrow" ];
+      settings = {
+        auto_sync = false;
+        update_check = false;
+      };
+    };
+
+    starship = {
+      enable = true;
+      settings = {
+        add_newline = true;
+
+        # Disable language modules to keep prompt short
+        nodejs.disabled = true;
+        python.disabled = true;
+        rust.disabled = true;
+        golang.disabled = true;
+        java.disabled = true;
+        ruby.disabled = true;
+        php.disabled = true;
+        elixir.disabled = true;
+        elm.disabled = true;
+        haskell.disabled = true;
+        julia.disabled = true;
+        kotlin.disabled = true;
+        lua.disabled = true;
+        nim.disabled = true;
+        nix_shell.disabled = true;
+        ocaml.disabled = true;
+        perl.disabled = true;
+        purescript.disabled = true;
+        scala.disabled = true;
+        swift.disabled = true;
+        terraform.disabled = true;
+        zig.disabled = true;
+        dotnet.disabled = true;
+      };
+    };
+  };
+
+  home = {
+    packages = with pkgs; [
+      btop
+      inxi
+      ripgrep
+      pass
+      bat
+      procs
+      eza
+      asdf-vm
+      fd
+      tdf
     ];
 
-    initContent = ''
-      [[ -f ~/.secrets.zsh ]] && source ~/.secrets.zsh
-      # [[ -n "$KITTY_WINDOW_ID" ]] && alias ssh="kitten ssh"
-
-      export PATH="$HOME/.bin:$PATH"
-      export PATH="''${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-      export FOUNDRY_DISABLE_NIGHTLY_WARNING=true
-      export LD_LIBRARY_PATH=${pkgs.zlib}/lib:${pkgs.icu}/lib:${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH
-
-    '';
-  };
-
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-    # Replace `cd` with zoxide: `cd` = smart jump, `cdi` = interactive picker.
-    options = [ "--cmd cd" ];
-  };
-
-  programs.atuin = {
-    enable = true;
-    enableZshIntegration = true;
-    # Local-only history (no account/sync). Atuin owns Ctrl-R; leave the
-    # up-arrow as normal zsh prefix history.
-    flags = [ "--disable-up-arrow" ];
-    settings = {
-      auto_sync = false;
-      update_check = false;
+    sessionVariables = {
+      "ASDF_NODEJS_AUTO_ENABLE_COREPACK" = "true";
+      # home-manager inits zoxide before atuin/fzf, tripping zoxide's doctor
+      # warning even though the `cd` override works fine (nothing after
+      # redefines cd). Silence the nag.
+      "_ZO_DOCTOR" = "0";
     };
+
+    sessionPath = [
+      "./.git/safe/../../node_modules/.bin"
+      "./.git/safe/../../bin"
+    ];
   };
-
-  programs.starship = {
-    enable = true;
-    settings = {
-      add_newline = true;
-
-      # Disable language modules to keep prompt short
-      nodejs.disabled = true;
-      python.disabled = true;
-      rust.disabled = true;
-      golang.disabled = true;
-      java.disabled = true;
-      ruby.disabled = true;
-      php.disabled = true;
-      elixir.disabled = true;
-      elm.disabled = true;
-      haskell.disabled = true;
-      julia.disabled = true;
-      kotlin.disabled = true;
-      lua.disabled = true;
-      nim.disabled = true;
-      nix_shell.disabled = true;
-      ocaml.disabled = true;
-      perl.disabled = true;
-      purescript.disabled = true;
-      scala.disabled = true;
-      swift.disabled = true;
-      terraform.disabled = true;
-      zig.disabled = true;
-      dotnet.disabled = true;
-    };
-  };
-
-  home.packages = with pkgs; [
-    btop
-    inxi
-    ripgrep
-    pass
-    bat
-    procs
-    eza
-    asdf-vm
-    fd
-    tdf
-  ];
-
-  home.sessionVariables = {
-    "ASDF_NODEJS_AUTO_ENABLE_COREPACK" = "true";
-  };
-
-  home.sessionPath = [
-    "./.git/safe/../../node_modules/.bin"
-    "./.git/safe/../../bin"
-  ];
 }

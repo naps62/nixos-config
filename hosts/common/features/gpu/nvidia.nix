@@ -1,17 +1,21 @@
 { config, pkgs, ... }:
 {
-  hardware.graphics.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    modesetting.enable = true;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  hardware = {
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        nvidia-vaapi-driver
+      ];
+    };
+    nvidia = {
+      modesetting.enable = true;
+      open = false;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+    };
   };
 
-  programs.xwayland.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
 
-  hardware.graphics.extraPackages = with pkgs; [
-    nvidia-vaapi-driver
-  ];
+  programs.xwayland.enable = true;
 }

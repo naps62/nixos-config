@@ -24,17 +24,17 @@
     ./tmux.nix
   ];
 
-  home.mutableFilesRepoPath = "${config.home.homeDirectory}/projects/nixos-config";
-
   programs = {
     home-manager.enable = true;
   };
 
-  home.packages = with pkgs; [
-    impala
-  ];
-
   home = {
+    mutableFilesRepoPath = "${config.home.homeDirectory}/projects/nixos-config";
+
+    packages = with pkgs; [
+      impala
+    ];
+
     username = lib.mkDefault "naps62";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "24.05";

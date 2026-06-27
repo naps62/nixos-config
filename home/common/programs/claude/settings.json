@@ -39,6 +39,9 @@
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true
+  },
   "extraKnownMarketplaces": {
     "impeccable": {
       "source": {
@@ -77,7 +80,5 @@
       "url": "https://ha-mcp.n62.casa/mcp"
     }
   },
-  "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": true
-  }
+  "tui": "fullscreen"
 }

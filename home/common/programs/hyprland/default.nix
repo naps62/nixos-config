@@ -6,6 +6,19 @@
 }:
 let
   cfg = config.custom.hyprland;
+
+  # Floating webcam preview for the "corner-cam" recording trick: run `webcam`,
+  # then capture the whole screen with kooha/wf-recorder — the preview is in the
+  # recording. v4l2 only (won't work with the laptop's IPU6 cam). Optional device
+  # arg, e.g. `webcam /dev/video2`.
+  webcam = pkgs.writeShellScriptBin "webcam" ''
+    dev="''${1:-/dev/video0}"
+    exec ${pkgs.mpv}/bin/mpv \
+      --profile=low-latency --untimed \
+      --no-osc --no-input-default-bindings \
+      --title=webcam-overlay --border=no --ontop \
+      "av://v4l2:$dev"
+  '';
 in
 {
   options.custom.hyprland = {
@@ -39,6 +52,7 @@ in
       cliphist
       wf-recorder
       slurp
+      webcam
     ];
 
     home.sessionVariables = {
@@ -129,13 +143,18 @@ in
           "XCURSOR_SIZE, ${toString cfg.cursorSize}"
           "HYPRCURSOR_THEME, rose-pine-hyprcursor"
           "HYPRCURSOR_SIZE, ${toString cfg.cursorSize}"
+          # Route Qt6 apps (incl. the xdph screen-share picker) through qt6ct so
+          # the noctalia-generated color scheme actually applies. Without this
+          # var the qt6ct.conf is never read.
+          "QT_QPA_PLATFORMTHEME, qt6ct"
         ];
 
         "exec-once" = [
-          "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+          # Import the Qt theme var too, so the dbus/systemd-activated
+          # xdg-desktop-portal-hyprland (and its share-picker) inherit it.
+          "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME"
           "hyprctl setcursor Nordzy-cursors ${toString cfg.cursorSize}"
           "hyprsunset"
-          "nerd-dictation begin --simulate-input-tool WTYPE --suspend-on-start && touch ~/.cache/nerd-dictation-suspended"
           "noctalia"
         ];
 
@@ -166,6 +185,15 @@ in
           "float on, match:class mpv"
           "size 1920 1080, match:class mpv"
           "move (cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5)), match:class mpv"
+
+          # webcam overlay (`webcam` command) — small, pinned, bottom-right.
+          # Title rules come after the mpv class rules so they win.
+          "float on, match:title webcam-overlay"
+          "size 360 240, match:title webcam-overlay"
+          "move 100%-380 100%-260, match:title webcam-overlay"
+          "pin on, match:title webcam-overlay"
+          "no_initial_focus on, match:title webcam-overlay"
+          "border_size 0, match:title webcam-overlay"
 
 
           # thunar

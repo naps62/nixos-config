@@ -26,11 +26,24 @@
     };
     foundry = {
       url = "github:shazow/foundry.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    hardware.url = "github:NixOS/nixos-hardware/master";
-    rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    rose-pine-hyprcursor = {
+      url = "github:ndom91/rose-pine-hyprcursor";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # ethui pins its own nixpkgs (verified rust/tauri build) — do not follow.
     ethui.url = "github:ethui/ethui/nix";
+    # hyprland pins its own nixpkgs to match its cachix cache — do not follow,
+    # or it compiles from source.
     hyprland = {
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
@@ -40,7 +53,10 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     claude-code.url = "github:sadjow/claude-code-nix";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";

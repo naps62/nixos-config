@@ -20,7 +20,7 @@ _:
       enable = true;
       defaultApplications = {
         # web
-        "text/html" = "google-chrome.desktop";
+        "text/html" = "zen-twilight.desktop";
         "x-scheme-handler/http" = "zen-twilight.desktop";
         "x-scheme-handler/https" = "zen-twilight.desktop";
         "x-scheme-handler/avbout" = "zen-twilight.desktop";

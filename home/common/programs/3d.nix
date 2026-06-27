@@ -6,7 +6,6 @@
   home.packages = with pkgs; [
     blender
     prusa-slicer
-    google-fonts
   ];
 
   fonts.fontconfig.enable = true;
