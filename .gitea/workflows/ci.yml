@@ -23,8 +23,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@main
-      - name: Evaluate all flake outputs (no build)
-        run: nix flake check --no-build
+      # Evaluate each config's toplevel/activation drvPath. This exercises the
+      # full module system and permits import-from-derivation (user.nix fetches
+      # SSH keys via fetchurl+readFile), but does NOT build the toplevels.
+      # `nix flake check --no-build` can't be used: --no-build blocks the IFD.
+      - name: Evaluate NixOS + home configs
+        run: |
+          set -euo pipefail
+          for h in arrakis konishi; do
+            echo "== nixos/$h =="
+            nix eval --raw ".#nixosConfigurations.$h.config.system.build.toplevel.drvPath"; echo
+            echo "== home/naps62@$h =="
+            nix eval --raw ".#homeConfigurations.\"naps62@$h\".activationPackage.drvPath"; echo
+          done
 
   lint:
     runs-on: ubuntu-latest
