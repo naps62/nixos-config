@@ -52,5 +52,10 @@
 
     kicad
     tea
+
+    just # project command runner
+    lazydocker # docker TUI
+    dust # du replacement
+    duf # df replacement
   ];
 }

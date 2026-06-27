@@ -42,6 +42,10 @@
     };
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     claude-code.url = "github:sadjow/claude-code-nix";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -94,12 +98,14 @@
     {
       nixosConfigurations = {
         arrakis = mkNixOS "arrakis";
-        desktop = mkNixOS "desktop";
+        konishi = mkNixOS "konishi";
       };
 
+      # Named "<user>@<host>" so `nh home switch` auto-detects them
+      # (nh home tries "$USER@$(hostname)", not the bare hostname).
       homeConfigurations = {
-        arrakis = mkHome "arrakis" x86;
-        desktop = mkHome "desktop" x86;
+        "naps62@arrakis" = mkHome "arrakis" x86;
+        "naps62@konishi" = mkHome "konishi" x86;
       };
 
       devShells =

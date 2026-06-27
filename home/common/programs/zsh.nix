@@ -22,6 +22,8 @@
       ls = "eza";
       cat = "bat";
       ps = "procs";
+      j = "just";
+      lzd = "lazydocker";
       open = "xdg-open";
       o = "xdg-open";
       s = "ssh";
@@ -74,6 +76,25 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+    # Replace `cd` with zoxide: `cd` = smart jump, `cdi` = interactive picker.
+    options = [ "--cmd cd" ];
+  };
+
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+    # Local-only history (no account/sync). Atuin owns Ctrl-R; leave the
+    # up-arrow as normal zsh prefix history.
+    flags = [ "--disable-up-arrow" ];
+    settings = {
+      auto_sync = false;
+      update_check = false;
+    };
   };
 
   programs.starship = {

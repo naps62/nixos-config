@@ -8,6 +8,7 @@
   imports = [
     ../features/mutable-file.nix
     ./zsh.nix
+    ./nix.nix
     ./neovim
     ./rust.nix
     ./elixir.nix

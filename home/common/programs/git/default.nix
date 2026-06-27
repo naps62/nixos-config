@@ -31,6 +31,9 @@
         rb = "rebase";
         rbc = "rebase --continue";
         w = "commit -am 'wip'";
+        # Structural (AST-aware) diff on demand; `git d`/`diff` stays delta.
+        # Accepts args, e.g. `git dft HEAD~3`.
+        dft = "!GIT_EXTERNAL_DIFF=difft git diff";
       };
       init = {
         defaultBranch = "main";
@@ -70,6 +73,7 @@
 
   home.packages = with pkgs; [
     delta
+    difftastic
     git-crypt
     mediainfo
     tea
