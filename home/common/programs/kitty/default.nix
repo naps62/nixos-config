@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   clip2path = pkgs.writeShellScript "clip2path" ''
     set -e

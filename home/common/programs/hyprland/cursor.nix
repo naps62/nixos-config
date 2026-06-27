@@ -1,4 +1,4 @@
-{ pkgs, config, inputs, ... }:
+{ pkgs, config, ... }:
 let
   nordzy-cursors = pkgs.callPackage ../../../../pkgs/nordzy-cursors/package.nix { };
   cursorSize = config.custom.hyprland.cursorSize;

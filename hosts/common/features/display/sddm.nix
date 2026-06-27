@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 let
   sddm-noctalia-theme = pkgs.callPackage ../../../../pkgs/sddm-noctalia-theme/package.nix { };
 in

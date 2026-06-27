@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, ... }:
 
 let
   downloadsDir = "${config.home.homeDirectory}/downloads";
