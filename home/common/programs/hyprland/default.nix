@@ -44,12 +44,18 @@ in
 
     home.sessionVariables = {
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      # WebKitGTK (Tauri apps) renders blank/crashes on the DMABUF path across
+      # many GPU/driver combos; disable it on all hosts.
+      WEBKIT_DISABLE_DMABUF_RENDERER = "1";
     };
 
     wayland.windowManager.hyprland = {
       enable = true;
       package = null;
       portalPackage = null;
+      # Keep the hyprlang config format (the new default is "lua"); our
+      # settings are written as hyprlang.
+      configType = "hyprlang";
       plugins = [ ];
       settings = {
         plugin = {

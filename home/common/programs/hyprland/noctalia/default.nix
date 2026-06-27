@@ -53,7 +53,6 @@ in
             "gtk3"
             "gtk4"
             "hyprland"
-            "kitty"
             "qt"
           ];
         };

@@ -36,6 +36,8 @@ in
 {
   programs.kitty = {
     enable = true;
+    # Fixed theme — noctalia no longer toggles kitty with dark/light mode.
+    themeFile = "Catppuccin-Mocha";
     settings = {
       confirm_os_window_close = 0;
       cursor_trail = 1;
@@ -101,7 +103,6 @@ in
     };
 
     extraConfig = ''
-      include themes/noctalia.conf
       cursor_shape block
     '';
   };

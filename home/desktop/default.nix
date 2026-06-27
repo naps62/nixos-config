@@ -36,10 +36,6 @@
   };
 
   wayland.windowManager.hyprland.settings = {
-    env = [
-      "WEBKIT_DISABLE_DMABUF_RENDERER, 1"
-    ];
-
     exec-once = [
       "$HOME/.local/bin/hyprpaper-rotate"
     ];

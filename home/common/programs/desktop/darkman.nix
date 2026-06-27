@@ -24,13 +24,6 @@
         # Update Hyprland cursor theme
         ${pkgs.hyprland}/bin/hyprctl setcursor Nordzy-cursors 24
       '';
-      claude-theme = ''
-        # Switch Claude Code to dark theme
-        CLAUDE_CONFIG=~/.claude.json
-        if [ -f "$CLAUDE_CONFIG" ]; then
-          ${pkgs.jq}/bin/jq '.theme = "dark"' "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp" && mv "$CLAUDE_CONFIG.tmp" "$CLAUDE_CONFIG"
-        fi
-      '';
       noctalia-theme = ''
         noctalia msg theme-mode-set dark
       '';
@@ -52,13 +45,6 @@
 
         # Update Hyprland cursor theme
         ${pkgs.hyprland}/bin/hyprctl setcursor Nordzy-white 24
-      '';
-      claude-theme = ''
-        # Switch Claude Code to light theme
-        CLAUDE_CONFIG=~/.claude.json
-        if [ -f "$CLAUDE_CONFIG" ]; then
-          ${pkgs.jq}/bin/jq '.theme = "light"' "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp" && mv "$CLAUDE_CONFIG.tmp" "$CLAUDE_CONFIG"
-        fi
       '';
       noctalia-theme = ''
         noctalia msg theme-mode-set light

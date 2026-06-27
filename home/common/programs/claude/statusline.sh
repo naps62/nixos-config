@@ -31,7 +31,7 @@ if git -C "$DIR" rev-parse --git-dir > /dev/null 2>&1; then
     fi
 fi
 
-# Format cost
-COST_FMT=$(printf "%.2f" "$COST")
+# Format cost (force C locale so the decimal separator is always ".")
+COST_FMT=$(LC_NUMERIC=C printf "%.2f" "$COST")
 
 echo "YOLO$REPO_PATH$GIT_INFO | [$MODEL] | \$$COST_FMT | ${CONTEXT_USED}%"

@@ -59,6 +59,8 @@
       name = "Orchis-Dark-Compact";
       package = pkgs.orchis-theme;
     };
+    # Keep applying the gtk3 theme to gtk4 too (new default is null).
+    gtk4.theme = config.gtk.theme;
     iconTheme = {
       name = "Tela black";
       package = pkgs.tela-icon-theme;

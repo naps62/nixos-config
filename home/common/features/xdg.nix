@@ -4,6 +4,8 @@
     userDirs = {
       enable = true;
       createDirectories = false;
+      # Keep exporting XDG_*_DIR as session variables (new default is false).
+      setSessionVariables = true;
       desktop = null;
       documents = null;
       download = "downloads";
