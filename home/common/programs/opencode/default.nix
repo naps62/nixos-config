@@ -1,6 +1,4 @@
-{
-  ...
-}:
+_:
 {
   # Global config file
   xdg.configFile."opencode/opencode.json".source = ./opencode.json;

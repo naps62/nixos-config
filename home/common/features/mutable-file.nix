@@ -38,7 +38,7 @@ let
     { name, value }:
     let
       target = "${config.home.homeDirectory}/${name}";
-      source = value.source;
+      inherit (value) source;
       dirName = builtins.dirOf target;
     in
     ''
