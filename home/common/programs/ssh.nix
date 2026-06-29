@@ -29,11 +29,32 @@ _:
 
       "yolo" = {
         HostName = "10.7.10.2";
+
+        # Quiet the "channel N: open failed: connect failed: Connection
+        # refused" noise (logged at INFO) when a forwarded port has nothing
+        # listening yet. ExitOnForwardFailure stays off (default), so the
+        # connection still succeeds over idle forwards.
+        LogLevel = "ERROR";
+
         RemoteForward = [
           {
             bind.port = 9222;
             host.address = "localhost";
             host.port = 9222;
+          }
+        ];
+
+        # Auto-forward localhost:47100/47101 to the same ports on yolo.
+        LocalForward = [
+          {
+            bind.port = 47100;
+            host.address = "localhost";
+            host.port = 47100;
+          }
+          {
+            bind.port = 47101;
+            host.address = "localhost";
+            host.port = 47101;
           }
         ];
       };
