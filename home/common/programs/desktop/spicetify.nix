@@ -12,6 +12,7 @@ in
       hidePodcasts
       shuffle
     ];
-    theme = spicePkgs.themes.bloom;
+    theme = spicePkgs.themes.comfy;
+    colorScheme = "rose-pine";
   };
 }
