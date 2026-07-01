@@ -1,5 +1,4 @@
-_:
-{
+_: {
   programs.ssh = {
     enable = true;
 
@@ -47,14 +46,14 @@ _:
         # Auto-forward localhost:47100/47101 to the same ports on yolo.
         LocalForward = [
           {
-            bind.port = 47100;
+            bind.port = 41700;
             host.address = "localhost";
-            host.port = 47100;
+            host.port = 41700;
           }
           {
-            bind.port = 47101;
+            bind.port = 41701;
             host.address = "localhost";
-            host.port = 47101;
+            host.port = 41701;
           }
         ];
       };

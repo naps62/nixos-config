@@ -24,6 +24,8 @@
   home.packages = with pkgs; [
     imagemagick
     doctl
+    awscli2
+    terraform
     inotify-tools
     devenv
     bruno
