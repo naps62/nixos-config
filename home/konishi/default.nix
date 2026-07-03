@@ -12,6 +12,7 @@
     ../common/programs/ethui.nix
     ../common/programs/3d.nix
     ../common/programs/godot.nix
+    ../common/programs/gaming.nix
     ../common/features/xdg.nix
     ../common/features/downloads-cleanup.nix
     ./monitors.nix
@@ -26,6 +27,11 @@
   custom.hyprland = {
     yaziSize = "2400 1800";
     cursorSize = 42;
+  };
+
+  custom.gaming = {
+    enable = true;
+    nvidia = true;
   };
 
   wayland.windowManager.hyprland.settings = {

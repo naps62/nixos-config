@@ -17,7 +17,7 @@
     ../common/features/bluetooth.nix
     ../common/features/ledger.nix
     ../common/features/wine.nix
-    ../common/features/steam.nix
+    ../common/features/gaming
     ../common/features/appimage.nix
     ../common/features/home
   ];
