@@ -688,6 +688,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_6": {
+      "locked": {
+        "lastModified": 1751274312,
+        "narHash": "sha256-/bVBlRpECLVzjV19t5KMdMFWSwKLtb5RyXdjz3LJT+g=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "50ab793786d9de88ee30ec4e4c24fb4236fc2674",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "noctalia": {
       "inputs": {
         "nixpkgs": [
@@ -787,6 +803,7 @@
         "rose-pine-hyprcursor": "rose-pine-hyprcursor",
         "spicetify-nix": "spicetify-nix",
         "systems": "systems_8",
+        "yogurt": "yogurt",
         "zen-browser": "zen-browser"
       }
     },
@@ -1046,6 +1063,24 @@
         "owner": "hyprwm",
         "repo": "xdg-desktop-portal-hyprland",
         "type": "github"
+      }
+    },
+    "yogurt": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_6"
+      },
+      "locked": {
+        "lastModified": 1782972507,
+        "narHash": "sha256-4rg384vnJCYUq6IHNOv0xvanI5u/rVwwoGKZd1DfuoQ=",
+        "ref": "refs/heads/main",
+        "rev": "76d41e5bb57fc97b283a8ab6e3a8acc809cecafe",
+        "revCount": 64,
+        "type": "git",
+        "url": "ssh://git@github.com/ZePedroResende/yogurt"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/ZePedroResende/yogurt"
       }
     },
     "zen-browser": {

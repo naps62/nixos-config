@@ -156,6 +156,7 @@ in
           "hyprctl setcursor Nordzy-cursors ${toString cfg.cursorSize}"
           "hyprsunset"
           "noctalia"
+          "yogurt"
         ];
 
         layerrule = [
