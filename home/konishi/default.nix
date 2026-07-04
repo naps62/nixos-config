@@ -60,6 +60,15 @@
       "float on, match:title egui-.*"
       "no_blur on, match:title egui-.*"
       "move 100%-w-20 100%-h-20, match:title egui-.*"
+
+      # gaming: Steam/Proton titles run under XWayland with WM_CLASS
+      # steam_app_<appid>. Send them fullscreen to workspace 6 (DP-1, top-left)
+      # instead of opening tiled on whatever monitor Steam is on.
+      # Native (non-Proton) games have their own class — grab it with
+      # `hyprctl clients | grep -iE "class|title"` while the game runs and add a
+      # matching line here.
+      "workspace 6, match:class steam_app_.*"
+      "fullscreen on, match:class steam_app_.*"
     ];
 
     render = {
