@@ -24,6 +24,12 @@
 
   networking.hostName = "konishi";
 
+  # Arm Wake-on-LAN (magic packet) on the Intel igc NIC and re-apply it on every
+  # boot — the driver resets WoL state otherwise. Lets Moonlight wake this box
+  # from suspend to stream. NOTE: also needs "Wake on LAN" enabled in BIOS (and
+  # ErP/deep-S5 disabled if you want wake from full power-off, not just suspend).
+  networking.interfaces.enp5s0.wakeOnLan.enable = true;
+
   services.xserver.displayManager.sessionCommands = ''
     BOTTOM='HDMI-0'
     TOP='DP-0'
