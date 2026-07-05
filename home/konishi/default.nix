@@ -62,13 +62,22 @@
       "move 100%-w-20 100%-h-20, match:title egui-.*"
 
       # gaming: Steam/Proton titles run under XWayland with WM_CLASS
-      # steam_app_<appid>. Send them fullscreen to workspace 6 (DP-1, top-left)
-      # instead of opening tiled on whatever monitor Steam is on.
+      # steam_app_<appid>. Send them fullscreen to workspace 3 (DP-1) — the same
+      # streamed workspace as Big Picture below — instead of opening tiled on
+      # whatever monitor Steam is on.
       # Native (non-Proton) games have their own class — grab it with
       # `hyprctl clients | grep -iE "class|title"` while the game runs and add a
       # matching line here.
-      "workspace 6, match:class steam_app_.*"
+      "workspace 3, match:class steam_app_.*"
       "fullscreen on, match:class steam_app_.*"
+
+      # Steam Big Picture shares the plain `steam` WM_CLASS with the normal
+      # client, so match its title instead. Without this it opens on whatever
+      # monitor the cursor is on, not the streamed one. Pin it to ws3 — DP-1's
+      # normal persistent workspace, which is what the stream captures. `.`
+      # stands in for the literal spaces to keep the rule string unambiguous.
+      "workspace 3, match:title Steam.Big.Picture.Mode"
+      "fullscreen on, match:title Steam.Big.Picture.Mode"
     ];
 
     render = {
