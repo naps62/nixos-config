@@ -74,8 +74,14 @@ in
     keybindings = {
       "kitty_mod+t" = "new_tab_with_cwd";
       "kitty_mod+enter" = "new_window_with_cwd";
+      # --cwd=current: locally keeps the dir; over `kitten ssh` it clones the
+      # SSH connection into the new split (the "mirroring").
       "kitty_mod+v" = "combine : goto_layout splits : launch --cwd=current --location=vsplit";
       "kitty_mod+s" = "combine : goto_layout splits : launch --cwd=current --location=hsplit";
+      # Same splits, but a fresh LOCAL shell — no --cwd=current, so they never
+      # clone an SSH session even when the active window is remote.
+      "kitty_mod+shift+v" = "combine : goto_layout splits : launch --location=vsplit";
+      "kitty_mod+shift+s" = "combine : goto_layout splits : launch --location=hsplit";
       "kitty_mod+r" = "set_tab_title";
 
       "kitty_mod+u" = "previous_tab";

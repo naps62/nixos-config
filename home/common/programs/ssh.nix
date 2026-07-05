@@ -1,4 +1,5 @@
-_: {
+_:
+{
   programs.ssh = {
     enable = true;
 
@@ -28,13 +29,6 @@ _: {
 
       "yolo" = {
         HostName = "10.7.10.2";
-
-        # Quiet the "channel N: open failed: connect failed: Connection
-        # refused" noise (logged at INFO) when a forwarded port has nothing
-        # listening yet. ExitOnForwardFailure stays off (default), so the
-        # connection still succeeds over idle forwards.
-        LogLevel = "ERROR";
-
         RemoteForward = [
           {
             bind.port = 9222;
@@ -42,8 +36,7 @@ _: {
             host.port = 9222;
           }
         ];
-
-        # Auto-forward localhost:47100/47101 to the same ports on yolo.
+        # localhost:417xx here -> yolo's listener on the same port.
         LocalForward = [
           {
             bind.port = 41700;
@@ -56,6 +49,12 @@ _: {
             host.port = 41701;
           }
         ];
+        # When yolo's listener is down, forwarded connections fail with
+        # "channel N: open failed: connect failed: Connection refused".
+        # QUIET silences those (and bind-in-use warnings) without affecting
+        # the session itself; ExitOnForwardFailure stays at its default (no),
+        # so a missing listener never blocks the connection.
+        LogLevel = "QUIET";
       };
     };
   };

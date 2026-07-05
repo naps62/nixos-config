@@ -65,7 +65,7 @@
 
       initContent = ''
         [[ -f ~/.secrets.zsh ]] && source ~/.secrets.zsh
-        # [[ -n "$KITTY_WINDOW_ID" ]] && alias ssh="kitten ssh"
+        [[ -n "$KITTY_WINDOW_ID" ]] && alias ssh="kitten ssh"
 
         export PATH="$HOME/.bin:$PATH"
         export PATH="''${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
