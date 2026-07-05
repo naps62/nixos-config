@@ -43,6 +43,21 @@
     ${pkgs.xrandr}/bin/xrandr --dpi 160
   '';
 
+  # Boot straight into a locked Hyprland instead of the SDDM greeter: SDDM
+  # auto-logs naps62 in, the session starts, and hyprlock (exec-once in the home
+  # config) immediately locks it — so the first thing you see is hyprlock, the
+  # one themeable lock screen. Safe on this box: no full-disk encryption means
+  # SDDM-vs-autologin is a marginal boundary anyway, and it also lets Moonlight
+  # reach the box after a *cold boot* (Sunshine is a user service that only runs
+  # once a session exists), not just from suspend. konishi-only — never arrakis.
+  services.displayManager = {
+    autoLogin = {
+      enable = true;
+      user = "naps62";
+    };
+    defaultSession = "hyprland";
+  };
+
   networking.nameservers = [
     "100.100.100.100"
     "10.1.10.1"

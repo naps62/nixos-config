@@ -36,6 +36,10 @@
 
   wayland.windowManager.hyprland.settings = {
     exec-once = [
+      # boot-into-lock: paired with SDDM autologin (host config), lock the
+      # session the moment Hyprland starts so a cold boot lands on hyprlock, not
+      # an open desktop. A brief flash before it paints is possible.
+      "hyprlock"
       "$HOME/.local/bin/hyprpaper-rotate"
     ];
 
