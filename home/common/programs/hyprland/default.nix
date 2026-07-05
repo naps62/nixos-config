@@ -156,7 +156,7 @@ in
           "hyprctl setcursor Nordzy-cursors ${toString cfg.cursorSize}"
           "hyprsunset"
           "noctalia"
-          "yogurt"
+          "yogurt --tray"
         ];
 
         layerrule = [
@@ -195,7 +195,6 @@ in
           "pin on, match:title webcam-overlay"
           "no_initial_focus on, match:title webcam-overlay"
           "border_size 0, match:title webcam-overlay"
-
 
           # thunar
           "float on, match:class thunar"
@@ -243,6 +242,9 @@ in
           "$mod, q, killactive"
           "$mod, f, fullscreen, 0"
           "$mod SHIFT, f, fullscreen, 1"
+
+          # lock (routes through logind -> hypridle lock_cmd -> hyprlock)
+          "$mod CTRL, l, exec, loginctl lock-session"
 
           "$mod, space, exec, noctalia msg panel-toggle launcher"
 
@@ -313,18 +315,87 @@ in
 
     services.hyprpaper.enable = false;
 
+    # hyprlock: the lock screen, replacing noctalia's built-in locker (which is
+    # ugly and — unlike hyprlock — opaque to scripts/lock-state detection).
+    # Clean minimal dark look; tweak colours/clock/font to taste. hypridle below
+    # drives it (idle + before-sleep), and $mod CTRL+L locks manually.
+    programs.hyprlock = {
+      enable = true;
+      settings = {
+        general = {
+          hide_cursor = true;
+          grace = 0;
+          ignore_empty_input = true;
+        };
+
+        background = [
+          {
+            monitor = "";
+            color = "rgba(16, 16, 20, 1.0)";
+          }
+        ];
+
+        label = [
+          {
+            monitor = "";
+            text = "$TIME";
+            color = "rgba(230, 230, 240, 1.0)";
+            font_size = 92;
+            font_family = "monospace";
+            position = "0, 110";
+            halign = "center";
+            valign = "center";
+          }
+          {
+            monitor = "";
+            text = ''cmd[update:60000] date +"%A, %d %B"'';
+            color = "rgba(170, 170, 185, 1.0)";
+            font_size = 20;
+            font_family = "monospace";
+            position = "0, 30";
+            halign = "center";
+            valign = "center";
+          }
+        ];
+
+        input-field = [
+          {
+            monitor = "";
+            size = "320, 56";
+            outline_thickness = 2;
+            dots_size = 0.26;
+            dots_spacing = 0.3;
+            dots_center = true;
+            outer_color = "rgba(80, 80, 95, 1.0)";
+            inner_color = "rgba(30, 30, 38, 1.0)";
+            font_color = "rgba(220, 220, 230, 1.0)";
+            check_color = "rgba(120, 170, 240, 1.0)";
+            fail_color = "rgba(220, 90, 90, 1.0)";
+            fail_text = "<i>wrong</i>";
+            placeholder_text = "<i>password</i>";
+            fade_on_empty = false;
+            position = "0, -50";
+            halign = "center";
+            valign = "center";
+          }
+        ];
+      };
+    };
+
     services.hypridle = {
       enable = true;
       settings = {
         general = {
           after_sleep_cmd = "hyprctl dispatch dpms on";
+          before_sleep_cmd = "loginctl lock-session";
           ignore_dbus_inhibit = false;
-          lock_cmd = "noctalia msg session lock";
+          # guard against launching a second hyprlock over an existing one
+          lock_cmd = "pidof hyprlock || hyprlock";
         };
         listener = [
           {
             timeout = 900;
-            on-timeout = "noctalia msg session lock";
+            on-timeout = "loginctl lock-session";
           }
           {
             timeout = 1200;
