@@ -92,6 +92,10 @@ in
 
         cursor = {
           no_hardware_cursors = "yes";
+          # Auto-hide the pointer after 3s of no movement so a parked cursor
+          # doesn't sit on top of a game (visible in the stream too). It
+          # reappears the instant the mouse moves.
+          inactive_timeout = 3;
         };
 
         general = {
@@ -210,6 +214,11 @@ in
           "float on, match:class org\\.pulseaudio\\.pavucontrol"
           "size 1200 1200, match:class org\\.pulseaudio\\.pavucontrol"
           "move (cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5)), match:class org\\.pulseaudio\\.pavucontrol"
+
+          # wine / game installers (Inno Setup temp windows, e.g. Heroic/GOG).
+          # Their class is the random "setup_*.tmp" filename, so match by suffix.
+          "float on, match:class .*\\.tmp"
+          "center 1, match:class .*\\.tmp"
 
           # metamask
           "float on, match:class chrome-nkbihfbeogaeaoehlefnkodbefgpgknn-.*"

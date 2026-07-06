@@ -1070,11 +1070,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1782972507,
-        "narHash": "sha256-4rg384vnJCYUq6IHNOv0xvanI5u/rVwwoGKZd1DfuoQ=",
+        "lastModified": 1783264766,
+        "narHash": "sha256-1iD8gdvxBYBfffHhNsnZPnPGDDttYVRUhghLbAa1Mho=",
         "ref": "refs/heads/main",
-        "rev": "76d41e5bb57fc97b283a8ab6e3a8acc809cecafe",
-        "revCount": 64,
+        "rev": "515ab16c76fc0779a1c6be93cfa1424a901373cb",
+        "revCount": 67,
         "type": "git",
         "url": "ssh://git@github.com/ZePedroResende/yogurt"
       },

@@ -82,10 +82,24 @@
       # stands in for the literal spaces to keep the rule string unambiguous.
       "workspace 3, match:title Steam.Big.Picture.Mode"
       "fullscreen on, match:title Steam.Big.Picture.Mode"
+
+      # Heroic (GOG/Epic launcher) streamed via Moonlight — `heroic --console`.
+      # Tile it on ws3 (DP-1, the captured screen) rather than letting it float
+      # or land on whatever monitor the cursor is on. Games it launches are
+      # Proton titles → caught by the steam_app_ rules above; native ones need
+      # their own class added here.
+      "workspace 3, match:class heroic"
+      "tile on, match:class heroic"
     ];
 
     render = {
-      direct_scanout = true;
+      # Experiment: was `true`. With a fullscreen game direct-scanning-out,
+      # Sunshine starting a capture forces the compositor off the direct path,
+      # and that surface/context churn is a suspected trigger for Chromium's
+      # `EGL_CONTEXT_LOST` crash (Big Picture drops to software rendering mid-
+      # stream). Disabled to test whether the crashes stop. If it makes no
+      # difference, flip back to `true` for the local fullscreen latency win.
+      direct_scanout = false;
     };
 
   };

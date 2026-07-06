@@ -46,4 +46,20 @@
   # Let Sunshine find the NVIDIA driver's libcuda.so.1 for NVENC. Merges into
   # the module's own systemd.user.services.sunshine definition.
   systemd.user.services.sunshine.environment.LD_LIBRARY_PATH = "/run/opengl-driver/lib";
+
+  # DualSense/DualShock emulation. Sunshine presents a *real* PS5 HID (touchpad,
+  # motion, LEDs, rumble) via /dev/uhid, not plain uinput — a uinput pad can't
+  # carry those features. The kernel uhid node is root-only (0600) with no udev
+  # rule, so Sunshine (a user service) can't open it and silently falls back to
+  # an Xbox pad: "Unable to create virtual DualShock 5 controller: Permission
+  # denied".
+  #
+  # NOTE: `uaccess` does NOT work for uhid — unlike uinput it isn't attached to
+  # the seat (no `seat` tag), so logind never grants the ACL. Use a group grant
+  # instead, mirroring Sunshine's upstream uinput rule: group `input`, mode 0660
+  # (naps62 is already in `input`). Deterministic, no seat/session dependency.
+  boot.kernelModules = [ "uhid" ];
+  services.udev.extraRules = ''
+    KERNEL=="uhid", SUBSYSTEM=="misc", MODE="0660", GROUP="input"
+  '';
 }
