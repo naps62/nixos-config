@@ -19,10 +19,21 @@
     ../common/features/wine.nix
     ../common/features/gaming
     ../common/features/appimage.nix
+    ../common/features/smb-mounts.nix
     ../common/features/home
   ];
 
   networking.hostName = "konishi";
+
+  # NAS media share — reachable only over the wg-home VPN. Lazy automount, so it
+  # never blocks boot and (re)mounts on first access once the VPN is up.
+  custom.smbMounts = [
+    {
+      server = "10.6.10.45";
+      share = "media";
+      mountPoint = "/mnt/media";
+    }
+  ];
 
   # Arm Wake-on-LAN (magic packet) on the Intel igc NIC and re-apply it on every
   # boot — the driver resets WoL state otherwise. Lets Moonlight wake this box

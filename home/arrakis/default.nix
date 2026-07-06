@@ -23,6 +23,9 @@
   # Moonlight: client for the Sunshine server on konishi (stream games to this laptop).
   custom.gaming.moonlight = true;
 
+  # RetroArch (bare — cores/ROMs added by hand, WebDAV configured in-app).
+  custom.gaming.retroarch = true;
+
   wayland.windowManager.hyprland.settings = {
     exec-once = [
     ];

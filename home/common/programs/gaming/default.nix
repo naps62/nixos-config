@@ -17,7 +17,10 @@ let
   cfg = config.custom.gaming;
 in
 {
-  imports = [ ./moonlight.nix ];
+  imports = [
+    ./moonlight.nix
+    ./retroarch.nix
+  ];
 
   options.custom.gaming = {
     enable = lib.mkEnableOption "user-space gaming tools (launchers, Proton mgmt, MangoHud)";

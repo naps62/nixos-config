@@ -20,10 +20,21 @@
     ../common/features/nix-ld.nix
     ../common/features/bluetooth.nix
     ../common/features/ledger.nix
+    ../common/features/smb-mounts.nix
     ../common/features/home
   ];
 
   networking.hostName = "arrakis";
+
+  # NAS media share — reachable only over the wg-home VPN. Lazy automount, so it
+  # never blocks boot and (re)mounts on first access once the VPN is up.
+  custom.smbMounts = [
+    {
+      server = "10.6.10.45";
+      share = "media";
+      mountPoint = "/mnt/media";
+    }
+  ];
 
   boot.kernelParams = [
     "i915=force_probe=46a6"

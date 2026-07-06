@@ -32,6 +32,7 @@
   custom.gaming = {
     enable = true;
     nvidia = true;
+    retroarch = true;
   };
 
   wayland.windowManager.hyprland.settings = {
@@ -90,6 +91,15 @@
       # their own class added here.
       "workspace 3, match:class heroic"
       "tile on, match:class heroic"
+
+      # RetroArch streamed via Moonlight (also registered as a Sunshine app).
+      # Native Wayland app_id is `com.libretro.RetroArch` (set at map time) — the
+      # exact string is needed so the rule applies on spawn; a loose `retroarch`
+      # match misses at map and the window flashes onto the active workspace
+      # first. `silent` sends it to ws3 (DP-1, the captured screen) without
+      # yanking focus off whatever workspace you're driving from.
+      "workspace 3 silent, match:class com.libretro.RetroArch"
+      "fullscreen on, match:class com.libretro.RetroArch"
     ];
 
     render = {
