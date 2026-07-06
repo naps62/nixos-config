@@ -14,10 +14,14 @@
     ../common/features/downloads-cleanup.nix
     ../common/programs/3d.nix
     ../common/programs/godot.nix
+    ../common/programs/gaming
     ./monitors.nix
   ];
 
   custom.hyprland.cursorSize = 32;
+
+  # Moonlight: client for the Sunshine server on konishi (stream games to this laptop).
+  custom.gaming.moonlight = true;
 
   wayland.windowManager.hyprland.settings = {
     exec-once = [

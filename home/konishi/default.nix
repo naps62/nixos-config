@@ -12,7 +12,7 @@
     ../common/programs/ethui.nix
     ../common/programs/3d.nix
     ../common/programs/godot.nix
-    ../common/programs/gaming.nix
+    ../common/programs/gaming
     ../common/features/xdg.nix
     ../common/features/downloads-cleanup.nix
     ./monitors.nix

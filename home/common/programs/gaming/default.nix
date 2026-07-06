@@ -9,10 +9,16 @@
 # deliberately small. The host still owns the privileged pieces (Steam FHS
 # wrapper, Sunshine, gamemode, gamescope caps) under
 # hosts/common/features/gaming.
+#
+# Per-host segregation is by option: a host imports this module and enables only
+# the pieces it wants (e.g. a laptop enables `moonlight` for streaming without
+# the full `enable` launcher/Proton toolkit).
 let
   cfg = config.custom.gaming;
 in
 {
+  imports = [ ./moonlight.nix ];
+
   options.custom.gaming = {
     enable = lib.mkEnableOption "user-space gaming tools (launchers, Proton mgmt, MangoHud)";
 
