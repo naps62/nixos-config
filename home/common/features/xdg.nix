@@ -20,11 +20,11 @@ _:
       enable = true;
       defaultApplications = {
         # web
-        "text/html" = "zen-twilight.desktop";
-        "x-scheme-handler/http" = "zen-twilight.desktop";
-        "x-scheme-handler/https" = "zen-twilight.desktop";
-        "x-scheme-handler/avbout" = "zen-twilight.desktop";
-        "x-scheme-handler/unknown" = "zen-twilight.desktop";
+        "text/html" = "zen-beta.desktop";
+        "x-scheme-handler/http" = "zen-beta.desktop";
+        "x-scheme-handler/https" = "zen-beta.desktop";
+        "x-scheme-handler/avbout" = "zen-beta.desktop";
+        "x-scheme-handler/unknown" = "zen-beta.desktop";
 
         # video
         "video/mp4" = "mpv.desktop";
