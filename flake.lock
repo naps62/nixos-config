@@ -1076,11 +1076,11 @@
         "rev": "515ab16c76fc0779a1c6be93cfa1424a901373cb",
         "revCount": 67,
         "type": "git",
-        "url": "ssh://git@github.com/ZePedroResende/yogurt"
+        "url": "https://github.com/ZePedroResende/yogurt"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@github.com/ZePedroResende/yogurt"
+        "url": "https://github.com/ZePedroResende/yogurt"
       }
     },
     "zen-browser": {

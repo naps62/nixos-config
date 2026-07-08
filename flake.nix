@@ -58,7 +58,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     claude-code.url = "github:sadjow/claude-code-nix";
-    yogurt.url = "git+ssh://git@github.com/ZePedroResende/yogurt";
+    yogurt.url = "git+https://github.com/ZePedroResende/yogurt";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
