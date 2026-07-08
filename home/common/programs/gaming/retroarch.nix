@@ -76,5 +76,15 @@ in
 
     home.file."roms/.keep".text = "";
     xdg.configFile."retroarch/system/.keep".text = "";
+
+    # Slang shaders. The in-app Online Updater that normally downloads these is
+    # compiled out of the nixpkgs build, so ship them from nixpkgs instead:
+    # symlink the shader tree into video_shader_dir (~/.config/retroarch/shaders)
+    # so Quick Menu > Shaders > Load Preset can browse shaders_slang/ — e.g.
+    # handheld/lcd3x.slangp or handheld/color-mod/gba-color.slangp.
+    # Read-only (it's a store path); "Save Core Preset" still works since that
+    # writes to retroarch/config/<core>/, not here.
+    xdg.configFile."retroarch/shaders".source =
+      "${pkgs.libretro-shaders-slang}/share/libretro/shaders";
   };
 }

@@ -397,7 +397,13 @@ in
         general = {
           after_sleep_cmd = "hyprctl dispatch dpms on";
           before_sleep_cmd = "loginctl lock-session";
-          ignore_dbus_inhibit = false;
+          # Must be true on this streaming box. GameMode (via Sunshine/Moonlight)
+          # raises a dbus ScreenSaver inhibitor; if one arrives *after* the dpms-off
+          # timeout has fired, hypridle's onResumed() sees inhibit_locks > 0 and
+          # silently skips the on-resume `dpms on` — leaving every display (and the
+          # Moonlight stream) stuck black until a hard power-cycle. Ignoring dbus
+          # inhibits keeps the lock count at 0 so resume always turns displays back on.
+          ignore_dbus_inhibit = true;
           # guard against launching a second hyprlock over an existing one
           lock_cmd = "pidof hyprlock || hyprlock";
         };

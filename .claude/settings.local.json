@@ -44,7 +44,8 @@
       "Bash(statix check *)",
       "Read(//home/naps62/.config/sunshine/**)",
       "Read(//home/naps62/**)",
-      "Read(//home/naps62/Games/**)"
+      "Read(//home/naps62/Games/**)",
+      "Bash(hostnamectl)"
     ]
   },
   "sandbox": {
