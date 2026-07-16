@@ -35,6 +35,9 @@
     retroarch = true;
   };
 
+  # 4K@1x monitors render the Electron AI apps tiny; scale their UI up. Tune to taste.
+  custom.aiApps.deviceScaleFactor = "1.5";
+
   wayland.windowManager.hyprland.settings = {
     exec-once = [
       # boot-into-lock: paired with SDDM autologin (host config), lock the

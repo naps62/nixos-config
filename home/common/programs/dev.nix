@@ -5,6 +5,7 @@
 {
   imports = [
     ./ralph-claude-code.nix
+    ./t3-code.nix
   ];
 
   programs = {
