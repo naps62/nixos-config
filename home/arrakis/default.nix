@@ -20,6 +20,17 @@
 
   custom.hyprland.cursorSize = 32;
 
+  # Fingerprint unlock for hyprlock — arrakis is the only host with a reader
+  # (fprintd is enabled system-side in hosts/arrakis). hyprlock talks to fprintd
+  # over D-Bus directly (not via PAM), running in parallel with password input:
+  # type the password or touch the sensor. Enroll first with `fprintd-enroll`.
+  programs.hyprlock.settings.auth.fingerprint = {
+    enabled = true;
+    ready_message = "Scan fingerprint to unlock";
+    present_message = "Scanning...";
+    retries = 3;
+  };
+
   # Moonlight: client for the Sunshine server on konishi (stream games to this laptop).
   custom.gaming.moonlight = true;
 
