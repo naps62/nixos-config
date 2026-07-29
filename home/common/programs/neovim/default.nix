@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }:
 {
-  imports = [ inputs.nvchad4nix.homeManagerModule ];
+  imports = [ inputs.nvchad4nix.homeManagerModules.nvchad ];
   home.sessionVariables = {
     EDITOR = "nvim";
   };
