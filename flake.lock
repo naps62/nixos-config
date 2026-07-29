@@ -82,11 +82,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785326144,
-        "narHash": "sha256-sgJe5T/aetiKXgbNrY4Oo44a8hE2kiVRGnut9w+Qu2U=",
+        "lastModified": 1785336468,
+        "narHash": "sha256-zVeyr06Ra4+NUhMzkaxLmYGdgKhw9DuMR89jpzws82k=",
         "owner": "ilysenko",
         "repo": "codex-desktop-linux",
-        "rev": "586c20e802b096296d56b8a76ae9b0dabc991f43",
+        "rev": "dc479a4caca73b2a29fe2f2945e72bdedde5a12c",
         "type": "github"
       },
       "original": {
@@ -359,11 +359,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1785330533,
-        "narHash": "sha256-lwhCjcIrSWthQQOaChmAHOE3LDhJSoP/+pPeHHjP7Mo=",
+        "lastModified": 1785334807,
+        "narHash": "sha256-bN0KRhDfwSPqbpgUgWVcQMkuDje+8ghWlm7uUQZzaxc=",
         "ref": "refs/heads/main",
-        "rev": "b3aa455ceba60a04e5a1c6fc93e02dac43eda269",
-        "revCount": 7668,
+        "rev": "7803e68638c1bebce57cf9ea8da51fd9a1e19edd",
+        "revCount": 7669,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -750,11 +750,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785332976,
-        "narHash": "sha256-W8T4JAPmTUOnE6hAu2/pLm80QL1IHEvdyeRq4m/yFO8=",
+        "lastModified": 1785335804,
+        "narHash": "sha256-oN3I6Kr71lOCE3/ou4GgY2cQYh4B6xQxZXzomFgYn0s=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "2edf8c003cec37b5622a8f6bb9d511b6cfa5cf49",
+        "rev": "aded31799eb0dffdbcf436243083f1ebce26f95d",
         "type": "github"
       },
       "original": {
