@@ -13,6 +13,14 @@
   # GTK/GNOME services still useful on Wayland
   programs.dconf.enable = true;
 
+  # Route the Secret portal (org.freedesktop.portal.Secret) to gnome-keyring.
+  # Hyprland's portal doesn't implement Secret, and the preferred backend list
+  # (hyprland;gtk) has no Secret provider — so without this, the portal exposes
+  # no Secret interface at all. Electron apps (e.g. Claude Desktop) fetch their
+  # token-encryption key through this portal; when it's missing, os_crypt init
+  # fails (prev_init_success:false) and they can't persist a login across boots.
+  xdg.portal.config.common."org.freedesktop.impl.portal.Secret" = "gnome-keyring";
+
   services = {
     # thumbnail support for images
     tumbler.enable = true;

@@ -38,84 +38,74 @@
   # 4K@1x monitors render the Electron AI apps tiny; scale their UI up. Tune to taste.
   custom.aiApps.deviceScaleFactor = "1.5";
 
-  wayland.windowManager.hyprland.settings = {
-    exec-once = [
-      # boot-into-lock: paired with SDDM autologin (host config), lock the
-      # session the moment Hyprland starts so a cold boot lands on hyprlock, not
-      # an open desktop. A brief flash before it paints is possible.
-      "hyprlock"
-      "$HOME/.local/bin/hyprpaper-rotate"
-    ];
+  wayland.windowManager.hyprland.extraConfig = ''
+    hl.on("hyprland.start", function()
+      -- boot-into-lock: paired with SDDM autologin (host config), lock the
+      -- session the moment Hyprland starts so a cold boot lands on hyprlock, not
+      -- an open desktop. A brief flash before it paints is possible.
+      hl.exec_cmd("hyprlock")
+      hl.exec_cmd("$HOME/.local/bin/hyprpaper-rotate")
+    end)
 
-    windowrule = [
-      # ethui-dev
-      "workspace 2, match:title ethui-dev.*"
-      "no_initial_focus on, match:title ethui-dev.*"
-      "float on, match:title ethui-dev - dialog.*"
+    -- ethui-dev
+    hl.window_rule({ match = { title = "ethui-dev.*" }, workspace = "2", no_initial_focus = true })
+    hl.window_rule({ match = { title = "ethui-dev - dialog.*" }, float = true })
 
-      "workspace 1, match:title ethui.*"
-      "no_initial_focus on, match:title ethui.*"
-      "float on, match:title ethui - dialog.*"
+    hl.window_rule({ match = { title = "ethui.*" }, workspace = "1", no_initial_focus = true })
+    hl.window_rule({ match = { title = "ethui - dialog.*" }, float = true })
 
-      "workspace 1, match:title ^\\[bevy\\].*"
+    hl.window_rule({ match = { title = [[^\[bevy\].*]] }, workspace = "1" })
 
-      "workspace 3 silent, match:class bevy-.*"
-      "no_initial_focus on, match:class bevy-.*"
-      "fullscreen on, match:class bevy-.*"
+    hl.window_rule({ match = { class = "bevy-.*" }, workspace = "3 silent", no_initial_focus = true, fullscreen = true })
 
-      "workspace 1 silent, match:title egui-.*"
-      "border_size 0, match:title egui-.*"
-      "float on, match:title egui-.*"
-      "no_blur on, match:title egui-.*"
-      "move 100%-w-20 100%-h-20, match:title egui-.*"
+    hl.window_rule({
+      match = { title = "egui-.*" },
+      workspace = "1 silent",
+      border_size = 0,
+      float = true,
+      no_blur = true,
+      move = "100%-w-20 100%-h-20",
+    })
 
-      # gaming: Steam/Proton titles run under XWayland with WM_CLASS
-      # steam_app_<appid>. Send them fullscreen to workspace 3 (DP-1) — the same
-      # streamed workspace as Big Picture below — instead of opening tiled on
-      # whatever monitor Steam is on.
-      # Native (non-Proton) games have their own class — grab it with
-      # `hyprctl clients | grep -iE "class|title"` while the game runs and add a
-      # matching line here.
-      "workspace 3, match:class steam_app_.*"
-      "fullscreen on, match:class steam_app_.*"
+    -- gaming: Steam/Proton titles run under XWayland with WM_CLASS
+    -- steam_app_<appid>. Send them fullscreen to workspace 3 (DP-1) — the same
+    -- streamed workspace as Big Picture below — instead of opening tiled on
+    -- whatever monitor Steam is on.
+    -- Native (non-Proton) games have their own class — grab it with
+    -- `hyprctl clients | grep -iE "class|title"` while the game runs and add a
+    -- matching rule here.
+    hl.window_rule({ match = { class = "steam_app_.*" }, workspace = "3", fullscreen = true })
 
-      # Steam Big Picture shares the plain `steam` WM_CLASS with the normal
-      # client, so match its title instead. Without this it opens on whatever
-      # monitor the cursor is on, not the streamed one. Pin it to ws3 — DP-1's
-      # normal persistent workspace, which is what the stream captures. `.`
-      # stands in for the literal spaces to keep the rule string unambiguous.
-      "workspace 3, match:title Steam.Big.Picture.Mode"
-      "fullscreen on, match:title Steam.Big.Picture.Mode"
+    -- Steam Big Picture shares the plain `steam` WM_CLASS with the normal
+    -- client, so match its title instead. Without this it opens on whatever
+    -- monitor the cursor is on, not the streamed one. Pin it to ws3 — DP-1's
+    -- normal persistent workspace, which is what the stream captures. `.`
+    -- stands in for the literal spaces to keep the rule string unambiguous.
+    hl.window_rule({ match = { title = "Steam.Big.Picture.Mode" }, workspace = "3", fullscreen = true })
 
-      # Heroic (GOG/Epic launcher) streamed via Moonlight — `heroic --console`.
-      # Tile it on ws3 (DP-1, the captured screen) rather than letting it float
-      # or land on whatever monitor the cursor is on. Games it launches are
-      # Proton titles → caught by the steam_app_ rules above; native ones need
-      # their own class added here.
-      "workspace 3, match:class heroic"
-      "tile on, match:class heroic"
+    -- Heroic (GOG/Epic launcher) streamed via Moonlight — `heroic --console`.
+    -- Tile it on ws3 (DP-1, the captured screen) rather than letting it float
+    -- or land on whatever monitor the cursor is on. Games it launches are
+    -- Proton titles → caught by the steam_app_ rules above; native ones need
+    -- their own class added here.
+    hl.window_rule({ match = { class = "heroic" }, workspace = "3", tile = true })
 
-      # RetroArch streamed via Moonlight (also registered as a Sunshine app).
-      # Native Wayland app_id is `com.libretro.RetroArch` (set at map time) — the
-      # exact string is needed so the rule applies on spawn; a loose `retroarch`
-      # match misses at map and the window flashes onto the active workspace
-      # first. `silent` sends it to ws3 (DP-1, the captured screen) without
-      # yanking focus off whatever workspace you're driving from.
-      "workspace 3 silent, match:class com.libretro.RetroArch"
-      "fullscreen on, match:class com.libretro.RetroArch"
-    ];
+    -- RetroArch streamed via Moonlight (also registered as a Sunshine app).
+    -- Native Wayland app_id is `com.libretro.RetroArch` (set at map time) — the
+    -- exact string is needed so the rule applies on spawn; a loose `retroarch`
+    -- match misses at map and the window flashes onto the active workspace
+    -- first. `silent` sends it to ws3 (DP-1, the captured screen) without
+    -- yanking focus off whatever workspace you're driving from.
+    hl.window_rule({ match = { class = "com.libretro.RetroArch" }, workspace = "3 silent", fullscreen = true })
 
-    render = {
-      # Experiment: was `true`. With a fullscreen game direct-scanning-out,
-      # Sunshine starting a capture forces the compositor off the direct path,
-      # and that surface/context churn is a suspected trigger for Chromium's
-      # `EGL_CONTEXT_LOST` crash (Big Picture drops to software rendering mid-
-      # stream). Disabled to test whether the crashes stop. If it makes no
-      # difference, flip back to `true` for the local fullscreen latency win.
-      direct_scanout = false;
-    };
-
-  };
+    -- Experiment: was `true`. With a fullscreen game direct-scanning-out,
+    -- Sunshine starting a capture forces the compositor off the direct path,
+    -- and that surface/context churn is a suspected trigger for Chromium's
+    -- `EGL_CONTEXT_LOST` crash (Big Picture drops to software rendering mid-
+    -- stream). Disabled to test whether the crashes stop. If it makes no
+    -- difference, flip back to `true` for the local fullscreen latency win.
+    hl.config({ render = { direct_scanout = false } })
+  '';
 
   programs.noctalia.settings = {
     shell.ui_scale = 1.25;

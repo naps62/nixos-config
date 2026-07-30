@@ -26,24 +26,20 @@
   # RetroArch (bare — cores/ROMs added by hand, WebDAV configured in-app).
   custom.gaming.retroarch = true;
 
-  wayland.windowManager.hyprland.settings = {
-    exec-once = [
-    ];
+  wayland.windowManager.hyprland.extraConfig = ''
+    hl.workspace_rule({ workspace = "1", monitor = "DP-3" })
+    hl.workspace_rule({ workspace = "2", monitor = "eDP-1" })
+    hl.workspace_rule({ workspace = "3", monitor = "eDP-1" })
+    hl.workspace_rule({ workspace = "4", monitor = "eDP-1" })
 
-    workspace = [
-      "1, monitor:DP-3"
-      "2, monitor:eDP-1"
-      "3, monitor:eDP-1"
-      "4, monitor:eDP-1"
-    ];
-
-    windowrule = [
-      "no_initial_focus on, match:class bevy-.*"
-      "float on, match:class bevy-.*"
-      "size 800 600, match:class bevy-.*"
-      "move 100%-800 100%-600, match:class bevy-.*"
-    ];
-  };
+    hl.window_rule({
+      match = { class = "bevy-.*" },
+      no_initial_focus = true,
+      float = true,
+      size = "800 600",
+      move = "100%-800 100%-600",
+    })
+  '';
 
   # v4 `bar.density` has no v5 equivalent; spacing is tuned via
   # bar.main.padding / widget_spacing / thickness if needed.

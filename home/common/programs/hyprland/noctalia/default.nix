@@ -90,19 +90,15 @@ in
   home.file.".face".source = avatar;
 
   # force overwrite files that noctalia may have turned into regular files
-  xdg.configFile."hypr/hyprland.conf".force = true;
+  # (Hyprland 0.55+ is Lua-only, so the managed file is now hyprland.lua)
+  xdg.configFile."hypr/hyprland.lua".force = true;
   xdg.configFile."gtk-3.0/gtk.css".force = true;
 
-  # source noctalia-generated color theme in hyprland (v5 path).
-  # Hyprland globs every source path, so a missing file errors as
-  # "globbing error: found no match" — pre-create an empty placeholder
-  # so the first boot doesn't fail before noctalia has run.
-  home.activation.ensureNoctaliaHyprConf = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    run mkdir -p "$HOME/.config/hypr"
-    run touch "$HOME/.config/hypr/noctalia.conf"
-  '';
-
-  wayland.windowManager.hyprland.settings.source = [
-    "~/.config/hypr/noctalia.conf"
-  ];
+  # NOTE: noctalia still writes its color theme to ~/.config/hypr/noctalia.conf
+  # in *hyprlang* syntax ($primary = rgb(...), general { col.active_border = ... }).
+  # Hyprland 0.55+ dropped the hyprlang parser entirely, so that file can no
+  # longer be `source`d — there is no hl.source, and the lua config can't parse
+  # hyprlang. Hyprland therefore uses the static border colors from
+  # ../default.nix instead of noctalia's themed ones. To restore live theming,
+  # noctalia would need to emit a Lua snippet we can require() here.
 }

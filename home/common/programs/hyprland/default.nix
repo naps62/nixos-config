@@ -66,260 +66,214 @@ in
       enable = true;
       package = null;
       portalPackage = null;
-      # Keep the hyprlang config format (the new default is "lua"); our
-      # settings are written as hyprlang.
-      configType = "hyprlang";
+      # Hyprland 0.55+ removed the hyprlang parser entirely — the config format
+      # is now Lua only (see home/common/programs/hyprland — the whole config
+      # below is raw Lua using the hl.* API). home-manager still emits its own
+      # systemd-session start hook, so we don't duplicate that here.
+      configType = "lua";
       plugins = [ ];
-      settings = {
-        plugin = {
-          overview = {
-            autoDrag = true;
-            exitOnClick = true;
-            exitOnSwitch = true;
-            showNewWorkspace = false;
-            showEmptyWorkspace = false;
-          };
-        };
-        input = {
-          kb_options = "ctrl:nocaps";
-          repeat_delay = 150;
+      extraConfig = ''
+        local mod = "SUPER"
 
-          touchpad = {
-            natural_scroll = "yes";
-          };
-          numlock_by_default = true;
-        };
+        -- look & feel / behaviour
+        hl.config({
+          general = {
+            border_size = 1,
+            gaps_in = 0,
+            gaps_out = 0,
+            snap = {
+              enabled = true,
+              border_overlap = true,
+            },
+            col = {
+              inactive_border = "0x99999999",
+              active_border = "0x99999999",
+            },
+          },
 
-        cursor = {
-          no_hardware_cursors = "yes";
-          # Auto-hide the pointer after 3s of no movement so a parked cursor
-          # doesn't sit on top of a game (visible in the stream too). It
-          # reappears the instant the mouse moves.
-          inactive_timeout = 3;
-        };
+          input = {
+            kb_options = "ctrl:nocaps",
+            repeat_delay = 150,
+            touchpad = {
+              natural_scroll = true,
+            },
+            numlock_by_default = true,
+          },
 
-        general = {
-          border_size = 1;
-          gaps_in = 0;
-          gaps_out = 0;
-          snap = {
-            enabled = true;
-            border_overlap = true;
-          };
+          cursor = {
+            no_hardware_cursors = true,
+            -- Auto-hide the pointer after 3s of no movement so a parked cursor
+            -- doesn't sit on top of a game (visible in the stream too). It
+            -- reappears the instant the mouse moves.
+            inactive_timeout = 3,
+          },
 
-          "col.inactive_border" = "0x99999999";
-          "col.active_border" = "0x99999999";
-        };
+          misc = {
+            disable_hyprland_logo = true,
+            disable_splash_rendering = true,
+            on_focus_under_fullscreen = 2,
+          },
 
-        misc = {
-          disable_hyprland_logo = true;
-          disable_splash_rendering = true;
-          on_focus_under_fullscreen = 2;
-        };
+          ecosystem = {
+            no_update_news = true,
+          },
 
-        ecosystem = {
-          no_update_news = true;
-        };
+          xwayland = {
+            force_zero_scaling = true,
+          },
 
-        xwayland = {
-          force_zero_scaling = true;
-        };
+          decoration = {
+            blur = {
+              enabled = true,
+              popups = false,
+            },
+            shadow = {
+              enabled = false,
+            },
+          },
+        })
 
-        decoration = {
-          blur = {
-            enabled = true;
-            popups = false;
-          };
-          shadow = {
-            enabled = false;
-          };
-        };
+        -- keep default animations, but speed them all up
+        hl.animation({ leaf = "global", enabled = true, speed = 2, bezier = "default" })
 
-        # keep default animations, but speed them all up
-        animations = {
-          animation = [
-            "global, 1, 2, default"
-          ];
-        };
+        -- environment
+        hl.env("GDK_SCALE", "2.0")
+        hl.env("XCURSOR_SIZE", "${toString cfg.cursorSize}")
+        hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
+        hl.env("HYPRCURSOR_SIZE", "${toString cfg.cursorSize}")
+        -- Route Qt6 apps (incl. the xdph screen-share picker) through qt6ct so
+        -- the noctalia-generated color scheme actually applies. Without this
+        -- var the qt6ct.conf is never read.
+        hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
-        env = [
-          "GDK_SCALE, 2.0"
-          "XCURSOR_SIZE, ${toString cfg.cursorSize}"
-          "HYPRCURSOR_THEME, rose-pine-hyprcursor"
-          "HYPRCURSOR_SIZE, ${toString cfg.cursorSize}"
-          # Route Qt6 apps (incl. the xdph screen-share picker) through qt6ct so
-          # the noctalia-generated color scheme actually applies. Without this
-          # var the qt6ct.conf is never read.
-          "QT_QPA_PLATFORMTHEME, qt6ct"
-        ];
+        -- autostart
+        hl.on("hyprland.start", function()
+          -- Import the Qt theme var too, so the dbus/systemd-activated
+          -- xdg-desktop-portal-hyprland (and its share-picker) inherit it.
+          hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME")
+          hl.exec_cmd("hyprctl setcursor Nordzy-cursors ${toString cfg.cursorSize}")
+          hl.exec_cmd("hyprsunset")
+          hl.exec_cmd("noctalia")
+          hl.exec_cmd("yogurt --tray")
+        end)
 
-        "exec-once" = [
-          # Import the Qt theme var too, so the dbus/systemd-activated
-          # xdg-desktop-portal-hyprland (and its share-picker) inherit it.
-          "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME"
-          "hyprctl setcursor Nordzy-cursors ${toString cfg.cursorSize}"
-          "hyprsunset"
-          "noctalia"
-          "yogurt --tray"
-        ];
+        -- layer rules
+        hl.layer_rule({ match = { namespace = "noctalia-wallpaper" }, blur = true, ignore_alpha = 0.5 })
 
-        layerrule = [
-          "blur 1, match:namespace noctalia-wallpaper"
-          "ignore_alpha 0.5, match:namespace noctalia-wallpaper"
-        ];
-        workspace = [
-          # no gaps when only window
-          "w[t1], gapsout:0, gapsin:0"
-          "w[tg1], gapsout:0, gapsin:0"
-          "f[1], gapsout:0, gapsin:0"
+        -- workspace rules
+        hl.workspace_rule({ workspace = "w[t1]", gaps_out = 0, gaps_in = 0 })   -- no gaps when only window
+        hl.workspace_rule({ workspace = "w[tg1]", gaps_out = 0, gaps_in = 0 })
+        hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0 })
+        hl.workspace_rule({ workspace = "special:terminal", on_created_empty = "[float; size 1400 1000; center 1] kitty", persistent = false })
+        hl.workspace_rule({ workspace = "special:yazi", on_created_empty = "[float; size ${cfg.yaziSize}; center 1] kitty --session sessions/yazi", persistent = false })
 
-          "special:terminal, on-created-empty:[float; size 1400 1000; center 1] kitty, persistent:false"
-          "special:yazi, on-created-empty:[float; size ${cfg.yaziSize}; center 1] kitty --session sessions/yazi, persistent:false"
-        ];
+        -- window rules
+        hl.window_rule({ match = { class = "com.gabm.satty" }, float = true })
 
-        windowrule = [
-          # satty
-          "float on, match:class com.gabm.satty"
+        hl.window_rule({ match = { class = "imv" }, float = true, size = "1920 1080", move = "(cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))" })
+        hl.window_rule({ match = { class = "mpv" }, float = true, size = "1920 1080", move = "(cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))" })
 
-          # imv
-          "float on, match:class imv"
-          "size 1920 1080, match:class imv"
-          "move (cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5)), match:class imv"
+        -- webcam overlay (`webcam` command) — small, pinned, bottom-right.
+        -- Declared after the mpv class rule so its title match wins.
+        hl.window_rule({
+          match = { title = "webcam-overlay" },
+          float = true,
+          size = "360 240",
+          move = "100%-380 100%-260",
+          pin = true,
+          no_initial_focus = true,
+          border_size = 0,
+        })
 
-          # mpv
-          "float on, match:class mpv"
-          "size 1920 1080, match:class mpv"
-          "move (cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5)), match:class mpv"
+        hl.window_rule({ match = { class = "thunar" }, float = true, size = "1800 1200", move = "(cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))" })
+        hl.window_rule({ match = { class = [[\.blueman-manager-wrapped]] }, float = true, size = "1200 800", move = "(cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))" })
+        hl.window_rule({ match = { class = [[org\.pulseaudio\.pavucontrol]] }, float = true, size = "1200 1200", move = "(cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))" })
 
-          # webcam overlay (`webcam` command) — small, pinned, bottom-right.
-          # Title rules come after the mpv class rules so they win.
-          "float on, match:title webcam-overlay"
-          "size 360 240, match:title webcam-overlay"
-          "move 100%-380 100%-260, match:title webcam-overlay"
-          "pin on, match:title webcam-overlay"
-          "no_initial_focus on, match:title webcam-overlay"
-          "border_size 0, match:title webcam-overlay"
+        -- wine / game installers (Inno Setup temp windows, e.g. Heroic/GOG).
+        -- Their class is the random "setup_*.tmp" filename, so match by suffix.
+        hl.window_rule({ match = { class = [[.*\.tmp]] }, float = true, center = true })
 
-          # thunar
-          "float on, match:class thunar"
-          "size 1800 1200, match:class thunar"
-          "move (cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5)), match:class thunar"
+        -- metamask
+        hl.window_rule({ match = { class = [[chrome-nkbihfbeogaeaoehlefnkodbefgpgknn-.*]] }, float = true })
+        -- bitwarden, chrome
+        hl.window_rule({ match = { class = [[chrome-nngceckbapebfimnlniiiahkandclblb-.*]] }, float = true })
+        -- claude for chrome
+        hl.window_rule({ match = { class = [[chrome-fcoeoabgfenejglbffodgkkbkcdhcgfn-.*]] }, float = true, move = "(cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))" })
 
-          # bluetooth
-          "float on, match:class \\.blueman-manager-wrapped"
-          "size 1200 800, match:class \\.blueman-manager-wrapped"
-          "move (cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5)), match:class \\.blueman-manager-wrapped"
+        -- no gaps when only window
+        hl.window_rule({ match = { float = false, workspace = "w[t1]" }, border_size = 0, rounding = 0 })
+        hl.window_rule({ match = { float = false, workspace = "w[tg1]" }, border_size = 0, rounding = 0 })
+        hl.window_rule({ match = { float = false, workspace = "f[1]" }, border_size = 0, rounding = 0 })
 
-          # pavucontrol
-          "float on, match:class org\\.pulseaudio\\.pavucontrol"
-          "size 1200 1200, match:class org\\.pulseaudio\\.pavucontrol"
-          "move (cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5)), match:class org\\.pulseaudio\\.pavucontrol"
+        hl.window_rule({ match = { workspace = "special:terminal" }, center = true })
+        hl.window_rule({ match = { workspace = "special:yazi" }, center = true })
 
-          # wine / game installers (Inno Setup temp windows, e.g. Heroic/GOG).
-          # Their class is the random "setup_*.tmp" filename, so match by suffix.
-          "float on, match:class .*\\.tmp"
-          "center 1, match:class .*\\.tmp"
+        -- keybinds
+        hl.bind(mod .. " + N", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"))
+        hl.bind(mod .. " + T", hl.dsp.exec_cmd("kitty"))
+        hl.bind(mod .. " + V", hl.dsp.window.float({ action = "toggle" }))
+        hl.bind(mod .. " + Q", hl.dsp.window.close())
+        hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+        hl.bind(mod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 
-          # metamask
-          "float on, match:class chrome-nkbihfbeogaeaoehlefnkodbefgpgknn-.*"
+        -- lock (routes through logind -> hypridle lock_cmd -> hyprlock)
+        hl.bind(mod .. " + CTRL + L", hl.dsp.exec_cmd("loginctl lock-session"))
 
-          # bitwarden, chrome
-          "float on, match:class chrome-nngceckbapebfimnlniiiahkandclblb-.*"
+        hl.bind(mod .. " + space", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
 
-          # claude for chrome
-          "float on, match:class chrome-fcoeoabgfenejglbffodgkkbkcdhcgfn-.*"
-          "move (cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5)), match:class chrome-fcoeoabgfenejglbffodgkkbkcdhcgfn-.*"
+        -- printscreen
+        hl.bind("Print", hl.dsp.exec_cmd("hyprshot -m region --raw | satty --filename - --output-filename ~/downloads/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"))
+        hl.bind("SHIFT + Print", hl.dsp.exec_cmd("hyprshot -m window --raw | satty --filename - --output-filename ~/downloads/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"))
 
-          # no gaps when only window
-          "border_size 0, match:float 0, match:workspace w[t1]"
-          "rounding 0, match:float 0, match:workspace w[t1]"
-          "border_size 0, match:float 0, match:workspace w[tg1]"
-          "rounding 0, match:float 0, match:workspace w[tg1]"
-          "border_size 0, match:float 0, match:workspace f[1]"
-          "rounding 0, match:float 0, match:workspace f[1]"
+        -- move focus with mod + hjkl
+        hl.bind(mod .. " + H", hl.dsp.focus({ direction = "left" }))
+        hl.bind(mod .. " + J", hl.dsp.focus({ direction = "down" }))
+        hl.bind(mod .. " + K", hl.dsp.focus({ direction = "up" }))
+        hl.bind(mod .. " + L", hl.dsp.focus({ direction = "right" }))
 
-          "center 1, match:workspace special:terminal"
-          "center 1, match:workspace special:yazi"
-        ];
+        -- switch / move-to workspaces 1-6
+        for i = 1, 6 do
+          hl.bind(mod .. " + " .. i, hl.dsp.focus({ workspace = i }))
+          hl.bind(mod .. " + SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
+        end
 
-        "$mod" = "SUPER";
+        -- move active window inside workspace
+        hl.bind(mod .. " + SHIFT + H", hl.dsp.window.move({ direction = "left" }))
+        hl.bind(mod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
+        hl.bind(mod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
+        hl.bind(mod .. " + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
 
-        bind = [
-          "$mod, n, exec, noctalia msg panel-toggle control-center"
-          "$mod, t, exec, kitty"
-          "$mod, v, togglefloating"
-          "$mod, q, killactive"
-          "$mod, f, fullscreen, 0"
-          "$mod SHIFT, f, fullscreen, 1"
+        -- scroll through workspaces with mod + scroll
+        hl.bind(mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+        hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
-          # lock (routes through logind -> hypridle lock_cmd -> hyprlock)
-          "$mod CTRL, l, exec, loginctl lock-session"
+        -- special workspaces (toggle + recenter in one handler)
+        hl.bind(mod .. " + X", function()
+          hl.dispatch(hl.dsp.workspace.toggle_special("terminal"))
+          hl.dispatch(hl.dsp.window.center())
+        end)
+        hl.bind(mod .. " + E", function()
+          hl.dispatch(hl.dsp.workspace.toggle_special("yazi"))
+          hl.dispatch(hl.dsp.window.center())
+        end)
 
-          "$mod, space, exec, noctalia msg panel-toggle launcher"
+        -- volume / brightness (locked so they work on the lock screen; repeat on hold)
+        hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
+        hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
+        hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"), { locked = true, repeating = true })
+        hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { locked = true, repeating = true })
 
-          # printscreen
-          ", Print, exec, hyprshot -m region --raw | satty --filename - --output-filename ~/downloads/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
-          "SHIFT, Print, exec, hyprshot -m window --raw | satty --filename - --output-filename ~/downloads/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
+        -- media keys (locked)
+        hl.bind("XF86AudioMute", hl.dsp.exec_cmd("pactl set-sink-mute @DEFAULT_SINK@ toggle"), { locked = true })
+        hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("volumectl -m toggle-mute"), { locked = true })
+        hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+        hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+        hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 
-          # move focus with mod + arrows
-          "$mod, h, movefocus, l"
-          "$mod, j, movefocus, d"
-          "$mod, k, movefocus, u"
-          "$mod, l, movefocus, r"
-
-          # Switch workspaces with mod + [0-9]
-          "$mod, 1, workspace, 1"
-          "$mod, 2, workspace, 2"
-          "$mod, 3, workspace, 3"
-          "$mod, 4, workspace, 4"
-          "$mod, 5, workspace, 5"
-          "$mod, 6, workspace, 6"
-
-          # Move active window to a workspace with mod + SHIFT + [0-9]
-          "$mod SHIFT, 1, movetoworkspace, 1"
-          "$mod SHIFT, 2, movetoworkspace, 2"
-          "$mod SHIFT, 3, movetoworkspace, 3"
-          "$mod SHIFT, 4, movetoworkspace, 4"
-          "$mod SHIFT, 5, movetoworkspace, 5"
-          "$mod SHIFT, 6, movetoworkspace, 6"
-
-          # Move active window inside workspace
-          "$mod SHIFT, h, movewindow, l"
-          "$mod SHIFT, j, movewindow, d"
-          "$mod SHIFT, k, movewindow, u"
-          "$mod SHIFT, l, movewindow, r"
-
-          # Scroll through existing workspaces with mod + scroll
-          "$mod, mouse_down, workspace, e+1"
-          "$mod, mouse_up, workspace, e-1"
-
-          # special workspaces
-          "$mod, x, togglespecialworkspace, terminal"
-          "$mod, x, centerwindow"
-          "$mod, e, togglespecialworkspace, yazi"
-          "$mod, e, centerwindow"
-        ];
-
-        bindel = [
-          ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-          ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-          ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
-          ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
-        ];
-        bindl = [
-          ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
-          ", XF86AudioMicMute, exec, volumectl -m toggle-mute"
-          ", XF86AudioNext, exec, playerctl next"
-          ", XF86AudioPrev, exec, playerctl previous"
-          ", XF86AudioPlay, exec, playerctl play-pause"
-        ];
-
-        bindm = [
-          # Move/resize windows with mod + LMB/RMB and dragging
-          "$mod, mouse:272, movewindow"
-          "$mod, mouse:273, resizewindow"
-        ];
-      };
+        -- move/resize windows with mod + LMB/RMB drag
+        hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+        hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+      '';
     };
 
     services.hyprpaper.enable = false;
