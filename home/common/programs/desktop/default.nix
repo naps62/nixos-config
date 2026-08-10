@@ -46,6 +46,7 @@
       slack
       ferdium
       signal-desktop
+      zoom-us
 
       # dev tools
       yaak
