@@ -36,6 +36,7 @@ in
 
   imports = [
     ./cursor.nix
+    ./kbptr.nix
     ./noctalia
     ./wallpapers.nix
   ];
