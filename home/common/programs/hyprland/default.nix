@@ -154,7 +154,6 @@ in
           hl.exec_cmd("hyprctl setcursor Nordzy-cursors ${toString cfg.cursorSize}")
           hl.exec_cmd("hyprsunset")
           hl.exec_cmd("noctalia")
-          hl.exec_cmd("yogurt --tray")
         end)
 
         -- layer rules

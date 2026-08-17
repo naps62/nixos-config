@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 {
@@ -34,7 +33,6 @@
 
     packages = with pkgs; [
       impala
-      inputs.yogurt.packages.${pkgs.system}.default
     ];
 
     username = lib.mkDefault "naps62";

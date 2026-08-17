@@ -66,7 +66,12 @@
       url = "github:ilysenko/codex-desktop-linux";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    yogurt.url = "git+https://github.com/ZePedroResende/yogurt";
+    # Pinned to the tag, and pins its own nixpkgs for the same reason ethui does
+    # — it is a verified Rust build. Bump deliberately, not via `flake update`.
+    agent-of-empires.url = "github:agent-of-empires/agent-of-empires/v1.14.1";
+    # Semantic-diff tool rev calls via REV_SEM_BIN. NOT nixpkgs' `sem`, which is
+    # the unrelated Semaphore CI cli.
+    sem.url = "github:Ataraxy-Labs/sem";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -124,6 +129,7 @@
       nixosConfigurations = {
         arrakis = mkNixOS "arrakis";
         konishi = mkNixOS "konishi";
+        yolo = mkNixOS "yolo";
       };
 
       # Named "<user>@<host>" so `nh home switch` auto-detects them
@@ -131,6 +137,7 @@
       homeConfigurations = {
         "naps62@arrakis" = mkHome "arrakis" x86;
         "naps62@konishi" = mkHome "konishi" x86;
+        "naps62@yolo" = mkHome "yolo" x86;
       };
 
       devShells =
