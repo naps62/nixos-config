@@ -24,6 +24,10 @@
   # under ~/tea. nh.flake sets NH_FLAKE, so without it `nh home switch` with no
   # argument resolves to a path that does not exist.
   home.mutableFilesRepoPath = lib.mkForce "/home/naps62/tea/nixos-config";
+
+  # Host-local, not shared: this sets yolo_mode_default = true, which starts aoe
+  # sessions with permission checks skipped. Only correct on this box.
+  home.mutableFiles.".config/agent-of-empires/config.toml".source = ./aoe-config.toml;
   programs.nh.flake = lib.mkForce "/home/naps62/tea/nixos-config";
 
   # Blur and shadow cost a fullscreen pass per frame, and every frame here is

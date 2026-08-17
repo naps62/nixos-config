@@ -72,6 +72,8 @@
     # Semantic-diff tool rev calls via REV_SEM_BIN. NOT nixpkgs' `sem`, which is
     # the unrelated Semaphore CI cli.
     sem.url = "github:Ataraxy-Labs/sem";
+    # Claude Code + Codex skills, commands, hooks and CLAUDE.md fragments.
+    agent-skills.url = "git+https://git.naps.pt/yolo/agent-skills.git";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";

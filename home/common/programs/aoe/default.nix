@@ -3,20 +3,11 @@
   inputs,
   ...
 }:
-# Agent of Empires: the agent session manager. Import this on any host that
-# wants it — it brings both the package and the shared settings.
+# Agent of Empires: the agent session manager. The package only — settings are
+# per-host, because config.toml carries `yolo_mode_default`, which decides
+# whether sessions start with permission checks skipped.
 {
   # aoe-with-web, not default: same single `aoe` binary plus the `serve`
   # subcommand (web dashboard). The default build has no `serve` at all.
   home.packages = [ inputs.agent-of-empires.packages.${pkgs.system}.aoe-with-web ];
-
-  # mutableFiles, not xdg.configFile: aoe rewrites this file itself (it keeps
-  # .bak-<epoch> copies), so a read-only store symlink would break it. The copy
-  # is change-detected — activation aborts and tells you to bring edits back
-  # here rather than silently reverting them.
-  #
-  # Only config.toml. The rest of ~/.config/agent-of-empires is per-machine
-  # state (state.toml, projects.json, tui-*, locks) or secret
-  # (serve.saved_passphrase).
-  home.mutableFiles.".config/agent-of-empires/config.toml".source = ./config.toml;
 }
