@@ -23,6 +23,14 @@
     # GC is handled by `nh clean` below (keep-N / keep-since semantics).
     # The two are mutually exclusive — nh asserts if nix.gc.automatic is on.
     gc.automatic = false;
+
+    # Unauthenticated GitHub API calls (flake input fetches) are capped at
+    # 60/hr and 429 quickly. The token itself must not land in /nix/store
+    # (world-readable), so it lives in a plain file outside Nix's management —
+    # !include reads it at nix.conf parse time instead of embedding it.
+    extraOptions = ''
+      !include /etc/nix/github-token.conf
+    '';
   };
 
   # nh: ergonomic nixos-rebuild wrapper. Auto-detects the target from the
