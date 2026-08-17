@@ -33,6 +33,12 @@
 
   services.dbus.packages = with pkgs; [ gcr ];
 
+  # NixOS provides /bin/sh but not /bin/bash. Some third-party scripts
+  # hardcode #!/bin/bash, so provide it too.
+  system.activationScripts.binbash = ''
+    ln -sf ${pkgs.bash}/bin/bash /bin/bash
+  '';
+
   # Compressed RAM swap — better behaviour under memory pressure.
   zramSwap.enable = true;
 

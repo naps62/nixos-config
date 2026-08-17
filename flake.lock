@@ -933,17 +933,17 @@
     "nvchad-starter": {
       "flake": false,
       "locked": {
-        "lastModified": 1782738765,
-        "narHash": "sha256-/jxBHJ74FYVYm8JGO3ay2J3B2/Rf3/KvroivtJFFJRM=",
-        "owner": "naps62",
-        "repo": "nvchad-starter",
-        "rev": "020bf7716ea1b7d233cbdaef63c8585791f896b7",
-        "type": "github"
+        "lastModified": 1786971647,
+        "narHash": "sha256-RsRq+BRIrpSzDUU6hF+ITwFcjtiIPsFpk220+Civ010=",
+        "ref": "refs/heads/main",
+        "rev": "4db90cb097f2358b8adb8c11f116e4201b81d0f6",
+        "revCount": 178,
+        "type": "git",
+        "url": "https://git.naps.pt/naps62/nvim-config.git"
       },
       "original": {
-        "owner": "naps62",
-        "repo": "nvchad-starter",
-        "type": "github"
+        "type": "git",
+        "url": "https://git.naps.pt/naps62/nvim-config.git"
       }
     },
     "nvchad4nix": {

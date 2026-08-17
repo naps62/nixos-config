@@ -21,7 +21,7 @@
       inputs.nvchad-starter.follows = "nvchad-starter";
     };
     nvchad-starter = {
-      url = "github:naps62/nvchad-starter";
+      url = "git+https://git.naps.pt/naps62/nvim-config.git";
       flake = false;
     };
     foundry = {
