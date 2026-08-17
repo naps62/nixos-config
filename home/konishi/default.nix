@@ -35,6 +35,7 @@
     enable = true;
     nvidia = true;
     retroarch = true;
+    moonlight = true;
   };
 
   # 4K@1x monitors render the Electron AI apps tiny; scale their UI up. Tune to taste.
