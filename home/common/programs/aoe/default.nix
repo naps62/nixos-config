@@ -6,7 +6,9 @@
 # Agent of Empires: the agent session manager. Import this on any host that
 # wants it — it brings both the package and the shared settings.
 {
-  home.packages = [ inputs.agent-of-empires.packages.${pkgs.system}.default ];
+  # aoe-with-web, not default: same single `aoe` binary plus the `serve`
+  # subcommand (web dashboard). The default build has no `serve` at all.
+  home.packages = [ inputs.agent-of-empires.packages.${pkgs.system}.aoe-with-web ];
 
   # mutableFiles, not xdg.configFile: aoe rewrites this file itself (it keeps
   # .bak-<epoch> copies), so a read-only store symlink would break it. The copy

@@ -26,6 +26,11 @@
   # virtio drivers; the agent itself is a separate service.
   services.qemuGuest.enable = true;
 
+  # Hung shutdown waiting on systemd-zram-setup@zram0: deactivating zram swap
+  # has to fault every stored page back into RAM first. Redundant here anyway —
+  # this VM has a real 8G swap partition, and the host manages its own memory.
+  zramSwap.enable = lib.mkForce false;
+
   # The only out-of-band way in. `vga: virtio-gl` renders through a GL context
   # with no QEMU console surface, so noVNC and screendump both go dark; this
   # pairs with the VM's serial0 socket to keep `qm terminal` working. Listed
