@@ -15,7 +15,7 @@ _:
     enable = true;
     autoStart = true;
     openFirewall = true;
-    capSysAdmin = false; # wlr-screencopy needs no CAP_SYS_ADMIN
+    capSysAdmin = true; # kms capture reads the scanout framebuffer via DRM
 
     settings = {
       # MUST be set. Auto-probe tries portalgrab first, and
@@ -23,11 +23,17 @@ _:
       # probe then hangs forever instead of falling back, so sunshine never
       # binds its ports and the unit sits "active" doing nothing.
       #
-      # "wlr", not "wlgrab": wlgrab is the name this backend logs under, but it
+      # "kms", not "wlr": the wlr backend takes wlr-screencopy's dmabuf path,
+      # which on this virtio-gpu returns empty buffers — sunshine encodes a flat
+      # frame (~50-byte P-frames) and every client shows black, with no error on
+      # either side. grim still works because it uses the shm path, and sunshine
+      # exposes no way to force shm.
+      #
+      # "wlr", not "wlgrab": wlgrab is the name that backend logs under, but it
       # is not accepted as a value — sunshine rejects it with "Unable to
       # initialize capture method", then still starts and binds its ports with
       # no encoder, so the failure only shows up as a 503 in moonlight.
-      capture = "wlr";
+      capture = "kms";
 
       # The web UI is only reachable over the network here — there is no local
       # browser — and sunshine CSRF-rejects any origin but localhost unless it
