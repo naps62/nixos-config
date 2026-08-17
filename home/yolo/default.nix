@@ -39,6 +39,10 @@
   programs.agentSkills.machine = "yolo";
   programs.nh.flake = lib.mkForce "/home/naps62/tea/nixos-config";
 
+  # Idle lock and dpms-off blank the virtual output: Sunshine then captures a
+  # flat frame and Moonlight goes black, with no console to unlock from.
+  services.hypridle.enable = lib.mkForce false;
+
   # Blur and shadow cost a fullscreen pass per frame, and every frame here is
   # also x264-encoded for the stream — on a virtio-gpu with no VirGL, in software.
   wayland.windowManager.hyprland.extraConfig = ''

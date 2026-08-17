@@ -17,7 +17,8 @@ qm create 132 --name yolo \
   --vga virtio-gl \
   --serial0 socket \
   --agent 1 \
-  --onboot 1
+  --onboot 1 \
+  --args '-display egl-headless,gl=core,rendernode=/dev/dri/renderD128'
 ```
 
 After creating the disk, drop its ZFS reservation — the `data` pool has no
@@ -27,12 +28,15 @@ After creating the disk, drop its ZFS reservation — the `data` pool has no
 zfs set refreservation=none data/vm-132-disk-1
 ```
 
-## The three that matter
+## The four that matter
 
-**`--vga virtio-gl`.** Not for speed — the host's virglrenderer falls back to
-llvmpipe either way. It is what lets mesa allocate GBM buffers. With plain
-`virtio` every capture fails with `Failed to create GBM buffer`, and sunshine
-streams a black picture while reporting no error at all.
+**`--vga virtio-gl`.** Lets mesa allocate GBM buffers. With plain `virtio`
+every capture fails with `Failed to create GBM buffer`, and sunshine streams a
+black picture while reporting no error at all.
+
+**`--args '-display egl-headless,...,rendernode=/dev/dri/renderD128'`.** Pins
+host-side rendering to the UHD 770. Without it the guest renders on llvmpipe —
+see below.
 
 **`--serial0 socket`.** `virtio-gl` renders through a GL context with no QEMU
 console surface, so the Proxmox noVNC console and `qm screendump` both go dark.
@@ -42,44 +46,36 @@ This plus `boot.kernelParams = [ "console=ttyS0,115200" ]` keeps
 **`--bios ovmf`.** `hosts/common/features/user.nix` uses systemd-boot, which
 needs UEFI. SeaBIOS gives an unbootable disk.
 
-## Known limit: no GPU acceleration
+## Why the render node has to be pinned
 
-The guest reports `virgl (LLVMPIPE)`, so compositing and capture readback are
-both on CPU. Hyprland delivers ~2fps at 2560x1440, sunshine asks for 60, and
-moonlight disconnects. Capture and encoding are otherwise fine — x264 manages
-1440p at 3x realtime here.
+pve 8.4.1 hardcodes `-display egl-headless,gl=core` in
+`/usr/share/perl5/PVE/QemuServer.pm` with no `rendernode=`. qemu then picks a
+node itself by scanning `/dev/dri` in `readdir` order and taking the first
+`renderD*` that opens. Here that lands on renderD129 — the nvidia card, which
+is reserved for LXCs. mesa cannot drive it, so virglrenderer falls back to
+software and the guest reports `virgl (LLVMPIPE)`: Hyprland manages ~2fps at
+2560x1440 while sunshine asks for 60, and moonlight disconnects.
 
-The host can do better: `iris_dri.so` is present and `i915` is loaded on
-renderD128 (the UHD 770; renderD129 is the nvidia card, reserved for LXCs and
-not available to VMs). Two things stop it being used:
-
-- pve 8.4.1 hardcodes `-display egl-headless,gl=core` in
-  `/usr/share/perl5/PVE/QemuServer.pm` with no `rendernode=`, so qemu picks the
-  EGL device itself.
-- `/usr/share/glvnd/egl_vendor.d/` lists `10_nvidia.json` ahead of
-  `50_mesa.json`, and lower wins — so EGL initialises against nvidia and falls
-  back to llvmpipe.
-
-To test the diagnosis without changing anything, start the VM with the mesa
-vendor forced:
+The `--args` line overrides this. PVE appends `args` after its own `-display`,
+and qemu's last `-display` wins, so rendering is pinned to renderD128 (the UHD
+770, `i915`) without touching the packaged perl — which any pve-manager upgrade
+would revert. Confirm from the guest:
 
 ```
-__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json qm start 132
+grep "Renderer:" /run/user/1000/hypr/*/hyprland.log
 ```
 
-If the guest then reports `iris` rather than `LLVMPIPE`, persist it with a
-drop-in rather than by editing the packaged perl — drop-ins survive upgrades,
-and the nvidia LXCs are unaffected because they start via pve-container:
+`virgl (Mesa Intel(R) Graphics (RPL-S))` is correct; `LLVMPIPE` means the
+override is not taking. On the host, `ls -l /proc/$(cat
+/var/run/qemu-server/132.pid)/fd | grep dri` shows which node qemu actually
+holds.
 
-```
-systemctl edit pvedaemon
-  [Service]
-  Environment=__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json
-```
+Forcing the EGL vendor instead (`__EGL_VENDOR_LIBRARY_FILENAMES=.../50_mesa.json`)
+does not help and was tried: the vendor was never the problem, the node was.
 
-Last resort only, if EGL still picks wrong: append
-`,rendernode=/dev/dri/renderD128` to the QemuServer.pm line above. That edits a
-packaged file and is reverted by any pve-manager upgrade.
+Encoding stays on x264. virgl accelerates GL only — the guest sees a
+virtio-gpu, not the Intel device, so there is no VAAPI/QuickSync encode path.
+Not a bottleneck: x264 manages 1440p at 3x realtime here.
 
 ## Network
 
