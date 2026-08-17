@@ -42,6 +42,27 @@ This plus `boot.kernelParams = [ "console=ttyS0,115200" ]` keeps
 **`--bios ovmf`.** `hosts/common/features/user.nix` uses systemd-boot, which
 needs UEFI. SeaBIOS gives an unbootable disk.
 
+## Known limit: no GPU acceleration
+
+The guest reports `virgl (LLVMPIPE)`, so compositing and capture readback are
+both on CPU. Hyprland delivers ~2fps at 2560x1440, sunshine asks for 60, and
+moonlight disconnects. Capture and encoding are otherwise fine — x264 manages
+1440p at 3x realtime here.
+
+The host can do better: `iris_dri.so` is present and `i915` is loaded on
+renderD128 (the UHD 770; renderD129 is the nvidia card, reserved for LXCs and
+not available to VMs). Two things stop it being used:
+
+- pve 8.4.1 hardcodes `-display egl-headless,gl=core` in
+  `/usr/share/perl5/PVE/QemuServer.pm` with no `rendernode=`, so qemu picks the
+  EGL device itself.
+- `/usr/share/glvnd/egl_vendor.d/` lists `10_nvidia.json` ahead of
+  `50_mesa.json`, and lower wins — so EGL initialises against nvidia and falls
+  back to llvmpipe.
+
+Adding `,rendernode=/dev/dri/renderD128` to that line targets the iGPU. It is
+reverted by any pve-manager upgrade.
+
 ## Network
 
 `tag=7` puts the guest on the VLAN behind `10.7.10.1`. That VLAN is the
