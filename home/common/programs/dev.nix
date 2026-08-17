@@ -57,5 +57,20 @@
     lazydocker # docker TUI
     dust # du replacement
     duf # df replacement
+
+    rtk # cli proxy the claude hooks rewrite commands through
+    wget
+    sqlite
+    shellcheck
+    cmake
+    ninja
+    git-filter-repo
+    expect
+    whois
+    p7zip
+    poppler-utils # pdftotext
+    jpegoptim
+    sshpass
+    pipx
   ];
 }
