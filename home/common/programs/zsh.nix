@@ -78,6 +78,10 @@
     fzf = {
       enable = true;
       enableZshIntegration = true;
+      # Both fzf and atuin bind Ctrl-R, and home-manager warns about the clash.
+      # Atuin is sourced last so it already won; this just makes that explicit
+      # and silences the warning. fzf keeps Ctrl-T and Alt-C.
+      historyWidget.zsh.command = "";
     };
 
     zoxide = {

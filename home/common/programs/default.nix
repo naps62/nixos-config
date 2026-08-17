@@ -10,6 +10,7 @@
     ./zsh.nix
     ./nix.nix
     ./neovim
+    ./editors.nix
     ./rust.nix
     ./elixir.nix
     ./nodejs.nix

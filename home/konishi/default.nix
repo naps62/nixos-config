@@ -27,6 +27,8 @@
   custom.hyprland = {
     yaziSize = "2400 1800";
     cursorSize = 42;
+    # The screen actually shared in every call; skips the xdph picker entirely.
+    shareOutput = "HDMI-A-1";
   };
 
   custom.gaming = {

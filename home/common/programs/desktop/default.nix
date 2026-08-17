@@ -57,6 +57,8 @@
     ];
 
     pointerCursor = {
+      # setting the block alone no longer implies generation; must be explicit
+      enable = true;
       package = pkgs.numix-cursor-theme;
       name = "Numix-Cursor-Light";
     };
