@@ -26,6 +26,15 @@
   # virtio drivers; the agent itself is a separate service.
   services.qemuGuest.enable = true;
 
+  # The only out-of-band way in. `vga: virtio-gl` renders through a GL context
+  # with no QEMU console surface, so noVNC and screendump both go dark; this
+  # pairs with the VM's serial0 socket to keep `qm terminal` working. Listed
+  # last so it wins /dev/console and gets the getty.
+  boot.kernelParams = [
+    "console=tty1"
+    "console=ttyS0,115200"
+  ];
+
   # Not a security downgrade: naps62 is in `docker`, which is already
   # root-equivalent, and sshd is key-only — so the prompt guards nothing while
   # blocking unattended rebuilds (nh shells out to sudo and needs a TTY).
