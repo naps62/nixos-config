@@ -37,7 +37,7 @@
   environment.systemPackages = [ pkgs.git ];
 
   # This clone lives under ~/tea, not the ~/projects path global/nix.nix assumes.
-  programs.nh.flake = lib.mkForce "/home/naps62/tea/naps62/nixos-config";
+  programs.nh.flake = lib.mkForce "/home/naps62/tea/nixos-config";
 
   # No physical seat: Sunshine is a user service and cannot capture until a
   # graphical session exists, so a cold boot must reach one unattended. No
