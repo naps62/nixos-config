@@ -187,6 +187,10 @@ in
     WantedBy=default.target
   '';
 
+  # systemd will not create the parent of StandardOutput=append:, and fails the
+  # unit with 209/STDOUT if it is missing.
+  home.file.".local/state/claude-rc/.keep".text = "";
+
   systemd.user.paths.claude-rc = {
     Unit.Description = "Watch the Claude Remote Control project list for edits";
     Path = {
