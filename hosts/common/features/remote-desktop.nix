@@ -37,6 +37,12 @@ _:
       # and never strips brackets or quotes, so "[...]" makes every entry fail
       # its starts_with("https://") check.
       csrf_allowed_origins = "https://10.7.250.1:47990,https://10.7.10.2:47990";
+
+      # At the default 20, sunshine's FEC mangles large frames and moonlight
+      # draws horizontal bands over an otherwise-fine stream — no error on
+      # either side, and the network shows 0% loss. konishi carries the same
+      # workaround in its hand-written ~/.config/sunshine/sunshine.conf.
+      fec_percentage = 1;
     };
   };
 }
