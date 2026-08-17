@@ -1,24 +1,27 @@
 {
   lib,
+  pkgs,
   ...
 }:
 {
   imports = [
     ../common/programs/default.nix
     ../common/programs/desktop
-    ../common/programs/zen-browser.nix
     ../common/programs/hyprland
     ../common/programs/kitty
     ../common/programs/gpg.nix
     ../common/programs/aoe
     ../common/features/xdg.nix
-    ../common/features/downloads-cleanup.nix
     ./monitors.nix
     ./services.nix
     ./ssh.nix
   ];
 
   custom.hyprland.cursorSize = 32;
+
+  # Headless browser driver the agent tooling shells out to. Was a global npm
+  # install on the ubuntu box.
+  home.packages = [ pkgs.agent-browser ];
 
   # Both default to ~/projects/nixos-config in common/programs; this clone lives
   # under ~/tea. nh.flake sets NH_FLAKE, so without it `nh home switch` with no

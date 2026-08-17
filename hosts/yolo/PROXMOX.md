@@ -60,8 +60,26 @@ not available to VMs). Two things stop it being used:
   `50_mesa.json`, and lower wins — so EGL initialises against nvidia and falls
   back to llvmpipe.
 
-Adding `,rendernode=/dev/dri/renderD128` to that line targets the iGPU. It is
-reverted by any pve-manager upgrade.
+To test the diagnosis without changing anything, start the VM with the mesa
+vendor forced:
+
+```
+__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json qm start 132
+```
+
+If the guest then reports `iris` rather than `LLVMPIPE`, persist it with a
+drop-in rather than by editing the packaged perl — drop-ins survive upgrades,
+and the nvidia LXCs are unaffected because they start via pve-container:
+
+```
+systemctl edit pvedaemon
+  [Service]
+  Environment=__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json
+```
+
+Last resort only, if EGL still picks wrong: append
+`,rendernode=/dev/dri/renderD128` to the QemuServer.pm line above. That edits a
+packaged file and is reverted by any pve-manager upgrade.
 
 ## Network
 
