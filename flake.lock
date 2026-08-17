@@ -21,6 +21,21 @@
         "type": "github"
       }
     },
+    "agent-skills": {
+      "locked": {
+        "lastModified": 1786955881,
+        "narHash": "sha256-IYXmVax3dllECKDQEwUHDDhTXjUikVYS7sSrQNDXiP8=",
+        "ref": "refs/heads/main",
+        "rev": "d7c62c8ce3d6bbe2030702b3f9f55131268960dc",
+        "revCount": 46,
+        "type": "git",
+        "url": "https://git.naps.pt/yolo/agent-skills.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.naps.pt/yolo/agent-skills.git"
+      }
+    },
     "aquamarine": {
       "inputs": {
         "hyprutils": [
@@ -979,6 +994,7 @@
     "root": {
       "inputs": {
         "agent-of-empires": "agent-of-empires",
+        "agent-skills": "agent-skills",
         "claude-code": "claude-code",
         "codex-cli": "codex-cli",
         "codex-desktop-linux": "codex-desktop-linux",

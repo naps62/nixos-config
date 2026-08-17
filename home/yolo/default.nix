@@ -28,6 +28,12 @@
   # Host-local, not shared: this sets yolo_mode_default = true, which starts aoe
   # sessions with permission checks skipped. Only correct on this box.
   home.mutableFiles.".config/agent-of-empires/config.toml".source = ./aoe-config.toml;
+
+  # Likewise host-local: carries skipDangerousModePermissionPrompt and the rev
+  # hook paths, neither of which belong on a workstation.
+  home.mutableFiles.".claude/settings.json".source = lib.mkForce ./claude-settings.json;
+
+  programs.agentSkills.machine = "yolo";
   programs.nh.flake = lib.mkForce "/home/naps62/tea/nixos-config";
 
   # Blur and shadow cost a fullscreen pass per frame, and every frame here is
