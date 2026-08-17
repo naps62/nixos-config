@@ -71,6 +71,5 @@
     poppler-utils # pdftotext
     jpegoptim
     sshpass
-    pipx
   ];
 }
