@@ -82,10 +82,4 @@
     ];
   };
 
-  # Pinned to 16 to match the cluster being migrated off Ubuntu; restoring that
-  # dump into a newer default would need a pg_upgrade first.
-  services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_16;
-  };
 }
