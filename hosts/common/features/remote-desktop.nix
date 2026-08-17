@@ -5,6 +5,12 @@ _:
 #
 # First run: https://<host>:47990 to set web-UI credentials, then pair Moonlight.
 {
+  # Sunshine opens /dev/dri/renderD* once per encoder probe and never closes
+  # them — ~973 fds against the 1024 default. Mesa then cannot dlopen the GBM
+  # driver ("Too many open files"), capture falls back to a broken path, and
+  # moonlight shows a black, artefacted picture rather than any error.
+  systemd.user.services.sunshine.serviceConfig.LimitNOFILE = 65536;
+
   services.sunshine = {
     enable = true;
     autoStart = true;
