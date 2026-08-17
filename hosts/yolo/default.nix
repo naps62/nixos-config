@@ -19,6 +19,9 @@
     ../common/features/home
   ];
 
+  # Hypervisor-side settings this host depends on are in ./PROXMOX.md —
+  # `vga: virtio-gl` in particular, without which sunshine captures a black
+  # screen and reports no error.
   networking.hostName = "yolo";
 
   # Lets the Proxmox host drive clean shutdowns/reboots and report the guest's
