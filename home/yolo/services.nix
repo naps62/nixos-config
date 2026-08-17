@@ -90,34 +90,6 @@ in
       Install.WantedBy = [ "default.target" ];
     };
 
-    "claude-rc@" = {
-      Unit = {
-        Description = "Claude Code Remote Control (/%I)";
-        Documentation = [ "https://code.claude.com/docs/en/remote-control" ];
-        After = [ "network-online.target" ];
-        Wants = [ "network-online.target" ];
-        StopWhenUnneeded = false;
-      };
-      Service = {
-        Type = "simple";
-        # Leading "-": a missing dir must not be fatal, or systemd fails with
-        # 200/CHDIR before claude-rc-run can report the friendlier exit 78.
-        WorkingDirectory = "-/%I";
-        ExecStart = "${claude-rc-run}/bin/claude-rc-run /%I";
-        Environment = [ "PATH=${toolPath}" ];
-        # `always`, not `on-failure`: a >10min outage times the session out and
-        # the process exits 0, which on-failure would not restart.
-        Restart = "always";
-        RestartSec = 15;
-        # 78 = dir gone; 200 = systemd CHDIR failure. Without these, a deleted
-        # project dir restart-loops every 15s forever.
-        RestartPreventExitStatus = "78 200";
-        StandardOutput = "append:%h/.local/state/claude-rc/%i.log";
-        StandardError = "inherit";
-      };
-      Install.WantedBy = [ "default.target" ];
-    };
-
     claude-rc-sync = {
       Unit.Description = "Reconcile Claude Remote Control servers with the project list";
       Service = {
@@ -181,6 +153,39 @@ in
       Install.WantedBy = [ "timers.target" ];
     };
   };
+
+  # A plain file, NOT systemd.user.services: home-manager tries to start every
+  # unit it manages, and starting a template without an instance is an error
+  # ("missing the instance name"). Instances are enabled by `claude-rc sync`,
+  # which needs the [Install] section below to exist.
+  xdg.configFile."systemd/user/claude-rc@.service".text = ''
+    [Unit]
+    Description=Claude Code Remote Control (/%I)
+    Documentation=https://code.claude.com/docs/en/remote-control
+    After=network-online.target
+    Wants=network-online.target
+    StopWhenUnneeded=no
+
+    [Service]
+    Type=simple
+    # Leading "-": a missing dir must not be fatal, or systemd fails with
+    # 200/CHDIR before claude-rc-run can report the friendlier exit 78.
+    WorkingDirectory=-/%I
+    Environment=PATH=${toolPath}
+    ExecStart=${claude-rc-run}/bin/claude-rc-run /%I
+    # `always`, not `on-failure`: a >10min outage times the session out and the
+    # process exits 0, which on-failure would not restart.
+    Restart=always
+    RestartSec=15
+    # 78 = dir gone; 200 = systemd CHDIR failure. Without these, a deleted
+    # project dir restart-loops every 15s forever.
+    RestartPreventExitStatus=78 200
+    StandardOutput=append:%h/.local/state/claude-rc/%i.log
+    StandardError=inherit
+
+    [Install]
+    WantedBy=default.target
+  '';
 
   systemd.user.paths.claude-rc = {
     Unit.Description = "Watch the Claude Remote Control project list for edits";
