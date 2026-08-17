@@ -2,10 +2,48 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
   cfg = config.custom.hyprland;
+
+  hyprPkgs = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+
+  # xdph runs this instead of hyprland-share-picker (screencopy:custom_picker_binary).
+  # The contract is just "print [SELECTION] to stdout"; a leading "r" grants a
+  # restore token. Printing it immediately means the dialog never renders.
+  #
+  # Why bypass the picker at all: Slack opens a burst of screencast sessions per
+  # share and only asks for persist_mode=1, so the leading sessions race ahead of
+  # their restore token and re-prompt. allow_token_by_default alone still left
+  # ~3 dialogs per share.
+  #
+  # Escape hatch: `touch ~/.config/hypr/share-picker-manual` to get the real
+  # picker back when you need a window or region instead of a whole screen.
+  #
+  # Deliberately NOT the focused monitor: at the moment you hit "share screen"
+  # the focus is on the Slack/Chrome window, which is generally not the screen
+  # you actually want to show. Auto-picking it would silently share the wrong
+  # display. shareOutput is pinned per-host instead.
+  sharePicker = pkgs.writeShellScriptBin "xdph-auto-picker" ''
+    realPicker="${hyprPkgs.xdg-desktop-portal-hyprland}/bin/hyprland-share-picker"
+
+    if [ -e "$HOME/.config/hypr/share-picker-manual" ]; then
+      exec "$realPicker" "$@"
+    fi
+
+    want=${lib.escapeShellArg (toString cfg.shareOutput)}
+
+    # Only auto-select if that output is actually connected right now; otherwise
+    # fall back to the picker rather than sharing something unexpected.
+    if ${hyprPkgs.hyprland}/bin/hyprctl monitors -j 2>/dev/null \
+      | ${pkgs.jq}/bin/jq -e --arg o "$want" 'any(.[]; .name == $o)' >/dev/null 2>&1; then
+      printf '[SELECTION]r/screen:%s\n' "$want"
+    else
+      exec "$realPicker" "$@"
+    fi
+  '';
 
   # Floating webcam preview for the "corner-cam" recording trick: run `webcam`,
   # then capture the whole screen with kooha/wf-recorder — the preview is in the
@@ -31,6 +69,16 @@ in
       type = lib.types.int;
       default = 24;
       description = "Cursor size for XCURSOR_SIZE and HYPRCURSOR_SIZE";
+    };
+    shareOutput = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "HDMI-A-1";
+      description = ''
+        Output that screen-sharing auto-selects, bypassing the xdph picker
+        entirely. null keeps the normal picker. Falls back to the picker if
+        the named output isn't currently connected.
+      '';
     };
   };
 
@@ -62,6 +110,22 @@ in
       # many GPU/driver combos; disable it on all hosts.
       WEBKIT_DISABLE_DMABUF_RENDERER = "1";
     };
+
+    # xdph's share-picker is stateless: the "Allow a restore token" checkbox
+    # starts unticked, so no app ever receives a token and every single share
+    # re-prompts (journal showed 0 "Sent restore token" in 30 days, always
+    # re-selecting the same output). This pre-ticks it, so OBS/Chrome/Slack get
+    # a token on first share and skip the dialog thereafter.
+    # Note: xdph.conf is still hyprlang — the 0.55 Lua switch only hit the
+    # compositor config, not this separate binary.
+    xdg.configFile."hypr/xdph.conf".text = ''
+      screencopy {
+          allow_token_by_default = true
+      ${lib.optionalString (
+        cfg.shareOutput != null
+      ) "    custom_picker_binary = ${sharePicker}/bin/xdph-auto-picker"}
+      }
+    '';
 
     wayland.windowManager.hyprland = {
       enable = true;
