@@ -10,4 +10,6 @@
   # aoe-with-web, not default: same single `aoe` binary plus the `serve`
   # subcommand (web dashboard). The default build has no `serve` at all.
   home.packages = [ inputs.agent-of-empires.packages.${pkgs.system}.aoe-with-web ];
+
+  home.shellAliases.a = "aoe";
 }
