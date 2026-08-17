@@ -56,7 +56,7 @@ in
       };
       Service = {
         Type = "simple";
-        WorkingDirectory = "%h/tea/yolo/rev";
+        WorkingDirectory = "%h/tea/rev";
         # nodejs_26, not pkgs.nodejs: rev's package.json sets engines >=26 and
         # the nixpkgs default is 24.
         ExecStart = "${pkgs.nodejs_26}/bin/node server/index.ts";
@@ -80,7 +80,7 @@ in
       };
       Service = {
         Type = "simple";
-        WorkingDirectory = "%h/tea/yolo/rev";
+        WorkingDirectory = "%h/tea/rev";
         ExecStart = "${pkgs.bun}/bin/bun scripts/deploy-webhook.ts";
         EnvironmentFile = "%h/.config/rev/deploy.env";
         Environment = [ "PATH=${toolPath}" ];
@@ -103,11 +103,11 @@ in
       Unit = {
         Description = "Start the Friday hour log in a tmux session";
         Documentation = [ "https://git.naps.pt/yolo/agent-skills" ];
-        ConditionPathIsDirectory = "%h/tea/yolo/agent-skills";
+        ConditionPathIsDirectory = "%h/tea/agent-skills";
       };
       Service = {
         Type = "oneshot";
-        ExecStart = "%h/tea/yolo/agent-skills/bin/hourlog-session.sh";
+        ExecStart = "%h/tea/agent-skills/bin/hourlog-session.sh";
         Environment = [ "PATH=${toolPath}" ];
         # This unit may be what starts the tmux server; the default cgroup kill
         # would take it back down as soon as ExecStart returns.
@@ -119,11 +119,11 @@ in
       Unit = {
         Description = "Start the weekly agent-skills review in a tmux session";
         Documentation = [ "https://git.naps.pt/yolo/agent-skills" ];
-        ConditionPathIsDirectory = "%h/tea/yolo/agent-skills";
+        ConditionPathIsDirectory = "%h/tea/agent-skills";
       };
       Service = {
         Type = "oneshot";
-        ExecStart = "%h/tea/yolo/agent-skills/bin/week-review-session.sh";
+        ExecStart = "%h/tea/agent-skills/bin/week-review-session.sh";
         Environment = [ "PATH=${toolPath}" ];
         KillMode = "process";
       };
