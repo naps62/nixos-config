@@ -16,7 +16,12 @@ _:
       # xdg-desktop-portal-hyprland implements no RemoteDesktop interface — the
       # probe then hangs forever instead of falling back, so sunshine never
       # binds its ports and the unit sits "active" doing nothing.
-      capture = "wlgrab";
+      #
+      # "wlr", not "wlgrab": wlgrab is the name this backend logs under, but it
+      # is not accepted as a value — sunshine rejects it with "Unable to
+      # initialize capture method", then still starts and binds its ports with
+      # no encoder, so the failure only shows up as a 503 in moonlight.
+      capture = "wlr";
 
       # The web UI is only reachable over the network here — there is no local
       # browser — and sunshine CSRF-rejects any origin but localhost unless it
