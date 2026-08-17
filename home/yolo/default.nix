@@ -15,6 +15,7 @@
     ../common/features/downloads-cleanup.nix
     ./monitors.nix
     ./services.nix
+    ./ssh.nix
   ];
 
   custom.hyprland.cursorSize = 32;
