@@ -3,6 +3,16 @@ _:
 # on the Ubuntu box.
 {
   programs.ssh.settings = {
+    # gpg-agent serves as the ssh agent here, and signing blocks forever on a
+    # pinentry prompt that has no TTY in headless/agent sessions — `ssh-add -l`
+    # works, but git push hangs right after "Server accepts key". The key file
+    # has no passphrase, so read it directly and skip the agent.
+    "github.com" = {
+      IdentityAgent = "none";
+      IdentitiesOnly = true;
+      IdentityFile = "~/.ssh/id_ed25519";
+    };
+
     "grafana" = {
       HostName = "10.6.10.30";
       User = "root";
