@@ -24,11 +24,6 @@
   # screen and reports no error.
   networking.hostName = "yolo";
 
-  # Lets the Proxmox host drive clean shutdowns/reboots and report the guest's
-  # IP. The qemu-guest profile in hardware-configuration.nix only sets up the
-  # virtio drivers; the agent itself is a separate service.
-  services.qemuGuest.enable = true;
-
   # Hung shutdown waiting on systemd-zram-setup@zram0: deactivating zram swap
   # has to fault every stored page back into RAM first. Redundant here anyway —
   # this VM has a real 8G swap partition, and the host manages its own memory.
@@ -54,35 +49,41 @@
   environment.systemPackages = [ pkgs.git ];
 
   # This clone lives under ~/tea, not the ~/projects path global/nix.nix assumes.
-  programs.nh.flake = lib.mkForce "/home/naps62/tea/nixos-config";
+  programs.nh.flake = "/home/naps62/tea/nixos-config";
 
-  # No physical seat: Sunshine is a user service and cannot capture until a
-  # graphical session exists, so a cold boot must reach one unattended. No
-  # hyprlock on start (unlike konishi) — nobody could type the password in.
-  services.displayManager = {
-    autoLogin = {
-      enable = true;
-      user = "naps62";
+  services = {
+    # Lets the Proxmox host drive clean shutdowns/reboots and report the guest's
+    # IP. The qemu-guest profile in hardware-configuration.nix only sets up the
+    # virtio drivers; the agent itself is a separate service.
+    qemuGuest.enable = true;
+
+    # No physical seat: Sunshine is a user service and cannot capture until a
+    # graphical session exists, so a cold boot must reach one unattended. No
+    # hyprlock on start (unlike konishi) — nobody could type the password in.
+    displayManager = {
+      autoLogin = {
+        enable = true;
+        user = "naps62";
+      };
+      defaultSession = "hyprland";
     };
-    defaultSession = "hyprland";
-  };
 
-  # A Proxmox guest has no emulated sound card, so PipeWire starts with no sink
-  # and Sunshine has nothing to capture — the stream is silent. This sink is the
-  # only one, so it wins the default and Sunshine records its monitor.
-  services.pipewire.extraConfig.pipewire."10-null-sink" = {
-    "context.objects" = [
-      {
-        factory = "adapter";
-        args = {
-          "factory.name" = "support.null-audio-sink";
-          "node.name" = "sunshine-sink";
-          "node.description" = "Sunshine";
-          "media.class" = "Audio/Sink";
-          "audio.position" = "FL,FR";
-        };
-      }
-    ];
+    # A Proxmox guest has no emulated sound card, so PipeWire starts with no
+    # sink and Sunshine has nothing to capture — the stream is silent. This sink
+    # is the only one, so it wins the default and Sunshine records its monitor.
+    pipewire.extraConfig.pipewire."10-null-sink" = {
+      "context.objects" = [
+        {
+          factory = "adapter";
+          args = {
+            "factory.name" = "support.null-audio-sink";
+            "node.name" = "sunshine-sink";
+            "node.description" = "Sunshine";
+            "media.class" = "Audio/Sink";
+            "audio.position" = "FL,FR";
+          };
+        }
+      ];
+    };
   };
-
 }

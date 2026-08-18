@@ -200,10 +200,6 @@
   "worktree": {
     "baseRef": "fresh"
   },
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.sh"
-  },
   "enabledPlugins": {
     "building@subvisual": true,
     "rust-analyzer-lsp@claude-plugins-official": false,
@@ -229,7 +225,6 @@
       }
     }
   },
-  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark",
   "editorMode": "vim",
@@ -237,7 +232,6 @@
   "autoCompactEnabled": true,
   "remoteControlAtStartup": false,
   "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": true,
   "mcpServers": {
     "playwright": {
       "args": [
@@ -247,5 +241,8 @@
       "command": "npx",
       "type": "stdio"
     }
+  },
+  "sandbox": {
+    "enabled": false
   }
 }

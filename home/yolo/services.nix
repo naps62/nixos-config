@@ -27,6 +27,10 @@ in
       Unit = {
         Description = "rev — always-on local code review server";
         After = [ "network.target" ];
+        # MUST stay 0: at RestartSec=2 a fast-crashing rev burns the default
+        # 5-starts-per-10s budget, and systemd parks the unit in `failed` until
+        # a manual `systemctl --user reset-failed`.
+        StartLimitIntervalSec = 0;
       };
       Service = {
         Type = "simple";
@@ -51,6 +55,8 @@ in
       Unit = {
         Description = "rev-deploy — Gitea webhook listener that deploys rev on push to main";
         After = [ "network.target" ];
+        # Same restart-budget trap as `rev` above.
+        StartLimitIntervalSec = 0;
       };
       Service = {
         Type = "simple";
@@ -118,7 +124,5 @@ in
       Install.WantedBy = [ "timers.target" ];
     };
   };
-
-
 
 }

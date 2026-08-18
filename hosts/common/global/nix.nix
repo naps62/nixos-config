@@ -38,7 +38,9 @@
   # no host arg. Runs as root, so its `clean` prunes system + user profiles.
   programs.nh = {
     enable = true;
-    flake = "/home/naps62/projects/nixos-config";
+    # mkDefault: hosts whose clone lives elsewhere (yolo, under ~/tea) override
+    # this with a plain assignment.
+    flake = lib.mkDefault "/home/naps62/projects/nixos-config";
     clean = {
       enable = true;
       extraArgs = "--keep 10 --keep-since 7d";

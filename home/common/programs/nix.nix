@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   imports = [
     # Prebuilt, weekly-updated nix-index database (backs `comma`).
@@ -13,7 +18,9 @@
   # `flake` sets NH_FLAKE so `nh home switch` finds this repo without --flake.
   programs.nh = {
     enable = true;
-    flake = "/home/naps62/projects/nixos-config";
+    # mkDefault: hosts whose clone lives elsewhere (yolo, under ~/tea) override
+    # this with a plain assignment.
+    flake = lib.mkDefault "/home/naps62/projects/nixos-config";
   };
 
   home.packages = with pkgs; [

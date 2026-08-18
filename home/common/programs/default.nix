@@ -30,7 +30,9 @@
   };
 
   home = {
-    mutableFilesRepoPath = "${config.home.homeDirectory}/projects/nixos-config";
+    # mkDefault: hosts whose clone lives elsewhere (yolo, under ~/tea) override
+    # this with a plain assignment.
+    mutableFilesRepoPath = lib.mkDefault "${config.home.homeDirectory}/projects/nixos-config";
 
     packages = with pkgs; [
       impala

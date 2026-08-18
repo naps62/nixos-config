@@ -3,6 +3,18 @@
   pkgs,
   ...
 }:
+let
+  claudeSettings = "home/yolo/claude-settings.json";
+
+  # ./claude-settings.json holds only what yolo overrides; everything else is
+  # inherited so common changes reach this host. Attrsets merge key-by-key,
+  # lists are replaced whole (permissions.allow is yolo's, not a union).
+  mergedClaudeSettings = (pkgs.formats.json { }).generate "claude-settings.json" (
+    lib.recursiveUpdate (lib.importJSON ../common/programs/claude/settings.json) (
+      lib.importJSON ./claude-settings.json
+    )
+  );
+in
 {
   imports = [
     ../common/programs/default.nix
@@ -19,25 +31,32 @@
 
   custom.hyprland.cursorSize = 32;
 
-  # Headless browser driver the agent tooling shells out to. Was a global npm
-  # install on the ubuntu box.
-  home.packages = [ pkgs.agent-browser ];
+  home = {
+    # Headless browser driver the agent tooling shells out to. Was a global npm
+    # install on the ubuntu box.
+    packages = [ pkgs.agent-browser ];
 
-  # Both default to ~/projects/nixos-config in common/programs; this clone lives
-  # under ~/tea. nh.flake sets NH_FLAKE, so without it `nh home switch` with no
-  # argument resolves to a path that does not exist.
-  home.mutableFilesRepoPath = lib.mkForce "/home/naps62/tea/nixos-config";
+    # Both default to ~/projects/nixos-config in common/programs; this clone
+    # lives under ~/tea. nh.flake sets NH_FLAKE, so without it `nh home switch`
+    # with no argument resolves to a path that does not exist.
+    mutableFilesRepoPath = "/home/naps62/tea/nixos-config";
 
-  # Host-local, not shared: this sets yolo_mode_default = true, which starts aoe
-  # sessions with permission checks skipped. Only correct on this box.
-  home.mutableFiles.".config/agent-of-empires/config.toml".source = ./aoe-config.toml;
+    mutableFiles = {
+      # Host-local, not shared: this sets yolo_mode_default = true, which starts
+      # aoe sessions with permission checks skipped. Only correct on this box.
+      ".config/agent-of-empires/config.toml".source = ./aoe-config.toml;
 
-  # Likewise host-local: carries skipDangerousModePermissionPrompt and the rev
-  # hook paths, neither of which belong on a workstation.
-  home.mutableFiles.".claude/settings.json".source = lib.mkForce ./claude-settings.json;
+      # Likewise host-local: carries skipDangerousModePermissionPrompt and the
+      # rev hook paths, neither of which belong on a workstation.
+      ".claude/settings.json" = {
+        source = lib.mkForce mergedClaudeSettings;
+        upstreamPath = claudeSettings;
+      };
+    };
+  };
 
   programs.agentSkills.machine = "yolo";
-  programs.nh.flake = lib.mkForce "/home/naps62/tea/nixos-config";
+  programs.nh.flake = "/home/naps62/tea/nixos-config";
 
   # Idle lock and dpms-off blank the virtual output: Sunshine then captures a
   # flat frame and Moonlight goes black, with no console to unlock from.

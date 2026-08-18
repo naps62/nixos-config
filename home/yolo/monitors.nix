@@ -1,5 +1,4 @@
-_:
-{
+_: {
   # Hyprland 0.55+ is Lua-only (see home/common/programs/hyprland).
   #
   # Matches every output rather than naming one: the virtio-gpu connector name

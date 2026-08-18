@@ -19,7 +19,11 @@ let
     let
       target = "${config.home.homeDirectory}/${name}";
       storePath = value.source;
-      originalPath = toRepoPath value.source;
+      # toRepoPath only works for sources that live in the flake tree. A
+      # generated source is not under flakePrefix, so removePrefix is a no-op
+      # and the hint would print a /nix/store path to copy back onto.
+      originalPath =
+        if value.upstreamPath != null then "${repoPath}/${value.upstreamPath}" else toRepoPath value.source;
     in
     ''
       if [ -f "${target}" ] && ! ${lib.getExe' pkgs.diffutils "diff"} -q "${storePath}" "${target}" > /dev/null 2>&1; then
@@ -66,6 +70,17 @@ in
             type = lib.types.bool;
             default = false;
             description = "Whether the file should be executable.";
+          };
+
+          upstreamPath = lib.mkOption {
+            type = lib.types.nullOr lib.types.str;
+            default = null;
+            example = "home/yolo/claude-settings.json";
+            description = ''
+              Repo-relative file to name in the "bring changes upstream" hint.
+              Required when `source` is generated rather than a file in the
+              flake tree, since the store path cannot be mapped back.
+            '';
           };
         };
       }
