@@ -15,6 +15,8 @@ let
   toolPath = "%h/.local/bin:%h/.nix-profile/bin:/etc/profiles/per-user/naps62/bin:/run/current-system/sw/bin";
 
   sem = inputs.sem.packages.${pkgs.system}.default;
+
+  aoe = inputs.agent-of-empires.packages.${pkgs.system}.aoe-with-web;
 in
 {
   home.packages = [
@@ -63,6 +65,27 @@ in
         WorkingDirectory = "%h/tea/rev";
         ExecStart = "${pkgs.bun}/bin/bun scripts/deploy-webhook.ts";
         EnvironmentFile = "%h/.config/rev/deploy.env";
+        Environment = [ "PATH=${toolPath}" ];
+        Restart = "always";
+        RestartSec = 2;
+      };
+      Install.WantedBy = [ "default.target" ];
+    };
+
+    aoe-web = {
+      Unit = {
+        Description = "aoe serve — Agent of Empires web dashboard";
+        After = [ "network.target" ];
+        # Same restart-budget trap as `rev` above.
+        StartLimitIntervalSec = 0;
+      };
+      Service = {
+        Type = "simple";
+        WorkingDirectory = "%h";
+        # aoe refuses `--auth none` on a non-loopback bind unless --behind-proxy
+        # is set; --allowed-host is what makes the rebinding gate accept a
+        # hostname under a wildcard bind (an IP literal needs no flag).
+        ExecStart = "${aoe}/bin/aoe serve --host 0.0.0.0 --port 8080 --auth none --behind-proxy --allowed-host aoe.n62.casa";
         Environment = [ "PATH=${toolPath}" ];
         Restart = "always";
         RestartSec = 2;
