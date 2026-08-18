@@ -17,6 +17,7 @@
     ../common/features/docker.nix
     ../common/features/appimage.nix
     ../common/features/fonts.nix
+    ../common/features/kdeconnect.nix
     ../common/features/nix-ld.nix
     ../common/features/bluetooth.nix
     ../common/features/ledger.nix

@@ -219,6 +219,9 @@ in
           hl.exec_cmd("hyprctl setcursor Nordzy-cursors ${toString cfg.cursorSize}")
           hl.exec_cmd("hyprsunset")
           hl.exec_cmd("noctalia")
+          -- kdeconnectd is only DBus-activated; nothing starts it at login,
+          -- so clipboard sync stays dead until the indicator runs.
+          hl.exec_cmd("kdeconnect-indicator")
         end)
 
         -- layer rules
