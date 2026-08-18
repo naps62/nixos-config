@@ -1,17 +1,19 @@
 { pkgs, config, ... }:
 let
+  cfg = config.custom.hyprland;
   nordzy-cursors = pkgs.callPackage ../../../../pkgs/nordzy-cursors/package.nix { };
-  cursorSize = config.custom.hyprland.cursorSize;
+  cursorPackage = if cfg.cursorPackage != null then cfg.cursorPackage else nordzy-cursors;
+  cursorSize = cfg.cursorSize;
 in
 {
   home.packages = [
-    nordzy-cursors
+    cursorPackage
   ];
 
   home.sessionVariables = {
-    HYPRCURSOR_THEME = "Nordzy-cursors";  # Dark variant (default)
+    HYPRCURSOR_THEME = cfg.cursorTheme.dark;
     HYPRCURSOR_SIZE = cursorSize;
-    XCURSOR_THEME = "Nordzy-cursors";
+    XCURSOR_THEME = cfg.cursorTheme.dark;
     XCURSOR_SIZE = cursorSize;
   };
 

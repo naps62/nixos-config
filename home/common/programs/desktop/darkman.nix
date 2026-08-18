@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
+let
+  inherit (config.custom.hyprland) cursorTheme cursorSize;
+in
 {
   home.packages = with pkgs; [
     dconf
@@ -15,14 +18,14 @@
       '';
       cursor-theme = ''
         ${pkgs.dconf}/bin/dconf write \
-        /org/gnome/desktop/interface/cursor-theme "'Nordzy-cursors'"
+        /org/gnome/desktop/interface/cursor-theme "'${cursorTheme.dark}'"
 
         # Set environment variables for current session
-        export HYPRCURSOR_THEME="Nordzy-cursors"
-        export XCURSOR_THEME="Nordzy-cursors"
+        export HYPRCURSOR_THEME="${cursorTheme.dark}"
+        export XCURSOR_THEME="${cursorTheme.dark}"
 
         # Update Hyprland cursor theme
-        ${pkgs.hyprland}/bin/hyprctl setcursor Nordzy-cursors 24
+        ${pkgs.hyprland}/bin/hyprctl setcursor ${cursorTheme.dark} ${toString cursorSize}
       '';
       noctalia-theme = ''
         noctalia msg theme-mode-set dark
@@ -37,14 +40,14 @@
       '';
       cursor-theme = ''
         ${pkgs.dconf}/bin/dconf write \
-        /org/gnome/desktop/interface/cursor-theme "'Nordzy-white'"
+        /org/gnome/desktop/interface/cursor-theme "'${cursorTheme.light}'"
 
         # Set environment variables for current session
-        export HYPRCURSOR_THEME="Nordzy-white"
-        export XCURSOR_THEME="Nordzy-white"
+        export HYPRCURSOR_THEME="${cursorTheme.light}"
+        export XCURSOR_THEME="${cursorTheme.light}"
 
         # Update Hyprland cursor theme
-        ${pkgs.hyprland}/bin/hyprctl setcursor Nordzy-white 24
+        ${pkgs.hyprland}/bin/hyprctl setcursor ${cursorTheme.light} ${toString cursorSize}
       '';
       noctalia-theme = ''
         noctalia msg theme-mode-set light

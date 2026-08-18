@@ -70,6 +70,26 @@ in
       default = 24;
       description = "Cursor size for XCURSOR_SIZE and HYPRCURSOR_SIZE";
     };
+    cursorPackage = lib.mkOption {
+      type = lib.types.nullOr lib.types.package;
+      default = null;
+      description = ''
+        Package providing cursorTheme.dark/light under share/icons. null uses
+        the nordzy-cursors package built in ./cursor.nix.
+      '';
+    };
+    cursorTheme = {
+      dark = lib.mkOption {
+        type = lib.types.str;
+        default = "Nordzy-cursors";
+        description = "Cursor theme darkman selects in dark mode.";
+      };
+      light = lib.mkOption {
+        type = lib.types.str;
+        default = "Nordzy-white";
+        description = "Cursor theme darkman selects in light mode.";
+      };
+    };
     shareOutput = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       default = null;
@@ -204,7 +224,7 @@ in
         -- environment
         hl.env("GDK_SCALE", "2.0")
         hl.env("XCURSOR_SIZE", "${toString cfg.cursorSize}")
-        hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
+        hl.env("HYPRCURSOR_THEME", "${cfg.cursorTheme.dark}")
         hl.env("HYPRCURSOR_SIZE", "${toString cfg.cursorSize}")
         -- Route Qt6 apps (incl. the xdph screen-share picker) through qt6ct so
         -- the noctalia-generated color scheme actually applies. Without this
@@ -216,7 +236,7 @@ in
           -- Import the Qt theme var too, so the dbus/systemd-activated
           -- xdg-desktop-portal-hyprland (and its share-picker) inherit it.
           hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME")
-          hl.exec_cmd("hyprctl setcursor Nordzy-cursors ${toString cfg.cursorSize}")
+          hl.exec_cmd("hyprctl setcursor ${cfg.cursorTheme.dark} ${toString cfg.cursorSize}")
           hl.exec_cmd("hyprsunset")
           hl.exec_cmd("noctalia")
           -- kdeconnectd is only DBus-activated; nothing starts it at login,

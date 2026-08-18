@@ -31,6 +31,15 @@ in
 
   custom.hyprland.cursorSize = 32;
 
+  # Amber, and a different silhouette to Nordzy — this desktop is only ever seen
+  # inside a Moonlight window, so the cursor has to be tellable at a glance from
+  # the client's own. Same theme in both modes; darkman would otherwise swap it.
+  custom.hyprland.cursorPackage = pkgs.bibata-cursors;
+  custom.hyprland.cursorTheme = {
+    dark = "Bibata-Modern-Amber";
+    light = "Bibata-Modern-Amber";
+  };
+
   home = {
     # Headless browser driver the agent tooling shells out to. Was a global npm
     # install on the ubuntu box.
