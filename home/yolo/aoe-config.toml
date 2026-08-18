@@ -79,7 +79,7 @@ prevent_sleep_when_active = false
 restart_wake_message = "wake up: pick up what you were doing"
 row_tag = "none"
 show_session_colors = true
-show_tips = true
+show_tips = false
 smart_rename = true
 smart_rename_agent = ""
 snooze_duration_minutes = 30
@@ -112,7 +112,7 @@ enabled = false
 [theme]
 color_mode = "truecolor"
 idle_decay_minutes = 0
-name = ""
+name = "zinc"
 
 [tmux]
 clipboard = "auto"
