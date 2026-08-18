@@ -1,27 +1,108 @@
 { pkgs, ... }:
 let
   clip2path = pkgs.writeShellScript "clip2path" ''
-    set -e
+    set -euo pipefail
 
-    if [ -n "$WAYLAND_DISPLAY" ]; then
-      types=$(wl-paste --list-types)
-      if grep -q '^image/' <<<"$types"; then
-        ext=$(grep -m1 '^image/' <<<"$types" | cut -d/ -f2 | cut -d';' -f1)
-        file="/tmp/clip_$(date +%s).''${ext}"
-        wl-paste --type "image/''${ext}" > "$file"
-        printf '%q' "$file" | kitty @ send-text --stdin
+    jq=${pkgs.jq}/bin/jq
+    scp=${pkgs.openssh}/bin/scp
+    wlpaste=${pkgs.wl-clipboard}/bin/wl-paste
+    xclip=${pkgs.xclip}/bin/xclip
+    find=${pkgs.findutils}/bin/find
+
+    # kitty/kitten stay unpinned: remote control has to reach the running
+    # instance, whose build may differ from pkgs.kitty.
+
+    "$find" /tmp -maxdepth 1 -name 'clip_*' -mtime +1 -delete 2>/dev/null || true
+
+    # Some apps advertise a lossy format before image/png.
+    pick_type() {
+      if grep -qx 'image/png' <<<"$1"; then
+        echo image/png
       else
-        wl-paste --no-newline | kitty @ send-text --stdin
+        grep -m1 '^image/' <<<"$1" | cut -d';' -f1
       fi
-    elif [ -n "$DISPLAY" ]; then
-      types=$(xclip -selection clipboard -t TARGETS -o)
-      if grep -q '^image/' <<<"$types"; then
-        ext=$(grep -m1 '^image/' <<<"$types" | cut -d/ -f2 | cut -d';' -f1)
-        file="/tmp/clip_$(date +%s).''${ext}"
-        xclip -selection clipboard -t "image/''${ext}" -o > "$file"
-        printf '%q' "$file" | kitty @ send-text --stdin
+    }
+
+    ext_of() {
+      local e=''${1#image/}
+      e=''${e%%+*}
+      e=''${e#x-}
+      tr -cd 'a-zA-Z0-9' <<<"$e"
+    }
+
+    # Destination of the ssh client running in the focused window, empty if
+    # that window is local. Prefers the real ssh process over the `kitten ssh`
+    # wrapper, whose own long options would confuse the parser below.
+    ssh_dest() {
+      local -a argv
+      mapfile -t argv < <(kitty @ ls | "$jq" -r '
+        [ .[] | select(.is_focused)
+          | .tabs[] | select(.is_focused)
+          | .windows[] | select(.is_focused)
+          | .foreground_processes[]?
+          | { b: ((.cmdline[0] // "") | split("/") | last), c: .cmdline }
+        ] as $p
+        | ( [ $p[] | select(.b == "ssh") ] + [ $p[] | select(.b == "kitten") ] )
+        | (.[0].c // [])[]')
+
+      [ ''${#argv[@]} -gt 0 ] || return 0
+      if [ "''${argv[0]##*/}" = kitten ]; then
+        [ "''${argv[1]:-}" = ssh ] || return 0
+        argv=("''${argv[@]:2}")
       else
-        xclip -selection clipboard -o | kitty @ send-text --stdin
+        argv=("''${argv[@]:1}")
+      fi
+
+      local valueflags=bcDEeFIiJLlmOopQRSWw a
+      while [ ''${#argv[@]} -gt 0 ]; do
+        a=''${argv[0]}
+        case "$a" in
+          --) echo "''${argv[1]:-}"; return 0 ;;
+          -?)
+            case "$valueflags" in *"''${a#-}"*) argv=("''${argv[@]:1}") ;; esac
+            argv=("''${argv[@]:1}")
+            ;;
+          -*) argv=("''${argv[@]:1}") ;;
+          *) echo "$a"; return 0 ;;
+        esac
+      done
+    }
+
+    send_path() {
+      local file=$1 dest remote
+      dest=$(ssh_dest)
+      if [ -n "$dest" ]; then
+        remote=/tmp/''${file##*/}
+        if ! "$scp" -q -o BatchMode=yes -o ConnectTimeout=5 "$file" "$dest:$remote"; then
+          kitten notify --app-name clip2path clip2path "copy to $dest failed, nothing pasted"
+          return 1
+        fi
+        file=$remote
+      fi
+      printf '%q' "$file" | kitty @ send-text --stdin
+    }
+
+    # Text goes through the real paste action. send-text has no bracketed
+    # paste, so multi-line text would run line by line in a shell.
+    if [ -n "''${WAYLAND_DISPLAY:-}" ]; then
+      types=$("$wlpaste" --list-types)
+      if grep -q '^image/' <<<"$types"; then
+        type=$(pick_type "$types")
+        file=$(mktemp --suffix=".$(ext_of "$type")" /tmp/clip_XXXXXXXX)
+        "$wlpaste" --type "$type" > "$file"
+        send_path "$file"
+      else
+        kitty @ action paste_from_clipboard
+      fi
+    elif [ -n "''${DISPLAY:-}" ]; then
+      types=$("$xclip" -selection clipboard -t TARGETS -o)
+      if grep -q '^image/' <<<"$types"; then
+        type=$(pick_type "$types")
+        file=$(mktemp --suffix=".$(ext_of "$type")" /tmp/clip_XXXXXXXX)
+        "$xclip" -selection clipboard -t "$type" -o > "$file"
+        send_path "$file"
+      else
+        kitty @ action paste_from_clipboard
       fi
     fi
   '';
