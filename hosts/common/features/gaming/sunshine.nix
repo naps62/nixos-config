@@ -47,6 +47,11 @@
   # the module's own systemd.user.services.sunshine definition.
   systemd.user.services.sunshine.environment.LD_LIBRARY_PATH = "/run/opengl-driver/lib";
 
+  # hardware.uinput (pulled in by services.sunshine) makes /dev/uinput
+  # root:uinput 0660 and adds nobody to the group, so sunshine's virtual mouse
+  # and keyboard die with "Permission denied" and the stream takes no input.
+  users.groups.uinput.members = [ "naps62" ];
+
   # DualSense/DualShock emulation. Sunshine presents a *real* PS5 HID (touchpad,
   # motion, LEDs, rumble) via /dev/uhid, not plain uinput — a uinput pad can't
   # carry those features. The kernel uhid node is root-only (0600) with no udev

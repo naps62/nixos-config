@@ -11,6 +11,11 @@ _:
   # moonlight shows a black, artefacted picture rather than any error.
   systemd.user.services.sunshine.serviceConfig.LimitNOFILE = 65536;
 
+  # hardware.uinput (pulled in by services.sunshine) makes /dev/uinput
+  # root:uinput 0660 and adds nobody to the group, so sunshine's virtual mouse
+  # and keyboard die with "Permission denied" and the stream takes no input.
+  users.groups.uinput.members = [ "naps62" ];
+
   services.sunshine = {
     enable = true;
     autoStart = true;
