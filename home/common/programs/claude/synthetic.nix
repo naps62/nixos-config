@@ -13,7 +13,10 @@ let
   # docs move under you whenever they rotate what "large" means.
   kimi = "hf:moonshotai/Kimi-K3";
   glm = "hf:zai-org/GLM-5.2";
-  qwen = "hf:Qwen/Qwen3.6-27B";
+
+  # Not Qwen3.6-27B for the haiku slot: its chat template rejects Claude Code's
+  # multi-block system prompt with "System message must be at the beginning."
+  glmFlash = "hf:zai-org/GLM-4.7-Flash";
 in
 {
   home.packages = [
@@ -37,7 +40,7 @@ in
       export ANTHROPIC_AUTH_TOKEN="$SYNTHETIC_API_KEY"
       export ANTHROPIC_DEFAULT_OPUS_MODEL="${kimi}"
       export ANTHROPIC_DEFAULT_SONNET_MODEL="${glm}"
-      export ANTHROPIC_DEFAULT_HAIKU_MODEL="${qwen}"
+      export ANTHROPIC_DEFAULT_HAIKU_MODEL="${glmFlash}"
       export CLAUDE_CODE_SUBAGENT_MODEL="${glm}"
       export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
       export CLAUDE_CODE_ATTRIBUTION_HEADER=0
@@ -47,18 +50,27 @@ in
       # Synthetic.
       unset ANTHROPIC_MODEL ANTHROPIC_API_KEY
 
+      # These two dokploy tools spell ttl's bound `"exclusiveMinimum": true`,
+      # which is draft-04. Synthetic validates against draft-2020, where the key
+      # must be a number, and rejects the whole request — a bare 500 with no body
+      # when streaming. Every session fails, not just ones that call these.
+      broken_tools=(
+        mcp__dokploy__dnsProvider-createRecord
+        mcp__dokploy__dnsProvider-updateRecord
+      )
+
       # ~/.claude/settings.json pins model "opus[1m]". The [1m] context-window
       # suffix survives alias resolution and reaches Synthetic as part of the id,
       # which 404s there — so pick the alias explicitly unless the caller did.
       for arg in "$@"; do
         case "$arg" in
         --model | --model=*)
-          exec ${claude}/bin/claude "$@"
+          exec ${claude}/bin/claude --disallowedTools "''${broken_tools[@]}" "$@"
           ;;
         esac
       done
 
-      exec ${claude}/bin/claude --model sonnet "$@"
+      exec ${claude}/bin/claude --model sonnet --disallowedTools "''${broken_tools[@]}" "$@"
     '')
   ];
 }
