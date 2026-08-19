@@ -10,6 +10,8 @@ let
 
   hyprPkgs = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
 
+  osd = "${pkgs.swayosd}/bin/swayosd-client";
+
   # xdph runs this instead of hyprland-share-picker (screencopy:custom_picker_binary).
   # The contract is just "print [SELECTION] to stdout"; a leading "r" grants a
   # restore token. Printing it immediately means the dialog never renders.
@@ -365,18 +367,21 @@ in
           hl.dispatch(hl.dsp.window.center())
         end)
 
-        -- volume / brightness (locked so they work on the lock screen; repeat on hold)
-        hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
-        hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
-        hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"), { locked = true, repeating = true })
-        hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { locked = true, repeating = true })
+        -- volume / brightness / media (locked so they work on the lock screen;
+        -- volume and brightness repeat on hold). Everything goes through
+        -- swayosd-client, which applies the change and draws the OSD popup;
+        -- store paths because Hyprland execs these with the login PATH, which
+        -- doesn't pick up profile changes made after the session started.
+        hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("${osd} --output-volume raise"), { locked = true, repeating = true })
+        hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("${osd} --output-volume lower"), { locked = true, repeating = true })
+        hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("${osd} --brightness raise"), { locked = true, repeating = true })
+        hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("${osd} --brightness lower"), { locked = true, repeating = true })
 
-        -- media keys (locked)
-        hl.bind("XF86AudioMute", hl.dsp.exec_cmd("pactl set-sink-mute @DEFAULT_SINK@ toggle"), { locked = true })
-        hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("volumectl -m toggle-mute"), { locked = true })
-        hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-        hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
-        hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+        hl.bind("XF86AudioMute", hl.dsp.exec_cmd("${osd} --output-volume mute-toggle"), { locked = true })
+        hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("${osd} --input-volume mute-toggle"), { locked = true })
+        hl.bind("XF86AudioNext", hl.dsp.exec_cmd("${osd} --playerctl next"), { locked = true })
+        hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("${osd} --playerctl prev"), { locked = true })
+        hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("${osd} --playerctl play-pause"), { locked = true })
 
         -- move/resize windows with mod + LMB/RMB drag
         hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })

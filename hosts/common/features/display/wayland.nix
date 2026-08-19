@@ -10,6 +10,13 @@
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
 
+  # swayosd (the volume/brightness OSD, configured in home) writes
+  # /sys/class/backlight/*/brightness directly. The package ships a udev rule
+  # that chgrps those files to `video`; without both the rule and the group,
+  # brightness keys pop the OSD but change nothing.
+  services.udev.packages = [ pkgs.swayosd ];
+  users.users.naps62.extraGroups = [ "video" ];
+
   # GTK/GNOME services still useful on Wayland
   programs.dconf.enable = true;
 
