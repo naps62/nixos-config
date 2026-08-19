@@ -90,11 +90,9 @@ unread_indicator = true
 yolo_mode_default = true
 
 [session.agent_detect_as]
-kimiclaude = "claude"
 synclaude = "claude"
 
 [session.custom_agents]
-kimiclaude = "kimiclaude"
 synclaude = "synclaude"
 
 [skills]
