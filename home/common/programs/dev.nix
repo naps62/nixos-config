@@ -5,6 +5,7 @@
 {
   imports = [
     ./codex.nix
+    ./pi.nix
     ./ralph-claude-code.nix
     ./t3-code.nix
   ];
