@@ -12,7 +12,10 @@ let
   };
 in
 {
-  imports = [ inputs.agent-skills.homeModules.default ];
+  imports = [
+    inputs.agent-skills.homeModules.default
+    ./synthetic.nix
+  ];
 
   # Shared UI-scale knob for the Electron AI desktop apps (Claude Desktop, T3 Code).
   # Set per-host (e.g. konishi's 4K@1x monitors want ~"1.5"); null = native scale.
