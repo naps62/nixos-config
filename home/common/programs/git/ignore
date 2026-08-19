@@ -19,6 +19,9 @@ tmp/**/*
 *.log
 *.tmp
 
+# Local git worktree checkouts
+worktrees/
+
 # Latex
 _inputs.tex
 _sections.tex
