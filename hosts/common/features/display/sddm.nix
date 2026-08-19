@@ -1,7 +1,4 @@
 { pkgs, ... }:
-let
-  sddm-noctalia-theme = pkgs.callPackage ../../../../pkgs/sddm-noctalia-theme/package.nix { };
-in
 {
   services.xserver = {
     enable = true;
@@ -15,7 +12,7 @@ in
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
-    theme = "sddm-noctalia";
+    theme = "sddm-astronaut-theme";
     package = pkgs.kdePackages.sddm;
     extraPackages = with pkgs.kdePackages; [
       qtmultimedia
@@ -26,6 +23,6 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    sddm-noctalia-theme
+    sddm-astronaut
   ];
 }
