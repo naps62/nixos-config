@@ -49,8 +49,11 @@
       url = "https://github.com/hyprwm/Hyprland";
       submodules = true;
     };
+    # Pinned to a rev: noctalia publishes no binary cache, so every bump means
+    # building the Qt/QML app locally. quickshell itself comes from nixpkgs and
+    # is cached, so the follows stays. Bump deliberately, not via `flake update`.
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      url = "github:noctalia-dev/noctalia-shell/aded31799eb0dffdbcf436243083f1ebce26f95d";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     spicetify-nix = {
