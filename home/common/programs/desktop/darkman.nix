@@ -27,9 +27,6 @@ in
         # Update Hyprland cursor theme
         ${pkgs.hyprland}/bin/hyprctl setcursor ${cursorTheme.dark} ${toString cursorSize}
       '';
-      noctalia-theme = ''
-        noctalia msg theme-mode-set dark
-      '';
     };
     lightModeScripts = {
       gtk-theme = ''
@@ -48,9 +45,6 @@ in
 
         # Update Hyprland cursor theme
         ${pkgs.hyprland}/bin/hyprctl setcursor ${cursorTheme.light} ${toString cursorSize}
-      '';
-      noctalia-theme = ''
-        noctalia msg theme-mode-set light
       '';
     };
   };

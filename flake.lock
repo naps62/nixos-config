@@ -910,27 +910,6 @@
         "type": "github"
       }
     },
-    "noctalia": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1785335804,
-        "narHash": "sha256-oN3I6Kr71lOCE3/ou4GgY2cQYh4B6xQxZXzomFgYn0s=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "rev": "aded31799eb0dffdbcf436243083f1ebce26f95d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "rev": "aded31799eb0dffdbcf436243083f1ebce26f95d",
-        "type": "github"
-      }
-    },
     "nvchad-starter": {
       "flake": false,
       "locked": {
@@ -1006,7 +985,6 @@
         "hyprland": "hyprland",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_6",
-        "noctalia": "noctalia",
         "nvchad-starter": "nvchad-starter",
         "nvchad4nix": "nvchad4nix",
         "rose-pine-hyprcursor": "rose-pine-hyprcursor",

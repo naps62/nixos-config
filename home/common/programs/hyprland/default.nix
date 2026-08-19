@@ -90,6 +90,21 @@ in
         description = "Cursor theme darkman selects in light mode.";
       };
     };
+    panelScale = lib.mkOption {
+      type = lib.types.float;
+      default = 1.0;
+      example = 1.5;
+      description = "Multiplier for every length in the eww dashboard stylesheet.";
+    };
+    verticalOutputs = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      example = [ "DP-2" ];
+      description = ''
+        Outputs that get the portrait wallpaper set. Everything else gets the
+        landscape one.
+      '';
+    };
     shareOutput = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       default = null;
@@ -104,8 +119,9 @@ in
 
   imports = [
     ./cursor.nix
+    ./eww
     ./kbptr.nix
-    ./noctalia
+    ./shell.nix
     ./wallpapers.nix
   ];
 
@@ -227,8 +243,8 @@ in
         hl.env("HYPRCURSOR_THEME", "${cfg.cursorTheme.dark}")
         hl.env("HYPRCURSOR_SIZE", "${toString cfg.cursorSize}")
         -- Route Qt6 apps (incl. the xdph screen-share picker) through qt6ct so
-        -- the noctalia-generated color scheme actually applies. Without this
-        -- var the qt6ct.conf is never read.
+        -- the dark color scheme actually applies. Without this var the
+        -- qt6ct.conf is never read.
         hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
         -- autostart
@@ -238,14 +254,15 @@ in
           hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME")
           hl.exec_cmd("hyprctl setcursor ${cfg.cursorTheme.dark} ${toString cfg.cursorSize}")
           hl.exec_cmd("hyprsunset")
-          hl.exec_cmd("noctalia")
+          -- eww, wpaperd, mako and the polkit agent are systemd user services
+          -- bound to graphical-session.target; nothing to start here.
           -- kdeconnectd is only DBus-activated; nothing starts it at login,
           -- so clipboard sync stays dead until the indicator runs.
           hl.exec_cmd("kdeconnect-indicator")
         end)
 
         -- layer rules
-        hl.layer_rule({ match = { namespace = "noctalia-wallpaper" }, blur = true, ignore_alpha = 0.5 })
+        hl.layer_rule({ match = { namespace = "eww-panel" }, blur = true, ignore_alpha = 0.5 })
 
         -- workspace rules
         hl.workspace_rule({ workspace = "w[t1]", gaps_out = 0, gaps_in = 0 })   -- no gaps when only window
@@ -273,7 +290,11 @@ in
         })
 
         hl.window_rule({ match = { class = "thunar" }, float = true, size = "1800 1200", move = "(cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))" })
-        hl.window_rule({ match = { class = [[\.blueman-manager-wrapped]] }, float = true, size = "1200 800", move = "(cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))" })
+        -- nixpkgs wraps blueman with --inherit-argv0, so the class is
+        -- blueman-manager, not the .blueman-manager-wrapped the old rule expected.
+        hl.window_rule({ match = { class = [[.*[Bb]lueman.*]] }, float = true, size = "1200 800", move = "(cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))" })
+        hl.window_rule({ match = { class = "nm-connection-editor" }, float = true, size = "1200 800", move = "(cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))" })
+        hl.window_rule({ match = { class = "waypaper" }, float = true, size = "1600 1000", move = "(cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))" })
         hl.window_rule({ match = { class = [[org\.pulseaudio\.pavucontrol]] }, float = true, size = "1200 1200", move = "(cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))" })
 
         -- wine / game installers (Inno Setup temp windows, e.g. Heroic/GOG).
@@ -296,7 +317,7 @@ in
         hl.window_rule({ match = { workspace = "special:yazi" }, center = true })
 
         -- keybinds
-        hl.bind(mod .. " + N", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"))
+        hl.bind(mod .. " + N", hl.dsp.exec_cmd("eww-panel"))
         hl.bind(mod .. " + T", hl.dsp.exec_cmd("kitty"))
         hl.bind(mod .. " + V", hl.dsp.window.float({ action = "toggle" }))
         hl.bind(mod .. " + Q", hl.dsp.window.close())
@@ -306,7 +327,7 @@ in
         -- lock (routes through logind -> hypridle lock_cmd -> hyprlock)
         hl.bind(mod .. " + CTRL + L", hl.dsp.exec_cmd("loginctl lock-session"))
 
-        hl.bind(mod .. " + space", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
+        hl.bind(mod .. " + space", hl.dsp.exec_cmd("fuzzel"))
 
         -- printscreen
         hl.bind("Print", hl.dsp.exec_cmd("hyprshot -m region --raw | satty --filename - --output-filename ~/downloads/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"))
@@ -365,10 +386,9 @@ in
 
     services.hyprpaper.enable = false;
 
-    # hyprlock: the lock screen, replacing noctalia's built-in locker (which is
-    # ugly and — unlike hyprlock — opaque to scripts/lock-state detection).
-    # Clean minimal dark look; tweak colours/clock/font to taste. hypridle below
-    # drives it (idle + before-sleep), and $mod CTRL+L locks manually.
+    # hyprlock: the lock screen. Clean minimal dark look; tweak colours/clock/
+    # font to taste. hypridle below drives it (idle + before-sleep), and
+    # $mod CTRL+L locks manually.
     programs.hyprlock = {
       enable = true;
       settings = {
