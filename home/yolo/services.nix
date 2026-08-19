@@ -113,8 +113,13 @@ in
         WorkingDirectory = "%h";
         ExecStart = "${pkgs.bun}/bin/bun %h/tea/agent-skills/bin/reviewer-poll.ts";
         EnvironmentFile = "%h/.config/reviewer/env";
-        # aoe and git come from the profile dirs, not from a user unit's default PATH.
-        Environment = [ "PATH=${toolPath}" ];
+        # aoe and git come from the profile dirs, not from a user unit's default
+        # PATH. TMUX_TMPDIR keeps the sessions it starts on the same tmux server
+        # the shell and TUI use, instead of a second one under /tmp.
+        Environment = [
+          "PATH=${toolPath}"
+          "TMUX_TMPDIR=%t"
+        ];
         Restart = "always";
         RestartSec = 5;
         # The agent tmux sessions this daemon starts land in its cgroup, so the
