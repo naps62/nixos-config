@@ -64,7 +64,14 @@ in
     };
   };
 
-  programs.agentSkills.machine = "yolo";
+  # This is the one box that runs the agent-skills units; each starts a session,
+  # so a second machine enabling them would run the same job twice.
+  programs.agentSkills = {
+    machine = "yolo";
+    prDaemon.enable = true;
+    hourlog.enable = true;
+    weekReview.enable = true;
+  };
   programs.nh.flake = "/home/naps62/tea/nixos-config";
 
   # Idle lock and dpms-off blank the virtual output: Sunshine then captures a
