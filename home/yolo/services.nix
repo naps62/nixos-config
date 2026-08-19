@@ -93,6 +93,34 @@ in
       Install.WantedBy = [ "default.target" ];
     };
 
+    pr-daemon = {
+      Unit = {
+        Description = "pr-daemon — watches GitHub/Gitea PRs and routes them to aoe sessions";
+        Documentation = [ "https://git.naps.pt/yolo/agent-skills" ];
+        After = [ "network.target" ];
+        # Both are required and neither is in the nix store: the config names
+        # the repos, the env file holds the read-only forge tokens. Missing
+        # config would crash-loop against Restart=always.
+        ConditionPathExists = [
+          "%h/.config/reviewer/config.json"
+          "%h/.config/reviewer/env"
+        ];
+        # Same restart-budget trap as `rev` above.
+        StartLimitIntervalSec = 0;
+      };
+      Service = {
+        Type = "simple";
+        WorkingDirectory = "%h";
+        ExecStart = "${pkgs.bun}/bin/bun %h/tea/agent-skills/bin/reviewer-poll.ts";
+        EnvironmentFile = "%h/.config/reviewer/env";
+        # aoe and git come from the profile dirs, not from a user unit's default PATH.
+        Environment = [ "PATH=${toolPath}" ];
+        Restart = "always";
+        RestartSec = 5;
+      };
+      Install.WantedBy = [ "default.target" ];
+    };
+
     hourlog = {
       Unit = {
         Description = "Start the Friday hour log in a tmux session";
