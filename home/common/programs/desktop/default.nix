@@ -4,52 +4,28 @@
   ...
 }:
 {
-  imports = [
-    ./darkman.nix
-    ./spicetify.nix
-  ];
+  imports = [ ./darkman.nix ];
 
   home = {
     packages = with pkgs; [
       # various
       google-chrome
       thunar
-      obsidian
       mpv
-      # screen recording — evaluating these
-      obs-studio
-      kooha # simple Wayland-native screen+audio recorder
-      vokoscreen-ng # GUI recorder with webcam overlay
-      gimp
-      font-manager
       imv
       pavucontrol
       zathura
       libsForQt5.qt5ct
       kdePackages.qt6ct
       nwg-look
-      xournalpp
       jq
       ffmpeg
       unzip
-
-      # remote desktop
-      remmina
 
       # networking
       networkmanagerapplet
       mtr
       dnsutils
-
-      # communication
-      slack
-      ferdium
-      signal-desktop
-      zoom-us
-
-      # dev tools
-      yaak
-      bun
 
       # themes
       tela-icon-theme

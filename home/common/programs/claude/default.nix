@@ -1,16 +1,9 @@
 {
-  config,
   pkgs,
   inputs,
   lib,
   ...
 }:
-let
-  # Official Anthropic Claude desktop app (Linux build, x86_64 only).
-  claude-desktop = pkgs.callPackage ../../../../pkgs/claude-desktop/package.nix {
-    inherit (config.custom.aiApps) deviceScaleFactor;
-  };
-in
 {
   imports = [
     inputs.agent-skills.homeModules.default
@@ -27,34 +20,26 @@ in
   };
 
   config.home = {
-    packages =
-      with pkgs;
-      [
-        inputs.claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
+    packages = with pkgs; [
+      inputs.claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-        # sandbox
-        bubblewrap
-        socat
-        libseccomp
+      # sandbox
+      bubblewrap
+      socat
+      libseccomp
 
-        # voice
-        sox
+      # voice
+      sox
 
-        # beads
-        dolt
-      ]
-      ++ lib.optional pkgs.stdenv.hostPlatform.isx86_64 claude-desktop;
+      # beads
+      dolt
+    ];
 
     file = {
       ".default-npm-packages".text = ''
         @anthropic-ai/sandbox-runtime
         @beads/bd
       '';
-
-
-
-
-
 
       ".claude/statusline.sh" = {
         source = ./statusline.sh;

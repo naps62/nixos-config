@@ -5,6 +5,10 @@
   imports = [
     ../common/programs/default.nix
     ../common/programs/desktop
+    ../common/programs/workstation-apps.nix
+    ../common/programs/editors.nix
+    ../common/programs/dev-workstation.nix
+    ../common/programs/ai-gui.nix
     ../common/programs/zen-browser.nix
     ../common/programs/hyprland
     ../common/programs/kitty

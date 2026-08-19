@@ -7,7 +7,6 @@
     ./codex.nix
     ./pi.nix
     ./ralph-claude-code.nix
-    ./t3-code.nix
   ];
 
   programs = {
@@ -26,19 +25,12 @@
 
   home.packages = with pkgs; [
     imagemagick
-    doctl
-    awscli2
-    terraform
     inotify-tools
     devenv
-    bruno
     sshfs
-    coturn
     file
-    usbutils
     nmap
     lsof
-    ktlint
     croc
     opencode
     process-compose

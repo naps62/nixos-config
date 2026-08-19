@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
@@ -10,7 +9,6 @@
     ./zsh.nix
     ./nix.nix
     ./neovim
-    ./editors.nix
     ./rust.nix
     ./elixir.nix
     ./nodejs.nix
@@ -33,10 +31,6 @@
     # mkDefault: hosts whose clone lives elsewhere (yolo, under ~/tea) override
     # this with a plain assignment.
     mutableFilesRepoPath = lib.mkDefault "${config.home.homeDirectory}/projects/nixos-config";
-
-    packages = with pkgs; [
-      impala
-    ];
 
     username = lib.mkDefault "naps62";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
