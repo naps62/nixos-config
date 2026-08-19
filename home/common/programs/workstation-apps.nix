@@ -12,7 +12,6 @@
     xournalpp
     remmina
     slack
-    ferdium
     signal-desktop
     zoom-us
     yaak
