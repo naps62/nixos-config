@@ -1,11 +1,12 @@
 _:
 {
+  # Global rules (opencode/AGENTS.md) and the shared commands (merge, update)
+  # come from the agent-skills home-manager module — opencode has no @file
+  # imports, so the module concatenates the shared fragments into one file.
+  # opencode also auto-loads skills from ~/.claude/skills and ~/.agents/skills.
   xdg.configFile = {
     # Global config file
     "opencode/opencode.json".source = ./opencode.json;
-
-    # Global rules (equivalent to ~/.claude/CLAUDE.md)
-    "opencode/AGENTS.md".source = ./AGENTS.md;
 
     # Custom agents
     "opencode/agents/oracle.md".source = ./agents/oracle.md;
@@ -16,10 +17,8 @@ _:
     "opencode/agents/designer-bold.md".source = ./agents/designer-bold.md;
     "opencode/agents/analyze-branch.md".source = ./agents/analyze-branch.md;
 
-    # Global commands
+    # Global commands (opencode-specific ones only)
     "opencode/commands/work.md".source = ./commands/work.md;
-    "opencode/commands/merge.md".source = ./commands/merge.md;
-    "opencode/commands/update.md".source = ./commands/update.md;
     "opencode/commands/smart-debug.md".source = ./commands/smart-debug.md;
     "opencode/commands/tdd-cycle.md".source = ./commands/tdd-cycle.md;
     "opencode/commands/security-scan.md".source = ./commands/security-scan.md;
