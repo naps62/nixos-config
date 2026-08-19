@@ -117,6 +117,9 @@ in
         Environment = [ "PATH=${toolPath}" ];
         Restart = "always";
         RestartSec = 5;
+        # The agent tmux sessions this daemon starts land in its cgroup, so the
+        # default control-group kill takes every running agent down with it.
+        KillMode = "process";
       };
       Install.WantedBy = [ "default.target" ];
     };
