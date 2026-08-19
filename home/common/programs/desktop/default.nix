@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
@@ -83,36 +82,36 @@
   };
 
   xdg.configFile = {
-    # zathura: include noctalia-generated theme
     "zathura/zathurarc".text = ''
-      include noctaliarc
+      set default-bg "#2e3440"
+      set default-fg "#eceff4"
+      set statusbar-bg "#3b4252"
+      set statusbar-fg "#eceff4"
+      set inputbar-bg "#3b4252"
+      set inputbar-fg "#eceff4"
+      set highlight-color "#ebcb8b"
+      set highlight-active-color "#88c0d0"
+      set recolor-lightcolor "#2e3440"
+      set recolor-darkcolor "#eceff4"
     '';
 
-    # gtk: include noctalia-generated css (mkForce to override gtk module)
-    "gtk-3.0/gtk.css".text = lib.mkForce ''
-      @import url("noctalia.css");
-    '';
-    "gtk-4.0/gtk.css".text = lib.mkForce ''
-      @import url("noctalia.css");
-    '';
-
-    # qt: use noctalia color scheme. Applied via QT_QPA_PLATFORMTHEME=qt6ct,
-    # set in the Hyprland env block (and imported into the dbus activation
-    # environment so the xdph screen-share picker inherits it too).
-    # custom_palette=true is required for qt5ct/qt6ct to actually apply the
-    # color scheme; Fusion is used because it fully honors a custom palette
-    # (Breeze/native styles partly ignore it).
+    # qt: dark color scheme shipped by qt5ct/qt6ct themselves. Applied via
+    # QT_QPA_PLATFORMTHEME=qt6ct, set in the Hyprland env block (and imported
+    # into the dbus activation environment so the xdph screen-share picker
+    # inherits it too). custom_palette=true is required for qt5ct/qt6ct to
+    # actually apply the color scheme; Fusion is used because it fully honors a
+    # custom palette (Breeze/native styles partly ignore it).
     "qt5ct/qt5ct.conf".text = ''
       [Appearance]
       style=Fusion
       custom_palette=true
-      color_scheme_path=${config.home.homeDirectory}/.config/qt5ct/colors/noctalia.conf
+      color_scheme_path=${pkgs.libsForQt5.qt5ct}/share/qt5ct/colors/darker.conf
     '';
     "qt6ct/qt6ct.conf".text = ''
       [Appearance]
       style=Fusion
       custom_palette=true
-      color_scheme_path=${config.home.homeDirectory}/.config/qt6ct/colors/noctalia.conf
+      color_scheme_path=${pkgs.kdePackages.qt6ct}/share/qt6ct/colors/darker.conf
     '';
   };
 }

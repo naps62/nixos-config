@@ -117,7 +117,7 @@ in
 {
   programs.kitty = {
     enable = true;
-    # Fixed theme — noctalia no longer toggles kitty with dark/light mode.
+    # Fixed theme — nothing toggles kitty with dark/light mode.
     themeFile = "Catppuccin-Mocha";
     settings = {
       confirm_os_window_close = 0;

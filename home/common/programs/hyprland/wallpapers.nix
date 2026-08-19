@@ -1,5 +1,10 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
+  cfg = config.custom.hyprland;
+
+  horizontalDir = "${config.home.homeDirectory}/.cache/wallpapers/3840x2160";
+  verticalDir = "${config.home.homeDirectory}/.cache/wallpapers/2160x3840";
+
   # Horizontal wallpapers (3840x2160) for HDMI-A-1 and DP-1
   # Just add any image URL you want here
   horizontal = [
@@ -107,4 +112,25 @@ let
 in
 {
   home.file.".local/bin/wallpaper-fetch".source = fetchScript;
+
+  # `any` covers every output not named in custom.hyprland.verticalOutputs,
+  # which get the portrait set instead.
+  services.wpaperd = {
+    enable = true;
+    settings =
+      {
+        default = {
+          duration = "6h";
+          sorting = "random";
+          mode = "center";
+        };
+        any.path = horizontalDir;
+      }
+      // builtins.listToAttrs (
+        map (output: {
+          name = output;
+          value.path = verticalDir;
+        }) cfg.verticalOutputs
+      );
+  };
 }

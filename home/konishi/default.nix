@@ -29,6 +29,8 @@
     cursorSize = 42;
     # The screen actually shared in every call; skips the xdph picker entirely.
     shareOutput = "HDMI-A-1";
+    verticalOutputs = [ "DP-2" ];
+    panelScale = 1.6;
   };
 
   custom.gaming = {
@@ -47,7 +49,6 @@
       -- session the moment Hyprland starts so a cold boot lands on hyprlock, not
       -- an open desktop. A brief flash before it paints is possible.
       hl.exec_cmd("hyprlock")
-      hl.exec_cmd("$HOME/.local/bin/hyprpaper-rotate")
     end)
 
     -- ethui-dev
@@ -109,13 +110,6 @@
     -- difference, flip back to `true` for the local fullscreen latency win.
     hl.config({ render = { direct_scanout = false } })
   '';
-
-  programs.noctalia.settings = {
-    shell.ui_scale = 1.25;
-    notification.monitors = [ "DP-1" ];
-    # NOTE: v5 has no per-monitor wallpaper directories; only directory_light /
-    # directory_dark. Re-add via Settings UI if upstream gains support.
-  };
 
   programs.kitty.settings.font_size = 16;
 }
