@@ -14,6 +14,14 @@ let
       lib.importJSON ./claude-settings.json
     )
   );
+
+  # Same merge, same reason: ./opencode.json holds only yolo's overrides so
+  # agents, commands and skills keep coming from common.
+  mergedOpencodeConfig = (pkgs.formats.json { }).generate "opencode.json" (
+    lib.recursiveUpdate (lib.importJSON ../common/programs/opencode/opencode.json) (
+      lib.importJSON ./opencode.json
+    )
+  );
 in
 {
   imports = [
@@ -28,6 +36,11 @@ in
     ./services.nix
     ./ssh.nix
   ];
+
+  # Host-local, like the aoe config below: bash goes from "ask" to
+  # "allow" so unattended opencode sessions stop stalling on every git and grep.
+  # It also drops the prompt on branches under review, which is the tradeoff.
+  xdg.configFile."opencode/opencode.json".source = lib.mkForce mergedOpencodeConfig;
 
   custom.hyprland.cursorSize = 32;
 
