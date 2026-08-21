@@ -60,8 +60,8 @@
 
     # Exposes /home/naps62 to arrakis/konishi (custom.smbMounts on both, mounted
     # at ~/yolo). Guest auth — the home dir holds SSH keys and credentials, so
-    # the only guard is `hosts allow` limiting clients to 10/8 (LAN + wireguard
-    # peers — desktops connect from wg addresses, 10.10.*).
+    # the only guard is `hosts allow` limiting clients to the wireguard subnet
+    # (desktops connect from wg addresses, 10.10.*).
     # Clients address this VM as 10.7.10.2; keep that DHCP lease reserved.
     samba = {
       enable = true;
@@ -69,7 +69,7 @@
       settings = {
         global = {
           "map to guest" = "bad user";
-          "hosts allow" = "10.0.0.0/8 127.0.0.1";
+          "hosts allow" = "10.10.0.0/16 127.0.0.1";
           "hosts deny" = "ALL";
         };
         home = {
