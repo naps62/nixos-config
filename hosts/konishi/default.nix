@@ -34,6 +34,12 @@
       share = "media";
       mountPoint = "/mnt/media";
     }
+    {
+      # yolo VM's /home/naps62 (share defined in hosts/yolo/default.nix).
+      server = "10.7.10.2";
+      share = "home";
+      mountPoint = "/home/naps62/yolo";
+    }
   ];
 
   # Arm Wake-on-LAN (magic packet) on the Intel igc NIC and re-apply it on every

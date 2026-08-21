@@ -58,6 +58,29 @@
     # virtio drivers; the agent itself is a separate service.
     qemuGuest.enable = true;
 
+    # Exposes /home/naps62 to arrakis/konishi (custom.smbMounts on both, mounted
+    # at ~/yolo). Guest auth — the home dir holds SSH keys and credentials, so
+    # the only guard is `hosts allow` limiting clients to the private nets.
+    # Clients address this VM as 10.7.10.2; keep that DHCP lease reserved.
+    samba = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        global = {
+          "map to guest" = "bad user";
+          "hosts allow" = "10.6.0.0/16 10.7.0.0/16 127.0.0.1";
+          "hosts deny" = "ALL";
+        };
+        home = {
+          path = "/home/naps62";
+          "read only" = "no";
+          "guest ok" = "yes";
+          "force user" = "naps62";
+          "force group" = "users";
+        };
+      };
+    };
+
     # No physical seat: Sunshine is a user service and cannot capture until a
     # graphical session exists, so a cold boot must reach one unattended. No
     # hyprlock on start (unlike konishi) — nobody could type the password in.
