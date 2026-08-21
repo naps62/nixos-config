@@ -87,9 +87,18 @@ in
         # is set; --allowed-host is what makes the rebinding gate accept a
         # hostname under a wildcard bind (an IP literal needs no flag).
         ExecStart = "${aoe}/bin/aoe serve --host 0.0.0.0 --port 8080 --auth none --behind-proxy --allowed-host aoe.n62.casa";
-        Environment = [ "PATH=${toolPath}" ];
+        # TMUX_TMPDIR keeps the daemon on the same tmux server the shell and
+        # TUI use, instead of a second one under /tmp (same bug pr-daemon had).
+        Environment = [
+          "PATH=${toolPath}"
+          "TMUX_TMPDIR=%t"
+        ];
         Restart = "always";
         RestartSec = 2;
+        # If this unit boots before any shell, the shared tmux server lands in
+        # its cgroup; the default control-group kill would take every session
+        # down on restart.
+        KillMode = "process";
       };
       Install.WantedBy = [ "default.target" ];
     };
