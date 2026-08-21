@@ -65,7 +65,8 @@ in
         WorkingDirectory = "%h/tea/rev";
         ExecStart = "${pkgs.bun}/bin/bun scripts/deploy-webhook.ts";
         EnvironmentFile = "%h/.config/rev/deploy.env";
-        Environment = [ "PATH=${toolPath}" ];
+        # Unit files are home-manager symlinks; deploy.sh must not rewrite them.
+        Environment = [ "PATH=${toolPath}" "REV_SKIP_UNIT_INSTALL=1" ];
         Restart = "always";
         RestartSec = 2;
       };
