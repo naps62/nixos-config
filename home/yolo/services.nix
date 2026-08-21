@@ -22,6 +22,8 @@ in
   home.packages = [
     sem
     pkgs.bun
+    # ACP adapter aoe's structured (web) sessions spawn as `claude-agent-acp`.
+    pkgs.claude-agent-acp
   ];
 
   systemd.user.services = {
