@@ -7,18 +7,17 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1786554876,
-        "narHash": "sha256-akMknOIdX0QsBsM4lgreXSNNym7TNu9iOrDBqrQuTuQ=",
-        "owner": "agent-of-empires",
-        "repo": "agent-of-empires",
-        "rev": "9b0d691a6cdaa6d2451f6eda05e83628c54eb95a",
-        "type": "github"
+        "lastModified": 1787336473,
+        "narHash": "sha256-7TXmtVO03GBjmXO+AT3I2Ubt/UeMNSuiwcc2HURGod0=",
+        "ref": "refs/heads/main",
+        "rev": "20c7008f15c4383adb4b8550dc5190c416b02ec6",
+        "revCount": 2158,
+        "type": "git",
+        "url": "https://git.naps.pt/yolo/agent-of-empires.git"
       },
       "original": {
-        "owner": "agent-of-empires",
-        "ref": "v1.14.1",
-        "repo": "agent-of-empires",
-        "type": "github"
+        "type": "git",
+        "url": "https://git.naps.pt/yolo/agent-of-empires.git"
       }
     },
     "agent-skills": {

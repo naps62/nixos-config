@@ -100,6 +100,15 @@
         ]
       },
       {
+        "matcher": "Bash|Write|Edit|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c 'for H in ~/.claude/hooks/secret-guard.py /home/naps62/tea/agent-skills/hooks/secret-guard.py /home/naps62/tea/agent-skills/worktrees/week-review-2026-w34/hooks/secret-guard.py; do [ -e \"$H\" ] && exec \"$H\"; done; exit 0'"
+          }
+        ]
+      },
+      {
         "hooks": [
           {
             "type": "command",
@@ -243,5 +252,7 @@
   },
   "sandbox": {
     "enabled": false
-  }
+  },
+  "model": "claude-fable-5[1m]",
+  "verbose": false
 }
