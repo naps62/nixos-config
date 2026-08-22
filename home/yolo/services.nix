@@ -85,10 +85,11 @@ in
       Service = {
         Type = "simple";
         WorkingDirectory = "%h";
-        # aoe refuses `--auth none` on a non-loopback bind unless --behind-proxy
-        # is set; --allowed-host is what makes the rebinding gate accept a
-        # hostname under a wildcard bind (an IP literal needs no flag).
-        ExecStart = "${aoe}/bin/aoe serve --host 0.0.0.0 --port 8080 --auth none --behind-proxy --allowed-host aoe.n62.casa";
+        # The fork removed dashboard auth entirely, so there is no --auth flag
+        # any more — the reverse proxy is the only access gate. --allowed-host
+        # is what makes the rebinding gate accept a hostname under a wildcard
+        # bind (an IP literal needs no flag).
+        ExecStart = "${aoe}/bin/aoe serve --host 0.0.0.0 --port 8080 --behind-proxy --allowed-host aoe.n62.casa";
         # TMUX_TMPDIR keeps the daemon on the same tmux server the shell and
         # TUI use, instead of a second one under /tmp (same bug pr-daemon had).
         Environment = [
