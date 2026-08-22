@@ -7,11 +7,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1787386451,
-        "narHash": "sha256-M2mPZdLE0HnfXgmW1vmLQ4znT4xKOy/3DKbkji5SXUg=",
+        "lastModified": 1787387938,
+        "narHash": "sha256-113jGEYKSeTwYgLdlVuRyqPBHYHJcU1kbRKiAUhj04Q=",
         "ref": "refs/heads/main",
-        "rev": "574e677e7dca35cb48bc481199c53035e7947a0c",
-        "revCount": 2191,
+        "rev": "96472052106cb5c448e9fa39244b0d0ccae9be72",
+        "revCount": 2192,
         "type": "git",
         "url": "https://git.naps.pt/yolo/agent-of-empires.git"
       },
