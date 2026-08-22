@@ -753,16 +753,15 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1787392420,
-        "narHash": "sha256-oe527mGQibglnODuZk/u1WKInMGF6/hc6YPATNOGgOs=",
-        "ref": "nix",
-        "rev": "401afbc8125b1a17b339559e1f93d967269cd25c",
-        "revCount": 206,
+        "lastModified": 1787392581,
+        "narHash": "sha256-8S3IVtvYjLbAfK7w+RELpLFnaJOEOSCy44LjDeJUJpI=",
+        "ref": "refs/heads/main",
+        "rev": "c5d7a6bf805ee06cdcd9b3c276f6c2681bfdd2de",
+        "revCount": 211,
         "type": "git",
         "url": "https://git.naps.pt/naps62/maestro.git"
       },
       "original": {
-        "ref": "nix",
         "type": "git",
         "url": "https://git.naps.pt/naps62/maestro.git"
       }
