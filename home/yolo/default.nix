@@ -31,6 +31,7 @@ in
     ../common/programs/kitty
     ../common/programs/gpg.nix
     ../common/programs/aoe
+    ../common/programs/maestro
     ../common/features/xdg.nix
     ./monitors.nix
     ./services.nix

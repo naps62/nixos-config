@@ -26,6 +26,21 @@ in
     pkgs.claude-agent-acp
   ];
 
+  # maestro's own units come from its flake module, not from the hand-written
+  # set below. 8081, not 8080: aoe-web already has that port on this host.
+  # There is no auth layer, so 0.0.0.0 is only safe behind the LAN perimeter.
+  services.maestro = {
+    enable = true;
+    web.enable = true;
+    settings = {
+      daemon.bind_addr = "127.0.0.1:7070";
+      web = {
+        bind_addr = "0.0.0.0:8081";
+        daemon_url = "http://127.0.0.1:7070";
+      };
+    };
+  };
+
   systemd.user.services = {
     rev = {
       Unit = {

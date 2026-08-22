@@ -70,6 +70,10 @@
     sem.url = "github:Ataraxy-Labs/sem";
     # Claude Code + Codex skills, commands, hooks and CLAUDE.md fragments.
     agent-skills.url = "git+https://git.naps.pt/yolo/agent-skills.git";
+    # Terminal-session orchestrator. Pins its own nixpkgs for the same reason
+    # ethui and agent-of-empires do — it is a verified Rust build.
+    # TODO: drop ?ref=nix once that branch lands on main.
+    maestro.url = "git+https://git.naps.pt/naps62/maestro.git?ref=nix";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
