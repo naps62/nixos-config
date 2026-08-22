@@ -13,9 +13,7 @@
       "Read(*.pem)",
       "Read(*.key)",
       "mcp__dokploy__application-one",
-      "mcp__dokploy__mounts-listByServiceId",
       "mcp__dokploy__mounts-one",
-      "mcp__dokploy__compose-one",
       "mcp__dokploy__schedule-create",
       "mcp__dokploy__schedule-update",
       "mcp__dokploy__schedule-runManually"
