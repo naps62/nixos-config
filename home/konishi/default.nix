@@ -37,7 +37,10 @@
 
   # Plain `nvdec` keeps frames in GPU memory and breaks some filters.
   custom.mpv.hwdec = "nvdec-copy";
-  custom.blender.cuda = true;
+
+  # The 4060 would render Cycles far faster, but nothing caches this build —
+  # flipping it on compiles Blender, OpenUSD, OpenSubdiv and OpenImageDenoise.
+  custom.blender.cuda = false;
 
   custom.hyprland = {
     yaziSize = "2400 1800";
