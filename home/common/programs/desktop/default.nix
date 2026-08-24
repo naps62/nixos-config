@@ -4,14 +4,17 @@
   ...
 }:
 {
-  imports = [ ./darkman.nix ];
+  imports = [
+    ./darkman.nix
+    # mpv is installed by programs.mpv there, not as a bare package here.
+    ../mpv.nix
+  ];
 
   home = {
     packages = with pkgs; [
       # various
       google-chrome
       thunar
-      mpv
       imv
       pavucontrol
       zathura
