@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
       "Bash",
@@ -18,21 +19,18 @@
       "mcp__dokploy__schedule-update",
       "mcp__dokploy__schedule-runManually"
     ],
-    "defaultMode": "auto"
+    "defaultMode": "auto",
+    "additionalDirectories": [
+      "/home/naps62/projects",
+      "/home/naps62/ethui",
+      "/home/naps62/labs",
+      "/home/naps62/subvisual"
+    ]
   },
+  "model": "sonnet",
   "hooks": {
-    "PostToolUse": [
+    "ElicitationResult": [
       {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/comment-lint.py"
-          }
-        ]
-      },
-      {
-        "matcher": "AskUserQuestion",
         "hooks": [
           {
             "type": "command",
@@ -65,6 +63,26 @@
           {
             "type": "command",
             "command": "sh -c 'unset IFS; set -f; umask 077; [ -n \"$AOE_INSTANCE_ID\" ] || exit 0; case \"$AOE_INSTANCE_ID\" in *[!0-9a-zA-Z_-]*) exit 0 ;; esac; B=/tmp/aoe-hooks-1000; mkdir -p \"$B\" 2>/dev/null || exit 0; LS=$(LC_ALL=C ls -ldn \"$B\" 2>/dev/null) || exit 0; set -- $LS; M=\"$1\"; case \"$M\" in drwx------|drwx------.|drwx------+|drwx------@) ;; *) exit 0 ;; esac; ME=$(id -u 2>/dev/null) || exit 0; [ \"$3\" = \"$ME\" ] || exit 0; D=\"$B/$AOE_INSTANCE_ID\"; mkdir -p \"$D\" 2>/dev/null; LS=$(LC_ALL=C ls -ldn \"$D\" 2>/dev/null) || exit 0; set -- $LS; M=\"$1\"; case \"$M\" in drwx------|drwx------.|drwx------+|drwx------@) ;; *) exit 0 ;; esac; [ \"$3\" = \"$ME\" ] || exit 0; printf idle > \"$D/status\" 2>/dev/null; exit 0 # aoe-hooks'"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/comment-lint.py"
+          }
+        ]
+      },
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c 'unset IFS; set -f; umask 077; [ -n \"$AOE_INSTANCE_ID\" ] || exit 0; case \"$AOE_INSTANCE_ID\" in *[!0-9a-zA-Z_-]*) exit 0 ;; esac; B=/tmp/aoe-hooks-1000; mkdir -p \"$B\" 2>/dev/null || exit 0; LS=$(LC_ALL=C ls -ldn \"$B\" 2>/dev/null) || exit 0; set -- $LS; M=\"$1\"; case \"$M\" in drwx------|drwx------.|drwx------+|drwx------@) ;; *) exit 0 ;; esac; ME=$(id -u 2>/dev/null) || exit 0; [ \"$3\" = \"$ME\" ] || exit 0; D=\"$B/$AOE_INSTANCE_ID\"; mkdir -p \"$D\" 2>/dev/null; LS=$(LC_ALL=C ls -ldn \"$D\" 2>/dev/null) || exit 0; set -- $LS; M=\"$1\"; case \"$M\" in drwx------|drwx------.|drwx------+|drwx------@) ;; *) exit 0 ;; esac; [ \"$3\" = \"$ME\" ] || exit 0; printf running > \"$D/status\" 2>/dev/null; exit 0 # aoe-hooks'"
           }
         ]
       }
@@ -168,6 +186,16 @@
         ]
       }
     ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c 'unset IFS; set -f; umask 077; [ -n \"$AOE_INSTANCE_ID\" ] || exit 0; case \"$AOE_INSTANCE_ID\" in *[!0-9a-zA-Z_-]*) exit 0 ;; esac; B=/tmp/aoe-hooks-1000; mkdir -p \"$B\" 2>/dev/null || exit 0; LS=$(LC_ALL=C ls -ldn \"$B\" 2>/dev/null) || exit 0; set -- $LS; M=\"$1\"; case \"$M\" in drwx------|drwx------.|drwx------+|drwx------@) ;; *) exit 0 ;; esac; ME=$(id -u 2>/dev/null) || exit 0; [ \"$3\" = \"$ME\" ] || exit 0; D=\"$B/$AOE_INSTANCE_ID\"; mkdir -p \"$D\" 2>/dev/null; LS=$(LC_ALL=C ls -ldn \"$D\" 2>/dev/null) || exit 0; set -- $LS; M=\"$1\"; case \"$M\" in drwx------|drwx------.|drwx------+|drwx------@) ;; *) exit 0 ;; esac; [ \"$3\" = \"$ME\" ] || exit 0; printf idle > \"$D/status\" 2>/dev/null; exit 0 # aoe-hooks'"
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [
@@ -181,37 +209,34 @@
           }
         ]
       }
-    ],
-    "StopFailure": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "sh -c 'unset IFS; set -f; umask 077; [ -n \"$AOE_INSTANCE_ID\" ] || exit 0; case \"$AOE_INSTANCE_ID\" in *[!0-9a-zA-Z_-]*) exit 0 ;; esac; B=/tmp/aoe-hooks-1000; mkdir -p \"$B\" 2>/dev/null || exit 0; LS=$(LC_ALL=C ls -ldn \"$B\" 2>/dev/null) || exit 0; set -- $LS; M=\"$1\"; case \"$M\" in drwx------|drwx------.|drwx------+|drwx------@) ;; *) exit 0 ;; esac; ME=$(id -u 2>/dev/null) || exit 0; [ \"$3\" = \"$ME\" ] || exit 0; D=\"$B/$AOE_INSTANCE_ID\"; mkdir -p \"$D\" 2>/dev/null; LS=$(LC_ALL=C ls -ldn \"$D\" 2>/dev/null) || exit 0; set -- $LS; M=\"$1\"; case \"$M\" in drwx------|drwx------.|drwx------+|drwx------@) ;; *) exit 0 ;; esac; [ \"$3\" = \"$ME\" ] || exit 0; printf idle > \"$D/status\" 2>/dev/null; exit 0 # aoe-hooks'"
-          }
-        ]
-      }
-    ],
-    "ElicitationResult": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "sh -c 'unset IFS; set -f; umask 077; [ -n \"$AOE_INSTANCE_ID\" ] || exit 0; case \"$AOE_INSTANCE_ID\" in *[!0-9a-zA-Z_-]*) exit 0 ;; esac; B=/tmp/aoe-hooks-1000; mkdir -p \"$B\" 2>/dev/null || exit 0; LS=$(LC_ALL=C ls -ldn \"$B\" 2>/dev/null) || exit 0; set -- $LS; M=\"$1\"; case \"$M\" in drwx------|drwx------.|drwx------+|drwx------@) ;; *) exit 0 ;; esac; ME=$(id -u 2>/dev/null) || exit 0; [ \"$3\" = \"$ME\" ] || exit 0; D=\"$B/$AOE_INSTANCE_ID\"; mkdir -p \"$D\" 2>/dev/null; LS=$(LC_ALL=C ls -ldn \"$D\" 2>/dev/null) || exit 0; set -- $LS; M=\"$1\"; case \"$M\" in drwx------|drwx------.|drwx------+|drwx------@) ;; *) exit 0 ;; esac; [ \"$3\" = \"$ME\" ] || exit 0; printf running > \"$D/status\" 2>/dev/null; exit 0 # aoe-hooks'"
-          }
-        ]
-      }
     ]
   },
   "worktree": {
     "baseRef": "fresh"
   },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  },
   "enabledPlugins": {
     "building@subvisual": true,
+    "caveman@caveman": true,
     "rust-analyzer-lsp@claude-plugins-official": false,
-    "caveman@caveman": true
+    "typescript-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    },
+    "impeccable": {
+      "source": {
+        "source": "github",
+        "repo": "pbakaus/impeccable"
+      }
+    },
     "subvisual": {
       "source": {
         "source": "github",
@@ -223,22 +248,47 @@
         "source": "github",
         "repo": "obra/superpowers-marketplace"
       }
-    },
-    "caveman": {
-      "source": {
-        "source": "github",
-        "repo": "JuliusBrussee/caveman"
-      }
     }
   },
+  "sandbox": {
+    "enabled": false,
+    "autoAllowBashIfSandboxed": false,
+    "allowedNetworkHosts": [
+      "github.com",
+      "api.github.com",
+      "raw.githubusercontent.com",
+      "gist.github.com",
+      "release-assets.githubusercontent.com"
+    ]
+  },
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark",
   "editorMode": "vim",
+  "verbose": false,
   "preferredNotifChannel": "auto",
   "autoCompactEnabled": true,
   "remoteControlAtStartup": false,
   "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true,
+  "defaultMode": "acceptEdits",
+  "feedbackSurveyState": {
+    "lastShownTime": 1754052643456
+  },
   "mcpServers": {
+    "herd-mcp": {
+      "type": "http",
+      "url": "https://mcp.herd.eco/v1"
+    },
+    "home-assistant": {
+      "type": "http",
+      "url": "https://ha-mcp.n62.casa/mcp"
+    },
+    "linear": {
+      "type": "http",
+      "url": "https://mcp.linear.app/mcp"
+    },
     "playwright": {
       "args": [
         "-y",
@@ -247,10 +297,5 @@
       "command": "npx",
       "type": "stdio"
     }
-  },
-  "sandbox": {
-    "enabled": false
-  },
-  "model": "opus[1m]",
-  "verbose": false
+  }
 }

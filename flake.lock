@@ -750,14 +750,15 @@
       "inputs": {
         "crane": "crane_2",
         "flake-parts": "flake-parts_2",
-        "nixpkgs": "nixpkgs_6"
+        "nixpkgs": "nixpkgs_6",
+        "process-compose-flake": "process-compose-flake"
       },
       "locked": {
-        "lastModified": 1787392581,
-        "narHash": "sha256-8S3IVtvYjLbAfK7w+RELpLFnaJOEOSCy44LjDeJUJpI=",
+        "lastModified": 1787584741,
+        "narHash": "sha256-7uchfwhbMH30oq1wKYmbTzQbEgBekhaW7mOht1gB6So=",
         "ref": "refs/heads/main",
-        "rev": "c5d7a6bf805ee06cdcd9b3c276f6c2681bfdd2de",
-        "revCount": 211,
+        "rev": "0bb5df72451b466c386358e98b27669a2efea904",
+        "revCount": 387,
         "type": "git",
         "url": "https://git.naps.pt/naps62/maestro.git"
       },
@@ -1033,6 +1034,21 @@
       "original": {
         "owner": "cachix",
         "repo": "git-hooks.nix",
+        "type": "github"
+      }
+    },
+    "process-compose-flake": {
+      "locked": {
+        "lastModified": 1782060835,
+        "narHash": "sha256-Q8HH2t1l3MITtWCWY4ytcH5F/Q7aAHo3Iq/QTMAKTe0=",
+        "owner": "Platonic-Systems",
+        "repo": "process-compose-flake",
+        "rev": "464ff6880737f063c3f0d3d2c7781fda9190868f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Platonic-Systems",
+        "repo": "process-compose-flake",
         "type": "github"
       }
     },

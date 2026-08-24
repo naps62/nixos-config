@@ -16,13 +16,6 @@ restrict_agents = false
 show_tool_durations = true
 silent_orphan_grace_secs = 120
 
-[auth]
-persist_sessions = true
-
-[diff]
-context_lines = 3
-split_view = false
-
 [hooks]
 
 [host_hooks]
@@ -38,24 +31,6 @@ show_spans = false
 
 [logging.targets]
 
-[sandbox]
-auto_cleanup = true
-container_runtime = "docker"
-default_image = "ghcr.io/agent-of-empires/aoe-sandbox:latest"
-default_terminal_mode = "host"
-enabled_by_default = false
-environment = [
-    "TERM",
-    "COLORTERM",
-    "FORCE_COLOR",
-    "NO_COLOR",
-]
-extra_volumes = []
-mount_ssh = false
-selinux_relabel = false
-volume_ignores = []
-volume_ignores_strategy = "anonymous"
-
 [session]
 agent_status_hooks = true
 auto_resume_on_restart = true
@@ -63,7 +38,6 @@ auto_stop_idle_secs = 0
 click_action = "live_send"
 confirm_before_quit = false
 confirm_delete = true
-conversation_summary = false
 default_attach_mode = "tmux"
 delete_to_trash = false
 favorites_first = true
@@ -79,10 +53,8 @@ prevent_sleep_when_active = false
 restart_wake_message = "wake up: pick up what you were doing"
 row_tag = "none"
 show_session_colors = true
-show_tips = false
 smart_rename = true
 smart_rename_agent = ""
-snooze_duration_minutes = 30
 strict_hotkeys = false
 tie_workdir_to_name = true
 trash_retention_days = 30
@@ -95,16 +67,7 @@ synclaude = "claude"
 [session.custom_agents]
 synclaude = "synclaude"
 
-[skills]
-auto_propagate = false
-
-[sound]
-enabled = false
-
 [status_hooks]
-enabled = false
-
-[telemetry]
 enabled = false
 
 [theme]
@@ -117,17 +80,6 @@ clipboard = "auto"
 mouse = "auto"
 status_bar = "auto"
 vt_live = true
-
-[updates]
-auto_update_plugins = false
-update_check_mode = "notify"
-
-[web]
-notifications_enabled = true
-notify_on_error = true
-notify_on_idle = false
-notify_on_waiting = true
-notify_on_wake_fire = true
 
 [worktree]
 auto_cleanup = true
