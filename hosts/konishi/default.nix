@@ -26,6 +26,10 @@
 
   networking.hostName = "konishi";
 
+  # Set here rather than in hardware-configuration.nix so it survives a
+  # nixos-generate-config regeneration; the list merges with that file's.
+  fileSystems."/".options = [ "noatime" ];
+
   # NAS media share — reachable only over the wg-home VPN. Lazy automount, so it
   # never blocks boot and (re)mounts on first access once the VPN is up.
   custom.smbMounts = [
