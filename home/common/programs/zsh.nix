@@ -10,7 +10,18 @@
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
-      completionInit = "autoload -U compinit && compinit -u";
+      # A full compinit security-checks and rebuilds the dump on every shell
+      # start. Do that at most once a day and use the cached dump (-C) in
+      # between. Missing dump globs to nothing, so it takes the full path.
+      completionInit = ''
+        autoload -U compinit
+        _zcompdump_fresh() {
+          setopt local_options extendedglob
+          [[ -n ''${ZDOTDIR:-$HOME}/.zcompdump(#qNmh-24) ]]
+        }
+        if _zcompdump_fresh; then compinit -C; else compinit -u; fi
+        unfunction _zcompdump_fresh
+      '';
 
       shellAliases = {
         c = "cargo";
