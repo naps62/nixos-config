@@ -24,9 +24,20 @@
 
   home.sessionVariables = {
     LIBVA_DRIVER_NAME = "nvidia";
-    GDM_BACKEND = "nvidia-drm";
+    # Was GDM_BACKEND, which nothing reads (SDDM is the DM here).
+    GBM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+
+    # Firefox/Zen decode video in a separate RDD process whose sandbox denies
+    # /dev/nvidia*, so nvidia-vaapi-driver never initialises there and playback
+    # silently drops to software. Costs one sandbox layer; no narrower switch
+    # exists. Check with `nvidia-smi --query-gpu=utilization.decoder`.
+    MOZ_DISABLE_RDD_SANDBOX = "1";
   };
+
+  # Plain `nvdec` keeps frames in GPU memory and breaks some filters.
+  custom.mpv.hwdec = "nvdec-copy";
+  custom.blender.cuda = true;
 
   custom.hyprland = {
     yaziSize = "2400 1800";
