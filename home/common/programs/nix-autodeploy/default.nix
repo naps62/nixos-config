@@ -98,10 +98,9 @@ let
     flakeIgnore = [ "E501" ];
   } (builtins.readFile ./listener.py);
 
-  repoMap = lib.mapAttrs (_: r: {
-    inherit (r) input;
-    inherit (r) apply;
-  }) cfg.repos;
+  repoFile = (pkgs.formats.json { }).generate "nix-autodeploy-repos.json" (
+    lib.mapAttrs (_: r: { inherit (r) input apply; }) cfg.repos
+  );
 in
 {
   options.services.nixAutodeploy = {
@@ -188,7 +187,7 @@ in
           "NIX_AUTODEPLOY_PORT=${toString cfg.port}"
           "NIX_AUTODEPLOY_DEPLOY_BIN=${lib.getExe deploy}"
           "NIX_AUTODEPLOY_ENV_FILE=${cfg.environmentFile}"
-          "NIX_AUTODEPLOY_REPOS=${builtins.toJSON repoMap}"
+          "NIX_AUTODEPLOY_REPOS_FILE=${repoFile}"
         ];
         Restart = "always";
         RestartSec = 2;

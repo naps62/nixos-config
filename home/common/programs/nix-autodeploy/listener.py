@@ -17,8 +17,10 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 SECRET = os.environ.get("NIX_AUTODEPLOY_SECRET", "").encode()
 PORT = int(os.environ.get("NIX_AUTODEPLOY_PORT", "7375"))
 DEPLOY = os.environ["NIX_AUTODEPLOY_DEPLOY_BIN"]
-# {"<owner>/<repo>": {"input": "rev", "apply": true}, ...}
-REPOS = json.loads(os.environ["NIX_AUTODEPLOY_REPOS"])
+# {"<owner>/<repo>": {"input": "rev", "apply": true}, ...}. Passed as a file,
+# not a variable: systemd's Environment= strips the quotes out of inline JSON.
+with open(os.environ["NIX_AUTODEPLOY_REPOS_FILE"]) as fh:
+    REPOS = json.load(fh)
 ENV_FILE = os.environ.get("NIX_AUTODEPLOY_ENV_FILE", "")
 MAX_BODY = 1 << 20
 
