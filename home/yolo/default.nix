@@ -28,8 +28,8 @@ in
     ./ssh.nix
   ];
 
-  # Host-local, like the aoe config below: bash goes from "ask" to
-  # "allow" so unattended opencode sessions stop stalling on every git and grep.
+  # Host-local: bash goes from "ask" to "allow" so unattended opencode sessions
+  # stop stalling on every git and grep.
   # It also drops the prompt on branches under review, which is the tradeoff.
   xdg.configFile."opencode/opencode.json".source = lib.mkForce mergedOpencodeConfig;
 
@@ -44,22 +44,9 @@ in
     light = "Bibata-Modern-Amber";
   };
 
-  home = {
-    # Headless browser driver the agent tooling shells out to. Was a global npm
-    # install on the ubuntu box.
-    packages = [ pkgs.agent-browser ];
-
-    # Both default to ~/projects/nixos-config in common/programs; this clone
-    # lives under ~/tea. nh.flake sets NH_FLAKE, so without it `nh home switch`
-    # with no argument resolves to a path that does not exist.
-    mutableFilesRepoPath = "/home/naps62/tea/nixos-config";
-
-    mutableFiles = {
-      # Host-local, not shared: this sets yolo_mode_default = true, which starts
-      # aoe sessions with permission checks skipped. Only correct on this box.
-      ".config/agent-of-empires/config.toml".source = ./aoe-config.toml;
-    };
-  };
+  # Headless browser driver the agent tooling shells out to. Was a global npm
+  # install on the ubuntu box.
+  home.packages = [ pkgs.agent-browser ];
 
   # This is the one box that runs the agent-skills units; each starts a session,
   # so a second machine enabling them would run the same job twice.
