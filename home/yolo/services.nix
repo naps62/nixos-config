@@ -38,6 +38,7 @@ in
         bind_addr = "0.0.0.0:8081";
         daemon_url = "http://127.0.0.1:7070";
       };
+      tui.theme = "dark";
     };
   };
 
