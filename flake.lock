@@ -22,11 +22,11 @@
     },
     "agent-skills": {
       "locked": {
-        "lastModified": 1787422509,
-        "narHash": "sha256-kl6hR1JdXC2H9y84QNJJUxxeYCMgz6toBPjJ2//xXKU=",
+        "lastModified": 1787576215,
+        "narHash": "sha256-x1ftVVEcq8p6phZEl4NC4F3RcPqpgx6wEMODMI5QHN8=",
         "ref": "refs/heads/main",
-        "rev": "0f131f00a42782d45955a2e94e86d8f2ae69c043",
-        "revCount": 79,
+        "rev": "0900e5fea1245c7d5e962e48a809ff7481c87f95",
+        "revCount": 99,
         "type": "git",
         "url": "https://git.naps.pt/yolo/agent-skills.git"
       },
@@ -754,11 +754,11 @@
         "process-compose-flake": "process-compose-flake"
       },
       "locked": {
-        "lastModified": 1787584741,
-        "narHash": "sha256-7uchfwhbMH30oq1wKYmbTzQbEgBekhaW7mOht1gB6So=",
+        "lastModified": 1787610419,
+        "narHash": "sha256-YRDvlaiEOpzRC5JHMlm/S39EGfrGsD4kmEWwnyHz4Tg=",
         "ref": "refs/heads/main",
-        "rev": "0bb5df72451b466c386358e98b27669a2efea904",
-        "revCount": 387,
+        "rev": "80a93999051d41b29544258dca272d40f3fc0c98",
+        "revCount": 443,
         "type": "git",
         "url": "https://git.naps.pt/naps62/maestro.git"
       },
