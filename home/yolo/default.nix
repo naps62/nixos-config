@@ -22,6 +22,8 @@ in
     ../common/programs/gpg.nix
     ../common/programs/aoe
     ../common/programs/maestro
+    ../common/programs/rev
+    ../common/programs/nix-autodeploy
     ../common/features/xdg.nix
     ./monitors.nix
     ./services.nix

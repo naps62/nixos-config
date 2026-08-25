@@ -73,6 +73,13 @@
     # Terminal-session orchestrator. Pins its own nixpkgs for the same reason
     # ethui and agent-of-empires do — it is a verified Rust build.
     maestro.url = "git+https://git.naps.pt/naps62/maestro.git";
+    # Always-on local code review server. Follows nixpkgs, unlike the Rust
+    # inputs above: it is a plain node bundle, and a second nixpkgs would put a
+    # second node 26 in the closure for nothing.
+    rev = {
+      url = "git+https://git.naps.pt/yolo/rev.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";

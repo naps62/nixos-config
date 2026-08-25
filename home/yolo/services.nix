@@ -3,12 +3,11 @@
   inputs,
   ...
 }:
-# The user services this box exists to run, ported from hand-written units in
-# ~/.config/systemd/user on the Ubuntu machine.
+# The user services this box exists to run.
 #
-# NOT self-contained: every ExecStart under ~/.bun or ~/.local/bin is an
-# imperatively-installed binary, and the WorkingDirectories are clones of
-# separate repos. Nix owns the unit definitions here, nothing more.
+# maestro and rev come from their own flakes, so nix owns the build as well as
+# the unit. aoe-web is still the odd one out: its unit is defined here and the
+# binary comes from the flake input.
 let
   # A user unit gets almost no PATH by default; these are the profile dirs the
   # original units got for free from the system PATH on Ubuntu.
@@ -19,16 +18,17 @@ let
   aoe = inputs.agent-of-empires.packages.${pkgs.system}.aoe-with-web;
 in
 {
+  # sem is here as well as on rev's unit: the shell uses it directly too.
   home.packages = [
     sem
-    pkgs.bun
     # ACP adapter aoe's structured (web) sessions spawn as `claude-agent-acp`.
     pkgs.claude-agent-acp
   ];
 
-  # maestro's own units come from its flake module, not from the hand-written
-  # set below. 8081, not 8080: aoe-web already has that port on this host.
-  # There is no auth layer, so 0.0.0.0 is only safe behind the LAN perimeter.
+  # maestro's and rev's units come from their flake modules, not from the
+  # hand-written set below. 8081, not 8080: aoe-web already has that port on
+  # this host. There is no auth layer, so 0.0.0.0 is only safe behind the LAN
+  # perimeter.
   services.maestro = {
     enable = true;
     web.enable = true;
@@ -41,60 +41,40 @@ in
     };
   };
 
+  # Everything under ~, three levels deep — the worktrees live at
+  # ~/<area>/<repo>/worktrees/<name>. sem gives entity-level diffs; without it
+  # rev falls back to line diffs.
+  services.rev = {
+    enable = true;
+    roots = [ "%h" ];
+    depth = 3;
+    semBin = "${sem}/bin/sem";
+  };
+
+  # One endpoint for both app repos. rev applies straight away; maestro only
+  # bumps the lock and notifies, because switching restarts the daemon that
+  # owns every interactive shell on this box.
+  services.nixAutodeploy = {
+    enable = true;
+    flake = "/home/naps62/tea/nixos-config";
+    environmentFile = "%h/.config/nix-autodeploy/env";
+    repos = {
+      "yolo/rev".input = "rev";
+      "naps62/maestro" = {
+        input = "maestro";
+        apply = false;
+      };
+    };
+  };
+
   systemd.user.services = {
-    rev = {
-      Unit = {
-        Description = "rev — always-on local code review server";
-        After = [ "network.target" ];
-        # MUST stay 0: at RestartSec=2 a fast-crashing rev burns the default
-        # 5-starts-per-10s budget, and systemd parks the unit in `failed` until
-        # a manual `systemctl --user reset-failed`.
-        StartLimitIntervalSec = 0;
-      };
-      Service = {
-        Type = "simple";
-        WorkingDirectory = "%h/tea/rev";
-        # nodejs_26, not pkgs.nodejs: rev's package.json sets engines >=26 and
-        # the nixpkgs default is 24.
-        ExecStart = "${pkgs.nodejs_26}/bin/node server/index.ts";
-        Environment = [
-          "NODE_ENV=production"
-          "REV_ROOTS=%h"
-          "REV_DEPTH=3"
-          "REV_SEM_BIN=${sem}/bin/sem"
-          "PATH=${toolPath}"
-        ];
-        Restart = "always";
-        RestartSec = 2;
-      };
-      Install.WantedBy = [ "default.target" ];
-    };
-
-    rev-deploy = {
-      Unit = {
-        Description = "rev-deploy — Gitea webhook listener that deploys rev on push to main";
-        After = [ "network.target" ];
-        # Same restart-budget trap as `rev` above.
-        StartLimitIntervalSec = 0;
-      };
-      Service = {
-        Type = "simple";
-        WorkingDirectory = "%h/tea/rev";
-        ExecStart = "${pkgs.bun}/bin/bun scripts/deploy-webhook.ts";
-        EnvironmentFile = "%h/.config/rev/deploy.env";
-        # Unit files are home-manager symlinks; deploy.sh must not rewrite them.
-        Environment = [ "PATH=${toolPath}" "REV_SKIP_UNIT_INSTALL=1" ];
-        Restart = "always";
-        RestartSec = 2;
-      };
-      Install.WantedBy = [ "default.target" ];
-    };
-
     aoe-web = {
       Unit = {
         Description = "aoe serve — Agent of Empires web dashboard";
         After = [ "network.target" ];
-        # Same restart-budget trap as `rev` above.
+        # MUST stay 0: at RestartSec=2 a fast-crashing aoe burns the default
+        # 5-starts-per-10s budget, and systemd parks the unit in `failed` until
+        # a manual `systemctl --user reset-failed`.
         StartLimitIntervalSec = 0;
       };
       Service = {
