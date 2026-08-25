@@ -4,19 +4,9 @@
   ...
 }:
 let
-  claudeSettings = "home/yolo/claude-settings.json";
-
-  # ./claude-settings.json holds only what yolo overrides; everything else is
-  # inherited so common changes reach this host. Attrsets merge key-by-key,
-  # lists are replaced whole (permissions.allow is yolo's, not a union).
-  mergedClaudeSettings = (pkgs.formats.json { }).generate "claude-settings.json" (
-    lib.recursiveUpdate (lib.importJSON ../common/programs/claude/settings.json) (
-      lib.importJSON ./claude-settings.json
-    )
-  );
-
-  # Same merge, same reason: ./opencode.json holds only yolo's overrides so
-  # agents, commands and skills keep coming from common.
+  # ./opencode.json holds only yolo's overrides; everything else is inherited
+  # so agents, commands and skills keep coming from common. Attrsets merge
+  # key-by-key, lists are replaced whole.
   mergedOpencodeConfig = (pkgs.formats.json { }).generate "opencode.json" (
     lib.recursiveUpdate (lib.importJSON ../common/programs/opencode/opencode.json) (
       lib.importJSON ./opencode.json
@@ -68,13 +58,6 @@ in
       # Host-local, not shared: this sets yolo_mode_default = true, which starts
       # aoe sessions with permission checks skipped. Only correct on this box.
       ".config/agent-of-empires/config.toml".source = ./aoe-config.toml;
-
-      # Likewise host-local: carries skipDangerousModePermissionPrompt and the
-      # rev hook paths, neither of which belong on a workstation.
-      ".claude/settings.json" = {
-        source = lib.mkForce mergedClaudeSettings;
-        upstreamPath = claudeSettings;
-      };
     };
   };
 

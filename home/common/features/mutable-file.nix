@@ -75,7 +75,7 @@ in
           upstreamPath = lib.mkOption {
             type = lib.types.nullOr lib.types.str;
             default = null;
-            example = "home/yolo/claude-settings.json";
+            example = "home/yolo/aoe-config.toml";
             description = ''
               Repo-relative file to name in the "bring changes upstream" hint.
               Required when `source` is generated rather than a file in the

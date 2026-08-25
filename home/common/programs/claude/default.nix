@@ -19,6 +19,9 @@
     description = "--force-device-scale-factor value for Claude Desktop and T3 Code.";
   };
 
+  # ~/.claude/settings.json stays unmanaged: Claude Code rewrites it itself
+  # (model pins, permission grants, plugin state), so any nix copy drifts within
+  # a session and every `nh home switch` then aborts on the diff.
   config.home = {
     packages = with pkgs; [
       inputs.claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -47,6 +50,5 @@
       };
     };
 
-    mutableFiles.".claude/settings.json".source = ./settings.json;
   };
 }
