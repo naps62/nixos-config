@@ -30,11 +30,20 @@
   # this VM has a real 8G swap partition, and the host manages its own memory.
   zramSwap.enable = lib.mkForce false;
 
-  # The only out-of-band way in. `vga: virtio-gl` renders through a GL context
-  # with no QEMU console surface, so noVNC and screendump both go dark; this
-  # pairs with the VM's serial0 socket to keep `qm terminal` working. Listed
-  # last so it wins /dev/console and gets the getty.
   boot.kernelParams = [
+    # When the host pages this VM's memory out, KVM's async page fault parks
+    # the faulting task in an uninterruptible wait instead of stalling the
+    # whole vCPU. If the "page ready" wakeup is ever dropped, that task is
+    # wedged forever and SIGKILL cannot touch it — it took out maestro-web,
+    # nix activation generators and a dozen agent sessions, a few per day,
+    # until a reboot. Disabling async PF makes host page-ins stall the vCPU
+    # synchronously: slower under host memory pressure, but nothing hangs.
+    "no-kvmapf"
+
+    # The only out-of-band way in. `vga: virtio-gl` renders through a GL
+    # context with no QEMU console surface, so noVNC and screendump both go
+    # dark; this pairs with the VM's serial0 socket to keep `qm terminal`
+    # working. Listed last so it wins /dev/console and gets the getty.
     "console=tty1"
     "console=ttyS0,115200"
   ];
