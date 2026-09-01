@@ -20,6 +20,7 @@
     ../common/features/wine.nix
     ../common/features/gaming
     ../common/features/appimage.nix
+    ../common/features/flatpak.nix
     ../common/features/smb-mounts.nix
     ../common/features/home
   ];
