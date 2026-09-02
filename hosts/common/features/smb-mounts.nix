@@ -40,7 +40,10 @@ in
           };
           mountPoint = lib.mkOption {
             type = lib.types.str;
-            description = "Local mount point, e.g. \"/mnt/retroarch\".";
+            # MUST NOT live under $HOME: starship and eww stat every entry of the
+            # home dir, so a mount point there triggers the automount on every
+            # prompt and blocks for mount-timeout while the VPN is down.
+            description = "Local mount point outside $HOME, e.g. \"/mnt/retroarch\".";
           };
           user = lib.mkOption {
             type = lib.types.str;
