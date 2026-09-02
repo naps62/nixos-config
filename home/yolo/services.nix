@@ -45,9 +45,9 @@ in
     semBin = "${sem}/bin/sem";
   };
 
-  # One endpoint for every repo this config pins. rev and agent-skills apply
-  # straight away; maestro only bumps the lock and notifies, because switching
-  # restarts the daemon that owns every interactive shell on this box.
+  # One endpoint for every repo this config pins. All three apply straight
+  # away: a maestro restart drops the daemon but not the sessions it manages,
+  # so the interactive shells on this box survive it.
   services.nixAutodeploy = {
     enable = true;
     flake = "/home/naps62/tea/nixos-config";
@@ -55,10 +55,7 @@ in
     repos = {
       "yolo/rev".input = "rev";
       "yolo/agent-skills".input = "agent-skills";
-      "naps62/maestro" = {
-        input = "maestro";
-        apply = false;
-      };
+      "naps62/maestro".input = "maestro";
     };
   };
 
