@@ -754,11 +754,11 @@
         "process-compose-flake": "process-compose-flake"
       },
       "locked": {
-        "lastModified": 1788369492,
-        "narHash": "sha256-2Fosp/NZLByfbNt5+qfAkkYG0dlHDNLNEPG1Skiy3YE=",
+        "lastModified": 1788370673,
+        "narHash": "sha256-4cgtgW0phDo+3icel0dmPDUGwKtL0qBbD4enBrMrsL4=",
         "ref": "refs/heads/main",
-        "rev": "d69107b514071f477192266b675d1859d0ea8d99",
-        "revCount": 562,
+        "rev": "9dad3e647222fd46ebf7f784bac3582bed1a0f68",
+        "revCount": 565,
         "type": "git",
         "url": "https://git.naps.pt/naps62/maestro.git"
       },
