@@ -30,10 +30,8 @@ in
   #
   # settings stays empty on purpose: ~/.config/maestro/config.toml is a
   # hand-edited plain file, not nix-generated (module skips it iff `{}`).
-  services.maestro = {
-    enable = true;
-    web.enable = true;
-  };
+  # There is no `web.enable`: the daemon serves the UI on `daemon.bind_addr`.
+  services.maestro.enable = true;
 
   # Everything under ~, three levels deep — the worktrees live at
   # ~/<area>/<repo>/worktrees/<name>. sem gives entity-level diffs; without it
