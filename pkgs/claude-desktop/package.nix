@@ -137,9 +137,12 @@ stdenv.mkDerivation (finalAttrs: {
     # The bundled Chromium/ANGLE dlopen()s the system libEGL.so.1 for GL; give it
     # libglvnd + NixOS's GPU driver path so it hardware-accelerates instead of
     # falling back to software rendering.
+    # Chromium maps XDG_CURRENT_DESKTOP=Hyprland to "other" and silently picks the
+    # plaintext `basic` keystore, so safeStorage reports unavailable and auth tokens
+    # never persist across restarts. Pin the libsecret backend explicitly.
     makeWrapper $out/lib/claude-desktop/claude-desktop $out/bin/claude-desktop \
       "''${gappsWrapperArgs[@]}" \
-      --add-flags "--no-sandbox${lib.optionalString (deviceScaleFactor != null) " --force-device-scale-factor=${deviceScaleFactor}"}" \
+      --add-flags "--no-sandbox --password-store=gnome-libsecret${lib.optionalString (deviceScaleFactor != null) " --force-device-scale-factor=${deviceScaleFactor}"}" \
       --prefix PATH : ${lib.makeBinPath [ xdg-utils ]} \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL mesa ]}:/run/opengl-driver/lib"
 
