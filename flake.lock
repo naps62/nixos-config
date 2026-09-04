@@ -1075,11 +1075,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788356169,
-        "narHash": "sha256-NpIwwZ3O+rahCrWkYJvZEcSM0FeoO0av7bR7MDgZNZ0=",
+        "lastModified": 1788516299,
+        "narHash": "sha256-Q9Tz8+FVCrV7idkoSomdPj1W86j+rgUrMcf4bNRzYks=",
         "ref": "refs/heads/main",
-        "rev": "b432e8a9ed4e8c819df1aaf547161b71967395d3",
-        "revCount": 235,
+        "rev": "aba6443ed0643cc841db1b0b87b41f68f5597b3e",
+        "revCount": 237,
         "type": "git",
         "url": "https://git.naps.pt/yolo/rev.git"
       },
