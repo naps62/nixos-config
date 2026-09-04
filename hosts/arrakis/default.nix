@@ -22,6 +22,7 @@
     ../common/features/bluetooth.nix
     ../common/features/ledger.nix
     ../common/features/smb-mounts.nix
+    ../common/features/transmission.nix
     ../common/features/home
   ];
 

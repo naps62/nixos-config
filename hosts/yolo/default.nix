@@ -17,6 +17,7 @@
     ../common/features/kdeconnect.nix
     ../common/features/nix-ld.nix
     ../common/features/appimage.nix
+    ../common/features/transmission.nix
     ../common/features/home
   ];
 
