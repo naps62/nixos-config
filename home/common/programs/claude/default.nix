@@ -19,6 +19,14 @@
     description = "--force-device-scale-factor value for Claude Desktop and T3 Code.";
   };
 
+  # OpenWhispr's GPU-accelerated local Whisper transcription (NVIDIA hosts
+  # only). Pulls in cudaPackages_13 (multi-GB) when enabled, so opt-in per host.
+  options.custom.aiApps.cudaAcceleration = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Wire OpenWhispr's onnxruntime CUDA execution provider against cudaPackages_13.";
+  };
+
   # ~/.claude/settings.json stays unmanaged: Claude Code rewrites it itself
   # (model pins, permission grants, plugin state), so any nix copy drifts within
   # a session and every `nh home switch` then aborts on the diff.

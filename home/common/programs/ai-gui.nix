@@ -15,6 +15,7 @@ let
   };
   openwhispr = pkgs.callPackage ../../../pkgs/openwhispr/package.nix {
     inherit (config.custom.aiApps) deviceScaleFactor;
+    cudaSupport = config.custom.aiApps.cudaAcceleration;
   };
 in
 {

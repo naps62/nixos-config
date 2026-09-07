@@ -56,8 +56,33 @@
   xsel,
   # UI scaling: null = native, or a string like "1.5" for --force-device-scale-factor.
   deviceScaleFactor ? null,
+  # GPU-accelerated local Whisper transcription + onnxruntime CUDA execution
+  # provider (NVIDIA hosts only). The bundled onnxruntime-node binaries were
+  # built against CUDA 13, so this must stay pinned to cudaPackages_13
+  # regardless of nixpkgs' default cudaPackages version.
+  cudaSupport ? false,
+  cudaPackages_13,
 }:
 
+let
+  # onnxruntime's CUDA execution provider wants these exact SONAMEs
+  # (verified against the .so it ships: libcublas.so.13, libcudnn.so.9, etc).
+  # libcuda.so.1 itself comes from the NVIDIA driver at /run/opengl-driver/lib
+  # (runtime-only, never present in the build sandbox) — not part of this set.
+  cudaLibs = lib.optionals cudaSupport (
+    map lib.getLib (
+      with cudaPackages_13;
+      [
+        cuda_cudart
+        libcublas
+        cudnn
+        libcufft
+        libcurand
+        cuda_nvrtc
+      ]
+    )
+  );
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "openwhispr";
   version = "1.9.2";
@@ -118,7 +143,8 @@ stdenv.mkDerivation (finalAttrs: {
     libxscrnsaver
     libxshmfence
     libxtst
-  ];
+  ]
+  ++ cudaLibs;
 
   # dlopen'd at runtime; make autoPatchelf bake them into the rpath.
   runtimeDependencies = [
@@ -128,20 +154,25 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.getLib systemd)
   ];
 
-  # onnxruntime-node bundles CUDA/TensorRT execution providers it only
-  # dlopen()s if explicitly requested; falls back to the CPU provider
-  # (already patched fine) without them. Packaging full CUDA+cuDNN+TensorRT
-  # just to satisfy autoPatchelf here isn't worth it.
+  # onnxruntime-node also bundles a TensorRT execution provider, but the app
+  # only ever selects `cuda` or `vulkan` as a backend — TensorRT is dead
+  # weight either way, not worth pulling in. libcuda.so.1 is the NVIDIA
+  # driver's own lib, only present at /run/opengl-driver/lib on an activated
+  # NixOS system, never inside the build sandbox — same story as libGL below.
+  # The rest (cudart/cublas/cudnn/cufft/curand/nvrtc) are only ignored when
+  # cudaSupport is off; otherwise cudaLibs above satisfies them for real.
   autoPatchelfIgnoreMissingDeps = [
+    "libcuda.so.1"
+    "libnvinfer.so.10"
+    "libnvonnxparser.so.10"
+  ]
+  ++ lib.optionals (!cudaSupport) [
     "libcublas.so.13"
     "libcublasLt.so.13"
-    "libcuda.so.1"
     "libcudart.so.13"
     "libcudnn.so.9"
     "libcufft.so.12"
     "libcurand.so.10"
-    "libnvinfer.so.10"
-    "libnvonnxparser.so.10"
     "libnvrtc.so.13"
   ];
 
@@ -184,7 +215,14 @@ stdenv.mkDerivation (finalAttrs: {
           xsel
         ]
       } \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL mesa ]}:/run/opengl-driver/lib"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath ([
+        # cudaLibs is also needed here, not just in buildInputs: OpenWhispr
+        # downloads its own CUDA-accelerated whisper-server binary at
+        # runtime, which never goes through autoPatchelf and only finds
+        # these via the inherited environment.
+        libGL
+        mesa
+      ] ++ cudaLibs)}:/run/opengl-driver/lib"
 
     substituteInPlace $out/share/applications/open-whispr.desktop \
       --replace-fail "Exec=/opt/OpenWhispr/open-whispr %U" "Exec=$out/bin/openwhispr %U"

@@ -61,6 +61,9 @@
   # 4K@1x monitors render the Electron AI apps tiny; scale their UI up. Tune to taste.
   custom.aiApps.deviceScaleFactor = "1.5";
 
+  # RTX 4060 is present — let OpenWhispr use it for local transcription.
+  custom.aiApps.cudaAcceleration = true;
+
   wayland.windowManager.hyprland.extraConfig = ''
     hl.on("hyprland.start", function()
       -- boot-into-lock: paired with SDDM autologin (host config), lock the
