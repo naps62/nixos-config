@@ -13,6 +13,9 @@ let
   t3-code = pkgs.callPackage ../../../pkgs/t3-code/package.nix {
     inherit (config.custom.aiApps) deviceScaleFactor;
   };
+  openwhispr = pkgs.callPackage ../../../pkgs/openwhispr/package.nix {
+    inherit (config.custom.aiApps) deviceScaleFactor;
+  };
 in
 {
   imports = [ inputs.codex-desktop-linux.homeManagerModules.default ];
@@ -20,6 +23,7 @@ in
   home.packages = lib.optionals pkgs.stdenv.hostPlatform.isx86_64 [
     claude-desktop
     t3-code
+    openwhispr
   ];
 
   programs.codexDesktopLinux = {
