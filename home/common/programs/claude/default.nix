@@ -20,11 +20,11 @@
   };
 
   # OpenWhispr's GPU-accelerated local Whisper transcription (NVIDIA hosts
-  # only). Pulls in cudaPackages_13 (multi-GB) when enabled, so opt-in per host.
+  # only). Adds ~1GiB of CUDA runtime to the closure, so opt-in per host.
   options.custom.aiApps.cudaAcceleration = lib.mkOption {
     type = lib.types.bool;
     default = false;
-    description = "Wire OpenWhispr's onnxruntime CUDA execution provider against cudaPackages_13.";
+    description = "Make CUDA available to OpenWhispr's GPU whisper-server sidecar.";
   };
 
   # ~/.claude/settings.json stays unmanaged: Claude Code rewrites it itself

@@ -56,32 +56,29 @@
   xsel,
   # UI scaling: null = native, or a string like "1.5" for --force-device-scale-factor.
   deviceScaleFactor ? null,
-  # GPU-accelerated local Whisper transcription + onnxruntime CUDA execution
-  # provider (NVIDIA hosts only). The bundled onnxruntime-node binaries were
-  # built against CUDA 13, so this must stay pinned to cudaPackages_13
-  # regardless of nixpkgs' default cudaPackages version.
+  # GPU-accelerated local Whisper transcription (NVIDIA hosts only).
   cudaSupport ? false,
-  cudaPackages_13,
+  cudaPackages_12,
 }:
 
 let
-  # onnxruntime's CUDA execution provider wants these exact SONAMEs
-  # (verified against the .so it ships: libcublas.so.13, libcudnn.so.9, etc).
-  # libcuda.so.1 itself comes from the NVIDIA driver at /run/opengl-driver/lib
-  # (runtime-only, never present in the build sandbox) — not part of this set.
-  cudaLibs = lib.optionals cudaSupport (
-    map lib.getLib (
-      with cudaPackages_13;
-      [
-        cuda_cudart
-        libcublas
-        cudnn
-        libcufft
-        libcurand
-        cuda_nvrtc
-      ]
-    )
-  );
+  # OpenWhispr fetches its GPU whisper-server at runtime rather than bundling
+  # one, so these can only be resolved via LD_LIBRARY_PATH below — that binary
+  # never passes through autoPatchelf. It links CUDA 12 SONAMEs
+  # (libcudart.so.12, libcublas.so.12), so this MUST stay pinned to
+  # cudaPackages_12 even though the app's own onnxruntime wants CUDA 13.
+  # libcuda.so.1 comes from the driver at /run/opengl-driver/lib.
+  sidecarLibs =
+    [ (lib.getLib stdenv.cc.cc) ]
+    ++ lib.optionals cudaSupport (
+      map lib.getLib (
+        with cudaPackages_12;
+        [
+          cuda_cudart
+          libcublas
+        ]
+      )
+    );
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "openwhispr";
@@ -143,8 +140,7 @@ stdenv.mkDerivation (finalAttrs: {
     libxscrnsaver
     libxshmfence
     libxtst
-  ]
-  ++ cudaLibs;
+  ];
 
   # dlopen'd at runtime; make autoPatchelf bake them into the rpath.
   runtimeDependencies = [
@@ -154,25 +150,22 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.getLib systemd)
   ];
 
-  # onnxruntime-node also bundles a TensorRT execution provider, but the app
-  # only ever selects `cuda` or `vulkan` as a backend — TensorRT is dead
-  # weight either way, not worth pulling in. libcuda.so.1 is the NVIDIA
-  # driver's own lib, only present at /run/opengl-driver/lib on an activated
-  # NixOS system, never inside the build sandbox — same story as libGL below.
-  # The rest (cudart/cublas/cudnn/cufft/curand/nvrtc) are only ignored when
-  # cudaSupport is off; otherwise cudaLibs above satisfies them for real.
+  # onnxruntime-node ships CUDA and TensorRT execution providers it only
+  # dlopen()s if selected; they accelerate the small diarization/embedding
+  # models, not transcription, and want a whole second CUDA major (13) on top
+  # of the sidecar's 12 — ~2.4GiB for no measurable win. Left unresolved so
+  # onnxruntime falls back to its CPU provider. libcuda.so.1 is the driver's
+  # own lib, resolved from /run/opengl-driver/lib at runtime.
   autoPatchelfIgnoreMissingDeps = [
     "libcuda.so.1"
-    "libnvinfer.so.10"
-    "libnvonnxparser.so.10"
-  ]
-  ++ lib.optionals (!cudaSupport) [
     "libcublas.so.13"
     "libcublasLt.so.13"
     "libcudart.so.13"
     "libcudnn.so.9"
     "libcufft.so.12"
     "libcurand.so.10"
+    "libnvinfer.so.10"
+    "libnvonnxparser.so.10"
     "libnvrtc.so.13"
   ];
 
@@ -215,14 +208,15 @@ stdenv.mkDerivation (finalAttrs: {
           xsel
         ]
       } \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath ([
-        # cudaLibs is also needed here, not just in buildInputs: OpenWhispr
-        # downloads its own CUDA-accelerated whisper-server binary at
-        # runtime, which never goes through autoPatchelf and only finds
-        # these via the inherited environment.
-        libGL
-        mesa
-      ] ++ cudaLibs)}:/run/opengl-driver/lib"
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath (
+          [
+            libGL
+            mesa
+          ]
+          ++ sidecarLibs
+        )
+      }:/run/opengl-driver/lib"
 
     substituteInPlace $out/share/applications/open-whispr.desktop \
       --replace-fail "Exec=/opt/OpenWhispr/open-whispr %U" "Exec=$out/bin/openwhispr %U"
