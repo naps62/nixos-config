@@ -56,6 +56,9 @@
     nvidia = true;
     retroarch = true;
     moonlight = true;
+    # This box is the Sunshine host: let a connecting Moonlight client unlock
+    # the session, and re-lock it when the stream ends.
+    sunshineSessionLock = true;
   };
 
   # 4K@1x monitors render the Electron AI apps tiny; scale their UI up. Tune to taste.

@@ -20,6 +20,7 @@ in
   imports = [
     ./moonlight.nix
     ./retroarch.nix
+    ./sunshine-session-lock.nix
   ];
 
   options.custom.gaming = {
