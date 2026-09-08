@@ -6,6 +6,8 @@
 }:
 let
   cfg = config.custom.blender;
+
+  blender-mcp = pkgs.callPackage ../../../pkgs/blender-mcp/package.nix { };
 in
 {
   options.custom.blender = {
@@ -28,6 +30,12 @@ in
     home.packages = [
       (if cfg.cuda then pkgs.blender.override { cudaSupport = true; } else pkgs.blender)
       pkgs.prusa-slicer
+
+      # Half of the Blender Lab MCP setup: the stdio server an LLM client
+      # launches. The other half is the "MCP" add-on, installed per host from
+      # Blender's extension repo (lab.blender.org) so it keeps its in-app
+      # update notifications — nothing works until it is enabled and started.
+      blender-mcp
     ];
 
     fonts.fontconfig.enable = true;
