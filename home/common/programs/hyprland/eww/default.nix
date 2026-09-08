@@ -45,6 +45,9 @@ let
   panelToggle = mkScript "eww-panel" [
     config.programs.eww.package
     pkgs.jq
+    pkgs.waybar
+    pkgs.procps
+    pkgs.util-linux
     inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
   ];
 
@@ -53,16 +56,63 @@ let
   wpctl = "${pkgs.wireplumber}/bin/wpctl";
   wpaperctl = "${pkgs.wpaperd}/bin/wpaperctl";
 
+  # No StatusNotifierItem host runs otherwise (no waybar, no snixembed) — spawn
+  # a tray-only waybar instance alongside the panel instead of running one
+  # permanently. Its own config lives outside ~/.config/waybar so it can't
+  # collide with a "real" waybar setup later.
+  trayConfigPath = "${config.home.homeDirectory}/.config/waybar-tray/config";
+  trayStylePath = "${config.home.homeDirectory}/.config/waybar-tray/style.css";
+  killTray = "${pkgs.procps}/bin/pkill -f 'waybar -c ${trayConfigPath}' || true";
+
   # setsid, and before the close rather than after it: eww kills the onclick
   # handler's process group when the window it came from goes away, so a bare
   # `close panel; cmd` never reaches cmd.
-  act = cmd: "${pkgs.util-linux}/bin/setsid --fork ${cmd}; ${eww} close panel";
+  act = cmd: "${pkgs.util-linux}/bin/setsid --fork ${cmd}; ${eww} close panel; ${killTray}";
 in
 {
   home.packages = [
     panelToggle
     pkgs.waypaper
   ];
+
+  xdg.configFile = {
+    "waybar-tray/config".text = builtins.toJSON {
+      layer = "top";
+      position = "top";
+      height = builtins.ceil (28 * cfg.panelScale);
+      "margin-top" = builtins.ceil (10 * cfg.panelScale);
+      "margin-right" = builtins.ceil (14 * cfg.panelScale);
+      "modules-left" = [ ];
+      "modules-center" = [ ];
+      "modules-right" = [ "tray" ];
+      tray = {
+        "icon-size" = builtins.ceil (20 * cfg.panelScale);
+        spacing = builtins.ceil (10 * cfg.panelScale);
+      };
+    };
+
+    "waybar-tray/style.css".text = ''
+      * {
+        font-family: "FiraCode Nerd Font", monospace;
+      }
+
+      window#waybar {
+        background-color: transparent;
+      }
+
+      #tray {
+        background-color: rgba(59, 66, 82, 0.72);
+        border: ${px 1} solid #4c566a;
+        border-radius: ${px 14};
+        padding: 0 ${px 10};
+      }
+
+      #tray > .needs-attention {
+        background-color: #bf616a;
+        border-radius: ${px 8};
+      }
+    '';
+  };
 
   programs.eww = {
     enable = true;

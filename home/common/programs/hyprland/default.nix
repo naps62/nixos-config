@@ -264,7 +264,7 @@ in
         end)
 
         -- layer rules
-        hl.layer_rule({ match = { namespace = "eww-panel" }, blur = true, ignore_alpha = 0.5 })
+        hl.layer_rule({ match = { namespace = "eww-panel" }, blur = true, xray = true, ignore_alpha = 0.5 })
 
         -- workspace rules
         hl.workspace_rule({ workspace = "w[t1]", gaps_out = 0, gaps_in = 0 })   -- no gaps when only window
