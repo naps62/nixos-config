@@ -24,6 +24,7 @@
     ../common/features/smb-mounts.nix
     ../common/features/transmission.nix
     ../common/features/ydotool.nix
+    ../common/features/udisks.nix
     ../common/features/home
   ];
 

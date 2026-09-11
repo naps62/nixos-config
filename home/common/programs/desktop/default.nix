@@ -6,6 +6,7 @@
 {
   imports = [
     ./darkman.nix
+    ./udiskie.nix
     # mpv is installed by programs.mpv there, not as a bare package here.
     ../mpv.nix
   ];
