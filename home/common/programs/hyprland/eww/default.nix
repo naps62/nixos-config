@@ -79,6 +79,7 @@ in
     "waybar-tray/config".text = builtins.toJSON {
       layer = "top";
       position = "top";
+      exclusive = false;
       height = builtins.ceil (28 * cfg.panelScale);
       "margin-top" = builtins.ceil (10 * cfg.panelScale);
       "margin-right" = builtins.ceil (14 * cfg.panelScale);
