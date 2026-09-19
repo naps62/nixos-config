@@ -16,6 +16,7 @@ in
 {
   imports = [
     ../common/programs/default.nix
+    ../common/programs/ai-gui.nix
     ../common/programs/desktop
     ../common/programs/hyprland
     ../common/programs/kitty

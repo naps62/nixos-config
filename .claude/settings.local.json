@@ -45,7 +45,11 @@
       "Read(//home/naps62/.config/sunshine/**)",
       "Read(//home/naps62/**)",
       "Read(//home/naps62/Games/**)",
-      "Bash(hostnamectl)"
+      "Bash(hostnamectl)",
+      "Bash(find:*)",
+      "Bash(git remote get-url:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   },
   "sandbox": {
