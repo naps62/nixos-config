@@ -67,6 +67,11 @@ in
       default = "1400 1400";
       description = "Size of the yazi special workspace window";
     };
+    gdkScale = lib.mkOption {
+      type = lib.types.ints.positive;
+      default = 2;
+      description = "GTK application scale factor for this host.";
+    };
     cursorSize = lib.mkOption {
       type = lib.types.int;
       default = 24;
@@ -240,7 +245,7 @@ in
         hl.animation({ leaf = "global", enabled = true, speed = 2, bezier = "default" })
 
         -- environment
-        hl.env("GDK_SCALE", "2.0")
+        hl.env("GDK_SCALE", "${toString cfg.gdkScale}")
         hl.env("XCURSOR_SIZE", "${toString cfg.cursorSize}")
         hl.env("HYPRCURSOR_THEME", "${cfg.cursorTheme.dark}")
         hl.env("HYPRCURSOR_SIZE", "${toString cfg.cursorSize}")

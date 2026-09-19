@@ -23,6 +23,7 @@
   ];
 
   custom.hyprland.cursorSize = 32;
+  custom.hyprland.gdkScale = 1;
 
   # Fingerprint unlock for hyprlock — arrakis is the only host with a reader
   # (fprintd is enabled system-side in hosts/arrakis). hyprlock talks to fprintd
