@@ -43,7 +43,14 @@ let
       pkgs.procps
     ];
     text = ''
-      stamp="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/sunshine-session-unlocked"
+      # systemctl --user reaches the session manager through $XDG_RUNTIME_DIR/bus;
+      # sunshine's environment does not always carry the variable.
+      export XDG_RUNTIME_DIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+      stamp="$XDG_RUNTIME_DIR/sunshine-session-unlocked"
+      # Read by hypridle.service as ConditionPathExists=!%t/sunshine-streaming,
+      # so a home-manager activation mid-stream cannot restart the daemon behind
+      # our back. Lives on tmpfs, so a reboot clears a stamp left by a crash.
+      streaming="$XDG_RUNTIME_DIR/sunshine-streaming"
 
       # The graphical seat session — NOT the `manager` session that the sunshine
       # user service itself runs in. Sunshine's environment carries no
@@ -63,6 +70,15 @@ let
 
       case "''${1:-}" in
         unlock)
+          # Gamepad input arrives on a uinput joystick, which is not part of the
+          # wl_seat, so it never resets Hyprland's idle notifier: controller-only
+          # play looks idle and the 900s listener locks mid-game. The dbus
+          # inhibitor cannot prevent this either, because hypridle runs with
+          # ignore_dbus_inhibit = true (see hyprland/default.nix). Stopping the
+          # daemon for the life of the stream is the only lever left.
+          touch "$streaming"
+          systemctl --user stop hypridle || true
+
           # No hyprlock running means the session was already unlocked: do
           # nothing, and leave no stamp so `lock` won't lock it on the way out.
           if pkill -u "$(id -u)" -USR1 -x hyprlock; then
@@ -71,6 +87,11 @@ let
           ;;
 
         lock)
+          # Before the stamp check: idle timers must come back even when the
+          # stream arrived at an already-unlocked session and left no stamp.
+          rm -f "$streaming"
+          systemctl --user start hypridle || true
+
           [ -e "$stamp" ] || exit 0
           rm -f "$stamp"
           s="$(graphical_session)" || exit 0
@@ -95,5 +116,10 @@ in
 
   config = lib.mkIf cfg.sunshineSessionLock {
     home.packages = [ sunshine-session-lock ];
+
+    # A failed condition makes `systemctl start` a silent no-op rather than an
+    # error, so this only suppresses the restart that home-manager activation
+    # performs; the explicit start in the `lock` path removes the stamp first.
+    systemd.user.services.hypridle.Unit.ConditionPathExists = "!%t/sunshine-streaming";
   };
 }
