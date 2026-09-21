@@ -25,11 +25,6 @@
   custom.hyprland.cursorSize = 32;
   custom.hyprland.gdkScale = 1;
 
-  # ChatGPT's XWayland window needs an explicit device scale as well.
-  xdg.configFile."codex-desktop/electron-flags.conf".text = ''
-    --force-device-scale-factor=1
-  '';
-
   # Fingerprint unlock for hyprlock — arrakis is the only host with a reader
   # (fprintd is enabled system-side in hosts/arrakis). hyprlock talks to fprintd
   # over D-Bus directly (not via PAM), running in parallel with password input:

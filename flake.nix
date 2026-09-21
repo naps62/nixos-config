@@ -58,10 +58,6 @@
       url = "github:sadjow/codex-cli-nix/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    codex-desktop-linux = {
-      url = "github:ilysenko/codex-desktop-linux";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     # Pinned to the tag, and pins its own nixpkgs for the same reason ethui does
     # — it is a verified Rust build. Bump deliberately, not via `flake update`.
     agent-of-empires.url = "git+https://git.naps.pt/yolo/agent-of-empires.git";

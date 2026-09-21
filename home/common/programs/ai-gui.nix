@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  inputs,
   lib,
   ...
 }:
@@ -9,7 +8,7 @@ let
   claude-desktop = pkgs.callPackage ../../../pkgs/claude-desktop/package.nix {
     inherit (config.custom.aiApps) deviceScaleFactor;
   };
-  codex-cli = inputs.codex-cli.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  chatgpt = pkgs.callPackage ../../../pkgs/chatgpt/package.nix { };
   t3-code = pkgs.callPackage ../../../pkgs/t3-code/package.nix {
     inherit (config.custom.aiApps) deviceScaleFactor;
   };
@@ -19,16 +18,10 @@ let
   };
 in
 {
-  imports = [ inputs.codex-desktop-linux.homeManagerModules.default ];
-
   home.packages = lib.optionals pkgs.stdenv.hostPlatform.isx86_64 [
     claude-desktop
+    chatgpt
     t3-code
     openwhispr
   ];
-
-  programs.codexDesktopLinux = {
-    enable = true;
-    cliPackage = codex-cli;
-  };
 }
