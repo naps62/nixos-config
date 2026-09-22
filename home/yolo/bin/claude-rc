@@ -1,0 +1,158 @@
+#!/usr/bin/env bash
+# Manage the live list of Claude Code Remote Control projects.
+# The projects file is the source of truth; sync reconciles systemd to match.
+set -euo pipefail
+
+LIST="${CLAUDE_RC_LIST:-$HOME/.config/claude-rc/projects}"
+UNIT=claude-rc
+
+die() { echo "claude-rc: $*" >&2; exit 1; }
+
+# configured paths: strip comments, an optional "| Display Name" suffix,
+# surrounding space, and any trailing slash.
+wanted_paths() {
+  [ -f "$LIST" ] || return 0
+  sed -e 's/#.*//' -e 's/|.*//' -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' "$LIST" \
+    | grep -v '^$' \
+    | sed -e 's#/\+$##' \
+    | sort -u
+}
+
+# display name for a path, if the list defines one
+name_for() {
+  [ -f "$LIST" ] || return 0
+  awk -F'|' -v t="$1" '
+    { line=$0; sub(/#.*/,"",line)
+      p=line; if (index(line,"|")) { p=substr(line,1,index(line,"|")-1) }
+      gsub(/^[[:space:]]+|[[:space:]]+$/,"",p); sub(/\/+$/,"",p)
+      if (p == t && index(line,"|")) {
+        n=substr(line,index(line,"|")+1)
+        gsub(/^[[:space:]]+|[[:space:]]+$/,"",n)
+        if (n != "") { print n; exit }
+      }
+    }' "$LIST" 2>/dev/null
+}
+
+# instance names systemd should have enabled
+wanted_units() {
+  wanted_paths | while read -r p; do
+    printf '%s@%s.service\n' "$UNIT" "$(systemd-escape -p "$p")"
+  done | sort -u
+}
+
+# instance names systemd currently has
+current_units() {
+  systemctl --user list-units --all --no-legend --plain "${UNIT}@*.service" 2>/dev/null \
+    | awk '{print $1}' | sort -u
+}
+
+cmd_sync() {
+  local want have add rm
+  want=$(wanted_units); have=$(current_units)
+  add=$(comm -23 <(printf '%s\n' "$want") <(printf '%s\n' "$have") | grep -v '^$' || true)
+  rm=$(comm -13 <(printf '%s\n' "$want") <(printf '%s\n' "$have") | grep -v '^$' || true)
+
+  if [ -n "$rm" ]; then
+    while read -r u; do
+      echo "- stop $u"
+      systemctl --user disable --now "$u" >/dev/null 2>&1 || true
+    done <<<"$rm"
+  fi
+  if [ -n "$add" ]; then
+    while read -r u; do
+      echo "+ start $u"
+      systemctl --user enable --now "$u" >/dev/null 2>&1 \
+        || echo "  FAILED: $u (see: claude-rc log $u)" >&2
+    done <<<"$add"
+  fi
+  [ -z "$add$rm" ] && echo "in sync ($(wanted_paths | grep -c . || true) projects)"
+  return 0
+}
+
+cmd_list() {
+  local n=0
+  printf '%-46s %-9s %s\n' PROJECT STATE GIT
+  while read -r p; do
+    n=$((n+1))
+    local u state git
+    u="${UNIT}@$(systemd-escape -p "$p").service"
+    state=$(systemctl --user is-active "$u" 2>/dev/null || true)
+    if [ ! -d "$p" ]; then git="MISSING DIR"
+    elif git -C "$p" rev-parse --git-dir >/dev/null 2>&1; then git="worktree"
+    else git="same-dir (not git)"; fi
+    printf '%-46s %-9s %s\n' "${p/#$HOME/\~}" "$state" "$git"
+  done < <(wanted_paths)
+  [ "$n" = 0 ] && echo "(no projects configured; claude-rc add <path>)"
+  return 0
+}
+
+cmd_add() {
+  local p="${1:-$PWD}"
+  p=$(cd "$p" 2>/dev/null && pwd) || die "no such directory: ${1:-$PWD}"
+  if wanted_paths | grep -qxF "$p"; then echo "already listed: $p"; return 0; fi
+  # revive a commented-out entry if present, else append; keeps the file tidy
+  # across add/rm cycles instead of accumulating dead duplicates.
+  if awk -v t="$p" '
+      { l=$0; sub(/^[[:space:]]*#[[:space:]]*/,"",l); sub(/\/+$/,"",l)
+        gsub(/^[[:space:]]+|[[:space:]]+$/,"",l)
+        if ($0 ~ /^[[:space:]]*#/ && l == t) found=1 }
+      END { exit !found }' "$LIST"; then
+    awk -v t="$p" '
+      { l=$0; sub(/^[[:space:]]*#[[:space:]]*/,"",l); sub(/\/+$/,"",l)
+        gsub(/^[[:space:]]+|[[:space:]]+$/,"",l)
+        if (!done && $0 ~ /^[[:space:]]*#/ && l == t) { print t; done=1 }
+        else print $0 }
+    ' "$LIST" > "$LIST.tmp" && mv "$LIST.tmp" "$LIST"
+  else
+    printf '%s\n' "$p" >> "$LIST"
+  fi
+  echo "added: $p"
+  cmd_sync
+}
+
+cmd_rm() {
+  local p="${1:?usage: claude-rc rm <path>}"
+  p=$(cd "$p" 2>/dev/null && pwd) || p="${p%/}"
+  wanted_paths | grep -qxF "$p" || die "not listed: $p"
+  # comment out rather than delete, so the entry is easy to restore.
+  # awk, not sed: the path is data, so no regex metachar/delimiter escaping.
+  awk -v target="$p" '
+    {
+      line = $0
+      sub(/#.*/, "", line)
+      gsub(/^[[:space:]]+|[[:space:]]+$/, "", line)
+      sub(/\/+$/, "", line)
+      if (line != "" && line == target) print "# " $0
+      else print $0
+    }
+  ' "$LIST" > "$LIST.tmp" && mv "$LIST.tmp" "$LIST"
+  echo "removed: $p"
+  cmd_sync
+}
+
+cmd_edit() { "${EDITOR:-vi}" "$LIST"; cmd_sync; }
+cmd_log() {
+  local p="${1:?usage: claude-rc log <path>}"
+  p=$(cd "$p" 2>/dev/null && pwd) || die "no such directory: $p"
+  journalctl --user -u "${UNIT}@$(systemd-escape -p "$p").service" -n 40 --no-pager
+}
+
+case "${1:-list}" in
+  sync) cmd_sync ;;
+  list|ls|status) cmd_list ;;
+  add) shift; cmd_add "${1:-}" ;;
+  rm|remove|del) shift; cmd_rm "${1:-}" ;;
+  edit) cmd_edit ;;
+  log|logs) shift; cmd_log "${1:-}" ;;
+  *) cat >&2 <<EOF
+usage: claude-rc <cmd>
+  list            projects + running state (default)
+  add [path]      add project (default: cwd)
+  rm <path>       remove project (comments it out)
+  edit            \$EDITOR the list, then sync
+  sync            force reconcile
+  log <path>      journal for one project
+list file: $LIST
+EOF
+    exit 1 ;;
+esac
