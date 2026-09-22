@@ -59,9 +59,39 @@ let
       --title=webcam-overlay --border=no --ontop \
       "av://v4l2:$dev"
   '';
+
+  # `hyprctl dispatch dpms off` is DEAD on 0.55+: hyprctl now compiles its args
+  # into a Lua call, so it evaluates `hl.dispatch(dpms off)` and dies with
+  # "')' expected near 'off'". Silent — the caller sees exit 0 semantics from a
+  # shell pipeline and the screens simply never blank.
+  #
+  # hl.dsp.dpms also takes a *table*. A bare string arg is not a table, so
+  # tableToggleAction() falls through to TOGGLE and the `monitor` selector is
+  # never read — `hl.dsp.dpms("off", "DP-1")` toggles every output instead.
+  hyprDpms = pkgs.writeShellScriptBin "hypr-dpms" ''
+    action="''${1:?usage: hypr-dpms on|off|toggle [monitor]}"
+    monitor="''${2:-}"
+
+    if [ -n "$monitor" ]; then
+      lua=$(printf 'return hl.dispatch(hl.dsp.dpms({ action = "%s", monitor = "%s" }))' "$action" "$monitor")
+    else
+      lua=$(printf 'return hl.dispatch(hl.dsp.dpms({ action = "%s" }))' "$action")
+    fi
+
+    exec ${hyprPkgs.hyprland}/bin/hyprctl eval "$lua"
+  '';
 in
 {
   options.custom.hyprland = {
+    dpmsCommand = lib.mkOption {
+      type = lib.types.str;
+      readOnly = true;
+      default = "${hyprDpms}/bin/hypr-dpms";
+      description = ''
+        Absolute path to the `hypr-dpms on|off|toggle [monitor]` helper, for
+        other modules that blank outputs (e.g. the Sunshine stream hooks).
+      '';
+    };
     yaziSize = lib.mkOption {
       type = lib.types.str;
       default = "1400 1400";
@@ -145,6 +175,7 @@ in
       wf-recorder
       slurp
       webcam
+      hyprDpms
     ];
 
     home.sessionVariables = {
@@ -466,7 +497,7 @@ in
       enable = true;
       settings = {
         general = {
-          after_sleep_cmd = "hyprctl dispatch dpms on";
+          after_sleep_cmd = "${hyprDpms}/bin/hypr-dpms on";
           before_sleep_cmd = "loginctl lock-session";
           # Must be true on this streaming box. GameMode (via Sunshine/Moonlight)
           # raises a dbus ScreenSaver inhibitor; if one arrives *after* the dpms-off
@@ -485,8 +516,8 @@ in
           }
           {
             timeout = 1200;
-            on-timeout = "hyprctl dispatch dpms off";
-            on-resume = "hyprctl dispatch dpms on";
+            on-timeout = "${hyprDpms}/bin/hypr-dpms off";
+            on-resume = "${hyprDpms}/bin/hypr-dpms on";
           }
         ];
       };
