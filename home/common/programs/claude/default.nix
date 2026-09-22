@@ -10,13 +10,13 @@
     ./synthetic.nix
   ];
 
-  # Shared UI-scale knob for the Electron AI desktop apps (Claude Desktop, T3 Code).
+  # Shared UI-scale knob for the Electron AI desktop apps (Claude Desktop, ChatGPT, T3 Code).
   # Set per-host (e.g. konishi's 4K@1x monitors want ~"1.5"); null = native scale.
   options.custom.aiApps.deviceScaleFactor = lib.mkOption {
     type = lib.types.nullOr lib.types.str;
     default = null;
     example = "1.5";
-    description = "--force-device-scale-factor value for Claude Desktop and T3 Code.";
+    description = "--force-device-scale-factor value for Claude Desktop, ChatGPT, and T3 Code.";
   };
 
   # OpenWhispr's GPU-accelerated local Whisper transcription (NVIDIA hosts

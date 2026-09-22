@@ -8,7 +8,9 @@ let
   claude-desktop = pkgs.callPackage ../../../pkgs/claude-desktop/package.nix {
     inherit (config.custom.aiApps) deviceScaleFactor;
   };
-  chatgpt = pkgs.callPackage ../../../pkgs/chatgpt/package.nix { };
+  chatgpt = pkgs.callPackage ../../../pkgs/chatgpt/package.nix {
+    inherit (config.custom.aiApps) deviceScaleFactor;
+  };
   t3-code = pkgs.callPackage ../../../pkgs/t3-code/package.nix {
     inherit (config.custom.aiApps) deviceScaleFactor;
   };

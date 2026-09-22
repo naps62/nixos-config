@@ -41,6 +41,7 @@
   libxfixes,
   libxrandr,
   xdg-utils,
+  deviceScaleFactor ? null,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "chatgpt";
@@ -128,7 +129,8 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper $out/lib/chatgpt/ChatGPT $out/bin/chatgpt \
       "''${gappsWrapperArgs[@]}" \
       --prefix PATH : ${lib.makeBinPath [ xdg-utils ]} \
-      --add-flags "--ozone-platform=wayland"
+      --add-flags "--ozone-platform=wayland" \
+      ${lib.optionalString (deviceScaleFactor != null) ''--add-flags "--force-device-scale-factor=${deviceScaleFactor}"''}
     substituteInPlace $out/share/applications/chatgpt.desktop \
       --replace-fail "Exec=chatgpt %U" "Exec=$out/bin/chatgpt %U"
     runHook postInstall
