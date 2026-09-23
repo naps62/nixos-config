@@ -55,7 +55,7 @@ in
   # so a second machine enabling them would run the same job twice.
   programs.agentSkills = {
     machine = "yolo";
-    prDaemon.enable = true;
+    prDaemon.enable = false;
     hourlog.enable = true;
     weekReview.enable = true;
   };
