@@ -114,6 +114,7 @@ stdenv.mkDerivation (finalAttrs: {
   runtimeDependencies = [
     libnotify
     libGL
+    libsecret
     (lib.getLib systemd)
   ];
 
@@ -139,7 +140,9 @@ stdenv.mkDerivation (finalAttrs: {
     # falling back to software rendering.
     # Chromium maps XDG_CURRENT_DESKTOP=Hyprland to "other" and silently picks the
     # plaintext `basic` keystore, so safeStorage reports unavailable and auth tokens
-    # never persist across restarts. Pin the libsecret backend explicitly.
+    # never persist across restarts. Pin the libsecret backend explicitly. The flag
+    # alone is not enough: libsecret-1.so.0 is dlopen'd, so it also has to be in
+    # runtimeDependencies or OSCrypt fails to initialise and falls back to plaintext.
     makeWrapper $out/lib/claude-desktop/claude-desktop $out/bin/claude-desktop \
       "''${gappsWrapperArgs[@]}" \
       --add-flags "--no-sandbox --password-store=gnome-libsecret${lib.optionalString (deviceScaleFactor != null) " --force-device-scale-factor=${deviceScaleFactor}"}" \
