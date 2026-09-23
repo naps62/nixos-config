@@ -22,11 +22,11 @@
     },
     "agent-skills": {
       "locked": {
-        "lastModified": 1789844092,
-        "narHash": "sha256-hX0KKtKCYrNx0NnkZ+1hk7PPc6kKltpPdpGI/vnF/XY=",
+        "lastModified": 1790173523,
+        "narHash": "sha256-7axjWl5wqBGNR+ABArrKyZy8tVMpaftPftSyVPtBnto=",
         "ref": "refs/heads/main",
-        "rev": "ee1cb7dc4b3c0ec9bc8e879c567d3dd3b4308eb8",
-        "revCount": 115,
+        "rev": "d8494885823d5e7e2e07e2623c5d833b221f116d",
+        "revCount": 117,
         "type": "git",
         "url": "https://git.naps.pt/yolo/agent-skills.git"
       },
