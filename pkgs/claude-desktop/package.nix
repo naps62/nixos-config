@@ -51,7 +51,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "claude-desktop";
-  version = "1.21459.3";
+  version = "2.9939.4";
 
   # Official Anthropic Linux build, pulled straight from their apt pool.
   # To bump: find the newest entry in
@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
   # then update version + hash (nix hash convert --to sri the listed SHA256).
   src = fetchurl {
     url = "https://downloads.claude.ai/claude-desktop/apt/stable/pool/main/c/claude-desktop/claude-desktop_${finalAttrs.version}_amd64.deb";
-    hash = "sha256-My0k7439p83WM+9iTvM1zrMatUtHHijXhavGAWrmqb4=";
+    hash = "sha256-PP3bI78pEeBeJ7TtOFa455XflGQ7LDW1nesxfPmVvKA=";
   };
 
   nativeBuildInputs = [
