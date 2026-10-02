@@ -10,6 +10,7 @@
     ../common/features/networking.nix
     ../common/features/gpu/nvidia.nix
     ../common/features/display
+    ../common/features/display/plasma.nix
     ../common/features/pipewire.nix
     ../common/features/docker.nix
     ../common/features/fonts.nix
@@ -19,6 +20,7 @@
     ../common/features/ledger.nix
     ../common/features/wine.nix
     ../common/features/gaming
+    ../common/features/gaming/gaming-mode.nix
     ../common/features/appimage.nix
     ../common/features/flatpak.nix
     ../common/features/smb-mounts.nix
@@ -83,6 +85,8 @@
     };
     defaultSession = "hyprland";
   };
+
+  custom.gamingMode.output = "HDMI-A-1";
 
   networking.nameservers = [
     "100.100.100.100"

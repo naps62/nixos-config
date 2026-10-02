@@ -79,6 +79,13 @@
     # Declarative flatpak remotes and packages; nixpkgs' services.flatpak only
     # exposes `enable`. Has no nixpkgs input to follow.
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    # SteamOS gaming-mode session (gamescope + Steam Deck UI) for konishi.
+    # Its NixOS module applies an overlay that swaps in its own steam,
+    # gamescope and mangohud, so only import it on hosts that want that.
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";

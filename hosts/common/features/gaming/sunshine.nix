@@ -47,6 +47,31 @@
   # the module's own systemd.user.services.sunshine definition.
   systemd.user.services.sunshine.environment.LD_LIBRARY_PATH = "/run/opengl-driver/lib";
 
+  # wlr-screencopy only exists under Hyprland. Plasma and gaming mode capture
+  # over KMS, which needs CAP_SYS_ADMIN, via a separate wrapper so the Hyprland
+  # path is unchanged. `capture=kms` overrides `capture = wlr` in sunshine.conf.
+  security.wrappers.sunshine-kms = {
+    owner = "root";
+    group = "root";
+    capabilities = "cap_sys_admin+p";
+    source = lib.getExe config.services.sunshine.package;
+  };
+
+  systemd.user.services.sunshine.serviceConfig.ExecStart = lib.mkForce (
+    lib.getExe (
+      pkgs.writeShellApplication {
+        name = "sunshine-session";
+        runtimeInputs = [ pkgs.procps ];
+        text = ''
+          if pgrep -u "$(id -u)" -x Hyprland >/dev/null; then
+            exec ${lib.getExe config.services.sunshine.package} "$@"
+          fi
+          exec ${config.security.wrapperDir}/sunshine-kms capture=kms "$@"
+        '';
+      }
+    )
+  );
+
   # hardware.uinput (pulled in by services.sunshine) makes /dev/uinput
   # root:uinput 0660 and adds nobody to the group, so sunshine's virtual mouse
   # and keyboard die with "Permission denied" and the stream takes no input.

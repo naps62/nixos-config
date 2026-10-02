@@ -21,6 +21,7 @@ in
     ./moonlight.nix
     ./retroarch.nix
     ./sunshine-session-lock.nix
+    ./tv-apps.nix
   ];
 
   options.custom.gaming = {

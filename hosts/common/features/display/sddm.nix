@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   services.xserver = {
     enable = true;
@@ -13,7 +13,7 @@
     enable = true;
     wayland.enable = true;
     theme = "sddm-astronaut-theme";
-    package = pkgs.kdePackages.sddm;
+    package = lib.mkDefault pkgs.kdePackages.sddm; # plasma6 sets the same one
     extraPackages = with pkgs.kdePackages; [
       qtmultimedia
       qtsvg

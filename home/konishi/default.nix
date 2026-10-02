@@ -56,6 +56,7 @@
     nvidia = true;
     retroarch = true;
     moonlight = true;
+    tvApps = true;
     # This box is the Sunshine host: let a connecting Moonlight client unlock
     # the session, and re-lock it when the stream ends.
     sunshineSessionLock = true;
