@@ -31,7 +31,7 @@
     };
   };
 
-  services.dbus.packages = with pkgs; [ gcr ];
+  services.dbus.packages = with pkgs; [ gcr_3 ];
 
   # NixOS provides /bin/sh but not /bin/bash. Some third-party scripts
   # hardcode #!/bin/bash, so provide it too.
