@@ -1011,11 +1011,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1786903203,
-        "narHash": "sha256-MaISe6TG4I5zb6hSRsBj5ENe5JSh7MjQ+QIDWDhxTo0=",
+        "lastModified": 1791000539,
+        "narHash": "sha256-xrlm3rDjf3tEPYKmCIfkN4OkXvRIAYS6BlKUSIhNy70=",
         "owner": "Ataraxy-Labs",
         "repo": "sem",
-        "rev": "ba2dfbbe75836cfe6f69dc036c9060b7ce5cc158",
+        "rev": "1f1ceeb8261a0b6c61b2bdadbb960972aef5b6a7",
         "type": "github"
       },
       "original": {
