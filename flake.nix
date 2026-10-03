@@ -40,8 +40,6 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # ethui pins its own nixpkgs (verified rust/tauri build) — do not follow.
-    ethui.url = "github:ethui/ethui/nix";
     # hyprland pins its own nixpkgs to match its cachix cache — do not follow,
     # or it compiles from source.
     hyprland = {
@@ -58,17 +56,14 @@
       url = "github:sadjow/codex-cli-nix/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Pinned to the tag, and pins its own nixpkgs for the same reason ethui does
-    # — it is a verified Rust build. Bump deliberately, not via `flake update`.
+    # Pinned to the tag, and pins its own nixpkgs — it is a verified Rust build.
+    # Bump deliberately, not via `flake update`.
     agent-of-empires.url = "git+https://git.naps.pt/yolo/agent-of-empires.git";
     # Semantic-diff tool rev calls via REV_SEM_BIN. NOT nixpkgs' `sem`, which is
     # the unrelated Semaphore CI cli.
     sem.url = "github:Ataraxy-Labs/sem";
     # Claude Code + Codex skills, commands, hooks and CLAUDE.md fragments.
     agent-skills.url = "git+https://git.naps.pt/yolo/agent-skills.git";
-    # Terminal-session orchestrator. Pins its own nixpkgs for the same reason
-    # ethui and agent-of-empires do — it is a verified Rust build.
-    maestro.url = "git+https://git.naps.pt/naps62/maestro.git";
     # Always-on local code review server. Follows nixpkgs, unlike the Rust
     # inputs above: it is a plain node bundle, and a second nixpkgs would put a
     # second node 26 in the closure for nothing.

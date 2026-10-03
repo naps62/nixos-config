@@ -13,7 +13,6 @@
     ../common/programs/hyprland
     ../common/programs/kitty
     ../common/programs/gpg.nix
-    ../common/programs/ethui.nix
     ../common/programs/3d.nix
     ../common/programs/godot.nix
     ../common/programs/gaming

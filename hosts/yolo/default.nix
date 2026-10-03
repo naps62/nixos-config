@@ -35,9 +35,9 @@
     # When the host pages this VM's memory out, KVM's async page fault parks
     # the faulting task in an uninterruptible wait instead of stalling the
     # whole vCPU. If the "page ready" wakeup is ever dropped, that task is
-    # wedged forever and SIGKILL cannot touch it — it took out maestro-web,
-    # nix activation generators and a dozen agent sessions, a few per day,
-    # until a reboot. Disabling async PF makes host page-ins stall the vCPU
+    # wedged forever and SIGKILL cannot touch it — it took out nix activation
+    # generators and a dozen agent sessions, a few per day, until a reboot.
+    # Disabling async PF makes host page-ins stall the vCPU
     # synchronously: slower under host memory pressure, but nothing hangs.
     "no-kvmapf"
 

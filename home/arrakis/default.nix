@@ -12,7 +12,6 @@
     ../common/programs/zen-browser.nix
     ../common/programs/hyprland
     ../common/programs/kitty
-    ../common/programs/ethui.nix
     ../common/programs/gpg.nix
     ../common/features/xdg.nix
     ../common/features/downloads-cleanup.nix

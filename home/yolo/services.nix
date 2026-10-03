@@ -5,9 +5,9 @@
 }:
 # The user services this box exists to run.
 #
-# maestro and rev come from their own flakes, so nix owns the build as well as
-# the unit. aoe-web is still the odd one out: its unit is defined here and the
-# binary comes from the flake input.
+# rev comes from its own flake, so nix owns the build as well as the unit.
+# aoe-web is still the odd one out: its unit is defined here and the binary
+# comes from the flake input.
 let
   # A user unit gets almost no PATH by default; these are the profile dirs the
   # original units got for free from the system PATH on Ubuntu.
@@ -51,14 +51,8 @@ in
     pkgs.claude-agent-acp
   ];
 
-  # maestro's and rev's units come from their flake modules, not from the
-  # hand-written set below.
+  # rev's unit comes from its flake module, not from the hand-written set below.
   #
-  # settings stays empty on purpose: ~/.config/maestro/config.toml is a
-  # hand-edited plain file, not nix-generated (module skips it iff `{}`).
-  # There is no `web.enable`: the daemon serves the UI on `daemon.bind_addr`.
-  services.maestro.enable = true;
-
   # Everything under ~, three levels deep — the worktrees live at
   # ~/<area>/<repo>/worktrees/<name>. sem gives entity-level diffs; without it
   # rev falls back to line diffs.
@@ -69,9 +63,7 @@ in
     semBin = "${sem}/bin/sem";
   };
 
-  # One endpoint for every repo this config pins. All three apply straight
-  # away: a maestro restart drops the daemon but not the sessions it manages,
-  # so the interactive shells on this box survive it.
+  # One endpoint for every repo this config pins.
   services.nixAutodeploy = {
     enable = true;
     flake = "/home/naps62/tea/nixos-config";
@@ -79,7 +71,6 @@ in
     repos = {
       "yolo/rev".input = "rev";
       "yolo/agent-skills".input = "agent-skills";
-      "naps62/maestro".input = "maestro";
     };
   };
 
