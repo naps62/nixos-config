@@ -56,6 +56,7 @@ in
         winetricks
 
         # overlays, tuning & diagnostics
+        goverlay # GUI to configure MangoHud / vkBasalt
         vkbasalt # Vulkan post-processing layer
         vulkan-tools # vulkaninfo / vkcube for sanity checks
       ]
