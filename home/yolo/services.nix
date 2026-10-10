@@ -25,6 +25,7 @@ let
       git
       gawk
       coreutils
+      jq
     ];
     text = builtins.readFile ./bin/claude-rc-run;
   };

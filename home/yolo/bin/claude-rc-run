@@ -10,6 +10,18 @@ if [ ! -d "$dir" ]; then
   exit 78 # EX_CONFIG - systemd won't spin on Restart=on-failure
 fi
 
+# An untrusted folder makes `claude remote-control` stop at an interactive
+# trust prompt and exit 1, which restart-loops every 15s. Fail with 78 instead.
+cfg="${CLAUDE_CONFIG_DIR:-$HOME}/.claude.json"
+trusted=$(jq -r --arg d "$dir" '
+  .projects // {} | to_entries
+  | any(.key as $k | .value.hasTrustDialogAccepted == true
+        and ($k == $d or ($d | startswith($k + "/"))))' "$cfg" 2>/dev/null || echo false)
+if [ "$trusted" != true ]; then
+  echo "claude-rc-run: $dir is not trusted; run 'cd $dir && claude' once and accept the prompt" >&2
+  exit 78
+fi
+
 # --spawn worktree needs a git repo; fall back to same-dir if not one
 spawn=worktree
 git -C "$dir" rev-parse --git-dir >/dev/null 2>&1 || {
