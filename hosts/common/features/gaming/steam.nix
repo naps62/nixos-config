@@ -20,4 +20,10 @@
   };
 
   hardware.steam-hardware.enable = true;
+
+  # Heroic's "Add to Steam" hardcodes /usr/bin/heroic as the shortcut target,
+  # which doesn't exist on NixOS. Heroic itself comes from home-manager.
+  systemd.tmpfiles.rules = [
+    "L+ /usr/bin/heroic - - - - /home/naps62/.nix-profile/bin/heroic"
+  ];
 }
