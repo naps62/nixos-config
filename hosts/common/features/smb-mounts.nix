@@ -64,6 +64,19 @@ in
     # mount.cifs helper must be on PATH for systemd to perform the mount.
     environment.systemPackages = [ pkgs.cifs-utils ];
 
+    # An unreachable server (VPN down at shutdown) would otherwise hang the
+    # unmount; detach lazily and force it so shutdown never waits on the NAS.
+    systemd.mounts = map (m: {
+      where = m.mountPoint;
+      what = "//${m.server}/${m.share}";
+      overrideStrategy = "asDropin";
+      mountConfig = {
+        LazyUnmount = true;
+        ForceUnmount = true;
+        TimeoutSec = "10s";
+      };
+    }) cfg;
+
     fileSystems = lib.listToAttrs (
       map (m: {
         name = m.mountPoint;
@@ -80,6 +93,7 @@ in
             "x-systemd.mount-timeout=10s" # fail fast if the server is unreachable
             "x-systemd.idle-timeout=${m.idleTimeout}" # unmount when idle → fresh remount after VPN drop
             "nofail" # never let a failed mount fault the system
+            "soft" # fail I/O instead of blocking forever once the VPN is gone
             # --- ownership / perms so ${m.user} can read+write ---
             "uid=${m.user}"
             "gid=users"
