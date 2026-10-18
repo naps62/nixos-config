@@ -9,7 +9,8 @@
     };
     nvidia = {
       modesetting.enable = true;
-      open = false;
+      # Blackwell (RTX 50xx) is unsupported by the proprietary kernel module.
+      open = true;
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
