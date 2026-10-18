@@ -121,6 +121,9 @@ in
     themeFile = "Catppuccin-Mocha";
     settings = {
       confirm_os_window_close = 0;
+      # Kitty saves "maximized" on exit (it sees tiled as maximized) and asks
+      # for it on every launch, which makes new windows jump to maximized.
+      remember_window_size = false;
       cursor_trail = 1;
       copy_on_select = true;
 
