@@ -53,10 +53,13 @@ in
     programs.gamescope.capSysNice = lib.mkForce false;
 
     # Sourced by the session script just before it execs gamescope.
-    environment.etc."jovian/gamescope-session/pre-start" = lib.mkIf (cfg.output != null) {
-      text = ''
-        export PATH=${gamescopeShim}/bin:$PATH
-      '';
-    };
+    environment.etc."jovian/gamescope-session/pre-start".text = ''
+      # The user systemd manager outlives a Hyprland logout and keeps its
+      # WAYLAND_DISPLAY, so gamescope starts nested on a dead socket, not DRM.
+      unset WAYLAND_DISPLAY DISPLAY HYPRLAND_INSTANCE_SIGNATURE
+    ''
+    + lib.optionalString (cfg.output != null) ''
+      export PATH=${gamescopeShim}/bin:$PATH
+    '';
   };
 }
