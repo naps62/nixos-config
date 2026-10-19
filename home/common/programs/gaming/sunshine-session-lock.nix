@@ -101,6 +101,12 @@ let
           touch "$streaming"
           systemctl --user stop hypridle || true
 
+          # KMS capture cannot see a DPMS-off output ("Couldn't find monitor"),
+          # and the 1200s idle listener turns every screen off, so wake them all
+          # before Sunshine starts capturing. Never fatal, like set_blanked.
+          ${config.custom.hyprland.dpmsCommand} on || true
+          sleep 2
+
           set_blanked off
 
           # No hyprlock running means the session was already unlocked: do
