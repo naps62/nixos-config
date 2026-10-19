@@ -8,6 +8,7 @@
     nixfmt
     biome
     stylua
+    tree-sitter
   ];
 
   programs.nvchad = {
