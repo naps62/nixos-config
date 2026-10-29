@@ -30,6 +30,7 @@
     ../common/features/ydotool.nix
     ../common/features/udisks.nix
     ../common/features/home
+    ../common/features/ha-agent.nix
   ];
 
   networking.hostName = "konishi";
