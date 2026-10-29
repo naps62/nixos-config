@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 {
@@ -32,6 +33,31 @@
   ];
 
   networking.hostName = "konishi";
+
+  # Boot time: this box is gaming-first, so nothing here should delay the
+  # session. Hold Space at boot to get the systemd-boot menu back.
+  boot.loader.timeout = 0;
+
+  # Starts on first `docker` use via docker.socket. Containers with a restart
+  # policy do not come back until then.
+  virtualisation.docker.enableOnBoot = false;
+
+  networking.modemmanager.enable = false;
+
+  systemd.services.transmission.wantedBy = lib.mkForce [ ];
+
+  # The refresh timer is Persistent, so it fired at every boot.
+  systemd.timers.fwupd-refresh.timerConfig.Persistent = lib.mkForce false;
+
+  systemd.services.NetworkManager-wait-online.enable = false;
+
+  # Runs 3 minutes after boot instead of competing with the session. After an
+  # NVIDIA bump, Flatpak GL apps fail until it has run.
+  systemd.services.flatpak-managed-install.wantedBy = lib.mkForce [ ];
+  systemd.timers.flatpak-managed-install = {
+    wantedBy = [ "timers.target" ];
+    timerConfig.OnBootSec = "3min";
+  };
 
   # Set here rather than in hardware-configuration.nix so it survives a
   # nixos-generate-config regeneration; the list merges with that file's.
