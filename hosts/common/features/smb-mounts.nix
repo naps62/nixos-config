@@ -50,6 +50,14 @@ in
             default = "naps62";
             description = "Local owner of the mounted files (CIFS uid/gid).";
           };
+          automount = lib.mkOption {
+            type = lib.types.bool;
+            default = true;
+            description = ''
+              Mount on first access. When false the share is only defined, never
+              touched automatically; mount it by hand (`sudo mount <mountPoint>`).
+            '';
+          };
           idleTimeout = lib.mkOption {
             type = lib.types.str;
             default = "600";
@@ -89,9 +97,7 @@ in
             # --- lazy, VPN-safe automount ---
             "_netdev" # network fs: don't treat as a boot-blocking local mount
             "noauto" # don't mount at boot…
-            "x-systemd.automount" # …mount on first access instead
             "x-systemd.mount-timeout=10s" # fail fast if the server is unreachable
-            "x-systemd.idle-timeout=${m.idleTimeout}" # unmount when idle → fresh remount after VPN drop
             "nofail" # never let a failed mount fault the system
             "soft" # fail I/O instead of blocking forever once the VPN is gone
             # --- ownership / perms so ${m.user} can read+write ---
@@ -101,6 +107,10 @@ in
             "dir_mode=0775"
             # If the server is old and rejects the negotiated dialect, pin it,
             # e.g. add "vers=1.0" and "sec=ntlm". Modern servers auto-negotiate.
+          ]
+          ++ lib.optionals m.automount [
+            "x-systemd.automount" # …mount on first access instead
+            "x-systemd.idle-timeout=${m.idleTimeout}" # unmount when idle → fresh remount after VPN drop
           ];
         };
       }) cfg

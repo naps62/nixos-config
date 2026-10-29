@@ -63,10 +63,14 @@
         name = "sunshine-session";
         runtimeInputs = [ pkgs.procps ];
         text = ''
-          if pgrep -u "$(id -u)" -x Hyprland >/dev/null; then
+          # Match the full command line: Hyprland's comm is ".Hyprland-wrapp",
+          # so `pgrep -x Hyprland` never matched and wlr was never used.
+          if pgrep -u "$(id -u)" -f '/bin/Hyprland( |$)' >/dev/null; then
             exec ${lib.getExe config.services.sunshine.package} "$@"
           fi
-          exec ${config.security.wrapperDir}/sunshine-kms capture=kms "$@"
+          # Gamescope has no Wayland display for Qt, and Sunshine's tray aborts
+          # the whole process when Qt finds none (core dump, then start-limit).
+          exec ${config.security.wrapperDir}/sunshine-kms capture=kms system_tray=disabled "$@"
         '';
       }
     )

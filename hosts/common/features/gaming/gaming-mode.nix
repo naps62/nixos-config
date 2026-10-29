@@ -13,12 +13,17 @@ let
 
   # The session script hard-codes `-O '*',eDP-1`, so on several monitors gaming
   # mode lands on whichever output gamescope enumerates first.
+  #
+  # On NVIDIA, direct scanout and the HDR float formats produce artifacts and
+  # flickering rectangles (Vulkan reports no DRM modifiers for them), so HDR is
+  # dropped and composition forced.
   gamescopeShim = pkgs.writeShellScriptBin "gamescope" ''
-    args=()
+    args=(--force-composition)
     for arg in "$@"; do
-      if [ "$arg" = "*,eDP-1" ]; then
-        arg="${cfg.output},*"
-      fi
+      case "$arg" in
+        --hdr-enabled) continue ;;
+        "*,eDP-1") arg="${cfg.output},*" ;;
+      esac
       args+=("$arg")
     done
     exec /run/wrappers/bin/gamescope "''${args[@]}"

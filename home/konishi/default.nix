@@ -45,8 +45,7 @@
     yaziSize = "2400 1800";
     cursorSize = 42;
     # The screen actually shared in every call; skips the xdph picker entirely.
-    shareOutput = "HDMI-A-1";
-    verticalOutputs = [ "DP-2" ];
+    shareOutput = "DP-1";
     panelScale = 1.6;
   };
 
@@ -96,7 +95,7 @@
     })
 
     -- gaming: Steam/Proton titles run under XWayland with WM_CLASS
-    -- steam_app_<appid>. Send them fullscreen to workspace 3 (DP-3) — the same
+    -- steam_app_<appid>. Send them fullscreen to workspace 3 (DP-1) — the same
     -- streamed workspace as Big Picture below — instead of opening tiled on
     -- whatever monitor Steam is on.
     -- Native (non-Proton) games have their own class — grab it with
@@ -106,13 +105,13 @@
 
     -- Steam Big Picture shares the plain `steam` WM_CLASS with the normal
     -- client, so match its title instead. Without this it opens on whatever
-    -- monitor the cursor is on, not the streamed one. Pin it to ws3 — DP-3's
+    -- monitor the cursor is on, not the streamed one. Pin it to ws3 — DP-1's
     -- normal persistent workspace, which is what the stream captures. `.`
     -- stands in for the literal spaces to keep the rule string unambiguous.
     hl.window_rule({ match = { title = "Steam.Big.Picture.Mode" }, workspace = "3", fullscreen = true })
 
     -- Heroic (GOG/Epic launcher) streamed via Moonlight — `heroic --console`.
-    -- Tile it on ws3 (DP-3, the captured screen) rather than letting it float
+    -- Tile it on ws3 (DP-1, the captured screen) rather than letting it float
     -- or land on whatever monitor the cursor is on. Games it launches are
     -- Proton titles → caught by the steam_app_ rules above; native ones need
     -- their own class added here.
@@ -122,7 +121,7 @@
     -- Native Wayland app_id is `com.libretro.RetroArch` (set at map time) — the
     -- exact string is needed so the rule applies on spawn; a loose `retroarch`
     -- match misses at map and the window flashes onto the active workspace
-    -- first. `silent` sends it to ws3 (DP-3, the captured screen) without
+    -- first. `silent` sends it to ws3 (DP-1, the captured screen) without
     -- yanking focus off whatever workspace you're driving from.
     hl.window_rule({ match = { class = "com.libretro.RetroArch" }, workspace = "3 silent", fullscreen = true })
 
