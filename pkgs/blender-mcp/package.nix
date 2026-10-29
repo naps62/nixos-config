@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication rec {
   # would only add typer and python-dotenv.
   dependencies = with python3Packages; [
     docutils
-    mcp
+    mcp_1 # upstream imports FastMCP, removed in mcp 2
     pyyaml
   ];
 

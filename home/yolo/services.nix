@@ -6,16 +6,12 @@
 # The user services this box exists to run.
 #
 # rev comes from its own flake, so nix owns the build as well as the unit.
-# aoe-web is still the odd one out: its unit is defined here and the binary
-# comes from the flake input.
 let
   # A user unit gets almost no PATH by default; these are the profile dirs the
   # original units got for free from the system PATH on Ubuntu.
   toolPath = "%h/.local/bin:%h/.nix-profile/bin:/etc/profiles/per-user/naps62/bin:/run/current-system/sw/bin";
 
   sem = inputs.sem.packages.${pkgs.system}.default;
-
-  aoe = inputs.agent-of-empires.packages.${pkgs.system}.aoe-with-web;
 
   # runtimeInputs is prepended to PATH, not a replacement, so `claude` still
   # resolves from the unit's own PATH.
@@ -48,8 +44,6 @@ in
   home.packages = [
     claude-rc
     sem
-    # ACP adapter aoe's structured (web) sessions spawn as `claude-agent-acp`.
-    pkgs.claude-agent-acp
   ];
 
   # rev's unit comes from its flake module, not from the hand-written set below.
@@ -76,39 +70,6 @@ in
   };
 
   systemd.user.services = {
-    aoe-web = {
-      Unit = {
-        Description = "aoe serve — Agent of Empires web dashboard";
-        After = [ "network.target" ];
-        # MUST stay 0: at RestartSec=2 a fast-crashing aoe burns the default
-        # 5-starts-per-10s budget, and systemd parks the unit in `failed` until
-        # a manual `systemctl --user reset-failed`.
-        StartLimitIntervalSec = 0;
-      };
-      Service = {
-        Type = "simple";
-        WorkingDirectory = "%h";
-        # The fork removed dashboard auth entirely, so there is no --auth flag
-        # any more — the reverse proxy is the only access gate. --allowed-host
-        # is what makes the rebinding gate accept a hostname under a wildcard
-        # bind (an IP literal needs no flag).
-        ExecStart = "${aoe}/bin/aoe serve --host 0.0.0.0 --port 8080 --behind-proxy --allowed-host aoe.n62.casa";
-        # TMUX_TMPDIR keeps the daemon on the same tmux server the shell and
-        # TUI use, instead of a second one under /tmp (same bug pr-daemon had).
-        Environment = [
-          "PATH=${toolPath}"
-          "TMUX_TMPDIR=%t"
-        ];
-        Restart = "always";
-        RestartSec = 2;
-        # If this unit boots before any shell, the shared tmux server lands in
-        # its cgroup; the default control-group kill would take every session
-        # down on restart.
-        KillMode = "process";
-      };
-      Install.WantedBy = [ "default.target" ];
-    };
-
     claude-rc-sync = {
       Unit.Description = "Reconcile Claude Remote Control servers with the project list";
       Service = {

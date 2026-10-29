@@ -21,7 +21,6 @@ in
     ../common/programs/hyprland
     ../common/programs/kitty
     ../common/programs/gpg.nix
-    ../common/programs/aoe
     ../common/programs/rev
     ../common/programs/nix-autodeploy
     ../common/features/xdg.nix

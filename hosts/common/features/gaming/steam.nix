@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   # The Steam client's "Switch to Desktop" runs `steamos-session-select`, which
   # neither Jovian's FHS env nor SteamOS-less NixOS provides (Jovian only ships
@@ -38,13 +38,14 @@ in
     # hardware-accelerated. extraArgs bakes it into `exec steam ... "$@"`, so it
     # applies to every entry point (desktop, CLI, Sunshine's Big Picture tile) —
     # launch flags only take effect on the invocation that first starts Steam.
-    package = pkgs.steam.override {
+    # Jovian sets programs.steam.package without mkDefault.
+    package = lib.mkForce (pkgs.steam.override {
       extraArgs = "-cef-disable-gpu-sandbox";
       extraPkgs = _: [
         steamosSessionSelect
         heroicShim
       ];
-    };
+    });
   };
 
   hardware.steam-hardware.enable = true;

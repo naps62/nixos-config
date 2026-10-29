@@ -58,7 +58,6 @@
     };
     # Pinned to the tag, and pins its own nixpkgs — it is a verified Rust build.
     # Bump deliberately, not via `flake update`.
-    agent-of-empires.url = "git+https://git.naps.pt/yolo/agent-of-empires.git";
     # Semantic-diff tool rev calls via REV_SEM_BIN. NOT nixpkgs' `sem`, which is
     # the unrelated Semaphore CI cli.
     sem.url = "github:Ataraxy-Labs/sem";
