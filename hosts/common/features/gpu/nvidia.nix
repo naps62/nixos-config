@@ -11,6 +11,8 @@
       modesetting.enable = true;
       # Blackwell (RTX 50xx) is unsupported by the proprietary kernel module.
       open = true;
+      # Saves VRAM across suspend; needed for a clean resume (Moonlight wake).
+      powerManagement.enable = true;
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
