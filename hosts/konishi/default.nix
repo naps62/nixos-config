@@ -39,6 +39,16 @@
   # session. Hold Space at boot to get the systemd-boot menu back.
   boot.loader.timeout = 0;
 
+  # Hide boot text: the console only shows Gaming Mode starting.
+  boot.consoleLogLevel = 0;
+  boot.kernelParams = [
+    "quiet"
+    "loglevel=3"
+    "udev.log_level=3"
+    "systemd.show_status=false"
+    "vt.global_cursor_default=0"
+  ];
+
   # Starts on first `docker` use via docker.socket. Containers with a restart
   # policy do not come back until then.
   virtualisation.docker.enableOnBoot = false;
