@@ -306,8 +306,17 @@ in
         hl.workspace_rule({ workspace = "w[t1]", gaps_out = 0, gaps_in = 0 })   -- no gaps when only window
         hl.workspace_rule({ workspace = "w[tg1]", gaps_out = 0, gaps_in = 0 })
         hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0 })
-        hl.workspace_rule({ workspace = "special:terminal", on_created_empty = "[float; size 1400 1000; center 1] kitty", persistent = false })
-        hl.workspace_rule({ workspace = "special:yazi", on_created_empty = "[float; size ${cfg.yaziSize}; center 1] kitty --session sessions/yazi", persistent = false })
+        hl.workspace_rule({ workspace = "special:terminal", persistent = false })
+        hl.workspace_rule({ workspace = "special:yazi", persistent = false })
+
+        local special_launchers = {
+          ["special:terminal"] = "[float; size 1400 1000; center 1] kitty",
+          ["special:yazi"] = "[float; size ${cfg.yaziSize}; center 1] kitty --session sessions/yazi",
+        }
+        hl.on("workspace.created", function(ws)
+          local cmd = special_launchers[ws.name]
+          if cmd and ws.is_empty then hl.exec_cmd(cmd) end
+        end)
 
         -- window rules
         hl.window_rule({ match = { class = "com.gabm.satty" }, float = true })
