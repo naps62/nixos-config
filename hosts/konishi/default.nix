@@ -41,6 +41,12 @@
 
   # Hide boot text: the console only shows Gaming Mode starting.
   boot.consoleLogLevel = 0;
+  # spinner, not the default bgrt: bgrt shows the firmware logo, which the BIOS
+  # has disabled here.
+  boot.plymouth = {
+    enable = true;
+    theme = "spinner";
+  };
   boot.kernelParams = [
     "quiet"
     "loglevel=3"
