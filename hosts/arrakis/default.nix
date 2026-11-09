@@ -16,6 +16,7 @@
     ../common/features/pipewire.nix
     ../common/features/docker.nix
     ../common/features/appimage.nix
+    ../common/features/flatpak.nix
     ../common/features/fonts.nix
     ../common/features/kdeconnect.nix
     ../common/features/nix-ld.nix
@@ -77,7 +78,7 @@
   # Disable the limit and throttle restarts so it always self-heals.
   systemd.services.v4l2-relayd-ipu6 = {
     startLimitIntervalSec = 0;
-    serviceConfig.RestartSec = "1";
+    serviceConfig.RestartSec = "1s";
   };
 
   # The module's rule to lock the raw IPU6 nodes to root gets clobbered by the
