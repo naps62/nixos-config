@@ -18,14 +18,20 @@ let
   # flickering rectangles (Vulkan reports no DRM modifiers for them), so HDR is
   # dropped and composition forced.
   gamescopeShim = pkgs.writeShellScriptBin "gamescope" ''
-    args=(--force-composition)
+    args=(--force-composition --disable-layers --disable-color-management)
+    skip=0
     for arg in "$@"; do
+      if [ "$skip" = 1 ]; then skip=0; continue; fi
       case "$arg" in
         --hdr-enabled) continue ;;
         "*,eDP-1") arg="${cfg.output},*" ;;
+        # The session script hard-codes -w 1280 -h 800, so Steam's UI is
+        # rendered at 800p and upscaled; games pick their own size.
+        -w|-h) skip=1; continue ;;
       esac
       args+=("$arg")
     done
+    args+=(-w ${toString cfg.width} -h ${toString cfg.height})
     exec /run/wrappers/bin/gamescope "''${args[@]}"
   '';
 in
@@ -40,6 +46,18 @@ in
       DRM connector gaming mode prefers when several are connected. Leave null
       on a single screen.
     '';
+  };
+
+  options.custom.gamingMode.width = lib.mkOption {
+    type = lib.types.int;
+    default = 3840;
+    description = "Resolution Steam's UI renders at inside gamescope.";
+  };
+
+  options.custom.gamingMode.height = lib.mkOption {
+    type = lib.types.int;
+    default = 2160;
+    description = "See width.";
   };
 
   config = {
