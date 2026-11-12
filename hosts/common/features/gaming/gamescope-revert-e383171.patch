@@ -1,0 +1,73 @@
+Revert of upstream e383171 ("rendervulkan: make the shared output images on first use").
+Causes Steam UI corruption on NVIDIA DRM: ValveSoftware/gamescope#2455.
+
+--- a/src/rendervulkan.cpp	2026-11-12 07:13:29.708477797 +0000
++++ b/src/rendervulkan.cpp	2026-11-12 07:13:29.709946485 +0000
+@@ -3514,31 +3514,6 @@
+ 	return true;
+ }
+ 
+-// Without a swapchain the shared images are ours to make, so they wait for their first use.
+-static bool vulkan_defer_output_images()
+-{
+-	return !GetBackend()->UsesVulkanSwapchain();
+-}
+-
+-static bool vulkan_ensure_output_images()
+-{
+-	if ( !vulkan_defer_output_images() )
+-		return true;
+-
+-	VulkanOutput_t *pOutput = &g_output;
+-	if ( !pOutput->outputImages.empty() && pOutput->outputImages[0] )
+-		return true;
+-
+-	vk_log.debugf( "Making the shared output images on first use" );
+-	if ( vulkan_make_output_images( pOutput ) )
+-		return true;
+-
+-	// A half-made set would pass the check above, so the next use tries again from nothing.
+-	pOutput->outputImages.clear();
+-	pOutput->outputImagesPartialOverlay.clear();
+-	return false;
+-}
+-
+ bool vulkan_remake_output_images()
+ {
+ 	VulkanOutput_t *pOutput = &g_output;
+@@ -3552,14 +3527,6 @@
+ 	for (auto& pCaptureTexture : pOutput->pCaptureTextures)
+ 		pCaptureTexture = nullptr;
+ 
+-	if ( vulkan_defer_output_images() )
+-	{
+-		pOutput->outputImages.clear();
+-		pOutput->outputImagesPartialOverlay.clear();
+-		pOutput->temporaryHackyBlankImage = vulkan_create_debug_blank_texture();
+-		return true;
+-	}
+-
+ 	bool bRet = vulkan_make_output_images( pOutput );
+ 	assert( bRet );
+ 	return bRet;
+@@ -3638,9 +3605,7 @@
+ 			return false;
+ 		}
+ 
+-		if ( vulkan_defer_output_images() )
+-			pOutput->temporaryHackyBlankImage = vulkan_create_debug_blank_texture();
+-		else if ( !vulkan_make_output_images( pOutput ) )
++		if ( !vulkan_make_output_images( pOutput ) )
+ 			return false;
+ 	}
+ 
+@@ -4461,9 +4426,6 @@
+ 		g_reshadeManager.clear();
+ 	}
+ 
+-	if ( !pOutputOverride && !vulkan_ensure_output_images() )
+-		return std::nullopt;
+-
+ 	gamescope::Rc<CVulkanTexture> compositeImage;
+ 	if ( pOutputOverride )
+ 		compositeImage = pOutputOverride;

@@ -71,6 +71,19 @@ in
 
     services.orca.enable = false;
 
+    # Must come after Jovian's overlay, which defines jovianPackages.
+    nixpkgs.overlays = lib.mkAfter [
+      (final: prev: {
+        jovianPackages = prev.jovianPackages.overrideScope (
+          _: p: {
+            gamescope = p.gamescope.overrideAttrs (old: {
+              patches = (old.patches or [ ]) ++ [ ./gamescope-revert-e383171.patch ];
+            });
+          }
+        );
+      })
+    ];
+
     # Steam sets GAMESCOPE_COMPOSITE_FORCE=0 once it starts, overriding the
     # shim's --force-composition and bringing back the NVIDIA scanout tearing.
     environment.etc."gamescope/scripts/99-force-composition.lua" = lib.mkIf (cfg.output != null) {
