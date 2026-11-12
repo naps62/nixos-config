@@ -18,7 +18,7 @@ let
   # flickering rectangles (Vulkan reports no DRM modifiers for them), so HDR is
   # dropped and composition forced.
   gamescopeShim = pkgs.writeShellScriptBin "gamescope" ''
-    args=(--force-composition --disable-layers --disable-color-management)
+    args=(--force-composition)
     skip=0
     for arg in "$@"; do
       if [ "$skip" = 1 ]; then skip=0; continue; fi
