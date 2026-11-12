@@ -71,29 +71,18 @@ in
 
     services.orca.enable = false;
 
-    # Diagnostics for the intermittent boot-time tearing on cursor moves: DRM
-    # commits at debug level, plus a line whenever tearing or forced composition
-    # flips. Read with `journalctl --user -u gamescope-session -b`.
-    environment.etc."gamescope/scripts/99-debug-tearing.lua".text = ''
-      for _, scope in ipairs({ "drm", "vulkan" }) do
-        local ok, err = pcall(function()
-          gamescope.convars["log_" .. scope].value = gamescope.log_priority.debug
-        end)
-        if not ok then warn("debug-tearing: log_" .. scope .. ": " .. tostring(err)) end
-      end
-
-      local last = {}
-      gamescope.hook("OnPostPaint", function()
-        for _, name in ipairs({ "tearing_enabled", "composite_force" }) do
-          local cv = gamescope.convars[name]
-          local v = cv and tostring(cv.value) or "?"
-          if last[name] ~= v then
-            warn("debug-tearing: " .. name .. " = " .. v)
-            last[name] = v
+    # Steam sets GAMESCOPE_COMPOSITE_FORCE=0 once it starts, overriding the
+    # shim's --force-composition and bringing back the NVIDIA scanout tearing.
+    environment.etc."gamescope/scripts/99-force-composition.lua" = lib.mkIf (cfg.output != null) {
+      text = ''
+        gamescope.hook("OnPostPaint", function()
+          if not gamescope.convars.composite_force.value then
+            warn("force-composition: re-enabling composite_force")
+            gamescope.convars.composite_force.value = true
           end
-        end
-      end)
-    '';
+        end)
+      '';
+    };
 
     # Jovian installs the same cap_sys_nice gamescope wrapper; two definitions
     # collide.
