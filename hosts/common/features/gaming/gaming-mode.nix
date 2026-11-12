@@ -71,6 +71,30 @@ in
 
     services.orca.enable = false;
 
+    # Diagnostics for the intermittent boot-time tearing on cursor moves: DRM
+    # commits at debug level, plus a line whenever tearing or forced composition
+    # flips. Read with `journalctl --user -u gamescope-session -b`.
+    environment.etc."gamescope/scripts/99-debug-tearing.lua".text = ''
+      for _, scope in ipairs({ "drm", "vulkan" }) do
+        local ok, err = pcall(function()
+          gamescope.convars["log_" .. scope].value = gamescope.log_priority.debug
+        end)
+        if not ok then warn("debug-tearing: log_" .. scope .. ": " .. tostring(err)) end
+      end
+
+      local last = {}
+      gamescope.hook("OnPostPaint", function()
+        for _, name in ipairs({ "tearing_enabled", "composite_force" }) do
+          local cv = gamescope.convars[name]
+          local v = cv and tostring(cv.value) or "?"
+          if last[name] ~= v then
+            warn("debug-tearing: " .. name .. " = " .. v)
+            last[name] = v
+          end
+        end
+      end)
+    '';
+
     # Jovian installs the same cap_sys_nice gamescope wrapper; two definitions
     # collide.
     programs.gamescope.capSysNice = lib.mkForce false;

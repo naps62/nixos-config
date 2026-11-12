@@ -121,7 +121,9 @@ let
           # come back even when the stream arrived at an already-unlocked
           # session and left no stamp.
           rm -f "$streaming"
-          systemctl --user start hypridle || true
+          # MUST be --no-block: this runs while sunshine.service is stopping, and
+          # a blocking start queues behind that same stop job until the timeout.
+          systemctl --user --no-block start hypridle || true
           set_blanked on
 
           [ -e "$stamp" ] || exit 0
